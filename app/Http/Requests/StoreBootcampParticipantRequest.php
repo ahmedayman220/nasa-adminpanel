@@ -27,7 +27,7 @@ class StoreBootcampParticipantRequest extends FormRequest
             ],
             'email' => [
                 'required',
-                'unique:bootcamp_participants',
+//                'unique:bootcamp_participants',
             ],
             'age' => [
                 'string',
@@ -60,7 +60,7 @@ class StoreBootcampParticipantRequest extends FormRequest
             'national' => [
                 'string',
                 'required',
-                'unique:bootcamp_participants',
+//                'unique:bootcamp_participants',
             ],
             'national_id_front' => [
                 'required',
