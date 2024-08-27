@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Api\V1\Admin;
 
+use App\Helpers\BootcampHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\StoreBootcampParticipantRequest;
 use App\Http\Requests\UpdateBootcampParticipantRequest;
+use App\Http\Requests\AuthToUpdateBootcampParticipantApiRequest;
 use App\Http\Resources\Admin\BootcampParticipantResource;
+use App\Models\Bootcamp;
 use App\Models\BootcampParticipant;
+use App\Models\ParticipantWorkshopPreference;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 class BootcampParticipantsApiController extends Controller
 {
     use MediaUploadingTrait;
@@ -27,6 +30,34 @@ class BootcampParticipantsApiController extends Controller
     {
         $bootcampParticipant = BootcampParticipant::create($request->all());
 
+        if (isset($bootcampParticipant->first_priority_id)) {
+            ParticipantWorkshopPreference::create([
+                'bootcamp_participant_id' => $bootcampParticipant->id, // Assuming 'id' is the participant ID
+                'workshop_id' => $bootcampParticipant->first_priority_id,
+                'preference_order' => 1,
+            ]);
+        }
+
+        if (isset($bootcampParticipant->second_priority_id)) {
+            ParticipantWorkshopPreference::create([
+                'bootcamp_participant_id' => $bootcampParticipant->id, // Assuming 'id' is the participant ID
+                'workshop_id' => $bootcampParticipant->second_priority_id,
+                'preference_order' => 2,
+            ]);
+        }
+
+        if (isset($bootcampParticipant->third_priority_id)) {
+            ParticipantWorkshopPreference::create([
+                'bootcamp_participant_id' => $bootcampParticipant->id, // Assuming 'id' is the participant ID
+                'workshop_id' => $bootcampParticipant->third_priority_id,
+                'preference_order' => 3,
+            ]);
+        }
+
+
+        BootcampHelper::checkAvailability($bootcampParticipant->id);
+
+
         if ($request->input('national_id_front', false)) {
             $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_front'))))->toMediaCollection('national_id_front');
         }
@@ -40,11 +71,14 @@ class BootcampParticipantsApiController extends Controller
             ->setStatusCode(Response::HTTP_CREATED);
     }
 
-    public function show(BootcampParticipant $bootcampParticipant)
+    public function show(AuthToUpdateBootcampParticipantApiRequest $request)
     {
-        abort_if(Gate::denies('bootcamp_participant_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new BootcampParticipantResource($bootcampParticipant->load(['educational_level', 'field_of_study', 'first_priority', 'second_priority', 'third_priority', 'created_by']));
+        $request->validated();
+        $data = BootcampParticipant::where('email',$request->email)->where('national',$request->national)->first();
+
+        return (new BootcampParticipantResource($data))->response()
+            ->setStatusCode(Response::HTTP_ACCEPTED);
     }
 
     public function update(UpdateBootcampParticipantRequest $request, BootcampParticipant $bootcampParticipant)
