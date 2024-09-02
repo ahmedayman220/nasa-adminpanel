@@ -19,15 +19,17 @@ class QrEmailGenerateJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    private $base_url;
     private $ids;
     private $adminId;
     /**
      * Create a new job instance.
      */
-    public function __construct($ids,$adminId)
+    public function __construct($ids,$adminId,$base_url)
     {
         $this->ids = $ids;
         $this->adminId = $adminId;
+        $this->base_url = $base_url;
     }
 
     /**
@@ -43,8 +45,8 @@ class QrEmailGenerateJob implements ShouldQueue
 
             $relative_name = 'QR/' . uniqid().'_'.$data->national.'.png';
             $path = public_path($relative_name);
-
-            QrCode::format('png')->size(200)->generate($data->national, $path);
+            $url = $this->base_url . '/' . $relative_name;
+            QrCode::format('png')->size(200)->generate($data->national, $url);
             // Pass needed info to email
             $schedule = $data->bootcampParticipantParticipantWorkshopAssignments
                            ->first()->workshop_schedule;
