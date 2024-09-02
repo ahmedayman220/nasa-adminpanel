@@ -41,7 +41,8 @@ class QrEmailGenerateJob implements ShouldQueue
             // Get participant id to generate Qr code
             $data = $attendee->bootcamp_participant;
 
-            $path = storage_path('QR/'.uniqid().'_'.$data->national.'.png');
+            $relative_name = 'QR/' . uniqid().'_'.$data->national.'.png';
+            $path = public_path($relative_name);
 
             QrCode::format('png')->size(200)->generate($data->national, $path);
             // Pass needed info to email
@@ -50,10 +51,10 @@ class QrEmailGenerateJob implements ShouldQueue
             $Schedule_time = $schedule->schedule_time;
             $workshop=$schedule->workshop->title;
             try{
-                Mail::to($data->email)->send(new QrWelcomeMail($path,$data->national,$data->name_en,$Schedule_time,$workshop));
+                Mail::to($data->email)->send(new QrWelcomeMail($relative_name,$data->national,$data->name_en,$Schedule_time,$workshop));
                 // Insert data in Qr Model
                 $qrModel->create([
-                    'qr_code_value' => $path,
+                    'qr_code_value' => $relative_name,
                     'status' => 1,
                     'bootcamp_participant_id'=>$data->id
                 ]);
@@ -69,7 +70,7 @@ class QrEmailGenerateJob implements ShouldQueue
             } catch (\Exception $e){
                 // Insert data in Qr Model
                 $qrModel->create([
-                    'qr_code_value' => $path,
+                    'qr_code_value' => $relative_name,
                     'status' => 1,
                     'bootcamp_participant_id'=>$data->id
                 ]);
