@@ -23,6 +23,7 @@ class BootcampAttendeesController extends Controller
 
     public function index(Request $request)
     {
+        dd($request->host());
         abort_if(Gate::denies('bootcamp_attendee_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
