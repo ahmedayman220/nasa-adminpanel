@@ -37,9 +37,11 @@ class QrEmailGenerateJob implements ShouldQueue
      */
     public function handle(BootcampAttendee $attendeeModel,\App\Models\QrCode $qrModel,Email $email): void
     {
+        $relative_name = null; // Initialize the variable here
+
         try{
             // Get attendee id and update status
-            $attendee = $attendeeModel->find($id);
+            $attendee = $attendeeModel->find($this->id);
             // Get participant id to generate Qr code
             $data = $attendee->bootcamp_participant;
 
@@ -49,43 +51,48 @@ class QrEmailGenerateJob implements ShouldQueue
             QrCode::format('png')->size(200)->generate($data->national, $path);
             // Pass needed info to email
             $schedule = $data->bootcampParticipantParticipantWorkshopAssignments
-                           ->first()->workshop_schedule;
+                ->first()->workshop_schedule;
             $Schedule_time = $schedule->schedule_time;
-            $workshop=$schedule->workshop->title;
-                Mail::to($data->email)->send(new QrWelcomeMail($url,$data->national,$data->name_en,$Schedule_time,$workshop));
-                // Insert data in Qr Model
-                $qrModel->create([
-                    'qr_code_value' => $relative_name,
-                    'status' => 1,
-                    'bootcamp_participant_id'=>$data->id
-                ]);
-                // Get last inserted id
-                $latest_id = $qrModel->latest()->first()->id;
-                // Now, create Email data row
-                $email->create([
-                    'status' => 1,
-                    'qrcode_id'=>$latest_id,
-                    'bootcamp_participant_email_id' => $data->id,
-                    'created_by_id' => $this->adminId
-                ]);
-            } catch (\Exception $e){
-                // Insert data in Qr Model
-                $qrModel->create([
-                    'qr_code_value' => $relative_name,
-                    'status' => 1,
-                    'bootcamp_participant_id'=>$data->id
-                ]);
-                // Get last inserted id
-                $latest_id = $qrModel->latest()->first()->id;
-                // Now, create Email data row
-                $email->create([
-                    'status' => 0,
-                    'qrcode_id'=>$latest_id,
-                    'bootcamp_participant_email_id' => $data->id,
-                    'created_by_id' => $this->adminId
-                ]);
-            }
+            $workshop = $schedule->workshop->title;
 
+            Mail::to($data->email)->send(new QrWelcomeMail($url, $data->national, $data->name_en, $Schedule_time, $workshop));
 
-    }
-}
+            // Insert data in Qr Model
+            $qrModel->create([
+                'qr_code_value' => $relative_name,
+                'status' => 1,
+                'bootcamp_participant_id' => $data->id
+            ]);
+
+            // Get last inserted id
+            $latest_id = $qrModel->latest()->first()->id;
+
+            // Now, create Email data row
+            $email->create([
+                'status' => 1,
+                'qrcode_id' => $latest_id,
+                'bootcamp_participant_email_id' => $data->id,
+                'created_by_id' => $this->adminId
+            ]);
+        } catch (\Exception $e) {
+            // Handle exceptions here
+
+            // Insert data in Qr Model
+            $qrModel->create([
+                'qr_code_value' => $relative_name,
+                'status' => 1,
+                'bootcamp_participant_id' => $data->id
+            ]);
+
+            // Get last inserted id
+            $latest_id = $qrModel->latest()->first()->id;
+
+            // Now, create Email data row
+            $email->create([
+                'status' => 0,
+                'qrcode_id' => $latest_id,
+                'bootcamp_participant_email_id' => $data->id,
+                'created_by_id' => $this->adminId
+            ]);
+        }
+    }}
