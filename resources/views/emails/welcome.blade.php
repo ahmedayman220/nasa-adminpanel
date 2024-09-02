@@ -1,5 +1,4 @@
-<x-mail::message>
-    <!DOCTYPE html>
+ <!DOCTYPE html>
     <html>
     <head>
         <meta charset="UTF-8">
@@ -148,4 +147,3 @@
     <!-- End Wrapper Table -->
     </body>
     </html>
-</x-mail::message>
