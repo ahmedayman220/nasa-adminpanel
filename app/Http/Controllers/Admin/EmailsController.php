@@ -54,7 +54,8 @@ class EmailsController extends Controller
             });
 
             $table->editColumn('status', function ($row) {
-                return $row->status ? Email::STATUS_SELECT[$row->status] : '';
+//                return $row->status ? Email::STATUS_SELECT[$row->status] : '';
+                return Email::STATUS_SELECT[$row->status];
             });
             $table->addColumn('bootcamp_participant_email_email', function ($row) {
                 return $row->bootcamp_participant_email ? $row->bootcamp_participant_email->email : '';
