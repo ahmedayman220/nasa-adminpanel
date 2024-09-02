@@ -9,7 +9,6 @@ use App\Http\Requests\StoreBootcampParticipantRequest;
 use App\Http\Requests\UpdateBootcampParticipantRequest;
 use App\Http\Requests\AuthToUpdateBootcampParticipantApiRequest;
 use App\Http\Resources\Admin\BootcampParticipantResource;
-use App\Models\Bootcamp;
 use App\Models\BootcampParticipant;
 use App\Models\ParticipantWorkshopPreference;
 use Gate;

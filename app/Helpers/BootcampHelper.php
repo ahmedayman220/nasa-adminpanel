@@ -23,11 +23,12 @@ class BootcampHelper
             return response('No available slots in the bootcamp.');
         }
 
-        // Get user workshop preferences
+        // Get Participant workshop preferences
         $preferences = ParticipantWorkshopPreference::where('bootcamp_participant_id', $id)
             ->orderBy('preference_order')
             ->get();
 
+        // workshop_id from 1 => 3
         // Check each workshop preference for availability
         foreach ($preferences as $preference) {
             //

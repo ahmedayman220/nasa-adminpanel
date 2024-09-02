@@ -94,11 +94,9 @@ class StoreBootcampParticipantRequest extends FormRequest
             ],
             'comment' => [
                 'string',
-                'required',
             ],
             'year' => [
                 'string',
-                'required',
             ],
         ];
     }

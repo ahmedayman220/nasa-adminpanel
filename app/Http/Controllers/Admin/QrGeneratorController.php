@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class QrGeneratorController extends Controller
 {
-    public function generateAndEmail(Request $request){
+    public function generateAndEmail(Request $request) {
         QrEmailGenerateJob::dispatch($request->ids,auth()->user()->id);
         session()->flash('Status','Your request is processing please wait..');
         return response(null);
