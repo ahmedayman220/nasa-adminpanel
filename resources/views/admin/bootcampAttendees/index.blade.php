@@ -23,7 +23,7 @@
                 {{ trans('global.app_csvImport') }}
             </button>
 
-            <button class="btn btn-warning scan-Qrcode">
+            <button class="btn btn-warning scan-Qrcode" data-toggle="modal">
                 Scan Qr Code
             </button>
 
