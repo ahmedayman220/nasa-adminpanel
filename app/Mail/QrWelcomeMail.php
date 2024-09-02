@@ -17,16 +17,19 @@ class QrWelcomeMail extends Mailable
     private $name;
     private $workshop;
     private $time;
+
+    private $path;
     /**
      * @param $national
      * @param $name
      */
-    public function __construct($national, $name,$time,$workshop)
+    public function __construct($path,$national, $name,$time,$workshop)
     {
         $this->national = $national;
         $this->name = $name;
         $this->time = $time;
         $this->workshop = $workshop;
+        $this->path = $path;
     }
     /**
      * Create a new message instance.
@@ -49,10 +52,12 @@ class QrWelcomeMail extends Mailable
     {
         return new Content(
             markdown: 'emails.welcome',
-            with: ['national' => $this->national,
+            with: [
+                'national' => $this->national,
                    'name' => $this->name,
                     'workshop' => $this->workshop,
-                    'time' => $this->time
+                    'time' => $this->time,
+                    'path' => $this->path
                 ],
         );
     }
