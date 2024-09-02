@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyBootcampAttendeeRequest;
@@ -23,6 +24,7 @@ class BootcampAttendeesController extends Controller
 
     public function index(Request $request)
     {
+        Artisan::call('storage:link');
         abort_if(Gate::denies('bootcamp_attendee_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
