@@ -47,7 +47,7 @@
                                 </tr>
                                 <tr>
                                     <td align="center" style="background-color: #0b3d91; padding: 20px;">
-                                        <img src="{{ $path }}" alt="NASA Space Apps Cairo 2024" width="100%" height="auto" style="display: block;">
+                                        <img src="{{ $path }}" alt="NASA Space Apps Cairo 2024" width="70%" height="auto" style="display: block;">
                                     </td>
                                 </tr>
                             </table>
