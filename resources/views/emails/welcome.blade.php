@@ -3,7 +3,7 @@
 
 Here is your Qr Code
     <br>
-    <img src="{{ asset($path) }}" alt="QR Failed">
+    <img src="{{ public_path($path) }}" alt="QR Failed">
     <br>
     Your national ID is <strong>{{$national}}</strong>
     <br>
