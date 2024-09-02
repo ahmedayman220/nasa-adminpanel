@@ -1,5 +1,7 @@
 @extends('layouts.admin')
-
+@section('styles')
+    <link rel="stylesheet" href="{{asset('css/scanner.css')}}" />
+@endsection
 @section('content')
     @if(session()->has('Status'))
         <div class="alert alert-success" role="alert">
@@ -20,9 +22,11 @@
             <button class="btn btn-dark" data-toggle="modal" data-target="#csvImportModal">
                 {{ trans('global.app_csvImport') }}
             </button>
+
             <button class="btn btn-warning scan-Qrcode">
-                Scan
+                Scan Qr Code
             </button>
+
 
             @include('csvImport.modal', ['model' => 'BootcampAttendee', 'route' => 'admin.bootcamp-attendees.parseCsvImport'])
         </div>
