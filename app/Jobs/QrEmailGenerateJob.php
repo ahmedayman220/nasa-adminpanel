@@ -20,14 +20,14 @@ class QrEmailGenerateJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $base_url;
-    private $ids;
+    private $id;
     private $adminId;
     /**
      * Create a new job instance.
      */
-    public function __construct($ids,$adminId,$base_url)
+    public function __construct($id,$adminId,$base_url)
     {
-        $this->ids = $ids;
+        $this->id = $id;
         $this->adminId = $adminId;
         $this->base_url = $base_url;
     }
@@ -37,7 +37,7 @@ class QrEmailGenerateJob implements ShouldQueue
      */
     public function handle(BootcampAttendee $attendeeModel,\App\Models\QrCode $qrModel,Email $email): void
     {
-        foreach ($this->ids as $id){
+        try{
             // Get attendee id and update status
             $attendee = $attendeeModel->find($id);
             // Get participant id to generate Qr code
@@ -52,7 +52,6 @@ class QrEmailGenerateJob implements ShouldQueue
                            ->first()->workshop_schedule;
             $Schedule_time = $schedule->schedule_time;
             $workshop=$schedule->workshop->title;
-            try{
                 Mail::to($data->email)->send(new QrWelcomeMail($url,$data->national,$data->name_en,$Schedule_time,$workshop));
                 // Insert data in Qr Model
                 $qrModel->create([
@@ -87,6 +86,6 @@ class QrEmailGenerateJob implements ShouldQueue
                 ]);
             }
 
-        }
+
     }
 }

@@ -11,9 +11,13 @@ use Illuminate\Http\Request;
 class QrGeneratorController extends Controller
 {
     public function generateAndEmail(Request $request) {
-        QrEmailGenerateJob::dispatch($request->ids,auth()->user()->id, $request->host());
+
+        foreach($request->ids as $id) {
+            QrEmailGenerateJob::dispatch($id,auth()->user()->id, $request->host());
+        }
         session()->flash('Status','Your request is processing please wait..');
         return response(null);
+
     }
 
 
