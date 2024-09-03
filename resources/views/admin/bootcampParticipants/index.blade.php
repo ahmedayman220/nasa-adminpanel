@@ -248,7 +248,7 @@
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
-          return entry.national
+          return entry.id
       });
 
       if (ids.length === 0) {
@@ -276,7 +276,7 @@
             className: 'btn-dark',
             action: function (e, dt, node, config) {
                 var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
-                    return entry.id
+                    return entry.national
                 });
                 console.log(ids)
                 // var new_ids = $('tr.selected').map(function(){

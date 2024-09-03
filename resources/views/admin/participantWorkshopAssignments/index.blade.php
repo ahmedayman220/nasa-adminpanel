@@ -19,8 +19,11 @@
             <a class="btn btn-success" href="{{ route('admin.participant-workshop-assignments.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.participantWorkshopAssignment.title_singular') }}
             </a>
-            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+            <button class="btn btn-dark" data-toggle="modal" data-target="#csvImportModal">
                 {{ trans('global.app_csvImport') }}
+            </button>
+            <button class="btn btn-warning scan-Qrcode" data-toggle="modal">
+                Scan Qr Code
             </button>
             @include('csvImport.modal', ['model' => 'ParticipantWorkshopAssignment', 'route' => 'admin.participant-workshop-assignments.parseCsvImport'])
         </div>
@@ -105,9 +108,7 @@
     <div id="qr-reader-results"></div>
 </div>
 
-<button class="scan-Qrcode">
-    Scan
-</button>
+
 {{--End Qr Scanner --}}
 
 

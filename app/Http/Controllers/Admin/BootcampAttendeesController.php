@@ -57,7 +57,7 @@ class BootcampAttendeesController extends Controller
             });
 
             $table->addColumn('workshop_title', function ($row) {
-                return $row->bootcamp_participant->bootcampParticipantParticipantWorkshopAssignments->first()->workshop_schedule->workshop->title ?? '';
+                return $row->bootcamp_participant->bootcampParticipantParticipantWorkshopAssignments->first()->workshop_schedule->workshop->title ?? 'Bootcamp Attendee';
             });
 
             $table->editColumn('category', function ($row) {
