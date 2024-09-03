@@ -4,8 +4,9 @@
     <div class="col-md-6">
         <div class="card mx-4">
             <div class="card-body p-4">
-                <h1>{{ trans('panel.site_title') }}</h1>
-
+                <div class="text-center m-2">
+                    <img src="{{ asset('images/nasa_logo_dark.png') }}" width="120" alt="">
+                </div>
                 <p class="text-muted">{{ trans('global.login') }}</p>
 
                 @if(session('message'))

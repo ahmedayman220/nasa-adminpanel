@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'site_title' => 'Nasa',
+    'site_title' => 'Nasa Space Apps Cairo',
 
 ];
