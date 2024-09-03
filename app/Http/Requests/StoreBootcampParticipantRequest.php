@@ -58,7 +58,7 @@ class StoreBootcampParticipantRequest extends FormRequest
             ],
             'position' => [
                 'string',
-                'required',
+                'nullable',
             ],
             'national' => [
                 'string',
@@ -94,6 +94,7 @@ class StoreBootcampParticipantRequest extends FormRequest
             ],
             'comment' => [
                 'string',
+                'nullable'
             ],
             'year' => [
                 'string',

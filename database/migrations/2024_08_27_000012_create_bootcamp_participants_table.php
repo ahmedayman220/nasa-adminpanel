@@ -25,7 +25,7 @@ class CreateBootcampParticipantsTable extends Migration
             $table->string('is_attend_formation_activity');
             $table->string('why_this_workshop');
             $table->string('is_have_team');
-            $table->string('comment');
+            $table->string('comment')->nullable();
             $table->string('year');
             $table->timestamps();
             $table->softDeletes();
