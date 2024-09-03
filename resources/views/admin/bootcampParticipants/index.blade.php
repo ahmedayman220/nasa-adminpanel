@@ -1,5 +1,15 @@
 @extends('layouts.admin')
 @section('content')
+    @if(session()->has('Status'))
+        <div class="alert alert-success" role="alert">
+            {{session()->get('Status')}}
+        </div>
+    @endif
+    @if(session()->has('Failed'))
+        <div class="alert alert-danger" role="alert">
+            {{session()->get('Failed')}}
+        </div>
+    @endif
 @can('bootcamp_participant_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
@@ -238,7 +248,7 @@
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
-          return entry.national
+          return entry.id
       });
 
       if (ids.length === 0) {
@@ -259,7 +269,44 @@
   }
   dtButtons.push(deleteButton)
 @endcan
+        {{-- Start Email Button --}}
+        let EmailButtonTrans = 'Send Email';
+        let EmailButton = {
+            text: EmailButtonTrans,
+            className: 'btn-dark',
+            action: function (e, dt, node, config) {
+                var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
+                    return entry.national
+                });
+                console.log(ids)
+                // var new_ids = $('tr.selected').map(function(){
+                //     return $(this).children(':nth-child(2)').html(); // Get the text of each selected div
+                // }).get();
 
+                // console.log(new_ids);
+                if (ids.length === 0) {
+                    alert('{{ trans('global.datatables.zero_selected') }}');
+                    return;
+                }
+
+                if (confirm('{{ trans('global.areYouSure') }}')) {
+                    $.ajax({
+                        headers: {'x-csrf-token': _token},
+                        method: 'POST',
+                        url: "{{ route('admin.bootcamp-attendees.generate.email') }}",
+                        data: { ids: ids, _method: 'POST' }
+                    })
+                        .done(function (data) {
+                            // console.log(data)
+                            location.reload();
+                        });
+                }
+            }
+        };
+
+        dtButtons.push(EmailButton);
+
+        {{-- End Email Button --}}
   let dtOverrideGlobals = {
     buttons: dtButtons,
     processing: true,

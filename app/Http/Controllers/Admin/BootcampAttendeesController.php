@@ -27,7 +27,7 @@ class BootcampAttendeesController extends Controller
         abort_if(Gate::denies('bootcamp_attendee_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = BootcampAttendee::with([ 'bootcamp_participant', 'created_by'])->select(sprintf('%s.*', (new BootcampAttendee)->table));
+            $query = BootcampAttendee::with([ 'bootcamp_participant', 'created_by'])->select(sprintf('%s.*', (new BootcampAttendee)->table))->where('attendance_status','attended');
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -57,7 +57,7 @@ class BootcampAttendeesController extends Controller
             });
 
             $table->addColumn('workshop_title', function ($row) {
-                return $row->bootcamp_participant->bootcampParticipantParticipantWorkshopAssignments->first()->workshop_schedule->workshop->title ?? '';
+                return $row->bootcamp_participant->bootcampParticipantParticipantWorkshopAssignments->first()->workshop_schedule->workshop->title ?? 'Bootcamp Attendee';
             });
 
             $table->editColumn('category', function ($row) {
