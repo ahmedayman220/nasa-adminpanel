@@ -41,8 +41,7 @@ trait MediaUploadingTrait
         $file->move($path, $name);
 
         return response()->json([
-            'name'          => $name,
-            'original_name' => $file->getClientOriginalName(),
+            'status'          => True,
         ]);
     }
 }
