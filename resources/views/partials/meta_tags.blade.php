@@ -1,6 +1,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Space Apps Cairo</title>
+<title>Space Apps Cairo - Admin Panel</title>
 
 <meta
     name="description"
