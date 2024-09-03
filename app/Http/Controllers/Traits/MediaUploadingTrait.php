@@ -3,45 +3,50 @@
 namespace App\Http\Controllers\Traits;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 trait MediaUploadingTrait
 {
     public function storeMedia(Request $request)
     {
-        // Validates file size 5 MG
-        if (request()->has('size')) {
-            $this->validate(request(), [
-                'file' => 'max:' . request()->input('size') * 1024,
-            ]);
-        }
-        // If width or height is preset - we are validating it as an image
-        if (request()->has('width') || request()->has('height')) {
-            $this->validate(request(), [
-                'file' => sprintf(
-                    'image|dimensions:max_width=%s,max_height=%s',
-                    request()->input('width', 100000),
-                    request()->input('height', 100000)
-                ),
-            ]);
+        // Step 1: Validate the uploaded file
+        $this->validate($request, [
+            'file' => 'required|file|mimes:jpeg,png,jpg|max:5120', // Only images, max 5MB
+        ]);
+
+        // Step 2: Additional check to verify it's an image
+        $file = $request->file('file');
+        $imageInfo = getimagesize($file->getPathname());
+
+        if ($imageInfo === false) {
+            return response()->json(['error' => 'Uploaded file is not a valid image.'], 400);
         }
 
-        $path = storage_path('tmp/uploads');
+        // Step 3: Sanitize file name
+        $name = uniqid() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
+
+        // Step 4: Secure file path (outside public directory)
+        $path = storage_path('tmp/uploads'); // Store outside public
 
         try {
-            if (! file_exists($path)) {
+            if (!file_exists($path)) {
                 mkdir($path, 0755, true);
             }
         } catch (\Exception $e) {
+            return response()->json(['error' => 'Could not create directory'], 500);
         }
 
-        $file = $request->file('file');
-
-        $name = uniqid() . '_' . trim($file->getClientOriginalName());
-
+        // Step 5: Move file to secure location
         $file->move($path, $name);
 
+        // Step 6: Set appropriate file permissions
+        chmod($path . '/' . $name, 0644); // Read and write for owner, read for others
+
+        // Step 7: Return response with file information
         return response()->json([
-            'status'          => True,
+            'name'          => $name,
+            'original_name' => $file->getClientOriginalName(),
         ]);
     }
 }
