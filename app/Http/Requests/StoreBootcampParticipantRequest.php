@@ -75,7 +75,6 @@ class StoreBootcampParticipantRequest extends FormRequest
                 'required',
             ],
             'participated_year' => [
-                'number',
                 'nullable',
             ],
             'is_attend_formation_activity' => [
