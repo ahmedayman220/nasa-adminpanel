@@ -15,7 +15,7 @@ class EducationLevelApiController extends Controller
 {
     public function getAll()
     {
-        return new EducationLevelResource(EducationLevel::with(['created_by'])->get());
+        return new EducationLevelResource(EducationLevel::get());
     }
     public function index()
     {

@@ -17,7 +17,7 @@ class MentionYourFieldApiController extends Controller
     {
 //        abort_if(Gate::denies('mention_your_field_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new MentionYourFieldResource(MentionYourField::with(['created_by'])->get());
+        return new MentionYourFieldResource(MentionYourField::get());
     }
 
     public function store(StoreMentionYourFieldRequest $request)
