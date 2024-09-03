@@ -21,7 +21,7 @@ class EducationLevelApiController extends Controller
     {
 //        abort_if(Gate::denies('education_level_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new EducationLevelResource(EducationLevel::with(['created_by'])->get());
+        return new EducationLevelResource(EducationLevel::get());
     }
 
     public function store(StoreEducationLevelRequest $request)
