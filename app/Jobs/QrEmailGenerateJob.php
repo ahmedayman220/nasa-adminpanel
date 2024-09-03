@@ -38,7 +38,8 @@ class QrEmailGenerateJob implements ShouldQueue
     public function handle(BootcampAttendee $attendeeModel,\App\Models\QrCode $qrModel,Email $email): void
     {
         $relative_name = null; // Initialize the variable here
-
+        $Schedule_time = null;
+        $workshop = null;
         try{
             // Get attendee id and update status
             $attendee = $attendeeModel->find($this->id);
@@ -50,10 +51,12 @@ class QrEmailGenerateJob implements ShouldQueue
             $url = $this->base_url . '/' . $relative_name;
             QrCode::format('png')->size(200)->generate($data->national, $path);
             // Pass needed info to email
-            $schedule = $data->bootcampParticipantParticipantWorkshopAssignments
-                ->first()->workshop_schedule;
-            $Schedule_time = $schedule->schedule_time;
-            $workshop = $schedule->workshop->title;
+            $participantWorkshopRelation = $data->bootcampParticipantParticipantWorkshopAssignments->first();
+            if($participantWorkshopRelation){
+                $schedule = $participantWorkshopRelation->workshop_schedule;
+                $Schedule_time = $schedule->schedule_time;
+                $workshop = $schedule->workshop->title;
+            }
 
             Mail::to($data->email)->send(new QrWelcomeMail($url, $data->national, $data->name_en, $Schedule_time, $workshop));
 

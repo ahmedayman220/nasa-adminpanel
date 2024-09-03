@@ -124,7 +124,7 @@
                             </p>
                             <p style="margin: 0;">
                                 Best regards,<br>
-                                [Your Name]<br>
+{{--                                [Your Name]<br>--}}
                                 NASA Space Apps Cairo 2024 Team
                             </p>
                         </td>
