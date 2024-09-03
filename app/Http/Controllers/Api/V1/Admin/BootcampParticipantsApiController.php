@@ -63,9 +63,9 @@ class BootcampParticipantsApiController extends Controller
             $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_back'))))->toMediaCollection('national_id_back');
         }
 
-        return (new BootcampParticipantResource($bootcampParticipant))
-            ->response()
-            ->setStatusCode(Response::HTTP_CREATED);
+        return response()->json([
+            'name'          => True,
+        ]);
     }
 
     public function show(AuthToUpdateBootcampParticipantApiRequest $request)
