@@ -72,7 +72,7 @@ class UpdateBootcampParticipantRequest extends FormRequest
                 'required',
             ],
             'participated_year' => [
-                'string',
+                'number',
                 'nullable',
             ],
             'is_attend_formation_activity' => [
