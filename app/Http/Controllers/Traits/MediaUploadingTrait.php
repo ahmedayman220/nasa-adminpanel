@@ -8,7 +8,7 @@ trait MediaUploadingTrait
 {
     public function storeMedia(Request $request)
     {
-        // Validates file size
+        // Validates file size 5 MG
         if (request()->has('size')) {
             $this->validate(request(), [
                 'file' => 'max:' . request()->input('size') * 1024,

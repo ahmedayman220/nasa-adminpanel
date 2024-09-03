@@ -23,7 +23,6 @@ class ParticipantWorkshopAssignment extends Model
 
     public const ATTENDANCE_STATUS_SELECT = [
         'assigned' => 'Assigned',
-        'absent'   => 'Absent',
         'attended' => 'Attended',
     ];
 
