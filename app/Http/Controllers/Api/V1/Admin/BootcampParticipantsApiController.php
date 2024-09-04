@@ -43,15 +43,16 @@ class BootcampParticipantsApiController extends Controller
         $recaptchaToken = $request->input('recaptchaToken');
         $isValidRecaptcha = $this->validateRecaptcha($recaptchaToken);
 
-//        if (!$isValidRecaptcha) {
-//            return response()->json([
-//                'status' => false,
-//                'message' => 'Invalid reCAPTCHA token',
-//                'errors' => [
-//                    "Invalid reCAPTCHA token"
-//                ],
-//            ], Response::HTTP_BAD_REQUEST);
-//        }
+        if (!$isValidRecaptcha) {
+            return response()->json([
+                'chatbot': true,
+                'status' => false,
+                'message' => 'Invalid reCAPTCHA token',
+                'errors' => [
+                    "Invalid reCAPTCHA token"
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
 //        $filePathNationalIdFront = storage_path('tmp/uploads/' . basename($request->input('national_id_front')));
 //        $filePathNationalIdBack = storage_path('tmp/uploads/' . basename($request->input('national_id_back')));
