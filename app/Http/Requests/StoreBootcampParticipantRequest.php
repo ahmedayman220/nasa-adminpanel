@@ -20,6 +20,10 @@ class StoreBootcampParticipantRequest extends FormRequest
     public function rules()
     {
         return [
+
+            'recaptchaToken' => [
+                'required',
+            ],
             'name_en' => [
                 'string',
                 'required',
@@ -97,11 +101,7 @@ class StoreBootcampParticipantRequest extends FormRequest
             ],
             'year' => [
                 'string',
-            ],
-            'recaptchaToken' => [
-                'required',
-            ],
-
+            ]
         ];
     }
     protected function failedValidation(Validator $validator)
