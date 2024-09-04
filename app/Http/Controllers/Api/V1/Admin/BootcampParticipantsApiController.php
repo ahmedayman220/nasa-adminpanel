@@ -48,6 +48,27 @@ class BootcampParticipantsApiController extends Controller
 //            ], Response::HTTP_BAD_REQUEST);
 //        }
 
+
+        if ($request->input('national_id_front', false)) {
+            $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_front'))))->toMediaCollection('national_id_front');
+        }else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid National Id Front',
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        if ($request->input('national_id_back', false)) {
+            $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_back'))))->toMediaCollection('national_id_back');
+        }else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid National Id Back',
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+
+
         $bootcampParticipant = BootcampParticipant::create($request->all());
 
         if (isset($bootcampParticipant->first_priority_id)) {
@@ -76,17 +97,7 @@ class BootcampParticipantsApiController extends Controller
 
         BootcampHelper::checkAvailability($bootcampParticipant->id);
 
-        if ($request->input('national_id_front', false)) {
-            $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_front'))))->toMediaCollection('national_id_front');
-        }else {
 
-        }
-
-        if ($request->input('national_id_back', false)) {
-            $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_back'))))->toMediaCollection('national_id_back');
-        }else{
-
-        }
 
         return response()->json([
             'status'          => True,
