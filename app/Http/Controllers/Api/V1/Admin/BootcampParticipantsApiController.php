@@ -58,6 +58,7 @@ class BootcampParticipantsApiController extends Controller
         if(!File::exists($filePathNationalIdFront)) {
             return response()->json([
                 'status' => false,
+
                 'message' => 'Invalid National Id Front Image',
                 'errors' => [
                     "Invalid National Id Front Image"
@@ -107,14 +108,10 @@ class BootcampParticipantsApiController extends Controller
 
         if ($request->input('national_id_front', false)) {
             $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_front'))))->toMediaCollection('national_id_front');
-        }else {
-
         }
 
         if ($request->input('national_id_back', false)) {
             $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_back'))))->toMediaCollection('national_id_back');
-        }else{
-
         }
 
         return response()->json([
