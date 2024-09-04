@@ -54,7 +54,7 @@ class ParticipantWorkshopAssignmentController extends Controller
             });
 
             $table->addColumn('workshop_schedule_schedule_time', function ($row) {
-                return $row->workshop_schedule ? $row->workshop_schedule->workshop->title . ' [ ' . $row->workshop_schedule->schedule_time . ' ] ': '';
+                return $row->workshop_schedule ? $row->workshop_schedule->workshop->title . '[' . $row->workshop_schedule->schedule_time . ']': '';
             });
 
             $table->editColumn('attendance_status', function ($row) {
