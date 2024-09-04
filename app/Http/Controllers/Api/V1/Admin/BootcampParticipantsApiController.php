@@ -38,15 +38,15 @@ class BootcampParticipantsApiController extends Controller
     public function store(StoreBootcampParticipantRequest $request)
     {
         // Validate reCAPTCHA
-        $recaptchaToken = $request->input('recaptchaToken');
-        $isValidRecaptcha = $this->validateRecaptcha($recaptchaToken);
-
-        if (!$isValidRecaptcha) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Invalid reCAPTCHA token',
-            ], Response::HTTP_BAD_REQUEST);
-        }
+//        $recaptchaToken = $request->input('recaptchaToken');
+//        $isValidRecaptcha = $this->validateRecaptcha($recaptchaToken);
+//
+//        if (!$isValidRecaptcha) {
+//            return response()->json([
+//                'status' => false,
+//                'message' => 'Invalid reCAPTCHA token',
+//            ], Response::HTTP_BAD_REQUEST);
+//        }
 
         $bootcampParticipant = BootcampParticipant::create($request->all());
 
@@ -78,10 +78,14 @@ class BootcampParticipantsApiController extends Controller
 
         if ($request->input('national_id_front', false)) {
             $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_front'))))->toMediaCollection('national_id_front');
+        }else {
+
         }
 
         if ($request->input('national_id_back', false)) {
             $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_back'))))->toMediaCollection('national_id_back');
+        }else{
+
         }
 
         return response()->json([
