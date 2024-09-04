@@ -47,6 +47,9 @@ class BootcampParticipantsApiController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'Invalid reCAPTCHA token',
+                'errors' => [
+                    "Invalid reCAPTCHA token"
+                ],
             ], Response::HTTP_BAD_REQUEST);
         }
 
@@ -56,6 +59,9 @@ class BootcampParticipantsApiController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'Invalid National Id Front Image',
+                'errors' => [
+                    "Invalid National Id Front Image"
+                ],
             ], Response::HTTP_BAD_REQUEST);
         }
 
@@ -63,6 +69,9 @@ class BootcampParticipantsApiController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'Invalid National Id Back Image',
+                'errors' => [
+                    "Invalid National Id Back Image"
+                ],
             ], Response::HTTP_BAD_REQUEST);
         }
 
