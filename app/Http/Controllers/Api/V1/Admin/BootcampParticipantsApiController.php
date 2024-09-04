@@ -18,6 +18,16 @@ class BootcampParticipantsApiController extends Controller
 {
     use MediaUploadingTrait;
 
+    private function validateRecaptcha($token)
+    {
+        $secretKey = '6LdunDYqAAAAAKtyYz-mPPTcYadAr0Wxpyaa-akS'; // Your secret key
+
+        $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secretKey}&response={$token}");
+        $responseKeys = json_decode($response, true);
+
+        return $responseKeys['success'];
+    }
+
     public function index()
     {
         abort_if(Gate::denies('bootcamp_participant_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -27,6 +37,17 @@ class BootcampParticipantsApiController extends Controller
 
     public function store(StoreBootcampParticipantRequest $request)
     {
+        // Validate reCAPTCHA
+        $recaptchaToken = $request->input('recaptchaToken');
+        $isValidRecaptcha = $this->validateRecaptcha($recaptchaToken);
+
+        if (!$isValidRecaptcha) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid reCAPTCHA token',
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
         $bootcampParticipant = BootcampParticipant::create($request->all());
 
         if (isset($bootcampParticipant->first_priority_id)) {
@@ -64,7 +85,7 @@ class BootcampParticipantsApiController extends Controller
         }
 
         return response()->json([
-            'name'          => True,
+            'status'          => True,
         ]);
     }
 

@@ -98,6 +98,10 @@ class StoreBootcampParticipantRequest extends FormRequest
             'year' => [
                 'string',
             ],
+            'recaptchaToken' => [
+                'required',
+            ],
+
         ];
     }
     protected function failedValidation(Validator $validator)
