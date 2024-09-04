@@ -45,7 +45,7 @@ trait MediaUploadingTrait
 
         // Step 7: Return response with file information
         return response()->json([
-            'name'          => $name,
+            'name'          => "asdf",
             'original_name' => $file->getClientOriginalName(),
         ]);
     }
