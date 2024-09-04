@@ -48,22 +48,19 @@ class BootcampParticipantsApiController extends Controller
 //            ], Response::HTTP_BAD_REQUEST);
 //        }
 
-
-        if ($request->input('national_id_front', false)) {
-            $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_front'))))->toMediaCollection('national_id_front');
-        }else {
+        $filePathNationalIdFront = storage_path('tmp/uploads/' . basename($request->input('national_id_front')));
+        $filePathNationalIdBack = storage_path('tmp/uploads/' . basename($request->input('national_id_back'))));
+        if(!File::exists($filePathNationalIdFront)) {
             return response()->json([
                 'status' => false,
-                'message' => 'Invalid National Id Front',
+                'message' => 'Invalid National Id Front Image',
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        if ($request->input('national_id_back', false)) {
-            $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_back'))))->toMediaCollection('national_id_back');
-        }else {
+        if(!File::exists($filePathNationalIdBack)) {
             return response()->json([
                 'status' => false,
-                'message' => 'Invalid National Id Back',
+                'message' => 'Invalid National Id Back Image',
             ], Response::HTTP_BAD_REQUEST);
         }
 
@@ -97,7 +94,17 @@ class BootcampParticipantsApiController extends Controller
 
         BootcampHelper::checkAvailability($bootcampParticipant->id);
 
+        if ($request->input('national_id_front', false)) {
+            $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_front'))))->toMediaCollection('national_id_front');
+        }else {
 
+        }
+
+        if ($request->input('national_id_back', false)) {
+            $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_back'))))->toMediaCollection('national_id_back');
+        }else{
+
+        }
 
         return response()->json([
             'status'          => True,
