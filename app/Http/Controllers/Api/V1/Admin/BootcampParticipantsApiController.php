@@ -49,9 +49,10 @@ class BootcampParticipantsApiController extends Controller
 //                'message' => 'Invalid reCAPTCHA token',
 //            ], Response::HTTP_BAD_REQUEST);
 //        }
+//        national_id_back
 
         $filePathNationalIdFront = storage_path('tmp/uploads/' . basename($request->input('national_id_front')));
-        $filePathNationalIdBack = storage_path('tmp/uploads/' . basename($request->input('national_id_back'))));
+        $filePathNationalIdBack = storage_path('tmp/uploads/' . basename($request->input('national_id_back')));
         if(!File::exists($filePathNationalIdFront)) {
             return response()->json([
                 'status' => false,
