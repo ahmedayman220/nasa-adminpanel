@@ -53,28 +53,28 @@ class BootcampParticipantsApiController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         };
 
-//        $filePathNationalIdFront = storage_path('tmp/uploads/' . basename($request->input('national_id_front')));
-//        $filePathNationalIdBack = storage_path('tmp/uploads/' . basename($request->input('national_id_back')));
-//        if(!File::exists($filePathNationalIdFront)) {
-//            return response()->json([
-//                'status' => false,
-//
-//                'message' => 'Invalid National Id Front Image',
-//                'errors' => [
-//                    "Invalid National Id Front Image"
-//                ],
-//            ], Response::HTTP_BAD_REQUEST);
-//        }
-//
-//        if(!File::exists($filePathNationalIdBack)) {
-//            return response()->json([
-//                'status' => false,
-//                'message' => 'Invalid National Id Back Image',
-//                'errors' => [
-//                    "Invalid National Id Back Image"
-//                ],
-//            ], Response::HTTP_BAD_REQUEST);
-//        }
+        $filePathNationalIdFront = storage_path('tmp/uploads/' . basename($request->input('national_id_front')));
+        $filePathNationalIdBack = storage_path('tmp/uploads/' . basename($request->input('national_id_back')));
+        if(!File::exists($filePathNationalIdFront)) {
+            return response()->json([
+                'status' => false,
+
+                'message' => 'Invalid National Id Front Image',
+                'errors' => [
+                    "Invalid National Id Front Image"
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        if(!File::exists($filePathNationalIdBack)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid National Id Back Image',
+                'errors' => [
+                    "Invalid National Id Back Image"
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
 
 
