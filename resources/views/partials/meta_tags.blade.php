@@ -43,6 +43,7 @@
     content="black-translucent"
 />
 <meta name="apple-mobile-web-app-title" content="NASA Space Apps Cairo" />
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <link rel="canonical" href="https://spaceappscairo.com/" />
 

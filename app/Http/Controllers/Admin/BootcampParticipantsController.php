@@ -112,13 +112,13 @@ class BootcampParticipantsController extends Controller
                 return '';
             });
             $table->editColumn('is_participated', function ($row) {
-                return $row->is_participated ? BootcampParticipant::IS_PARTICIPATED_RADIO[$row->is_participated] : '';
+                return BootcampParticipant::IS_PARTICIPATED_RADIO[$row->is_participated];
             });
             $table->editColumn('participated_year', function ($row) {
                 return $row->participated_year ? $row->participated_year : '';
             });
             $table->editColumn('is_attend_formation_activity', function ($row) {
-                return $row->is_attend_formation_activity ? BootcampParticipant::IS_ATTEND_FORMATION_ACTIVITY_RADIO[$row->is_attend_formation_activity] : '';
+                return BootcampParticipant::IS_ATTEND_FORMATION_ACTIVITY_RADIO[$row->is_attend_formation_activity];
             });
             $table->addColumn('first_priority_title', function ($row) {
                 return $row->first_priority ? $row->first_priority->title : '';
@@ -136,7 +136,7 @@ class BootcampParticipantsController extends Controller
                 return $row->why_this_workshop ? $row->why_this_workshop : '';
             });
             $table->editColumn('is_have_team', function ($row) {
-                return $row->is_have_team ? BootcampParticipant::IS_HAVE_TEAM_RADIO[$row->is_have_team] : '';
+                return BootcampParticipant::IS_HAVE_TEAM_RADIO[$row->is_have_team];
             });
             $table->editColumn('comment', function ($row) {
                 return $row->comment ? $row->comment : '';
