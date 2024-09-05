@@ -21,9 +21,9 @@ class StoreBootcampParticipantRequest extends FormRequest
     {
         return [
 
-            'recaptchaToken' => [
-                'required',
-            ],
+//            'recaptchaToken' => [
+//                'required',
+//            ],
             'name_en' => [
                 'string',
                 'required',

@@ -158,6 +158,56 @@ class BootcampParticipantsController extends Controller
         return view('admin.bootcampParticipants.index', compact('education_levels', 'mention_your_fields', 'workshops', 'users'));
     }
 
+    public function getMedia(Request $request){
+        abort_if(Gate::denies('bootcamp_participant_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        if ($request->ajax()) {
+            $query = BootcampParticipant::select('id','name_en','email','national');
+            $table = Datatables::of($query);
+            $table->addColumn('placeholder', '');
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('name_en', function ($row) {
+                return $row->name_en ? $row->name_en : '';
+            });
+            $table->editColumn('email', function ($row) {
+                return $row->email ? $row->email : '';
+            });
+
+            $table->editColumn('national', function ($row) {
+                return $row->national ? $row->national : '';
+            });
+
+            $table->editColumn('national_id_front', function ($row) {
+                if ($photo = $row->national_id_front) {
+                    return sprintf(
+                        '<a href="%s" target="_blank">%s</a>',
+                        $photo->url,
+                        $photo->url
+                    );
+                }
+
+                return '';
+            });
+            $table->editColumn('national_id_back', function ($row) {
+                if ($photo = $row->national_id_back) {
+                    return sprintf(
+                        '<a href="%s" target="_blank">%s</a>',
+                        $photo->url,
+                        $photo->url
+                    );
+                }
+                return '';
+            });
+
+            $table->rawColumns(['national_id_front', 'national_id_back']);
+
+            return $table->make(true);
+        }
+        return view('admin.bootcampParticipants.media');
+    }
+
     public function create()
     {
         abort_if(Gate::denies('bootcamp_participant_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');

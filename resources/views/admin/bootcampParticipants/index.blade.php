@@ -16,10 +16,14 @@
             <a class="btn btn-success" href="{{ route('admin.bootcamp-participants.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.bootcampParticipant.title_singular') }}
             </a>
+            <a class="btn btn-info" href="{{ route('admin.bootcamp-participants.get.media') }}">
+                Show Participants Media
+            </a>
             <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
                 {{ trans('global.app_csvImport') }}
             </button>
             @include('csvImport.modal', ['model' => 'BootcampParticipant', 'route' => 'admin.bootcamp-participants.parseCsvImport'])
+
         </div>
     </div>
 @endcan
