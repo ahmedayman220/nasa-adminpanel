@@ -54,7 +54,7 @@
 
 
                         <div class="row  mb-4">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <button type="submit" class="btn btn-primary px-4">
                                     {{ trans('global.login') }}
                                 </button>
