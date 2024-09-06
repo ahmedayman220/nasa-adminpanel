@@ -50,7 +50,7 @@ trait AuthenticatesUsers
         if (!$isValidRecaptcha) {
             return redirect()->back()->withErrors(['g-recaptcha-response' => 'Invalid reCAPTCHA token'])->withInput();
         }
-        dd($isValidRecaptcha);
+
 
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
