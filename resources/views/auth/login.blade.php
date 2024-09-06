@@ -73,6 +73,7 @@
                         </div>
                     </div>
 
+                    <br />
                     <div class="g-recaptcha" data-sitekey="6LdunDYqAAAAAAcXojGilJ91ifysHZCEF8piOx7A" data-action="LOGIN"></div>
 
                 </form>
