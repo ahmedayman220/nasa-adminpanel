@@ -47,7 +47,7 @@ trait AuthenticatesUsers
         $this->validateLogin($request);
 
         $isValidRecaptcha = $this->validateRecaptcha($request->input('g-recaptcha-response'));
-
+        dd($isValidRecaptcha);
         if (!$isValidRecaptcha) {
             return redirect()->back()->withErrors(['g-recaptcha-response' => 'Invalid reCAPTCHA token'])->withInput();
         }
