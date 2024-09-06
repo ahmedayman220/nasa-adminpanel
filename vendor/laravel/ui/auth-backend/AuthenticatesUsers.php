@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 
 trait AuthenticatesUsers
 {
@@ -43,10 +44,17 @@ trait AuthenticatesUsers
     public function login(Request $request)
     {
 
-        dd($this->validateRecaptcha($request->input('g-recaptcha-response')));
+        $isValidRecaptcha = $this->validateRecaptcha($request->input('g-recaptcha-response'));
 
-
-
+        if (!$isValidRecaptcha) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid reCAPTCHA token',
+                'errors' => [
+                    "Invalid reCAPTCHA token"
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        };
 
         $this->validateLogin($request);
 
@@ -87,6 +95,7 @@ trait AuthenticatesUsers
     protected function validateLogin(Request $request)
     {
         $request->validate([
+            '' => 'required',
             $this->username() => 'required|string',
             'password' => 'required|string',
         ]);

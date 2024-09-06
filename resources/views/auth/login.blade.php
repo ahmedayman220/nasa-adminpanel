@@ -57,6 +57,11 @@
                                 <div class="g-recaptcha" data-sitekey="6LdunDYqAAAAAAcXojGilJ91ifysHZCEF8piOx7A"
                                      data-action="LOGIN"></div>
                             </div>
+                            @if($errors->has('g-recaptcha-response'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('g-recaptcha-response') }}
+                                </div>
+                            @endif
                         </div>
 
                         <div class="row">
