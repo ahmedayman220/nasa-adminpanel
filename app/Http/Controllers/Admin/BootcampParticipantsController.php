@@ -58,9 +58,7 @@ class BootcampParticipantsController extends Controller
                 // Increment the index based on current page
                 static $index = 0;
                 return ++$index + $start;
-            })->setRowAttr([
-                'data-entry-id' => '{{$row->id}}',
-            ]);
+            });
             $table->editColumn('name_en', function ($row) {
                 return $row->name_en ? $row->name_en : '';
             });
