@@ -57,8 +57,17 @@ class BootcampParticipantsController extends Controller
 
                 // Increment the index based on current page
                 static $index = 0;
-                return ++$index + $start;
-            });
+                $rowNumber = ++$index + $start;
+
+                // Return the HTML for the ID with the `data-entry-id` attribute
+                return sprintf(
+                    '<td data-entry-id="%s">%d</td>',
+                    $row->id,  // Assuming $row->id is the primary key
+                    $rowNumber // The incremented index to show in the table
+                );
+            })->rawColumns(['id']); // Enable raw HTML for this column
+
+
             $table->editColumn('name_en', function ($row) {
                 return $row->name_en ? $row->name_en : '';
             });
