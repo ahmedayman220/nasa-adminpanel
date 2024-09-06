@@ -59,7 +59,7 @@
                             </div>
                             @if($errors->has('g-recaptcha-response'))
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('g-recaptcha-response') }}
+                                    {{ $errors }}
                                 </div>
                             @endif
                         </div>
