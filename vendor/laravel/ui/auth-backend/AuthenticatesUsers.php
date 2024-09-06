@@ -95,7 +95,7 @@ trait AuthenticatesUsers
     protected function validateLogin(Request $request)
     {
         $request->validate([
-            '' => 'required',
+            'g-recaptcha-response' => 'required', // Add reCAPTCHA field
             $this->username() => 'required|string',
             'password' => 'required|string',
         ]);
