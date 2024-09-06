@@ -72,9 +72,16 @@
 
                         </div>
                     </div>
+
+                    <div class="g-recaptcha" data-sitekey="6LdunDYqAAAAAAcXojGilJ91ifysHZCEF8piOx7A" data-action="LOGIN"></div>
+
                 </form>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+    <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
 @endsection
