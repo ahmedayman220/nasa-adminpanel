@@ -52,7 +52,8 @@ class BootcampParticipantsController extends Controller
             });
 
             $table->editColumn('id', function ($row) {
-                return $row->id ? $row->id : '';
+                static $index = 0;
+                return ++$index;
             });
             $table->editColumn('name_en', function ($row) {
                 return $row->name_en ? $row->name_en : '';
