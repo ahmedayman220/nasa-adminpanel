@@ -165,6 +165,7 @@ trait AuthenticatesUsers
     {
         throw ValidationException::withMessages([
             $this->username() => [trans('auth.failed')],
+            'g-recaptcha-response' => 'Invalid reCAPTCHA token.'
         ]);
     }
 
