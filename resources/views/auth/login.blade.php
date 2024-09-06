@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card mx-4">
-                <div class="card-body p-4 text-center">
+                <div class="card-body p-4">
                     <div class="text-center m-2">
                         <img src="{{ asset('images/nasa_logo_dark.png') }}" width="120" alt="">
                     </div>
@@ -54,7 +54,7 @@
 
 
                         <div class="row  mb-4">
-                            <div class="col-12">
+                            <div class="col-6">
                                 <button type="submit" class="btn btn-primary px-4">
                                     {{ trans('global.login') }}
                                 </button>
