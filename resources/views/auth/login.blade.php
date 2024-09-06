@@ -7,8 +7,6 @@
                 <div class="text-center m-2">
                     <img src="{{ asset('images/nasa_logo_dark.png') }}" width="120" alt="">
                 </div>
-                <p class="text-muted">{{ trans('global.login') }}</p>
-
                 @if(session('message'))
                     <div class="alert alert-info" role="alert">
                         {{ session('message') }}
@@ -54,22 +52,6 @@
                             <label class="form-check-label" for="remember" style="vertical-align: middle;">
                                 {{ trans('global.remember_me') }}
                             </label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <button type="submit" class="btn btn-primary px-4">
-                                {{ trans('global.login') }}
-                            </button>
-                        </div>
-                        <div class="col-6 text-right">
-                            @if(Route::has('password.request'))
-                                <a class="btn btn-link px-0" href="{{ route('password.request') }}">
-                                    {{ trans('global.forgot_password') }}
-                                </a><br>
-                            @endif
-
                         </div>
                     </div>
 
