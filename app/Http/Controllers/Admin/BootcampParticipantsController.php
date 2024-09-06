@@ -61,7 +61,7 @@ class BootcampParticipantsController extends Controller
 
                 // Return just the number, no <td> wrapping
                 return sprintf(
-                    '<span data-entry-id="%s">%d</span>',
+                    '<td data-entry-id="%s">%d</td>',
                     $row->id,  // The ID of the entry, used for the data-entry-id
                     $rowNumber // The row index to be displayed
                 );
