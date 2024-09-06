@@ -59,14 +59,13 @@ class BootcampParticipantsController extends Controller
                 static $index = 0;
                 $rowNumber = ++$index + $start;
 
-                // Return the HTML for the ID with the `data-entry-id` attribute
+                // Return just the number, no <td> wrapping
                 return sprintf(
-                    '<td data-entry-id="%s">%d</td>',
-                    $row->id,  // Assuming $row->id is the primary key
-                    $rowNumber // The incremented index to show in the table
+                    '<span data-entry-id="%s">%d</span>',
+                    $row->id,  // The ID of the entry, used for the data-entry-id
+                    $rowNumber // The row index to be displayed
                 );
-            })->rawColumns(['id']); // Enable raw HTML for this column
-
+            })->rawColumns(['id']); // Specify that the 'id' column contains raw HTML.
 
             $table->editColumn('name_en', function ($row) {
                 return $row->name_en ? $row->name_en : '';
