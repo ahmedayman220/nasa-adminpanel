@@ -43,7 +43,7 @@ trait AuthenticatesUsers
     public function login(Request $request)
     {
 
-        dd($this->validateRecaptcha($request->g-recaptcha-response));
+        dd($this->validateRecaptcha($request->input('g-recaptcha-response')));
 
 
 
