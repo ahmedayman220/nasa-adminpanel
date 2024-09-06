@@ -23,6 +23,8 @@
         </div>
     </div>
     @yield('scripts')
+
+    <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
 </body>
 
 </html>

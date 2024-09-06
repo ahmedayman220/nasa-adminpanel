@@ -81,7 +81,3 @@
     </div>
 </div>
 @endsection
-
-@section('script')
-    <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
-@endsection
