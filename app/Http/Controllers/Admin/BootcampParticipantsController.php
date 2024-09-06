@@ -161,7 +161,7 @@ class BootcampParticipantsController extends Controller
     public function getMedia(Request $request){
         abort_if(Gate::denies('bootcamp_participant_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         if ($request->ajax()) {
-            $query = BootcampParticipant::select('id','name_en','email','national');
+            $query = BootcampParticipant::select('id','name_en','name_ar','national');
             $table = Datatables::of($query);
             $table->addColumn('placeholder', '');
 
@@ -171,8 +171,8 @@ class BootcampParticipantsController extends Controller
             $table->editColumn('name_en', function ($row) {
                 return $row->name_en ? $row->name_en : '';
             });
-            $table->editColumn('email', function ($row) {
-                return $row->email ? $row->email : '';
+            $table->editColumn('name_ar', function ($row) {
+                return $row->name_ar ? $row->name_ar : '';
             });
 
             $table->editColumn('national', function ($row) {

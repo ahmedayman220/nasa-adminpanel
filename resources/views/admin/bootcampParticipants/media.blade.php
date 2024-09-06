@@ -19,7 +19,7 @@
                         {{ trans('cruds.bootcampParticipant.fields.name_en') }}
                     </th>
                     <th>
-                        {{ trans('cruds.bootcampParticipant.fields.email') }}
+                        {{ trans('cruds.bootcampParticipant.fields.name_ar') }}
                     </th>
                     <th>
                         {{ trans('cruds.bootcampParticipant.fields.national') }}
@@ -77,7 +77,7 @@
                 { data: 'placeholder', name: 'placeholder' },
                 { data: 'id', name: 'id' },
                 { data: 'name_en', name: 'name_en' },
-                { data: 'email', name: 'email' },
+                { data: 'name_ar', name: 'name_ar' },
                 { data: 'national', name: 'national' },
                 { data: 'national_id_front', name: 'national_id_front' },
                 { data: 'national_id_back', name: 'national_id_back' },
