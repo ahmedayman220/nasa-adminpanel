@@ -52,20 +52,21 @@
                             @endif
                         </div>
 
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="g-recaptcha" data-sitekey="6LdunDYqAAAAAAcXojGilJ91ifysHZCEF8piOx7A"
+                                     data-action="LOGIN"></div>
+                            </div>
+                        </div>
 
-                        <div class="row  mb-4">
+                        <div class="row">
                             <div class="col-6">
                                 <button type="submit" class="btn btn-primary px-4">
                                     {{ trans('global.login') }}
                                 </button>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="g-recaptcha" data-sitekey="6LdunDYqAAAAAAcXojGilJ91ifysHZCEF8piOx7A"
-                                     data-action="LOGIN"></div>
-                            </div>
-                        </div>
+
 
                     </form>
                 </div>
