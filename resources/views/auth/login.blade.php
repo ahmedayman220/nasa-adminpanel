@@ -57,9 +57,10 @@
                                 <div class="g-recaptcha" data-sitekey="6LdunDYqAAAAAAcXojGilJ91ifysHZCEF8piOx7A"
                                      data-action="LOGIN"></div>
                             </div>
-                            @if($errors)
+{{--                            g-recaptcha-response--}}
+                            @if($errors->has('password'))
                                 <div class="invalid-feedback">
-                                    {{ $errors }}
+                                    {{ $errors->first('g-recaptcha-response') }}
                                 </div>
                             @endif
                         </div>
