@@ -47,14 +47,8 @@ trait AuthenticatesUsers
         $isValidRecaptcha = $this->validateRecaptcha($request->input('g-recaptcha-response'));
 
         if (!$isValidRecaptcha) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Invalid reCAPTCHA token',
-                'errors' => [
-                    "Invalid reCAPTCHA token"
-                ],
-            ], Response::HTTP_BAD_REQUEST);
-        };
+            return redirect()->back()->withErrors(['g-recaptcha-response' => 'Invalid reCAPTCHA token'])->withInput();
+        }
 
         $this->validateLogin($request);
 
