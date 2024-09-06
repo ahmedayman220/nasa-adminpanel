@@ -49,7 +49,12 @@ class BootcampAttendeesController extends Controller
             });
 
             $table->editColumn('id', function ($row) {
-                return $row->id ? $row->id : '';
+                // Get current page and page length from the request
+                $start = request()->input('start', 0);
+
+                // Increment the index based on current page
+                static $index = 0;
+                return ++$index + $start;
             });
 
             $table->addColumn('bootcamp_participant_name_en', function ($row) {
