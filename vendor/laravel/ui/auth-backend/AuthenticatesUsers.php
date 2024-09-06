@@ -29,9 +29,25 @@ trait AuthenticatesUsers
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+
+    private function validateRecaptcha($token)
+    {
+        $secretKey = '6LdunDYqAAAAAKtyYz-mPPTcYadAr0Wxpyaa-akS'; // Your secret key
+
+        $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secretKey}&response={$token}");
+        $responseKeys = json_decode($response, true);
+
+        return $responseKeys['success'];
+    }
+
     public function login(Request $request)
     {
-        dd($request);
+
+        dd($this->validateRecaptcha($request->g-recaptcha-response));
+
+
+
+
         $this->validateLogin($request);
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
