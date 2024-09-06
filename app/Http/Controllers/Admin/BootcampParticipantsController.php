@@ -51,7 +51,7 @@ class BootcampParticipantsController extends Controller
                 ));
             });
 
-            $table->editColumn('index', function ($row) {
+            $table->editColumn('id', function ($row) {
                 // Get current page and page length from the request
                 $start = request()->input('start', 0);
 
