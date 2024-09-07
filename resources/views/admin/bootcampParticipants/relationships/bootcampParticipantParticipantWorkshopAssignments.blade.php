@@ -28,6 +28,9 @@
                             {{ trans('cruds.participantWorkshopAssignment.fields.bootcamp_participant') }}
                         </th>
                         <th>
+                            {{ trans('cruds.workshopSchedule.fields.workshop') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.participantWorkshopAssignment.fields.workshop_schedule') }}
                         </th>
                         <th>
@@ -52,6 +55,9 @@
                             </td>
                             <td>
                                 {{ $participantWorkshopAssignment->bootcamp_participant->name_en ?? '' }}
+                            </td>
+                            <td>
+                                {{ $participantWorkshopAssignment->workshop->title ?? '' }}
                             </td>
                             <td>
                                 {{ $participantWorkshopAssignment->workshop_schedule->schedule_time ?? '' }}
@@ -138,7 +144,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 })
 
 </script>
