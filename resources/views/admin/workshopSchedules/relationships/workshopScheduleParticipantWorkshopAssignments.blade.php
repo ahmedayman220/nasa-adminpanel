@@ -58,7 +58,7 @@
                             </td>
 
                             <td>
-                                {{ $participantWorkshopAssignment->workshop_schedule->workshop ?? '' }}
+                                {{ $participantWorkshopAssignment->workshop_schedule->workshop->title ?? '' }}
                             </td>
 
                             <td>
