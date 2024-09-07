@@ -42,8 +42,7 @@ class WorkshopSchedule extends Model
     }
 
     public function SchedualWorkshopAvailabilityOnSite() {
-        return $this->workshopScheduleParticipantWorkshopAssignments()->count() -
-            $this->workshopScheduleParticipantWorkshopAssignments()->where('attendance_status', 'attended')->count();
+        return $this->workshopScheduleParticipantWorkshopAssignments()->count() - $this->workshopScheduleParticipantWorkshopAssignments()->where('attendance_status', 'attended')->count();
     }
     public function SchedualWorkshopAvailability() {
         return $this->capacity - $this->workshopScheduleParticipantWorkshopAssignments()->count();
