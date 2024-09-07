@@ -37,6 +37,7 @@
                     <th>
                         {{ trans('cruds.workshopSchedule.fields.capacity') }}
                     </th>
+                    <th>Avilable</th>
                     <th>
                         &nbsp;
                     </th>
@@ -55,12 +56,10 @@
                             @endforeach
                         </select>
                     </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
+                    <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
+                    <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
+                    <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
+
                     <td>
                     </td>
                 </tr>
@@ -120,6 +119,7 @@
 { data: 'workshop_title', name: 'workshop.title' },
 { data: 'schedule_time', name: 'schedule_time' },
 { data: 'capacity', name: 'capacity' },
+{ data: 'available', name: 'available' }, // Add Available column
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,
@@ -131,7 +131,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 let visibleColumnsIndexes = null;
 $('.datatable thead').on('input', '.search', function () {
       let strict = $(this).attr('strict') || false

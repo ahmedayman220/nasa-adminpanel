@@ -64,7 +64,9 @@ class WorkshopSchedulesController extends Controller
             $table->editColumn('capacity', function ($row) {
                 return $row->capacity ? $row->capacity : '';
             });
-
+            $table->addColumn('available', function ($row) {
+                return $row->SchedualWorkshopAvailability();
+            });
             $table->rawColumns(['actions', 'placeholder', 'workshop']);
 
             return $table->make(true);
