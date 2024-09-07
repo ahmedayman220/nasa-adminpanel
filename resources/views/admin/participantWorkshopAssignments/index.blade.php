@@ -48,6 +48,9 @@
                         {{ trans('cruds.participantWorkshopAssignment.fields.bootcamp_participant') }}
                     </th>
                     <th>
+                        {{ trans('cruds.participantWorkshopAssignment.fields.workshop') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.participantWorkshopAssignment.fields.workshop_schedule') }}
                     </th>
                     <th>
