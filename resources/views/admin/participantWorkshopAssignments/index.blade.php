@@ -47,7 +47,7 @@
                     <th>
                         {{ trans('cruds.participantWorkshopAssignment.fields.bootcamp_participant') }}
                     </th>
-
+                    <th>{{ trans('cruds.participantWorkshopAssignment.fields.workshop') }}</th> <!-- Add Workshop column -->
                     <th>
                         {{ trans('cruds.participantWorkshopAssignment.fields.workshop_schedule') }}
                     </th>
@@ -75,6 +75,16 @@
                             @endforeach
                         </select>
                     </td>
+
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($workshop_schedules as $item)
+                                <option value="{{ $item->workshop->title }}">{{ $item->workshop->title }}</option> <!-- Filtering based on workshop title -->
+                            @endforeach
+                        </select>
+                    </td>
+
                     <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
@@ -162,6 +172,7 @@
 { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'bootcamp_participant_name_en', name: 'bootcamp_participant.name_en' },
+{ data: 'workshop_title', name: 'workshop_schedule.workshop.title' },  // New workshop column
 { data: 'workshop_schedule_schedule_time', name: 'workshop_schedule.schedule_time' },
 { data: 'attendance_status', name: 'attendance_status' },
 { data: 'check_in_time', name: 'check_in_time' },

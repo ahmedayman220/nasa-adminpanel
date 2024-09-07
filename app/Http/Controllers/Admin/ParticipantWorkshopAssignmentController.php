@@ -58,9 +58,16 @@ class ParticipantWorkshopAssignmentController extends Controller
                 return $row->bootcamp_participant ? $row->bootcamp_participant->name_en : '';
             });
 
-            $table->addColumn('workshop_schedule_schedule_time', function ($row) {
-                return $row->workshop_schedule ? $row->workshop_schedule->workshop->title . '[' . $row->workshop_schedule->schedule_time . ']': '';
+            $table->addColumn('workshop_title', function ($row) {
+                return $row->workshop_schedule && $row->workshop_schedule->workshop
+                    ? $row->workshop_schedule->workshop->title
+                    : '';
             });
+
+            $table->addColumn('workshop_schedule_schedule_time', function ($row) {
+                return $row->workshop_schedule ? $row->workshop_schedule->schedule_time : '';
+            });
+
 
             $table->editColumn('attendance_status', function ($row) {
                 return $row->attendance_status ? ParticipantWorkshopAssignment::ATTENDANCE_STATUS_SELECT[$row->attendance_status] : '';
