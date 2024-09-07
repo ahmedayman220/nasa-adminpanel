@@ -168,7 +168,7 @@
     ],
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
-    pageLength: 200,
+    pageLength: 100,
   };
   let table = $('.datatable-ParticipantWorkshopAssignment').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
