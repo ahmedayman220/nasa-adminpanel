@@ -52,7 +52,7 @@
                             Available
                         </th>
                         <td>
-                            {{ $workshopSchedule->SchedualWorkshopAvailability }}
+                            {{ $workshopSchedule->SchedualWorkshopAvailability() }}
                         </td>
                     </tr>
                 </tbody>
