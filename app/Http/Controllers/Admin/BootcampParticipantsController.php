@@ -52,12 +52,7 @@ class BootcampParticipantsController extends Controller
             });
 
             $table->editColumn('id', function ($row) {
-                // Get current page and page length from the request
-                $start = request()->input('start', 0);
-
-                // Increment the index based on current page
-                static $index = 0;
-                return ++$index + $start;
+                return  $row->id;
             });
 
 
