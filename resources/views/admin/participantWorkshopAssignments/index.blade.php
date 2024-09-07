@@ -47,9 +47,7 @@
                     <th>
                         {{ trans('cruds.participantWorkshopAssignment.fields.bootcamp_participant') }}
                     </th>
-                    <th>
-                        {{ trans('cruds.participantWorkshopAssignment.fields.workshop') }}
-                    </th>
+
                     <th>
                         {{ trans('cruds.participantWorkshopAssignment.fields.workshop_schedule') }}
                     </th>
@@ -164,7 +162,6 @@
 { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'bootcamp_participant_name_en', name: 'bootcamp_participant.name_en' },
-{ data: 'workshop_schedule_schedule_time', name: 'workshop_schedule.schedule_time' },
 { data: 'workshop_schedule_schedule_time', name: 'workshop_schedule.schedule_time' },
 { data: 'attendance_status', name: 'attendance_status' },
 { data: 'check_in_time', name: 'check_in_time' },
