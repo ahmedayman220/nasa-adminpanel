@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 
 trait AuthenticatesUsers
 {
@@ -29,9 +30,28 @@ trait AuthenticatesUsers
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+
+    private function validateRecaptcha($token)
+    {
+        $secretKey = '6LdunDYqAAAAAKtyYz-mPPTcYadAr0Wxpyaa-akS'; // Your secret key
+
+        $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secretKey}&response={$token}");
+        $responseKeys = json_decode($response, true);
+
+        return $responseKeys['success'];
+    }
+
     public function login(Request $request)
     {
+
         $this->validateLogin($request);
+
+        $isValidRecaptcha = $this->validateRecaptcha($request->input('g-recaptcha-response'));
+        if (!$isValidRecaptcha) {
+            return redirect()->back()->withErrors(['g-recaptcha-response' => 'Invalid reCAPTCHA token'])->withInput();
+        }
+
+
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
@@ -70,6 +90,7 @@ trait AuthenticatesUsers
     protected function validateLogin(Request $request)
     {
         $request->validate([
+            'g-recaptcha-response' => 'required', // Add reCAPTCHA field
             $this->username() => 'required|string',
             'password' => 'required|string',
         ]);
