@@ -67,6 +67,12 @@ class WorkshopSchedulesController extends Controller
             $table->addColumn('available', function ($row) {
                 return $row->SchedualWorkshopAvailability();
             });
+
+            $table->addColumn('available_on_site', function ($row) {
+                return $row->SchedualWorkshopAvailabilityOnSite();
+            });
+
+
             $table->rawColumns(['actions', 'placeholder', 'workshop']);
 
             return $table->make(true);
