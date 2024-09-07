@@ -158,9 +158,10 @@
     aaSorting: [],
     ajax: "{{ route('admin.participant-workshop-assignments.index') }}",
     columns: [
-      { data: 'placeholder', name: 'placeholder' },
+{ data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'bootcamp_participant_name_en', name: 'bootcamp_participant.name_en' },
+{ data: 'workshop', name: 'workshop.title' },
 { data: 'workshop_schedule_schedule_time', name: 'workshop_schedule.schedule_time' },
 { data: 'attendance_status', name: 'attendance_status' },
 { data: 'check_in_time', name: 'check_in_time' },
