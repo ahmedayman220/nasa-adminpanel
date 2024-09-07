@@ -67,17 +67,17 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#first_priority_bootcamp_participants" role="tab" data-toggle="tab">
-                {{ trans('cruds.bootcampParticipant.title') }}
+                First Priority
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#second_priority_bootcamp_participants" role="tab" data-toggle="tab">
-                {{ trans('cruds.bootcampParticipant.title') }}
+                Second Priority
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#third_priority_bootcamp_participants" role="tab" data-toggle="tab">
-                {{ trans('cruds.bootcampParticipant.title') }}
+                Third Priority
             </a>
         </li>
     </ul>
