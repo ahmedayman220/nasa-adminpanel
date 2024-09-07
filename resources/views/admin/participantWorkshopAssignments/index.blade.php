@@ -75,7 +75,12 @@
                         </select>
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($workshop_schedules as $key => $item)
+                                <option value="{{ $item->schedule_time }}">{{ $item->workshop->title . ' ' . $item->schedule_time }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                         <select class="search" strict="true">
