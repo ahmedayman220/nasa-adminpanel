@@ -53,6 +53,7 @@ class WorkshopSchedulesController extends Controller
                 static $index = 0;
                 return ++$index + $start;
             });
+
             $table->addColumn('workshop_title', function ($row) {
                 return $row->workshop ? $row->workshop->title : '';
             });
