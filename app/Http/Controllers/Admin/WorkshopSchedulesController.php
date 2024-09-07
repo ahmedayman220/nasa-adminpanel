@@ -58,7 +58,7 @@ class WorkshopSchedulesController extends Controller
             });
 
             $table->editColumn('schedule_time', function ($row) {
-                return $row->schedule_time ? $row->workshop->title . '[' . $row->schedule_time . ']': '';
+                return $row->schedule_time ? $row->schedule_time : '';
             });
             $table->editColumn('capacity', function ($row) {
                 return $row->capacity ? $row->capacity : '';
