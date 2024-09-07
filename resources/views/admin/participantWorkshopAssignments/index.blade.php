@@ -78,7 +78,7 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($workshop_schedules as $key => $item)
-                                <option value="{{ $item->schedule_time }}">{{ $item->workshop->title . '_' . $item->schedule_time }}</option>
+                                <option value="{{ $item->schedule_time }}">{{ $item->workshop->title . ' ' . $item->schedule_time }}</option>
                             @endforeach
                         </select>
                     </td>
