@@ -53,6 +53,11 @@
                             <td>
                                 {{ $participantWorkshopAssignment->bootcamp_participant->name_en ?? '' }}
                             </td>
+
+                            <td>
+                                {{ $participantWorkshopAssignment->workshop_schedule->workshop->title ?? '' }}
+                            </td>
+
                             <td>
                                 {{ $participantWorkshopAssignment->workshop_schedule->schedule_time ?? '' }}
                             </td>
@@ -138,7 +143,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 })
 
 </script>
