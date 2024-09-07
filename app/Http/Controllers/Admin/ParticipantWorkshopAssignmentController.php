@@ -59,7 +59,7 @@ class ParticipantWorkshopAssignmentController extends Controller
             });
 
             $table->addColumn('workshop_title', function ($row) {
-                return $row->workshop ? $row->workshop->title : '';
+                return $row;
             });
 
             $table->addColumn('workshop_schedule_schedule_time', function ($row) {
