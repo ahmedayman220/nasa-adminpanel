@@ -13,7 +13,7 @@ class QrGeneratorController extends Controller
     public function generateAndEmail(Request $request,BootcampParticipant $participant) {
 
         foreach($request->ids as $id) {
-            $id = $participant->where('national',$id)->first()->bootcampParticipantBootcampAttendees->first()->id;
+            $id = $participant->where('id',$id)->first()->bootcampParticipantBootcampAttendees->first()->id;
             QrEmailGenerateJob::dispatch($id,auth()->user()->id, $request->host());
         }
         session()->flash('Status','Your request is processing please wait..');

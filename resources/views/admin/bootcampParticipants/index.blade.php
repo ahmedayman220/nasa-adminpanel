@@ -272,10 +272,9 @@
             className: 'btn-dark',
             action: function (e, dt, node, config) {
                 var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
-                    return entry.id
+                    return entry.national
                 });
 
-                console.log(ids);
                 // var new_ids = $('tr.selected').map(function(){
                 //     return $(this).children(':nth-child(2)').html(); // Get the text of each selected div
                 // }).get();
