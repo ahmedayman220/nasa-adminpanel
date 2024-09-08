@@ -53,6 +53,7 @@ class WorkshopSchedulesController extends Controller
                 static $index = 0;
                 return ++$index + $start;
             });
+
             $table->addColumn('workshop_title', function ($row) {
                 return $row->workshop ? $row->workshop->title : '';
             });
@@ -63,6 +64,14 @@ class WorkshopSchedulesController extends Controller
             $table->editColumn('capacity', function ($row) {
                 return $row->capacity ? $row->capacity : '';
             });
+            $table->addColumn('available', function ($row) {
+                return $row->SchedualWorkshopAvailability();
+            });
+
+            $table->addColumn('available_on_site', function ($row) {
+                return $row->SchedualWorkshopAvailabilityOnSite();
+            });
+
 
             $table->rawColumns(['actions', 'placeholder', 'workshop']);
 

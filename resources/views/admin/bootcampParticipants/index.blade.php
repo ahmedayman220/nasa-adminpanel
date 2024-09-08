@@ -338,6 +338,7 @@
     ],
     orderCellsTop: true,
     order: [[ 10, 'asc' ]],
+
     pageLength: 100,
   };
   let table = $('.datatable-BootcampParticipant').DataTable(dtOverrideGlobals);

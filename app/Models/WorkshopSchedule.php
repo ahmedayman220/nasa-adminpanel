@@ -41,6 +41,12 @@ class WorkshopSchedule extends Model
         return $this->hasMany(ParticipantWorkshopAssignment::class, 'workshop_schedule_id', 'id');
     }
 
+    public function SchedualWorkshopAvailabilityOnSite() {
+        return $this->workshopScheduleParticipantWorkshopAssignments()->count() - $this->workshopScheduleParticipantWorkshopAssignments()->where('attendance_status', 'attended')->count();
+    }
+    public function SchedualWorkshopAvailability() {
+        return $this->capacity - $this->workshopScheduleParticipantWorkshopAssignments()->count();
+    }
     public function checkSchedualWorkshopAvailability() {
         return $this->capacity > $this->workshopScheduleParticipantWorkshopAssignments()->count();
     }
