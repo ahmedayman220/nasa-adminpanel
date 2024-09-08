@@ -92,28 +92,6 @@ class BootcampParticipantsController extends Controller
             $table->editColumn('national', function ($row) {
                 return $row->national ? $row->national : '';
             });
-            $table->editColumn('national_id_front', function ($row) {
-                if ($photo = $row->national_id_front) {
-                    return sprintf(
-                        '<a href="%s" target="_blank"><img src="%s" width="50px" height="50px"></a>',
-                        $photo->url,
-                        $photo->thumbnail
-                    );
-                }
-
-                return '';
-            });
-            $table->editColumn('national_id_back', function ($row) {
-                if ($photo = $row->national_id_back) {
-                    return sprintf(
-                        '<a href="%s" target="_blank"><img src="%s" width="50px" height="50px"></a>',
-                        $photo->url,
-                        $photo->thumbnail
-                    );
-                }
-
-                return '';
-            });
             $table->editColumn('is_participated', function ($row) {
                 return BootcampParticipant::IS_PARTICIPATED_RADIO[$row->is_participated];
             });
