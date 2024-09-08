@@ -75,12 +75,7 @@
                     <th>
                         {{ trans('cruds.bootcampParticipant.fields.national') }}
                     </th>
-                    <th>
-                        {{ trans('cruds.bootcampParticipant.fields.national_id_front') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.bootcampParticipant.fields.national_id_back') }}
-                    </th>
+
                     <th>
                         {{ trans('cruds.bootcampParticipant.fields.is_participated') }}
                     </th>
