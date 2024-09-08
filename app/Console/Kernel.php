@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Jobs\autoMailJob;
+use App\Models\BootcampParticipant;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -12,7 +14,16 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            $participant = new BootcampParticipant();
+            // better to add a column in participants table called generated and edit it in job
+            // now filter participants with un-generated qr - email put number of needed participants in the limit function argument
+            $participant = $participant->where()->limit(5)->get();
+            if($participant)
+                autoMailJob::dispatch($participant,request()->getHost());
+        })->hourly();
+//        for testing purposes use ->everyThreeMinutes()
+//        you must run both php artisan schedule:work and php artisan queue:work
     }
 
     /**

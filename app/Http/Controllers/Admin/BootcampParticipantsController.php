@@ -52,12 +52,7 @@ class BootcampParticipantsController extends Controller
             });
 
             $table->editColumn('id', function ($row) {
-                // Get current page and page length from the request
-                $start = request()->input('start', 0);
-
-                // Increment the index based on current page
-                static $index = 0;
-                return ++$index + $start;
+                return  $row->id;
             });
 
 
@@ -120,13 +115,13 @@ class BootcampParticipantsController extends Controller
                 return '';
             });
             $table->editColumn('is_participated', function ($row) {
-                return $row->is_participated ? BootcampParticipant::IS_PARTICIPATED_RADIO[$row->is_participated] : '';
+                return BootcampParticipant::IS_PARTICIPATED_RADIO[$row->is_participated];
             });
             $table->editColumn('participated_year', function ($row) {
                 return $row->participated_year ? $row->participated_year : '';
             });
             $table->editColumn('is_attend_formation_activity', function ($row) {
-                return $row->is_attend_formation_activity ? BootcampParticipant::IS_ATTEND_FORMATION_ACTIVITY_RADIO[$row->is_attend_formation_activity] : '';
+                return BootcampParticipant::IS_ATTEND_FORMATION_ACTIVITY_RADIO[$row->is_attend_formation_activity];
             });
             $table->addColumn('first_priority_title', function ($row) {
                 return $row->first_priority ? $row->first_priority->title : '';
@@ -144,7 +139,7 @@ class BootcampParticipantsController extends Controller
                 return $row->why_this_workshop ? $row->why_this_workshop : '';
             });
             $table->editColumn('is_have_team', function ($row) {
-                return $row->is_have_team ? BootcampParticipant::IS_HAVE_TEAM_RADIO[$row->is_have_team] : '';
+                return BootcampParticipant::IS_HAVE_TEAM_RADIO[$row->is_have_team];
             });
             $table->editColumn('comment', function ($row) {
                 return $row->comment ? $row->comment : '';
@@ -164,6 +159,56 @@ class BootcampParticipantsController extends Controller
         $users               = User::get();
 
         return view('admin.bootcampParticipants.index', compact('education_levels', 'mention_your_fields', 'workshops', 'users'));
+    }
+
+    public function getMedia(Request $request){
+        abort_if(Gate::denies('bootcamp_participant_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        if ($request->ajax()) {
+            $query = BootcampParticipant::select('id','name_en','name_ar','national');
+            $table = Datatables::of($query);
+            $table->addColumn('placeholder', '');
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('name_en', function ($row) {
+                return $row->name_en ? $row->name_en : '';
+            });
+            $table->editColumn('name_ar', function ($row) {
+                return $row->name_ar ? $row->name_ar : '';
+            });
+
+            $table->editColumn('national', function ($row) {
+                return $row->national ? $row->national : '';
+            });
+
+            $table->editColumn('national_id_front', function ($row) {
+                if ($photo = $row->national_id_front) {
+                    return sprintf(
+                        '<a href="%s" target="_blank">%s</a>',
+                        $photo->url,
+                        $photo->url
+                    );
+                }
+
+                return '';
+            });
+            $table->editColumn('national_id_back', function ($row) {
+                if ($photo = $row->national_id_back) {
+                    return sprintf(
+                        '<a href="%s" target="_blank">%s</a>',
+                        $photo->url,
+                        $photo->url
+                    );
+                }
+                return '';
+            });
+
+            $table->rawColumns(['national_id_front', 'national_id_back']);
+
+            return $table->make(true);
+        }
+        return view('admin.bootcampParticipants.media');
     }
 
     public function create()

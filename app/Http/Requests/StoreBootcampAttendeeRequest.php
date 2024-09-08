@@ -17,20 +17,9 @@ class StoreBootcampAttendeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'bootcamp_details_id' => [
-                'required',
-                'integer',
-            ],
             'bootcamp_participant_id' => [
                 'required',
                 'integer',
-            ],
-            'attendance_status' => [
-                'required',
-            ],
-            'check_in_time' => [
-                'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
-                'nullable',
             ],
         ];
     }
