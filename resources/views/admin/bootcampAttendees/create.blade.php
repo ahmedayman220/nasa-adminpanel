@@ -10,15 +10,6 @@
         <form method="POST" action="{{ route("admin.bootcamp-attendees.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label class="required" for="bootcamp_details_id">{{ trans('cruds.bootcampAttendee.fields.bootcamp_details') }}</label>
-                @if($errors->has('bootcamp_details'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('bootcamp_details') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.bootcampAttendee.fields.bootcamp_details_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <label class="required" for="bootcamp_participant_id">{{ trans('cruds.bootcampAttendee.fields.bootcamp_participant') }}</label>
                 <select class="form-control select2 {{ $errors->has('bootcamp_participant') ? 'is-invalid' : '' }}" name="bootcamp_participant_id" id="bootcamp_participant_id" required>
                     @foreach($bootcamp_participants as $id => $entry)
