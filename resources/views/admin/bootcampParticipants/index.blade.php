@@ -332,8 +332,6 @@
 { data: 'graduation_year', name: 'graduation_year' },
 { data: 'position', name: 'position' },
 { data: 'national', name: 'national' },
-{ data: 'national_id_front', name: 'national_id_front', sortable: false, searchable: false },
-{ data: 'national_id_back', name: 'national_id_back', sortable: false, searchable: false },
 { data: 'is_participated', name: 'is_participated' },
 { data: 'participated_year', name: 'participated_year' },
 { data: 'is_attend_formation_activity', name: 'is_attend_formation_activity' },
