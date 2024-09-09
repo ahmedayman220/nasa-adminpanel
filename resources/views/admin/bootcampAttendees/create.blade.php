@@ -13,7 +13,7 @@
                 <label class="required" for="bootcamp_participant_id">{{ trans('cruds.bootcampAttendee.fields.bootcamp_participant') }}</label>
                 <select class="form-control select2 {{ $errors->has('bootcamp_participant') ? 'is-invalid' : '' }}" name="bootcamp_participant_id" id="bootcamp_participant_id" required>
                     @foreach($bootcamp_participants as $id => $entry)
-                        <option value="{{ $id }}" {{ old('bootcamp_participant_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                        <option value="{{ $id }}" {{ old('bootcamp_participant_id') == $id ? 'selected' : '' }}>{{ $entry}}</option>
                     @endforeach
                 </select>
                 @if($errors->has('bootcamp_participant'))

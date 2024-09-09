@@ -80,7 +80,9 @@ class BootcampAttendeesController extends Controller
         $bootcamp_participants = BootcampParticipant::get();
         $users                 = User::get();
         $workshops = Workshop::get();
-        return view('admin.bootcampAttendees.index', compact( 'bootcamp_participants', 'users','workshops'));
+        $bootcamp_details = BootcampDetail::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.bootcampAttendees.index', compact( 'bootcamp_participants', 'users','workshops','bootcamp_details'));
     }
 
     public function create()
@@ -89,16 +91,15 @@ class BootcampAttendeesController extends Controller
 
         $bootcamp_details = BootcampDetail::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $bootcamp_participants = BootcampParticipant::pluck('national', 'id')->prepend(trans('global.pleaseSelect'), '');
-
+        $bootcamp_participants = BootcampParticipant::pluck('uuid', 'id')->prepend(trans('global.pleaseSelect'), '');
         return view('admin.bootcampAttendees.create', compact('bootcamp_details', 'bootcamp_participants'));
     }
 
     public function store(StoreBootcampAttendeeRequest $request)
     {
-        dd($request);
         // Automatically set the bootcamp_details_id as the first record from bootcamp_details
         $firstBootcampDetail = BootcampDetail::first();
+        $bootDetailId = $firstBootcampDetail ? $firstBootcampDetail->id : null; // Set first record ID or null if none exists
 
         // Set attendance_status to 'attended'
         $attendanceStatus = 'attended';
@@ -107,14 +108,16 @@ class BootcampAttendeesController extends Controller
         $checkInTime = now(); // Or use Carbon for more customization: Carbon::now()
 
         // Merge the values into the request data
-        $data = $request->all();
-        $data['bootcamp_details_id'] = $firstBootcampDetail ? $firstBootcampDetail->id : null; // Set first record ID or null if none exists
-        $data['attendance_status'] = $attendanceStatus;
-        $data['check_in_time'] = $checkInTime;
+        $id = $request->bootcamp_participant_id;
 
-        // Create the BootcampAttendee with the modified data
-        $bootcampAttendee = BootcampAttendee::create($data);
-
+        $attendee = BootcampParticipant::find($id)->bootcampParticipantBootcampAttendees->first();
+        if($attendee->attendance_status != $attendanceStatus){
+            $attendee->update([
+                'attendance_status' => $attendanceStatus,
+                'check_in_time' => $checkInTime,
+                'bootcamp_details_id' => $bootDetailId
+            ]);
+        }
         return redirect()->route('admin.bootcamp-attendees.index');
     }
     public function edit(BootcampAttendee $bootcampAttendee)

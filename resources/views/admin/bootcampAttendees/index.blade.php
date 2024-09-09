@@ -36,7 +36,33 @@
     <div class="card-header">
         {{ trans('cruds.bootcampAttendee.title_singular') }} {{ trans('global.list') }}
     </div>
-
+{{-- Start Manual Div --}}
+    <div class="card-body">
+        <form method="POST" action="{{ route("admin.bootcamp-attendees.store") }}" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label class="required" for="bootcamp_participant_id">{{"Update Attendee Status" }}</label>
+                <select class="form-control select2 {{ $errors->has('bootcamp_participant') ? 'is-invalid' : '' }}" name="bootcamp_participant_id" id="bootcamp_participant_id" required>
+                    @foreach($bootcamp_participants as $participant)
+                        <option value="{{ $participant->id }}" {{ old('bootcamp_participant_id') == $participant->id ? 'selected' : '' }}>{{ $participant->uuid." => ".$participant->name_en}}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('bootcamp_participant'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('bootcamp_participant') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.bootcampAttendee.fields.bootcamp_participant_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-danger" type="submit">
+                    {{ trans('global.save') }}
+                </button>
+            </div>
+        </form>
+    </div>
+    <hr>
+{{-- End Manual Div --}}
     <div class="card-body">
         <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-BootcampAttendee">
             <thead>
