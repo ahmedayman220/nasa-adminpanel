@@ -144,6 +144,18 @@ class BootcampParticipant extends Model implements HasMedia
         return $file;
     }
 
+    // Function to generate a unique 4-digit UUID
+    protected static function generateUniqueFourDigitUuid()
+    {
+        do {
+            // Generate a 4-digit number
+            $uuid = mt_rand(1000, 9999);
+        } while (self::where('uuid', $uuid)->exists()); // Check if the UUID already exists
+
+        return $uuid;
+    }
+
+
     public function first_priority()
     {
         return $this->belongsTo(Workshop::class, 'first_priority_id');
