@@ -91,7 +91,8 @@ class BootcampAttendeesController extends Controller
 
         $bootcamp_details = BootcampDetail::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $bootcamp_participants = BootcampParticipant::where('attendance_status', 'Registered')->pluck('uuid', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $bootcamp_participants = BootcampParticipant::where('attendance_status', 'registered')->pluck('uuid', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         return view('admin.bootcampAttendees.create', compact('bootcamp_details', 'bootcamp_participants'));
     }
 
