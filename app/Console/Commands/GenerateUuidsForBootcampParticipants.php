@@ -26,13 +26,13 @@ class GenerateUuidsForBootcampParticipants extends Command
      * Execute the console command.
      */
 
-        public function handle()
+    public function handle()
     {
         // Get all bootcamp participants without UUIDs
         $participants = BootcampParticipant::whereNull('uuid')->get();
 
         foreach ($participants as $participant) {
-            $participant->uuid = Str::uuid();
+            $participant->uuid = BootcampParticipant::generateUniqueFourDigitUuid(); // Use the same method to generate UUID
             $participant->save();
         }
 
