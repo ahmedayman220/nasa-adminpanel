@@ -89,18 +89,34 @@ class BootcampAttendeesController extends Controller
 
         $bootcamp_details = BootcampDetail::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $bootcamp_participants = BootcampParticipant::pluck('name_en', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $bootcamp_participants = BootcampParticipant::pluck('national', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.bootcampAttendees.create', compact('bootcamp_details', 'bootcamp_participants'));
     }
 
     public function store(StoreBootcampAttendeeRequest $request)
     {
-        $bootcampAttendee = BootcampAttendee::create($request->all());
+        dd($request);
+        // Automatically set the bootcamp_details_id as the first record from bootcamp_details
+        $firstBootcampDetail = BootcampDetail::first();
+
+        // Set attendance_status to 'attended'
+        $attendanceStatus = 'attended';
+
+        // Set check_in_time to the current time
+        $checkInTime = now(); // Or use Carbon for more customization: Carbon::now()
+
+        // Merge the values into the request data
+        $data = $request->all();
+        $data['bootcamp_details_id'] = $firstBootcampDetail ? $firstBootcampDetail->id : null; // Set first record ID or null if none exists
+        $data['attendance_status'] = $attendanceStatus;
+        $data['check_in_time'] = $checkInTime;
+
+        // Create the BootcampAttendee with the modified data
+        $bootcampAttendee = BootcampAttendee::create($data);
 
         return redirect()->route('admin.bootcamp-attendees.index');
     }
-
     public function edit(BootcampAttendee $bootcampAttendee)
     {
         abort_if(Gate::denies('bootcamp_attendee_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
