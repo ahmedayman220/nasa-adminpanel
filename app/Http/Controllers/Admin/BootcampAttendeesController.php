@@ -109,16 +109,21 @@ class BootcampAttendeesController extends Controller
 
         // Merge the values into the request data
         $id = $request->bootcamp_participant_id;
-
-        $attendee = BootcampParticipant::find($id)->bootcampParticipantBootcampAttendees->first();
-        if($attendee->attendance_status != $attendanceStatus){
-            $attendee->update([
-                'attendance_status' => $attendanceStatus,
-                'check_in_time' => $checkInTime,
-                'bootcamp_details_id' => $bootDetailId
-            ]);
+        $attendee = BootcampParticipant::find($id);
+        if(!$attendee){
+            return redirect()->route('admin.bootcamp-attendees.index')->with('Failed','Attendee not found');
         }
-        return redirect()->route('admin.bootcamp-attendees.index');
+
+        $participantAttendeeRelation = $attendee->bootcampParticipantBootcampAttendees->first();
+        if($participantAttendeeRelation->attendance_status == $attendanceStatus){
+            return redirect()->route('admin.bootcamp-attendees.index')->with('Failed','Attendee already attended');
+        }
+        $participantAttendeeRelation->update([
+            'attendance_status' => $attendanceStatus,
+            'check_in_time' => $checkInTime,
+            'bootcamp_details_id' => $bootDetailId
+        ]);
+        return redirect()->route('admin.bootcamp-attendees.index')->with('Status','Attendee added successfully');
     }
     public function edit(BootcampAttendee $bootcampAttendee)
     {
