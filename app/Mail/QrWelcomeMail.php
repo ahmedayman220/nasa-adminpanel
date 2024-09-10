@@ -13,7 +13,7 @@ class QrWelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $national;
+    private $uuid;
     private $name;
     private $workshop;
     private $time;
@@ -23,9 +23,9 @@ class QrWelcomeMail extends Mailable
      * @param $national
      * @param $name
      */
-    public function __construct($path,$national, $name,$time,$workshop)
+    public function __construct($path,$uuid, $name,$time,$workshop)
     {
-        $this->national = $national;
+        $this->national = $uuid;
         $this->name = $name;
         $this->time = $time;
         $this->workshop = $workshop;
@@ -53,7 +53,7 @@ class QrWelcomeMail extends Mailable
         return new Content(
             markdown: 'emails.welcome',
             with: [
-                'national' => $this->national,
+                    'uuid' => $this->uuid,
                    'name' => $this->name,
                     'workshop' => $this->workshop,
                     'time' => $this->time,
