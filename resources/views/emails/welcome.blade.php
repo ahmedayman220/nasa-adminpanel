@@ -66,8 +66,7 @@
                     </td>
                 </tr>
 
-
-                @if($workshop || $workshop == "None")
+                @if($workshop || $workshop != "None")
                 <!-- Workshop Section -->
                 <tr>
                     <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #09131c;">
