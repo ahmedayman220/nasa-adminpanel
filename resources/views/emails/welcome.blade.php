@@ -53,7 +53,7 @@
                     <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #f3ffff;">
                         <table style="margin-right: auto; margin-left: auto; min-width:60%;" border="0" cellspacing="0" cellpadding="0">
                             <tr>
-                                <td style="margin:auto; float:center; background: linear-gradient(#202E42,#4DC0C0); padding: 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+                                <td style="margin:auto; float:center; background: #202e42; padding: 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19)">
                                     <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #f3ffff; text-align: center">Event Details</h2>
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Date:</strong> <em>Saturday, September 14th</em></p>
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Registration Time:</strong><em> 8 AM</em></p>
@@ -85,7 +85,7 @@
                     <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #f3ffff;">
                         <table style="margin-right: auto; margin-left: auto; min-width: 60%;" border="0" cellspacing="0" cellpadding="0">
                             <tr>
-                                <td style="background: linear-gradient(to bottom, #202E42,#4DC0C0); padding: 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                                <td style="background: #202e42; padding: 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                                     <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #f3ffff; text-align: center">Workshop Details</h2>
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Workshop Title:</strong> <em> {{ $workshop }}</em></p>
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Time:</strong><em> {{ $time }}</em></p>
@@ -117,7 +117,7 @@
                     <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #f3ffff;">
                         <table style="margin-right: auto; margin-left: auto; min-width: 60%; max-width: 100%;" border="0" cellspacing="0" cellpadding="0">
                             <tr>
-                                <td style="background: linear-gradient(to bottom, #202E42,#4DC0C0); padding: 15px 15px 5px 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                                <td style="background: #202e42; padding: 15px 15px 5px 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                                     <h2 style="font-size: 20px; margin: 0 0 5px 0; color: #f3ffff; text-align: center">QR Code</h2>
                                     <img src="https://{{ $path }}" alt="QR Code" style="display:block; border-radius:25px; width:250px; height:250px; margin-right: auto; margin-left: auto;">
                                     <br />
