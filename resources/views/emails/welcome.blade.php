@@ -4,151 +4,151 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NASA Space Apps Cairo 2024 BootCamp</title>
+    <style>
+        @font-face {
+            font-family: 'CabinetGrotesk';
+            src: url('fonts/CabinetGrotesk-Extrabold.woff2') format('woff2'),
+            url('fonts/CabinetGrotesk-Extrabold.woff') format('woff');
+            font-weight: 800; /* Use the appropriate weight for Extrabold */
+            font-style: normal;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background-color: #f3ffff;
+            font-family: Arial, sans-serif;
+        }
+        table {
+            border-spacing: 0;
+        }
+    </style>
 </head>
-<body style="margin: 0; padding: 0; background-color: #f4f4f4;">
-<!-- Wrapper Table -->
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#f4f4f4" style="padding: 20px 0;">
+<body>
+<!-- Outer Table for Background Image -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-image: url('https://drive.google.com/uc?export=view&id=1Ci22_8PD-9i7kmKaFVvWdvgb7b6R-F5y'); background-size: cover; background-position: center; width: 100%; padding: 40px 0; background-repeat: no-repeat;">
     <tr>
         <td align="center">
             <!-- Main Container -->
-            <table width="600" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff" style="border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.15);">
+            <table width="600" border="0" cellspacing="0" cellpadding="0" bgcolor="#f3ffff" style="border-radius: 25px; overflow: hidden;">
                 <!-- Header Section -->
                 <tr>
-                    <td align="center" style="background-color: #0b3d91; padding: 20px;">
-                        <img src="https://cdn.mos.cms.futurecdn.net/baYs9AuHxx9QXeYBiMvSLU.jpg.webp" alt="NASA Space Apps Cairo 2024" width="100%" height="auto" style="display: block;">
+                    <td align="center" style="background-color: #f3ffff; padding: 20px 20px 0 20px;">
+                        <img src="https://drive.google.com/uc?export=view&id=1vskPi4GjUQEeyiHDjaMH5j2gTw7yNld0" alt="NASA Space Apps Cairo 2024" width="100%" height="auto" style="color: #f3ffff;border-radius: 25px;display: block;box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                     </td>
                 </tr>
                 <!-- Greeting Section -->
                 <tr>
-                    <td style="padding: 20px; font-family: Arial, sans-serif; color: #333333; line-height: 1.5;">
-                        <h1 style="font-size: 24px; margin: 0 0 10px 0; color: #0b3d91;">You're Invited to NASA Space Apps Cairo 2024!</h1>
-                        <p style="margin: 0 0 10px 0;">Dear {{$name}},</p>
-                        <p style="margin: 0 0 20px 0;">
-                            We are thrilled to invite you to join us for <strong>NASA Space Apps Cairo Bootcamp 2024</strong> which will be held on Saturday, September 14th, at the AUC New Cairo Branch. Your enthusiasm and commitment to this event are greatly appreciated, and we are excited to share some important details with you.
+                    <td style="padding: 20px; font-family: 'CabinetGrotesk', sans-serif; color: #09131c; line-height: 1.5;">
+                        <h1 style="text-align:center; font-size: 24px; margin: 0 0 10px 0; color: #09131c;">Welcome to NASA Space Apps Cairo 2024!</h1>
+                        <p style="font-size: 14px; color: #09131c;margin: 0 0 10px 0;">Dear {{$name}},</p>
+                        <p style="font-size: 14px; color: #09131c; margin: 0 0 20px 0; font-size: 14px; text-align: justify; text-justify: inter-word;">
+                            Thank you for your interest in attending <strong>NASA Space Apps Cairo Bootcamp 2024.</strong> We are excited to invite you to join us and experience the great moments we have prepared for you! This email contains essential information, so please ensure you read it thoroughly.
                         </p>
                     </td>
                 </tr>
-                <!-- Event Details Section -->
+                <!--
+               <!-- Event Details Section -->
                 <tr>
-                    <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #333333;">
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #f3ffff;">
+                        <table style="margin-right: auto; margin-left: auto; min-width:60%;" border="0" cellspacing="0" cellpadding="0">
                             <tr>
-                                <td style="background-color: #f4f4f4; padding: 15px; border-radius: 8px;">
-                                    <h2 style="font-size: 20px; margin: 0 0 10px 0; color: #0b3d91;">Event Details</h2>
-                                    <p style="margin: 5px 0;"><strong>Date:</strong> on Saturday, September 14th</p>
-                                    <p style="margin: 5px 0;"><strong>Registration Time:</strong> 9 AM </p>
-                                    <p style="margin: 5px 0;"><strong>Location:</strong>  at the AUC New Cairo Branch </p>
-                                    <p style="margin: 5px 0;"><strong>Ticket ID:</strong> {{ $uuid }} </p>
-                                    @if($workshop)
-                                        <p style="margin: 5px 0;"><strong>Workshop:</strong> {{$workshop}} at <strong>{{$time}}</strong> </p>
-                                        {!!$workshop_description!!}
-
-                                    @else
-                                    @endif
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" style="background-color: #0b3d91; padding: 20px;">
-                                    <img src="https://{{ $path }}" alt="NASA Space Apps Cairo 2024" width="70%" height="auto" style="display: block;">
+                                <td style="margin:auto; float:center; background: linear-gradient(#202E42,#4DC0C0); padding: 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+                                    <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #f3ffff; text-align: center">Event Details</h2>
+                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Date:</strong> <em>Saturday, September 14th</em></p>
+                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Registration Time:</strong><em> 8 AM</em></p>
+                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Location:</strong> <a href="https://maps.app.goo.gl/d6nZRQKrbFWeQcYQ7?g_st=com.google.maps.preview.copy" style="color: #f3ffff; text-decoration: underline"><em>AUC - New Cairo Campus</em></p>
+                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Entrance:</strong> <em>Gate 4 - Pepsi Gate</em></p>
                                 </td>
                             </tr>
                         </table>
                     </td>
                 </tr>
-                <!-- Why Participate Section -->
+
+                <!-- Workshop Section -->
                 <tr>
-                    <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #333333;">
-                        <h2 style="font-size: 20px; margin: 0 0 10px 0; color: #0b3d91;">Why Participate?</h2>
-                        <ul style="margin: 0; padding-left: 20px;">
-                            <li style="margin: 10px 0;"><strong>Global Collaboration:</strong> Connect and collaborate with participants from around the world.</li>
-                            <li style="margin: 10px 0;"> <strong>Innovative Challenges:</strong> Tackle real-world problems using cutting-edge data and technology.</li>
-                            <li style="margin: 10px 0;"><strong>Exciting Prizes:</strong> Stand a chance to win awards and recognition from NASA.</li>
-                            <li style="margin: 10px 0;"><strong>Networking Opportunities:</strong> Meet and learn from experts in various fields.</li>
-                        </ul>
+                    <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #09131c;">
+                        <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #09131c;"> Workshop Details</h2>
+                        <p style="text-align: justify; text-justify: inter-word; font-size: 14px; color: #09131c; margin: 0 0 5px 0; font-size: 14px;">
+                            We are pleased to confirm your reserved seat for the workshop. Please note that you will not be able to attend any other workshop or session during the event.
+                        </p>
+                        <p style="text-align: justify; text-justify: inter-word; font-size: 14px; color: #09131c; margin: 0 0 14px 0; font-size: 14px;">
+                            When your workshop time comes, our organizers will guide you to the location and help you register, so please be sure to follow their instructions and have your QR code ready.
+                        </p>
                     </td>
                 </tr>
-                <!-- Agenda Section -->
+                <!-- Workshop Details Section -->
                 <tr>
-                    <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #333333;">
-                        <h2 style="font-size: 20px; margin: 0 0 10px 0; color: #0b3d91;">Event Agenda</h2>
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+                    <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #f3ffff;">
+                        <table style="margin-right: auto; margin-left: auto; min-width: 60%;" border="0" cellspacing="0" cellpadding="0">
                             <tr>
-                                <th align="left" style="background-color: #0b3d91; color: #ffffff; padding: 10px; border: 1px solid #ddd;">Time</th>
-                                <th align="left" style="background-color: #0b3d91; color: #ffffff; padding: 10px; border: 1px solid #ddd;">Activity</th>
+                                <td style="background: linear-gradient(to bottom, #202E42,#4DC0C0); padding: 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                                    <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #f3ffff; text-align: center">Workshop Details</h2>
+                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Workshop Title:</strong> <em> {{ $workshop }}</em></p>
+                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Time:</strong><em> {{ $time }}</em></p>
+                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;">To get the most out of this workshop, you will need the following:<br>
+                                        {{ $workshop_description }}
+                                    </p>
+                                </td>
                             </tr>
+                        </table>
+                    </td>
+                </tr>
+                <!-- Ticket Details Section -->
+                <tr>
+                    <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #09131c;">
+                        <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #09131c;">Ticket Details</h2>
+                        <p style="text-align: justify; text-justify: inter-word; font-size: 14px; color: #09131c; margin: 0 0 5px 0; font-size: 14px;">
+                            Your QR code and ticket ID are required for a smooth registration process at the bootcamp and workshops. Please note that our organizers will not be able to assist you without your ticket details.
+                        </p>
+                        <p style="text-align: justify; text-justify: inter-word; font-size: 14px; color: #09131c; margin: 0 0 14px 0; font-size: 14px;">
+                            You will need to present the 4-digit ticket ID at the gate to register for the bootcamp. For workshops and sessions, please have your QR code ready.
+                        </p>
+                    </td>
+                </tr>
+                <!-- Workshop Details Section -->
+                <tr>
+                    <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #f3ffff;">
+                        <table style="margin-right: auto; margin-left: auto; min-width: 60%; max-width: 100%;" border="0" cellspacing="0" cellpadding="0">
                             <tr>
-                                <td style="padding: 10px; border: 1px solid #ddd;">09:00 AM</td>
-                                <td style="padding: 10px; border: 1px solid #ddd;">Registration & Welcome</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px; border: 1px solid #ddd;">10:00 AM</td>
-                                <td style="padding: 10px; border: 1px solid #ddd;">Kick-off & Challenge Briefing</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px; border: 1px solid #ddd;">11:00 AM</td>
-                                <td style="padding: 10px; border: 1px solid #ddd;">Hacking Begins!</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px; border: 1px solid #ddd;">01:00 PM</td>
-                                <td style="padding: 10px; border: 1px solid #ddd;">Lunch Break</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px; border: 1px solid #ddd;">02:00 PM</td>
-                                <td style="padding: 10px; border: 1px solid #ddd;">Continued Hacking</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px; border: 1px solid #ddd;">05:00 PM</td>
-                                <td style="padding: 10px; border: 1px solid #ddd;">Submission Deadline</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px; border: 1px solid #ddd;">06:00 PM</td>
-                                <td style="padding: 10px; border: 1px solid #ddd;">Presentations & Judging</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px; border: 1px solid #ddd;">08:00 PM</td>
-                                <td style="padding: 10px; border: 1px solid #ddd;">Award Ceremony & Closing</td>
+                                <td style="background: linear-gradient(to bottom, #202E42,#4DC0C0); padding: 15px 15px 5px 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                                    <h2 style="font-size: 20px; margin: 0 0 5px 0; color: #f3ffff; text-align: center">QR Code</h2>
+                                    <img src="https://drive.google.com/uc?export=view&id=1ieZ11zvzUv3_p5XTNGyam6_w4xeihpRk" alt="QR Code" style="display:block; border-radius:25px; width:250px; height:250px; margin-right: auto; margin-left: auto;">
+                                    <h2 style="font-size: 20px; color: #f3ffff; text-align: center">{{ $uuid }}</h2>
+                                </td>
                             </tr>
                         </table>
                     </td>
                 </tr>
                 <!-- Closing Section -->
                 <tr>
-                    <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #333333;">
-                        <p style="margin: 0 0 10px 0;">
-                            Please familiarize yourself with the Bootcamp regulations attached. These guidelines are essential to maintain a productive and respectful learning environment for all participants.
-
+                    <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #09131c;">
+                        <p style="text-align: justify; text-justify: inter-word; font-size: 14px; margin: 0 0 10px 0;">
+                            Please make sure to follow the instructions provided in this email to ensure the best possible experience at the bootcamp. If you have any questions or require further assistance, feel free to reach out to us.
                         </p>
-                        <p style="margin: 0 0 10px 0;">
-                            If you have any questions or need further information, feel free to reach out to us at <a href="https://www.spaceappschallenge.org/nasa-space-apps-2024/2024-local-events/cairo/" style="color: #0b3d91; text-decoration: none;"> NASA Space Apps Cairo Website </a>.
-                        </p>
-                        <p style="margin: 0 0 10px 0;">
-                            We look forward to seeing you at <strong>NASA Space Apps Cairo 2024</strong>!
-                        </p>
-                        <p style="margin: 0;">
-                            Best regards,<br>
-                            {{--                                [Your Name]<br>--}}
-                            NASA Space Apps Cairo 2024 Team
+                        <p style="text-align: justify; text-justify: inter-word; font-size: 14px; margin: 0 0 15px 0;">
+                            We look forward to seeing you at the bootcamp and collaborating to make a difference in the world!
                         </p>
                     </td>
                 </tr>
-                <!-- Social Media Section -->
+                <!-- Footer Section -->
                 <tr>
-                    <td align="center" style="padding: 20px; background-color: #f4f4f4;">
-                        <p style="font-family: Arial, sans-serif; color: #333333; margin: 0 0 10px 0;">Stay Connected</p>
-                        <p style="margin: 0;">
-                            <a href="https://x.com/spaceappscairo" style="margin: 0 10px;"><img src="https://cdn.prod.website-files.com/5d66bdc65e51a0d114d15891/64cebdd90aef8ef8c749e848_X-EverythingApp-Logo-Twitter.jpg" alt="X" width="30" height="30" style="display: inline-block;"></a>
-                            <a href="https://www.facebook.com/spaceappscairo/" style="margin: 0 10px;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQKrFhY-ljA-u7J5IMWeTv8zmpBx4PP9nQMw&s" alt="Facebook" width="30" height="30" style="display: inline-block;"></a>
-                            <a href="https://www.instagram.com/nasaspaceappscairo/?hl=en" style="margin: 0 10px;"><img src="https://e7.pngegg.com/pngimages/48/304/png-clipart-new-instagram-logo-sharing-social-media-youtube-blog-logo-instagram-text-trademark.png" alt="Instagram" width="30" height="30" style="display: inline-block;"></a>
-                            <a href="https://www.spaceappschallenge.org/nasa-space-apps-2024/2024-local-events/cairo/" style="margin: 0 10px;"><img src="https://cdn.mos.cms.futurecdn.net/baYs9AuHxx9QXeYBiMvSLU.jpg.webp" alt="Website" width="30" height="30" style="display: inline-block;"></a>
+                    <td style="background-color: #f3ffff; padding: 20px; font-family: Arial, sans-serif; color: #09131c;">
+                        <p style="font-size: 14px; margin: 0 0 10px 0;">
+                            Best Regards,
+                        </p>
+                        <p style="font-size: 14px;">
+                            <strong>NASA Space Apps Cairo Team</strong>
+                            <br>
+                            Email: <a href="mailto:info@spaceappscairo.com" style="color: blue; text-decoration: underline">info@spaceappscairo.com</a>
+                            <br>
+                            Website: <a href="www.spaceappscairo.com" style="color: blue; text-decoration: underline">www.spaceappscairo.com</a>
                         </p>
                     </td>
                 </tr>
             </table>
-            <!-- End Main Container -->
         </td>
     </tr>
 </table>
-<!-- End Wrapper Table -->
 </body>
 </html>
