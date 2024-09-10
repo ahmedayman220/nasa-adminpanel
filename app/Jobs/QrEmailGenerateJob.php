@@ -69,7 +69,7 @@ class QrEmailGenerateJob implements ShouldQueue
             }
             $name = $this->getShortNameAttribute($data->name_en);
             //nasa.excom@ieeeypegypt.org
-            Mail::to('2451026859@mailmaxy.one')
+            Mail::to($data->email)
                 ->cc('ahmeday.maks@gmail.com')
                 ->send(new QrWelcomeMail($url, $data->uuid, $name, $this->schedule_time, $this->workshop, $this->workshop_description));
 
