@@ -59,9 +59,7 @@ class QrEmailGenerateJob implements ShouldQueue
                 $workshop_description = $schedule->workshop->descriptions;
             }
             //sodec14206@konetas.com
-            Mail::to($data->email)
-                ->cc('ahmeday.maks@gmail.com')
-                ->send(new QrWelcomeMail($url, $data->uuid, $data->name_en, $Schedule_time, $workshop, $workshop_description));
+            Mail::to('ahmeday.maks@gmail.com')->send(new QrWelcomeMail($url, $data->uuid, $data->name_en, $Schedule_time, $workshop, $workshop_description));
 
             // Insert data in Qr Model
             $qrModel->create([
