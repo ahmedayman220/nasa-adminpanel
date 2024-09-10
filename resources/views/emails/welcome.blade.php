@@ -26,7 +26,7 @@
 </head>
 <body>
 <!-- Outer Table for Background Image -->
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-image: url('https://drive.google.com/uc?export=view&id=1Ci22_8PD-9i7kmKaFVvWdvgb7b6R-F5y'); background-size: cover; background-position: center; width: 100%; padding: 40px 0; background-repeat: no-repeat;">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-image: url('{{ asset('images/email-background.jpg') }}'); background-size: cover; background-position: center; width: 100%; padding: 40px 0; background-repeat: no-repeat;">
     <tr>
         <td align="center">
             <!-- Main Container -->
@@ -34,7 +34,7 @@
                 <!-- Header Section -->
                 <tr>
                     <td align="center" style="background-color: #f3ffff; padding: 20px 20px 0 20px;">
-                        <img src="https://drive.google.com/uc?export=view&id=1vskPi4GjUQEeyiHDjaMH5j2gTw7yNld0" alt="NASA Space Apps Cairo 2024" width="100%" height="auto" style="color: #f3ffff;border-radius: 25px;display: block;box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                        <img src="{{ asset('images/email-image.jpg') }}" alt="NASA Space Apps Cairo 2024" width="100%" height="auto" style="color: #f3ffff;border-radius: 25px;display: block;box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                     </td>
                 </tr>
                 <!-- Greeting Section -->
@@ -87,7 +87,7 @@
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Workshop Title:</strong> <em> {{ $workshop }}</em></p>
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Time:</strong><em> {{ $time }}</em></p>
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;">To get the most out of this workshop, you will need the following:<br>
-                                        {{ $workshop_description }}
+                                        {!!  $workshop_description !!}
                                     </p>
                                 </td>
                             </tr>
