@@ -30,7 +30,7 @@
     <tr>
         <td align="center">
             <!-- Main Container -->
-            <table width="600" border="0" cellspacing="0" cellpadding="0" bgcolor="#f3ffff" style="border-radius: 25px; overflow: hidden; margin-top: 100px;">
+            <table width="600" border="0" cellspacing="0" cellpadding="0" bgcolor="#f3ffff" style="border-radius: 25px; overflow: hidden; margin-top: 75px;">
                 <!-- Header Section -->
                 <tr>
                     <td align="center" style="background-color: #f3ffff; padding: 10px 10px 0 10px;">
@@ -41,7 +41,7 @@
                 <tr>
                     <td style="padding: 20px; font-family: 'CabinetGrotesk', sans-serif; color: #09131c; line-height: 1.5;">
                         <h1 style="text-align:center; font-size: 24px; margin: 0 0 10px 0; color: #09131c;">Welcome to NASA Space Apps Cairo 2024!</h1>
-                        <p style="font-size: 14px; color: #09131c;margin: 0 0 10px 0;">Dear {{$name}},</p>
+                        <p style="font-size: 14px; color: #09131c;margin: 0 0 10px 0;"><strong>Dear {{$name}},</strong></p>
                         <p style="font-size: 14px; color: #09131c; margin: 0 0 20px 0; font-size: 14px; text-align: justify; text-justify: inter-word;">
                             Thank you for your interest in attending <strong>NASA Space Apps Cairo Bootcamp 2024.</strong> We are excited to invite you to join us and experience the great moments we have prepared for you! This email contains essential information, so please ensure you read it thoroughly.
                         </p>
