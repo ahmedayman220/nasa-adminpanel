@@ -33,8 +33,8 @@
             <table width="600" border="0" cellspacing="0" cellpadding="0" bgcolor="#f3ffff" style="border-radius: 25px; overflow: hidden;">
                 <!-- Header Section -->
                 <tr>
-                    <td align="center" style="background-color: #f3ffff; padding: 20px 20px 0 20px;">
-                        <img src="{{ url('images/email-image.jpg') }}" alt="NASA Space Apps Cairo 2024" width="100%" height="auto" style="color: #f3ffff;border-radius: 25px;display: block;box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                    <td align="center" style="background-color: #f3ffff; padding: 10px 10px 0 10px;">
+                        <img src="{{ url('images/email-background.jpg') }}" alt="NASA Space Apps Cairo 2024" width="100%" height="auto" style="color: #f3ffff;border-radius: 25px;display: block;box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                     </td>
                 </tr>
                 <!-- Greeting Section -->
@@ -59,6 +59,7 @@
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Registration Time:</strong><em> 8 AM</em></p>
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Location:</strong> <a href="https://maps.app.goo.gl/d6nZRQKrbFWeQcYQ7?g_st=com.google.maps.preview.copy" style="color: #f3ffff; text-decoration: underline"><em>AUC - New Cairo Campus</em></p>
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Entrance:</strong> <em>Gate 4 - Pepsi Gate</em></p>
+                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Note:</strong> <em>Don't forget to bring a paper and a pen!</em></p>
                                 </td>
                             </tr>
                         </table>
