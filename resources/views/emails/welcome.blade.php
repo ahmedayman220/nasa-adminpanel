@@ -88,7 +88,7 @@
                                     <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #f3ffff; text-align: center">Workshop Details</h2>
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Workshop Title:</strong> <em> {{ $workshop }}</em></p>
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Time:</strong><em> {{ $time }}</em></p>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;">To get the most out of this workshop, you will need the following
+                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;">To get the most out of this workshop, you will need the following:<br>
                                             {!!  $workshop_description !!}
                                     </p>
                                 </td>
