@@ -41,8 +41,11 @@
                                     <p style="margin: 5px 0;"><strong>Ticket ID:</strong> {{ $uuid }} </p>
                                     @if($workshop)
                                         <p style="margin: 5px 0;"><strong>Workshop:</strong> {{$workshop}} at <strong>{{$time}}</strong> </p>
+                                        {!!$workshop_description!!}
+
                                     @else
                                     @endif
+
                                 </td>
                             </tr>
                             <tr>
