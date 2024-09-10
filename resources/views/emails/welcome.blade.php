@@ -34,7 +34,7 @@
                 <!-- Header Section -->
                 <tr>
                     <td align="center" style="background-color: #f3ffff; padding: 10px 10px 0 10px;">
-                        <img src="{{ url('images/email-background.jpg') }}" alt="NASA Space Apps Cairo 2024" width="100%" height="auto" style="color: #f3ffff;border-radius: 25px;display: block;box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                        <img src="{{ url('images/email-image.jpg') }}" alt="NASA Space Apps Cairo 2024" width="100%" height="auto" style="color: #f3ffff;border-radius: 25px;display: block;box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                     </td>
                 </tr>
                 <!-- Greeting Section -->
@@ -66,6 +66,8 @@
                     </td>
                 </tr>
 
+
+                @if($workshop)
                 <!-- Workshop Section -->
                 <tr>
                     <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #09131c;">
@@ -95,6 +97,9 @@
                         </table>
                     </td>
                 </tr>
+                @else
+                @endif
+
                 <!-- Ticket Details Section -->
                 <tr>
                     <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #09131c;">
