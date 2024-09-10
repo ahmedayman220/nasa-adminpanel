@@ -22,6 +22,10 @@ class QrEmailGenerateJob implements ShouldQueue
     private $base_url;
     private $id;
     private $adminId;
+    private $schedule
+    private $schedule_time
+    private $workshop
+    private $workshop_description
     /**
      * Create a new job instance.
      */
@@ -53,13 +57,13 @@ class QrEmailGenerateJob implements ShouldQueue
             // Pass needed info to email
             $participantWorkshopRelation = $data->bootcampParticipantParticipantWorkshopAssignments->first();
             if($participantWorkshopRelation){
-                $schedule = $participantWorkshopRelation->workshop_schedule;
-                $Schedule_time = $schedule->schedule_time;
-                $workshop = $schedule->workshop->title;
-                $workshop_description = $schedule->workshop->descriptions;
+                $this->schedule = $participantWorkshopRelation->workshop_schedule;
+                $this->schedule_time = $this->schedule->schedule_time;
+                $this->workshop = $this->schedule->workshop->title;
+                $this->workshop_description = $this->schedule->workshop->descriptions;
             }
             //sodec14206@konetas.com
-            Mail::to('ahmeday.maks@gmail.com')->send(new QrWelcomeMail($url, $data->uuid, $data->name_en, $Schedule_time, $workshop, $workshop_description));
+            Mail::to('ahmeday.maks@gmail.com')->send(new QrWelcomeMail($url, $data->uuid, $data->name_en, $this->schedule_time, $this->workshop, $this->workshop_description));
 
             // Insert data in Qr Model
             $qrModel->create([
