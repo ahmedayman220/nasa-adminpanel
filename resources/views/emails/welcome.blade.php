@@ -41,7 +41,7 @@
                 <tr>
                     <td style="padding: 20px; font-family: 'CabinetGrotesk', sans-serif; color: #09131c; line-height: 1.5;">
                         <h1 style="text-align:center; font-size: 24px; margin: 0 0 10px 0; color: #09131c;">Welcome to NASA Space Apps Cairo 2024!</h1>
-                        <p style="font-size: 14px; color: #09131c;margin: 0 0 10px 0;"><strong>Dear {{$name}},</strong></p>
+                        <p style="font-size: 14px; color: #09131c;margin: 0 0 20px 0;"><strong>Dear {{$name}},</strong></p>
                         <p style="font-size: 14px; color: #09131c; margin: 0 0 20px 0; font-size: 14px; text-align: justify; text-justify: inter-word;">
                             Thank you for your interest in attending <strong>NASA Space Apps Cairo Bootcamp 2024.</strong> We are excited to invite you to join us and experience the great moments we have prepared for you! This email contains essential information, so please ensure you read it thoroughly.
                         </p>
@@ -129,7 +129,7 @@
                 </tr>
                 <!-- Closing Section -->
                 <tr>
-                    <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #09131c;">
+                    <td style="padding: 0 20px 0px 20px; font-family: Arial, sans-serif; color: #09131c;">
                         <p style="text-align: justify; text-justify: inter-word; font-size: 14px; margin: 0 0 10px 0;">
                             Please make sure to follow the instructions provided in this email to ensure the best possible experience at the bootcamp. If you have any questions or require further assistance, feel free to reach out to us.
                         </p>
