@@ -22,10 +22,10 @@ class QrEmailGenerateJob implements ShouldQueue
     private $base_url;
     private $id;
     private $adminId;
-    private $schedule
-    private $schedule_time
-    private $workshop
-    private $workshop_description
+    private $schedule;
+    private $schedule_time;
+    private $workshop;
+    private $workshop_description;
     /**
      * Create a new job instance.
      */
@@ -42,8 +42,6 @@ class QrEmailGenerateJob implements ShouldQueue
     public function handle(BootcampAttendee $attendeeModel,\App\Models\QrCode $qrModel,Email $email): void
     {
         $relative_name = null; // Initialize the variable here
-        $Schedule_time = null;
-        $workshop = null;
         try{
             // Get attendee id and update status
             $attendee = $attendeeModel->find($this->id);
