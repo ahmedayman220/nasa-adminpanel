@@ -25,7 +25,7 @@ class QrWelcomeMail extends Mailable
      */
     public function __construct($path,$uuid, $name,$time,$workshop)
     {
-        $this->national = $uuid;
+        $this->uuid = $uuid;
         $this->name = $name;
         $this->time = $time;
         $this->workshop = $workshop;
