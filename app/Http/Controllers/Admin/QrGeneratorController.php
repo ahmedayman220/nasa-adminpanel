@@ -23,26 +23,32 @@ class QrGeneratorController extends Controller
 
 
     public function scanBootcampAttendee($value,BootcampParticipant $participant){
-        $Participant_info = $participant->where('national',$value)->first();
+        $Participant_info = $participant->where('uuid',$value)->first();
+        //check if qr value isn't fake
         if(!$Participant_info){
             return back()->with('Failed','User not found');
         }
+        //check if user already attended the workshop
         if($Participant_info->bootcampParticipantBootcampAttendees->first()->attendance_status == 'attended'){
             return back()->with('Failed','User already attended');
         }
+        //if all clear user status will change to attended with succecss
         $Participant_info->bootcampParticipantBootcampAttendees->first()->update(['attendance_status' => 'attended','check_in_time' => Carbon::now()]);
         return back()->with('Status','Scan success');
     }
 
 
     public function scanWorkshop($value,BootcampParticipant $participant){
-        $Participant_info = $participant->where('national',$value)->first();
+        $Participant_info = $participant->where('uuid',$value)->first();
+        //check if qr value isn't fake
         if(!$Participant_info){
             return back()->with('Failed','User not found');
         }
+        //check if user already attended the workshop
         if($Participant_info->bootcampParticipantParticipantWorkshopAssignments->first()->attendance_status == 'attended'){
             return back()->with('Failed','User already attended');
         }
+        //if all clear user status will change to attended with succecss
         $Participant_info->bootcampParticipantParticipantWorkshopAssignments->first()->update(['attendance_status' => 'attended','check_in_time' => Carbon::now()]);
         return back()->with('Success','Scan success');
     }

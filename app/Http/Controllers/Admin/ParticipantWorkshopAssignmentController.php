@@ -25,7 +25,7 @@ class ParticipantWorkshopAssignmentController extends Controller
         abort_if(Gate::denies('participant_workshop_assignment_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = ParticipantWorkshopAssignment::with(['bootcamp_participant', 'workshop_schedule', 'created_by'])->select(sprintf('%s.*', (new ParticipantWorkshopAssignment)->table));
+            $query = ParticipantWorkshopAssignment::with(['bootcamp_participant', 'workshop_schedule', 'created_by'])->where('attendance_status','attended')->select(sprintf('%s.*', (new ParticipantWorkshopAssignment)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -101,9 +101,20 @@ class ParticipantWorkshopAssignmentController extends Controller
 
     public function store(StoreParticipantWorkshopAssignmentRequest $request)
     {
-        $participantWorkshopAssignment = ParticipantWorkshopAssignment::create($request->all());
-
-        return redirect()->route('admin.participant-workshop-assignments.index');
+//        $participantWorkshopAssignment = ParticipantWorkshopAssignment::create($request->all());
+        $participant = BootcampParticipant::find($request->bootcamp_participant_id);
+        if(!$participant){
+            return redirect()->route('admin.participant-workshop-assignments.index')->with('Failed','participant not found');
+        }
+        $workshopAttendee = $participant->bootcampParticipantParticipantWorkshopAssignments->first();
+        if($workshopAttendee->attendance_status == 'attended'){
+            return redirect()->route('admin.participant-workshop-assignments.index')->with('Failed','participant already attended workshop');
+        }
+        $workshopAttendee->update([
+            'attendance_status' => 'attended',
+            'check_in_time' => now()
+        ]);
+        return redirect()->route('admin.participant-workshop-assignments.index')->with('Success','participant added to workshop attendee list');
     }
 
     public function edit(ParticipantWorkshopAssignment $participantWorkshopAssignment)

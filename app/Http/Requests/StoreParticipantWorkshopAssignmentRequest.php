@@ -21,17 +21,17 @@ class StoreParticipantWorkshopAssignmentRequest extends FormRequest
                 'required',
                 'integer',
             ],
-            'workshop_schedule_id' => [
-                'required',
-                'integer',
-            ],
-            'attendance_status' => [
-                'required',
-            ],
-            'check_in_time' => [
-                'required',
-                'date_format:' . config('panel.time_format'),
-            ],
+//            'workshop_schedule_id' => [
+//                'required',
+//                'integer',
+//            ],
+//            'attendance_status' => [
+//                'required',
+//            ],
+//            'check_in_time' => [
+//                'required',
+//                'date_format:' . config('panel.time_format'),
+//            ],
         ];
     }
 }
