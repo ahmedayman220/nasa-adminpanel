@@ -26,7 +26,7 @@
 </head>
 <body>
 <!-- Outer Table for Background Image -->
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-image: url('{{ url('images/email-background.jpg') }}'); background-size: cover; background-position: center; width: 100%; padding: 40px 0; background-repeat: no-repeat;">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-image: url('{{ url('images/email-template.jpg') }}'); background-size: cover; background-position: center; width: 100%; padding: 40px 0; background-repeat: no-repeat;">
     <tr>
         <td align="center">
             <!-- Main Container -->
@@ -34,7 +34,7 @@
                 <!-- Header Section -->
                 <tr>
                     <td align="center" style="background-color: #f3ffff; padding: 10px 10px 0 10px;">
-                        <img src="{{ url('images/email-image.jpg') }}" alt="NASA Space Apps Cairo 2024" width="100%" height="auto" style="color: #f3ffff;border-radius: 25px;display: block;box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                        <img src="{{ url('images/email-cover.jpg') }}" alt="NASA Space Apps Cairo 2024" width="100%" height="auto" style="color: #f3ffff;border-radius: 25px;display: block;box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                     </td>
                 </tr>
                 <!-- Greeting Section -->
