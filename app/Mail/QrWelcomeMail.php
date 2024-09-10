@@ -17,18 +17,19 @@ class QrWelcomeMail extends Mailable
     private $name;
     private $workshop;
     private $time;
-
+    private $workshop_description;
     private $path;
     /**
      * @param $national
      * @param $name
      */
-    public function __construct($path,$uuid, $name,$time,$workshop)
+    public function __construct($path,$uuid, $name,$time,$workshop,$workshop_description)
     {
         $this->uuid = $uuid;
         $this->name = $name;
         $this->time = $time;
         $this->workshop = $workshop;
+        $this->workshop_description = $workshop_description;
         $this->path = $path;
     }
     /**
@@ -56,6 +57,7 @@ class QrWelcomeMail extends Mailable
                     'uuid' => $this->uuid,
                    'name' => $this->name,
                     'workshop' => $this->workshop,
+                    'workshop_description' => $this->workshop_description,
                     'time' => $this->time,
                     'path' => $this->path
                 ],
