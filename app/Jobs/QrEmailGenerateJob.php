@@ -83,7 +83,7 @@ class QrEmailGenerateJob implements ShouldQueue
 
             // Insert data in Qr Model
             $qrModel->create([
-                'qr_code_value' => $relative_name,
+                'qr_code_value' => $e,
                 'status' => 1,
                 'bootcamp_participant_id' => $data->id
             ]);
