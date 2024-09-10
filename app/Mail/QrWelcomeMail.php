@@ -52,7 +52,7 @@ class QrWelcomeMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: "emails.welcome',
+            markdown: 'emails.welcome',
             with: [
                     'uuid' => $this->uuid,
                    'name' => $this->name,
