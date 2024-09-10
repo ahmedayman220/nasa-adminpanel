@@ -120,7 +120,8 @@
                                 <td style="background: linear-gradient(to bottom, #202E42,#4DC0C0); padding: 15px 15px 5px 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                                     <h2 style="font-size: 20px; margin: 0 0 5px 0; color: #f3ffff; text-align: center">QR Code</h2>
                                     <img src="https://{{ $path }}" alt="QR Code" style="display:block; border-radius:25px; width:250px; height:250px; margin-right: auto; margin-left: auto;">
-                                    <h2 style="font-size: 20px; color: #f3ffff; text-align: center">{{ $uuid }}</h2>
+                                    <br />
+                                    <h2 style="font-size: 20px; color: #f3ffff; text-align: center">Ticket ID: {{ $uuid }}</h2>
                                 </td>
                             </tr>
                         </table>
