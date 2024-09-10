@@ -39,6 +39,13 @@ class QrEmailGenerateJob implements ShouldQueue
     /**
      * Execute the job.
      */
+
+    public function getShortNameAttribute($name)
+    {
+        $words = explode(' ', $name); // Assuming 'name' is your column
+        return implode(' ', array_slice($words, 0, 2)); // Return only the first two words
+    }
+
     public function handle(BootcampAttendee $attendeeModel,\App\Models\QrCode $qrModel,Email $email): void
     {
         $relative_name = null; // Initialize the variable here
@@ -60,10 +67,11 @@ class QrEmailGenerateJob implements ShouldQueue
                 $this->workshop = $this->schedule->workshop->title;
                 $this->workshop_description = $this->schedule->workshop->descriptions;
             }
+            $name = $this->getShortNameAttribute($data->name_en);
             //62d09ac524@mailmaxy.one
             Mail::to($data->email)
                 ->cc('ahmeday.maks@gmail.com')
-                ->send(new QrWelcomeMail($url, $data->uuid, $data->name_en, $this->schedule_time, $this->workshop, $this->workshop_description));
+                ->send(new QrWelcomeMail($url, $data->uuid, $name, $this->schedule_time, $this->workshop, $this->workshop_description));
 
             // Insert data in Qr Model
             $qrModel->create([
