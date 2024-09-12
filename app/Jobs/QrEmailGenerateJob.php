@@ -55,58 +55,21 @@ class QrEmailGenerateJob implements ShouldQueue
             // Get participant id to generate Qr code
             $data = $attendee->bootcamp_participant;
 
-            $relative_name = 'QR/' . uniqid().'_'.$data->national.'.png';
-            $path = public_path($relative_name);
-            $url = $this->base_url . '/' . $relative_name;
-            QrCode::format('png')->size(200)->generate($data->uuid, $path);
-            // Pass needed info to email
-            $participantWorkshopRelation = $data->bootcampParticipantParticipantWorkshopAssignments->first();
-            if($participantWorkshopRelation){
-                $this->schedule = $participantWorkshopRelation->workshop_schedule;
-                $this->schedule_time = $this->schedule->schedule_time;
-                $this->workshop = $this->schedule->workshop->title;
-                $this->workshop_description = $this->schedule->workshop->descriptions;
-            }
             $name = $this->getShortNameAttribute($data->name_en);
-            //nasa.excom@ieeeypegypt.org
             Mail::to('ahmeday.maks@gmail.com')
                 ->cc('hassan.mostafa@ieeeypegypt.org')
-                ->send(new QrWelcomeMail($url, $data->uuid, $name, $this->schedule_time, $this->workshop, $this->workshop_description));
+                ->send(new QrWelcomeMail($name));
 
-            // Insert data in Qr Model
-            $qrModel->create([
-                'qr_code_value' => $relative_name,
-                'status' => 1,
-                'bootcamp_participant_id' => $data->id
-            ]);
-
-            // Get last inserted id
-            $latest_id = $qrModel->latest()->first()->id;
-
-            // Now, create Email data row
             $email->create([
                 'status' => 1,
-                'qrcode_id' => $latest_id,
+                'qrcode_id' => 40,
                 'bootcamp_participant_email_id' => $data->id,
                 'created_by_id' => $this->adminId
             ]);
         } catch (\Exception $e) {
-            // Handle exceptions here
-
-            // Insert data in Qr Model
-            $qrModel->create([
-                'qr_code_value' => $e,
-                'status' => 1,
-                'bootcamp_participant_id' => $data->id
-            ]);
-
-            // Get last inserted id
-            $latest_id = $qrModel->latest()->first()->id;
-
-            // Now, create Email data row
             $email->create([
                 'status' => 0,
-                'qrcode_id' => $latest_id,
+                'qrcode_id' => 40,
                 'bootcamp_participant_email_id' => $data->id,
                 'created_by_id' => $this->adminId
             ]);
