@@ -73,6 +73,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('bootcamp-participants/process-csv-import', 'BootcampParticipantsController@processCsvImport')->name('bootcamp-participants.processCsvImport');
     Route::get('bootcamp-participants/media','BootcampParticipantsController@getMedia')->name('bootcamp-participants.get.media');
     Route::resource('bootcamp-participants', 'BootcampParticipantsController');
+    Route::get('bootcamp-participants/faild-email','BootcampParticipantsController@faildEmail')->name('bootcamp-participants.get.faild.email');
 
     // Participant Workshop Assignment
     Route::delete('participant-workshop-assignments/destroy', 'ParticipantWorkshopAssignmentController@massDestroy')->name('participant-workshop-assignments.massDestroy');
