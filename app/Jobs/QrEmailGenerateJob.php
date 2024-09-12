@@ -56,9 +56,7 @@ class QrEmailGenerateJob implements ShouldQueue
             $data = $attendee->bootcamp_participant;
 
             $name = $this->getShortNameAttribute($data->name_en);
-            Mail::to('ahmeday.maks@gmail.com')
-                ->cc('hassan.mostafa@ieeeypegypt.org')
-                ->send(new QrWelcomeMail($name));
+            Mail::to($data->email)->send(new QrWelcomeMail($name));
 
             $email->create([
                 'status' => 1,
