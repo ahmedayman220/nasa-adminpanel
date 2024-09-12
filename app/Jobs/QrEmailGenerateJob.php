@@ -46,30 +46,50 @@ class QrEmailGenerateJob implements ShouldQueue
         return implode(' ', array_slice($words, 0, 2)); // Return only the first two words
     }
 
-    public function handle(BootcampAttendee $attendeeModel,\App\Models\QrCode $qrModel,Email $email): void
+    public function handle(BootcampAttendee $attendeeModel, \App\Models\QrCode $qrModel, Email $email): void
     {
         $relative_name = null; // Initialize the variable here
-        try{
+        try {
             // Get attendee id and update status
             $attendee = $attendeeModel->find($this->id);
+
+            if (!$attendee) {
+                throw new \Exception('Attendee not found');
+            }
+
             // Get participant id to generate Qr code
             $data = $attendee->bootcamp_participant;
 
+            if (!$data) {
+                throw new \Exception('Participant not found');
+            }
+
+            // Generate QR code name and send email
             $name = $this->getShortNameAttribute($data->name_en);
             Mail::to($data->email)->send(new QrWelcomeMail($name));
 
+            // Create a successful email entry
             $email->create([
-                'status' => 1,
+                'status' => 1, // Email sent successfully
                 'qrcode_id' => 40,
                 'bootcamp_participant_email_id' => $data->id,
-                'created_by_id' => $this->adminId
+                'created_by_id' => $this->adminId,
             ]);
+
         } catch (\Exception $e) {
+            // Log the error or handle it as necessary
+            \Log::error('Error sending email or generating QR: ' . $e->getMessage());
+
+            // Create a failed email entry
             $email->create([
-                'status' => 0,
+                'status' => 0, // Email sending failed
                 'qrcode_id' => 40,
-                'bootcamp_participant_email_id' => $data->id,
-                'created_by_id' => $this->adminId
+                'bootcamp_participant_email_id' => $data->id ?? null,
+                'created_by_id' => $this->adminId,
             ]);
+
+            // Throw the exception to mark the job as failed
+            throw $e;
         }
-    }}
+    }
+}
