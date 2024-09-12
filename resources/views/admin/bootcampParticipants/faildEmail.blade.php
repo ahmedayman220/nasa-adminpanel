@@ -320,7 +320,7 @@
                 serverSide: true,
                 retrieve: true,
                 aaSorting: [],
-                ajax: "{{ route('admin.bootcamp-participants.index') }}",
+                ajax: "{{ route('admin.bootcamp-participants.faild.email') }}",
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
                     { data: 'id', name: 'id' },
