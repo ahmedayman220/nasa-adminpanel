@@ -320,7 +320,7 @@
                 serverSide: true,
                 retrieve: true,
                 aaSorting: [],
-                ajax: "{{ route('admin.bootcamp-participants.faild.email') }}",
+                ajax: "{{ route('admin.bootcamp-participants.get.faild.email') }}",
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
                     { data: 'id', name: 'id' },
@@ -351,7 +351,7 @@
                 orderCellsTop: true,
                 order: [[ 10, 'asc' ]],
 
-                pageLength: 3000,
+                pageLength: 1000,
             };
             let table = $('.datatable-BootcampParticipant').DataTable(dtOverrideGlobals);
             $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
