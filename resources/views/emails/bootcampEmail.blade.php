@@ -67,35 +67,35 @@
                 </tr>
 
                 @if($workshop && $workshop != "None")
-                <!-- Workshop Section -->
-                <tr>
-                    <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #09131c;">
-                        <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #09131c;"> Workshop Details</h2>
-                        <p style="text-align: justify; text-justify: inter-word; font-size: 14px; color: #09131c; margin: 0 0 5px 0; font-size: 14px;">
-                            We are pleased to confirm your reserved seat for the workshop. Please note that you will not be able to attend any other workshop or session during the event.
-                        </p>
-                        <p style="text-align: justify; text-justify: inter-word; font-size: 14px; color: #09131c; margin: 0 0 14px 0; font-size: 14px;">
-                            When your workshop time comes, our organizers will guide you to the location and help you register, so please be sure to follow their instructions and have your QR code ready.
-                        </p>
-                    </td>
-                </tr>
-                <!-- Workshop Details Section -->
-                <tr>
-                    <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #f3ffff;">
-                        <table style="margin-right: auto; margin-left: auto; min-width: 60%;" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td style="background: #202e42; padding: 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                                    <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #f3ffff; text-align: center">Workshop Details</h2>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Workshop Title:</strong> <em> {{ $workshop }}</em></p>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Time:</strong><em> {{ $time }}</em></p>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;">To get the most out of this workshop, you will need the following:
+                    <!-- Workshop Section -->
+                    <tr>
+                        <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #09131c;">
+                            <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #09131c;"> Workshop Details</h2>
+                            <p style="text-align: justify; text-justify: inter-word; font-size: 14px; color: #09131c; margin: 0 0 5px 0; font-size: 14px;">
+                                We are pleased to confirm your reserved seat for the workshop. Please note that you will not be able to attend any other workshop or session during the event.
+                            </p>
+                            <p style="text-align: justify; text-justify: inter-word; font-size: 14px; color: #09131c; margin: 0 0 14px 0; font-size: 14px;">
+                                When your workshop time comes, our organizers will guide you to the location and help you register, so please be sure to follow their instructions and have your QR code ready.
+                            </p>
+                        </td>
+                    </tr>
+                    <!-- Workshop Details Section -->
+                    <tr>
+                        <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #f3ffff;">
+                            <table style="margin-right: auto; margin-left: auto; min-width: 60%;" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td style="background: #202e42; padding: 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                                        <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #f3ffff; text-align: center">Workshop Details</h2>
+                                        <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Workshop Title:</strong> <em> {{ $workshop }}</em></p>
+                                        <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Time:</strong><em> {{ $time }}</em></p>
+                                        <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;">To get the most out of this workshop, you will need the following:
                                             {!!  $workshop_description !!}
-                                    </p>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
                 @else
                 @endif
 

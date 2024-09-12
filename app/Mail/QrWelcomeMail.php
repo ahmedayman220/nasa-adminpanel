@@ -23,15 +23,19 @@ class QrWelcomeMail extends Mailable
      * @param $national
      * @param $name
      */
-    public function __construct($path,$uuid, $name,$time,$workshop,$workshop_description)
+    public function __construct($name)
     {
-        $this->uuid = $uuid;
         $this->name = $name;
-        $this->time = $time;
-        $this->workshop = $workshop;
-        $this->workshop_description = $workshop_description;
-        $this->path = $path;
     }
+//    public function __construct($path,$uuid, $name,$time,$workshop,$workshop_description)
+//    {
+//        $this->uuid = $uuid;
+//        $this->name = $name;
+//        $this->time = $time;
+//        $this->workshop = $workshop;
+//        $this->workshop_description = $workshop_description;
+//        $this->path = $path;
+//    }
     /**
      * Create a new message instance.
      */
@@ -42,7 +46,7 @@ class QrWelcomeMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: "Welcome to NASA Space Apps Cairo'24 Bootcamp!",
+            subject: "NASA Space Apps Cairo 2024 Bootcamp Postponed",
         );
     }
 
@@ -52,17 +56,26 @@ class QrWelcomeMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.welcome',
+            markdown: 'emails.bootcampPostponed',
             with: [
-                    'uuid' => $this->uuid,
-                   'name' => $this->name,
-                    'workshop' => $this->workshop,
-                    'workshop_description' => $this->workshop_description,
-                    'time' => $this->time,
-                    'path' => $this->path
-                ],
+                'name' => $this->name,
+            ],
         );
     }
+//    public function content(): Content
+//    {
+//        return new Content(
+//            markdown: 'emails.bootcampPostponed',
+//            with: [
+//                    'uuid' => $this->uuid,
+//                   'name' => $this->name,
+//                    'workshop' => $this->workshop,
+//                    'workshop_description' => $this->workshop_description,
+//                    'time' => $this->time,
+//                    'path' => $this->path
+//                ],
+//        );
+//    }
 
     /**
      * Get the attachments for the message.
