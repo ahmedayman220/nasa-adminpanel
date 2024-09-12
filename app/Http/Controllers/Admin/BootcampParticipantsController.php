@@ -164,6 +164,7 @@ class BootcampParticipantsController extends Controller
 
     public function faildEmail(Request $request)
     {
+        dd("test");
         abort_if(Gate::denies('bootcamp_participant_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
