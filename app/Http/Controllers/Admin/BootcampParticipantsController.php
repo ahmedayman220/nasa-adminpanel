@@ -54,9 +54,9 @@ class BootcampParticipantsController extends Controller
             $table->editColumn('id', function ($row) {
                 return  $row->id;
             });
-
-
-
+            $table->editColumn('uuid', function ($row) {
+                return  $row->uuid;
+            });
             $table->editColumn('name_en', function ($row) {
                 return $row->name_en ? $row->name_en : '';
             });

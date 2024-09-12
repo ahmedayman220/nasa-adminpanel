@@ -45,6 +45,10 @@
                         {{ trans('cruds.bootcampParticipant.fields.id') }}
                     </th>
                     <th>
+                        Ticket ID
+                    </th>
+
+                    <th>
                         {{ trans('cruds.bootcampParticipant.fields.name_en') }}
                     </th>
                     <th>
@@ -114,6 +118,9 @@
                 </tr>
                 <tr>
                     <td>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -317,6 +324,7 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
+{ data: 'uuid', name: 'uuid' },
 { data: 'name_en', name: 'name_en' },
 { data: 'name_ar', name: 'name_ar' },
 { data: 'email', name: 'email' },
