@@ -24,11 +24,6 @@ class BootcampConfirmationApiController extends Controller
 
     public function store(StoreBootcampConfirmationRequest $request)
     {
-
-        return response()->json([
-            'request' => $request->input('slot_id'),
-        ]);
-
         // Validate reCAPTCHA
 //        $recaptchaToken = $request->input('recaptchaToken');
 //        $isValidRecaptcha = $this->validateRecaptcha($recaptchaToken);
@@ -73,6 +68,7 @@ class BootcampConfirmationApiController extends Controller
             'email_id' => $participantByEmail->id, // Use the participant's ID for email
             'national_id' => $participantByNational->id, // Use the participant's ID for national
             'phone_number' => $request->input('phone_number'),
+            'slot_id' => $request->input('slot_id')
         ]);
 
         return (new BootcampConfirmationResource($bootcampConfirmation))
