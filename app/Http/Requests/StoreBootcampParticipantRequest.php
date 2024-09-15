@@ -27,10 +27,16 @@ class StoreBootcampParticipantRequest extends FormRequest
             'name_en' => [
                 'string',
                 'required',
+                'min:3',
+                'max:255',
+
+
             ],
             'name_ar' => [
                 'string',
                 'required',
+                'min:3',
+                'max:255',
             ],
             'email' => [
                 'required',
@@ -63,6 +69,8 @@ class StoreBootcampParticipantRequest extends FormRequest
             'position' => [
                 'string',
                 'nullable',
+                'min:3',
+                'max:255',
             ],
             'national' => [
                 'string',
@@ -91,13 +99,17 @@ class StoreBootcampParticipantRequest extends FormRequest
             'why_this_workshop' => [
                 'string',
                 'required',
+                'min:3',
+                'max:5000',
             ],
             'is_have_team' => [
                 'required',
             ],
             'comment' => [
                 'string',
-                'nullable'
+                'nullable',
+                'min:3',
+                'max:5000',
             ],
             'year' => [
                 'string',
