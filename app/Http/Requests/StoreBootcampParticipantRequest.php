@@ -20,10 +20,10 @@ class StoreBootcampParticipantRequest extends FormRequest
     public function rules()
     {
         return [
-
-            'recaptchaToken' => [
-                'required',
-            ],
+//
+//            'recaptchaToken' => [
+//                'required',
+//            ],
             'name_en' => [
                 'string',
                 'required',
