@@ -110,6 +110,16 @@ class BootcampParticipant extends Model implements HasMedia
         return $this->hasMany(Email::class, 'bootcamp_participant_email_id', 'id');
     }
 
+    public function emailBootcampConfirmations()
+    {
+        return $this->hasMany(BootcampConfirmation::class, 'email_id', 'id');
+    }
+
+    public function nationalBootcampConfirmations()
+    {
+        return $this->hasMany(BootcampConfirmation::class, 'national_id', 'id');
+    }
+
     public function educational_level()
     {
         return $this->belongsTo(EducationLevel::class, 'educational_level_id');

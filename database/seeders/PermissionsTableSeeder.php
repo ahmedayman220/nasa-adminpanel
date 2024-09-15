@@ -708,6 +708,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 175,
+                'title' => 'bootcamp_confirmation_create',
+            ],
+            [
+                'id'    => 176,
+                'title' => 'bootcamp_confirmation_edit',
+            ],
+            [
+                'id'    => 177,
+                'title' => 'bootcamp_confirmation_show',
+            ],
+            [
+                'id'    => 178,
+                'title' => 'bootcamp_confirmation_delete',
+            ],
+            [
+                'id'    => 179,
+                'title' => 'bootcamp_confirmation_access',
+            ],
+            [
+                'id'    => 180,
                 'title' => 'profile_password_edit',
             ],
         ];

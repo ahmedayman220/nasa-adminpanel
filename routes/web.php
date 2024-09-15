@@ -201,6 +201,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('emails/process-csv-import', 'EmailsController@processCsvImport')->name('emails.processCsvImport');
     Route::resource('emails', 'EmailsController');
 
+    // Bootcamp Confirmation
+    Route::delete('bootcamp-confirmations/destroy', 'BootcampConfirmationController@massDestroy')->name('bootcamp-confirmations.massDestroy');
+    Route::post('bootcamp-confirmations/parse-csv-import', 'BootcampConfirmationController@parseCsvImport')->name('bootcamp-confirmations.parseCsvImport');
+    Route::post('bootcamp-confirmations/process-csv-import', 'BootcampConfirmationController@processCsvImport')->name('bootcamp-confirmations.processCsvImport');
+    Route::resource('bootcamp-confirmations', 'BootcampConfirmationController');
+
     Route::get('system-calendar', 'SystemCalendarController@index')->name('systemCalendar');
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');

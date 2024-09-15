@@ -1,8 +1,6 @@
 <?php
 
-Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin',
-//    'middleware' => ['auth:sanctum']
-], function () {
+Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', 'middleware' => ['auth:sanctum']], function () {
     // Education Level
     Route::apiResource('education-levels', 'EducationLevelApiController');
 
@@ -34,4 +32,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin',
     // Chatbot Traning Data
     Route::post('chatbot-traning-datas/media', 'ChatbotTraningDataApiController@storeMedia')->name('chatbot-traning-datas.storeMedia');
     Route::apiResource('chatbot-traning-datas', 'ChatbotTraningDataApiController');
+
+    // Bootcamp Confirmation
+    Route::apiResource('bootcamp-confirmations', 'BootcampConfirmationApiController');
 });

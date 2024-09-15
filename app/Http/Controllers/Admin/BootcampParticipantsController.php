@@ -18,8 +18,6 @@ use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
-use App\Helpers\BootcampHelper;
-use App\Models\ParticipantWorkshopPreference;
 
 class BootcampParticipantsController extends Controller
 {
@@ -179,35 +177,6 @@ class BootcampParticipantsController extends Controller
     {
         $bootcampParticipant = BootcampParticipant::create($request->all());
 
-        if (isset($bootcampParticipant->first_priority_id)) {
-            ParticipantWorkshopPreference::create([
-                'bootcamp_participant_id' => $bootcampParticipant->id, // Assuming 'id' is the participant ID
-                'workshop_id' => $bootcampParticipant->first_priority_id,
-                'preference_order' => 1,
-            ]);
-        }
-
-        if (isset($bootcampParticipant->second_priority_id)) {
-            ParticipantWorkshopPreference::create([
-                'bootcamp_participant_id' => $bootcampParticipant->id, // Assuming 'id' is the participant ID
-                'workshop_id' => $bootcampParticipant->second_priority_id,
-                'preference_order' => 2,
-            ]);
-        }
-
-        if (isset($bootcampParticipant->third_priority_id)) {
-            ParticipantWorkshopPreference::create([
-                'bootcamp_participant_id' => $bootcampParticipant->id, // Assuming 'id' is the participant ID
-                'workshop_id' => $bootcampParticipant->third_priority_id,
-                'preference_order' => 3,
-            ]);
-        }
-
-
-        BootcampHelper::checkAvailability($bootcampParticipant->id);
-//        $result = BootcampHelper::checkAvailability(3);
-
-
         if ($request->input('national_id_front', false)) {
             $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_front'))))->toMediaCollection('national_id_front');
         }
@@ -275,7 +244,7 @@ class BootcampParticipantsController extends Controller
     {
         abort_if(Gate::denies('bootcamp_participant_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $bootcampParticipant->load('educational_level', 'field_of_study', 'first_priority', 'second_priority', 'third_priority', 'created_by', 'bootcampParticipantParticipantWorkshopAssignments', 'bootcampParticipantParticipantWorkshopPreferences', 'bootcampParticipantBootcampAttendees', 'bootcampParticipantQrCodes', 'bootcampParticipantEmailEmails');
+        $bootcampParticipant->load('educational_level', 'field_of_study', 'first_priority', 'second_priority', 'third_priority', 'created_by', 'bootcampParticipantParticipantWorkshopAssignments', 'bootcampParticipantParticipantWorkshopPreferences', 'bootcampParticipantBootcampAttendees', 'bootcampParticipantQrCodes', 'bootcampParticipantEmailEmails', 'emailBootcampConfirmations', 'nationalBootcampConfirmations');
 
         return view('admin.bootcampParticipants.show', compact('bootcampParticipant'));
     }

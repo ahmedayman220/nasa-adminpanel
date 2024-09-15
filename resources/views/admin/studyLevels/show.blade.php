@@ -42,6 +42,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#slot_bootcamp_confirmations" role="tab" data-toggle="tab">
+                {{ trans('cruds.bootcampConfirmation.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="slot_bootcamp_confirmations">
+            @includeIf('admin.studyLevels.relationships.slotBootcampConfirmations', ['bootcampConfirmations' => $studyLevel->slotBootcampConfirmations])
+        </div>
+    </div>
+</div>
 
 @endsection

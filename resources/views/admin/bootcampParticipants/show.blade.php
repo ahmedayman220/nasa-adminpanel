@@ -264,6 +264,16 @@
                 {{ trans('cruds.email.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#email_bootcamp_confirmations" role="tab" data-toggle="tab">
+                {{ trans('cruds.bootcampConfirmation.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#national_bootcamp_confirmations" role="tab" data-toggle="tab">
+                {{ trans('cruds.bootcampConfirmation.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="bootcamp_participant_participant_workshop_assignments">
@@ -280,6 +290,12 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="bootcamp_participant_email_emails">
             @includeIf('admin.bootcampParticipants.relationships.bootcampParticipantEmailEmails', ['emails' => $bootcampParticipant->bootcampParticipantEmailEmails])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="email_bootcamp_confirmations">
+            @includeIf('admin.bootcampParticipants.relationships.emailBootcampConfirmations', ['bootcampConfirmations' => $bootcampParticipant->emailBootcampConfirmations])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="national_bootcamp_confirmations">
+            @includeIf('admin.bootcampParticipants.relationships.nationalBootcampConfirmations', ['bootcampConfirmations' => $bootcampParticipant->nationalBootcampConfirmations])
         </div>
     </div>
 </div>
