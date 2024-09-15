@@ -18,17 +18,7 @@ use Illuminate\Support\Facades\File;
 
 class BootcampParticipantsApiController extends Controller
 {
-    use MediaUploadingTrait;
-
-    private function validateRecaptcha($token)
-    {
-        $secretKey = '6LdunDYqAAAAAKtyYz-mPPTcYadAr0Wxpyaa-akS'; // Your secret key
-
-        $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secretKey}&response={$token}");
-        $responseKeys = json_decode($response, true);
-
-        return $responseKeys['success'];
-    }
+    use MediaUploadingTrait, BootcampHelper;
 
     public function index()
     {
@@ -104,7 +94,7 @@ class BootcampParticipantsApiController extends Controller
             ]);
         }
 
-        BootcampHelper::checkAvailability($bootcampParticipant->id);
+        $this->checkAvailability($bootcampParticipant->id);
 
         if ($request->input('national_id_front', false)) {
             $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_front'))))->toMediaCollection('national_id_front');

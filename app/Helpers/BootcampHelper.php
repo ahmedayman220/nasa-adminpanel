@@ -10,8 +10,17 @@ use App\Models\ParticipantWorkshopPreference;
 use App\Models\BootcampAttendee;
 use Illuminate\Support\Carbon;
 
-class BootcampHelper
+trait BootcampHelper
 {
+    public function validateRecaptcha($token)
+    {
+        $secretKey = '6LdunDYqAAAAAKtyYz-mPPTcYadAr0Wxpyaa-akS'; // Your secret key
+
+        $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secretKey}&response={$token}");
+        $responseKeys = json_decode($response, true);
+
+        return $responseKeys['success'];
+    }
     public static function checkAvailability($id)
     {
         // Get the bootcamp details

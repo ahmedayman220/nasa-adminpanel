@@ -17,6 +17,9 @@ class StoreBootcampConfirmationRequest extends FormRequest
     public function rules()
     {
         return [
+            'recaptchaToken' => [
+                'required',
+            ],
             'name' => [
                 'string',
                 'required',
