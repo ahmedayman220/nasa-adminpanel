@@ -100,7 +100,7 @@ class StudyLevelController extends Controller
     {
         abort_if(Gate::denies('study_level_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $studyLevel->load('created_by');
+        $studyLevel->load('created_by', 'slotBootcampConfirmations');
 
         return view('admin.studyLevels.show', compact('studyLevel'));
     }
