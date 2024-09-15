@@ -26,7 +26,7 @@ class BootcampConfirmationApiController extends Controller
     {
 
         return response()->json([
-            'request' => $request->validated();
+            'request' => $request->input('slot_id'),
         ]);
 
         // Validate reCAPTCHA
