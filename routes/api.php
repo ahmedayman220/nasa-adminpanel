@@ -18,6 +18,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin',
     // Study Level
 //    Route::get('study-levels', 'StudyLevelApiController@index');
     Route::get('slots', 'StudyLevelApiController@index');
+    Route::get('slots', 'StudyLevelApiController@index');
 
     // Workshops
     Route::post('workshops/media', 'WorkshopsApiController@storeMedia')->name('workshops.storeMedia');

@@ -11,7 +11,7 @@ class StoreBootcampConfirmationRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('bootcamp_confirmation_create');
+        return true;
     }
 
     public function rules()
