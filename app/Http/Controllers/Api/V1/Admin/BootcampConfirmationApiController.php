@@ -25,19 +25,19 @@ class BootcampConfirmationApiController extends Controller
     public function store(StoreBootcampConfirmationRequest $request)
     {
         // Validate reCAPTCHA
-//        $recaptchaToken = $request->input('recaptchaToken');
-//        $isValidRecaptcha = $this->validateRecaptcha($recaptchaToken);
-//
-//        if (!$isValidRecaptcha) {
-//            return response()->json([
-//                'status' => false,
-//                'message' => 'Invalid reCAPTCHA token',
-//                'errors' => [
-//                    "Invalid reCAPTCHA token"
-//                ],
-//            ], Response::HTTP_BAD_REQUEST);
-//        };
-//
+        $recaptchaToken = $request->input('recaptchaToken');
+        $isValidRecaptcha = $this->validateRecaptcha($recaptchaToken);
+
+        if (!$isValidRecaptcha) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid reCAPTCHA token',
+                'errors' => [
+                    "Invalid reCAPTCHA token"
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        };
+
         // Find the BootcampParticipant by email
         $participantByEmail = \App\Models\BootcampParticipant::where('email', $request->input('email'))->first();
         if (!$participantByEmail) {
