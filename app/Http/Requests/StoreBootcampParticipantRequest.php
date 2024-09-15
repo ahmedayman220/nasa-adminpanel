@@ -105,7 +105,6 @@ class StoreBootcampParticipantRequest extends FormRequest
             'slot_id' => [
                 'integer',
                 'required',
-                'exists:study_levels'
             ]
         ];
     }
