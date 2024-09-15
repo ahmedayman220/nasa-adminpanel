@@ -38,7 +38,37 @@ class BootcampConfirmationApiController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         };
 
-        $bootcampConfirmation = BootcampConfirmation::create($request->all());
+        // Find the BootcampParticipant by email
+        $participantByEmail = \App\Models\BootcampParticipant::where('email', $request->input('email'))->first();
+        if (!$participantByEmail) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Participant not found for the provided email',
+                'errors' => [
+                    'email' => 'No participant found with this email',
+                ],
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        // Find the BootcampParticipant by national number
+        $participantByNational = \App\Models\BootcampParticipant::where('national', $request->input('national'))->first();
+        if (!$participantByNational) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Participant not found for the provided national number',
+                'errors' => [
+                    'national' => 'No participant found with this national number',
+                ],
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        // Create BootcampConfirmation with the corresponding email_id and national_id
+        $bootcampConfirmation = BootcampConfirmation::create([
+            'name' => $request->input('name'),
+            'email_id' => $participantByEmail->id, // Use the participant's ID for email
+            'national_id' => $participantByNational->id, // Use the participant's ID for national
+            'phone_number' => $request->input('phone_number'),
+        ]);
 
         return (new BootcampConfirmationResource($bootcampConfirmation))
             ->response()

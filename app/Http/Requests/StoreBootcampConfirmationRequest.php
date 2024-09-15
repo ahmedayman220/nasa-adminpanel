@@ -24,13 +24,15 @@ class StoreBootcampConfirmationRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'email_id' => [
+            'email' => [
                 'required',
-                'integer',
+                'email', // Ensure the email is valid
+                'exists:bootcamp_participants,email', // Ensure the email exists in the table
             ],
-            'national_id' => [
+            'national' => [
                 'required',
                 'integer',
+                'exists:bootcamp_participants,national', // Ensure the national number exists in the table
             ],
             'phone_number' => [
                 'string',
