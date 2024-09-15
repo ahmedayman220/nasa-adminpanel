@@ -3,13 +3,13 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.bootcampAttendee.title') }}
+        {{ trans('global.show') }} {{ trans('cruds.bootcampConfirmation.title') }}
     </div>
 
     <div class="card-body">
         <div class="form-group">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.bootcamp-attendees.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.bootcamp-confirmations.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -17,56 +17,56 @@
                 <tbody>
                     <tr>
                         <th>
-                            {{ trans('cruds.bootcampAttendee.fields.id') }}
+                            {{ trans('cruds.bootcampConfirmation.fields.id') }}
                         </th>
                         <td>
-                            {{ $bootcampAttendee->id }}
+                            {{ $bootcampConfirmation->id }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.bootcampAttendee.fields.bootcamp_details') }}
+                            {{ trans('cruds.bootcampConfirmation.fields.name') }}
                         </th>
                         <td>
-                            {{ $bootcampAttendee->bootcamp_details->name ?? '' }}
+                            {{ $bootcampConfirmation->name }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.bootcampAttendee.fields.bootcamp_participant') }}
+                            {{ trans('cruds.bootcampConfirmation.fields.email') }}
                         </th>
                         <td>
-                            {{ $bootcampAttendee->bootcamp_participant->name_en ?? '' }}
+                            {{ $bootcampConfirmation->email->name_en ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.bootcampAttendee.fields.category') }}
+                            {{ trans('cruds.bootcampConfirmation.fields.national') }}
                         </th>
                         <td>
-                            {{ App\Models\BootcampAttendee::CATEGORY_RADIO[$bootcampAttendee->category] ?? '' }}
+                            {{ $bootcampConfirmation->national->name_en ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.bootcampAttendee.fields.attendance_status') }}
+                            {{ trans('cruds.bootcampConfirmation.fields.phone_number') }}
                         </th>
                         <td>
-                            {{ App\Models\BootcampAttendee::ATTENDANCE_STATUS_RADIO[$bootcampAttendee->attendance_status] ?? '' }}
+                            {{ $bootcampConfirmation->phone_number }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.bootcampAttendee.fields.check_in_time') }}
+                            {{ trans('cruds.bootcampConfirmation.fields.slot') }}
                         </th>
                         <td>
-                            {{ $bootcampAttendee->check_in_time }}
+                            {{ $bootcampConfirmation->slot->title ?? '' }}
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.bootcamp-attendees.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.bootcamp-confirmations.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>

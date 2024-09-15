@@ -58,7 +58,7 @@ class BootcampAttendeesController extends Controller
             });
 
             $table->editColumn('category', function ($row) {
-                return $row->category ? BootcampAttendee::CATEGORY_RADIO[$row->category] : BootcampAttendee::CATEGORY_RADIO[$row->category];
+                return $row->category ? BootcampAttendee::CATEGORY_RADIO[$row->category] : '';
             });
             $table->editColumn('attendance_status', function ($row) {
                 return $row->attendance_status ? BootcampAttendee::ATTENDANCE_STATUS_RADIO[$row->attendance_status] : '';

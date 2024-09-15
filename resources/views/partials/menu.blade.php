@@ -73,7 +73,7 @@
             </li>
         @endcan
         @can('bootcamp_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/bootcamp-participants*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/qr-codes*") ? "c-show" : "" }} {{ request()->is("admin/emails*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/bootcamp-participants*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/qr-codes*") ? "c-show" : "" }} {{ request()->is("admin/emails*") ? "c-show" : "" }} {{ request()->is("admin/bootcamp-confirmations*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
 
@@ -256,6 +256,16 @@
 
                                 </i>
                                 {{ trans('cruds.email.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('bootcamp_confirmation_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.bootcamp-confirmations.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/bootcamp-confirmations") || request()->is("admin/bootcamp-confirmations/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.bootcampConfirmation.title') }}
                             </a>
                         </li>
                     @endcan
