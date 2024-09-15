@@ -97,6 +97,7 @@ class BootcampConfirmationController extends Controller
 
     public function store(StoreBootcampConfirmationRequest $request)
     {
+        dd($request);
         $bootcampConfirmation = BootcampConfirmation::create($request->all());
 
         return redirect()->route('admin.bootcamp-confirmations.index');
