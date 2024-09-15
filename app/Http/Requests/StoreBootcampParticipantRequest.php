@@ -21,9 +21,9 @@ class StoreBootcampParticipantRequest extends FormRequest
     {
         return [
 
-            'recaptchaToken' => [
-                'required',
-            ],
+//            'recaptchaToken' => [
+//                'required',
+//            ],
             'name_en' => [
                 'string',
                 'required',
@@ -101,6 +101,11 @@ class StoreBootcampParticipantRequest extends FormRequest
             ],
             'year' => [
                 'string',
+            ],
+            'slot_id' => [
+                'integer',
+                'required',
+                'exists:study_levels'
             ]
         ];
     }

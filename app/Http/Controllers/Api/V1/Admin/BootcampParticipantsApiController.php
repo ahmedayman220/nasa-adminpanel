@@ -9,6 +9,7 @@ use App\Http\Requests\StoreBootcampParticipantRequest;
 use App\Http\Requests\UpdateBootcampParticipantRequest;
 use App\Http\Requests\AuthToUpdateBootcampParticipantApiRequest;
 use App\Http\Resources\Admin\BootcampParticipantResource;
+use App\Models\BootcampConfirmation;
 use App\Models\BootcampParticipant;
 use App\Models\ParticipantWorkshopPreference;
 use Gate;
@@ -30,18 +31,18 @@ class BootcampParticipantsApiController extends Controller
     public function store(StoreBootcampParticipantRequest $request)
     {
         // Validate reCAPTCHA
-        $recaptchaToken = $request->input('recaptchaToken');
-        $isValidRecaptcha = $this->validateRecaptcha($recaptchaToken);
-
-        if (!$isValidRecaptcha) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Invalid reCAPTCHA token',
-                'errors' => [
-                    "Invalid reCAPTCHA token"
-                ],
-            ], Response::HTTP_BAD_REQUEST);
-        };
+//        $recaptchaToken = $request->input('recaptchaToken');
+//        $isValidRecaptcha = $this->validateRecaptcha($recaptchaToken);
+//
+//        if (!$isValidRecaptcha) {
+//            return response()->json([
+//                'status' => false,
+//                'message' => 'Invalid reCAPTCHA token',
+//                'errors' => [
+//                    "Invalid reCAPTCHA token"
+//                ],
+//            ], Response::HTTP_BAD_REQUEST);
+//        };
 
         $filePathNationalIdFront = storage_path('tmp/uploads/' . basename($request->input('national_id_front')));
         $filePathNationalIdBack = storage_path('tmp/uploads/' . basename($request->input('national_id_back')));
@@ -67,8 +68,14 @@ class BootcampParticipantsApiController extends Controller
         }
 
 
-
         $bootcampParticipant = BootcampParticipant::create($request->all());
+        $bootcampConfirmation = BootcampConfirmation::create([
+            'name' => $bootcampParticipant->name_en,
+            'email_id' => $bootcampParticipant->id, // Use the participant's ID for email
+            'national_id' => $bootcampParticipant->id, // Use the participant's ID for national
+            'phone_number' => $bootcampParticipant->phone_number,
+            'slot_id' => $request->input('slot_id')
+        ]);
 
         if (isset($bootcampParticipant->first_priority_id)) {
             ParticipantWorkshopPreference::create([
