@@ -351,7 +351,7 @@
     orderCellsTop: true,
     order: [[ 10, 'asc' ]],
 
-    pageLength: 100,
+    pageLength: 3000,
   };
   let table = $('.datatable-BootcampParticipant').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
