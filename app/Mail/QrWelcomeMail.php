@@ -46,7 +46,7 @@ class QrWelcomeMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: "NASA Space Apps Cairo 2024 Bootcamp Postponed",
+            subject: "NASA Space Apps Cairo 2024 Bootcamp Confirmation Form: RSVP!",
         );
     }
 
@@ -56,7 +56,7 @@ class QrWelcomeMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.bootcampPostponed',
+            markdown: 'emails.bootcampConfirmation',
             with: [
                 'name' => $this->name,
             ],
