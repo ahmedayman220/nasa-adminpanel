@@ -48,9 +48,9 @@ class StoreBootcampConfirmationRequest extends FormRequest
             'name.string' => 'Your name must be a valid string.',
             'email.required' => 'An email address is required.',
             'email.email' => 'Please provide a valid email address.',
-            'email.exists' => 'The provided email is not registered with any bootcamp participant.',
+            'email.exists' => 'The provided email is not registered.',
             'national.required' => 'The national number is required.',
-            'national.exists' => 'The provided national number does not exist in our records.',
+            'national.exists' => 'The provided national number is not registered.',
             'phone_number.required' => 'A phone number is required.',
             'phone_number.string' => 'The phone number must be a valid string.',
         ];
