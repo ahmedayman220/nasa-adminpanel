@@ -12,7 +12,7 @@ class QrGeneratorController extends Controller
 {
     public function generateAndEmail(Request $request,BootcampParticipant $participant) {
 
-        foreach($request->ids as $id) {
+        foreach($request->ids as $key => $id) {
             $delay = now()->addSeconds($key * 5); // Delay each job by 5 seconds
             $id = $participant->where('national',$id)->first()->bootcampParticipantBootcampAttendees->first()->id;
             QrEmailGenerateJob::dispatch($id,auth()->user()->id, $request->host())->delay($delay);
