@@ -76,6 +76,14 @@ class WorkshopSchedulesController extends Controller
                 return $row->workshop->firstPriorityBootcampParticipants()->count();
             });
 
+            $table->addColumn('second_priority', function ($row) {
+                return $row->workshop->secondPriorityBootcampParticipants()->count();
+            });
+
+            $table->addColumn('third_priority', function ($row) {
+                return $row->workshop->thirdPriorityBootcampParticipants()->count();
+            });
+
             $table->rawColumns(['actions', 'placeholder', 'workshop']);
 
             return $table->make(true);

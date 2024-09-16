@@ -42,6 +42,8 @@
                     <th>Available Slots</th> <!-- New Column -->
                     <th>Available On Site</th> <!-- New Column -->
                     <th>First Priority</th> <!-- New Column -->
+                    <th>Second Priority</th> <!-- New Column -->
+                    <th>Third Priority</th> <!-- New Column -->
 
                     <th>
                         &nbsp;
@@ -61,6 +63,8 @@
                             @endforeach
                         </select>
                     </td>
+                    <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
+                    <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
@@ -130,6 +134,8 @@
                     {data: 'available', name: 'available'}, // Add Available column
                     {data: 'available_on_site', name: 'available_on_site'},
                     {data: 'first_priority', name: 'first_priority'}, // first_priority
+                    {data: 'second_priority', name: 'second_priority'}, // first_priority
+                    {data: 'third_priority', name: 'third_priority'}, // first_priority
                     {data: 'actions', name: '{{ trans('global.actions') }}'}
                 ],
                 orderCellsTop: true,
