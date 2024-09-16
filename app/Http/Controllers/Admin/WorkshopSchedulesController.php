@@ -72,6 +72,9 @@ class WorkshopSchedulesController extends Controller
                 return $row->SchedualWorkshopAvailabilityOnSite();
             });
 
+            $table->addColumn('first_priority', function ($row) {
+                return $row->workshop->firstPriorityBootcampParticipants()->count();
+            });
 
             $table->rawColumns(['actions', 'placeholder', 'workshop']);
 
