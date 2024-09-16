@@ -31,7 +31,6 @@ class StoreBootcampConfirmationRequest extends FormRequest
             ],
             'national' => [
                 'required',
-                'integer',
                 'exists:bootcamp_participants,national', // Ensure the national number exists in the table
             ],
             'phone_number' => [
@@ -40,4 +39,21 @@ class StoreBootcampConfirmationRequest extends FormRequest
             ],
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'recaptchaToken.required' => 'The reCAPTCHA validation is required.',
+            'name.required' => 'Please provide your name.',
+            'name.string' => 'Your name must be a valid string.',
+            'email.required' => 'An email address is required.',
+            'email.email' => 'Please provide a valid email address.',
+            'email.exists' => 'The provided email is not registered with any bootcamp participant.',
+            'national.required' => 'The national number is required.',
+            'national.exists' => 'The provided national number does not exist in our records.',
+            'phone_number.required' => 'A phone number is required.',
+            'phone_number.string' => 'The phone number must be a valid string.',
+        ];
+    }
+
 }
