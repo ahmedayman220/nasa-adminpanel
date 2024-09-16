@@ -52,7 +52,7 @@
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Date:</strong> <em>Saturday, 21st of September</em></p>
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Registration Time:</strong><em> 8 AM</em></p>
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Location:</strong> <a href="https://maps.app.goo.gl/SZn2Togsmju7uPDZ7" style="color: #f3ffff;"><em>Innovation University, 10th of Ramadan</em></a></p>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Confirmation:</strong> <a href="https://www.spaceappscairo.com/bootcamp-confirmation" style="color: #f3ffff;"><em>RSVP</em></a></p>
+                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Confirmation:</strong> <a href="https://www.spaceappscairo.com/bootcamp-confirmation" style="color: #f3ffff;"><em>RSVP Transportation (Limited Seats)</em></a></p>
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>You MUST confirm your attendance by filling out <strong><a href="https://www.spaceappscairo.com/bootcamp-confirmation" style="color: #f3ffff; text-decoration: underline"><em>this form</em></a></strong> by Tuesday, September 17, at 9:00 PM.</strong></p>
                                 </td>
                             </tr>
