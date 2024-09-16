@@ -154,8 +154,8 @@ return [
         ],
     ],
     'studyLevel' => [
-        'title'          => 'Study Level',
-        'title_singular' => 'Study Level',
+        'title'          => 'Transportation Route',
+        'title_singular' => 'Transportation Route',
         'fields'         => [
             'id'                => 'ID',
             'id_helper'         => ' ',
