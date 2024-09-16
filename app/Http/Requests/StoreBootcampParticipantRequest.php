@@ -69,7 +69,6 @@ class StoreBootcampParticipantRequest extends FormRequest
             'position' => [
                 'string',
                 'nullable',
-                'min:3',
                 'max:255',
             ],
             'national' => [
