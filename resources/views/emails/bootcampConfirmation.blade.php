@@ -40,7 +40,7 @@
                 <!-- Greeting Section -->
                 <tr>
                     <td style="padding: 20px; font-family: 'CabinetGrotesk', sans-serif; color: #09131c; line-height: 1.5;">
-                        <h1 style="text-align:center; font-size: 24px; margin: 0 0 10px 0; color: #09131c;">Bootcamp Adventure Has Been Rescheduled!</h1>
+                        <h1 style="text-align:center; font-size: 24px; margin: 0 0 10px 0; color: #09131c;">New Location, New Date: Bootcamp Adventure Has Been Rescheduled!</h1>
                         <p style="font-size: 14px; color: #09131c;margin: 0 0 20px 0;"><strong>Dear {{$name}},</strong></p>
                         <p style="font-size: 14px; color: #09131c; margin: 0 0 20px 0; font-size: 14px; ">
                             After years of innovation across Egypt. This year, to upgrade your experience even more, <b>NASA Space Apps Cairo 2024 Bootcamp</b> takes a bold leap with a new location in partnership with <b>Innovation University - جامعة الابتكار</b>. Get ready to reset your countdown clocks!
