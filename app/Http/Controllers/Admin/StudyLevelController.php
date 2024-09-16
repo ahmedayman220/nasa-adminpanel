@@ -56,6 +56,10 @@ class StudyLevelController extends Controller
                 return $row->title ? $row->title : '';
             });
 
+            $table->editColumn('totla_attendees', function ($row) {
+                return $row->slotBootcampConfirmations()->count();
+            });
+
             $table->rawColumns(['actions', 'placeholder']);
 
             return $table->make(true);
