@@ -75,7 +75,7 @@ class WorkshopSchedulesController extends Controller
             $table->addColumn('first_priority_confirmation', function ($row) {
                 return $row->workshop
                     ->firstPriorityBootcampParticipants()
-                    ->whereHas('email') // or ->whereHas('nationalBootcampConfirmations') based on your requirement
+                    ->whereHas('emailBootcampConfirmations') // or ->whereHas('nationalBootcampConfirmations') based on your requirement
                     ->count();
             });
 
