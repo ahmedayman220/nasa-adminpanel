@@ -72,6 +72,13 @@ class WorkshopSchedulesController extends Controller
                 return $row->SchedualWorkshopAvailabilityOnSite();
             });
 
+            $table->addColumn('first_priority_confirmation', function ($row) {
+                return $row->workshop
+                    ->firstPriorityBootcampParticipants()
+                    ->whereHas('email') // or ->whereHas('nationalBootcampConfirmations') based on your requirement
+                    ->count();
+            });
+
             $table->addColumn('first_priority', function ($row) {
                 return $row->workshop->firstPriorityBootcampParticipants()->count();
             });
