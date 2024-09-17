@@ -58,6 +58,12 @@ class WorkshopsController extends Controller
                 return $row->title ? $row->title : '';
             });
 
+            $table->addColumn('first_priority_confirmation', function ($row) {
+                return $row->firstPriorityBootcampParticipants()
+                    ->whereHas('emailBootcampConfirmations') // or ->whereHas('nationalBootcampConfirmations') based on your requirement
+                    ->count();
+            });
+
             $table->rawColumns(['actions', 'placeholder']);
 
             return $table->make(true);
