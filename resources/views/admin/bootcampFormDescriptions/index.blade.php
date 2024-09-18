@@ -115,7 +115,7 @@
             className: 'btn-dark',
             action: function (e, dt, node, config) {
                 var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
-                    return entry.national
+                    return entry.section_2_title
                 });
 
                 // var new_ids = $('tr.selected').map(function(){
