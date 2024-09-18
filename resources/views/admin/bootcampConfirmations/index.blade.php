@@ -1,5 +1,16 @@
 @extends('layouts.admin')
 @section('content')
+    @if(session()->has('Status'))
+        <div class="alert alert-success" role="alert">
+            {{session()->get('Status')}}
+        </div>
+    @endif
+    @if(session()->has('Failed'))
+        <div class="alert alert-danger" role="alert">
+            {{session()->get('Failed')}}
+        </div>
+    @endif
+
     @can('bootcamp_confirmation_create')
         <div style="margin-bottom: 10px;" class="row">
             <div class="col-lg-12">
