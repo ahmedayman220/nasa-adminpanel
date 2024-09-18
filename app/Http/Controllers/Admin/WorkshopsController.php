@@ -119,12 +119,23 @@ class WorkshopsController extends Controller
     {
         abort_if(Gate::denies('workshop_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $workshop->load(
+        // Load relationships and filter bootcamp participants with BootcampConfirmations
+        $workshop->load([
             'created_by',
             'workshopWorkshopSchedules',
             'workshopParticipantWorkshopPreferences',
-            'firstPriorityBootcampParticipants' => function ($query) {$query->whereHas('nationalBootcampConfirmations');},
-            'secondPriorityBootcampParticipants', 'thirdPriorityBootcampParticipants')
+            // Filter only participants who have bootcamp confirmations
+            'firstPriorityBootcampParticipants' => function ($query) {
+                $query->whereHas('nationalBootcampConfirmations');
+            },
+            'secondPriorityBootcampParticipants' => function ($query) {
+                $query->whereHas('nationalBootcampConfirmations');
+            },
+            'thirdPriorityBootcampParticipants' => function ($query) {
+                $query->whereHas('nationalBootcampConfirmations');
+            }
+        ]);
+
         return view('admin.workshops.show', compact('workshop'));
     }
 
