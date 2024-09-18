@@ -107,7 +107,6 @@ class StoreBootcampParticipantRequest extends FormRequest
             'comment' => [
                 'string',
                 'nullable',
-                'min:3',
                 'max:5000',
             ],
             'year' => [
