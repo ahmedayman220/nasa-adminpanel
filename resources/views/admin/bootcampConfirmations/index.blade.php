@@ -40,6 +40,9 @@
                         {{ trans('cruds.bootcampConfirmation.fields.id') }}
                     </th>
                     <th>
+                        First Priority
+                    </th>
+                    <th>
                         {{ trans('cruds.bootcampConfirmation.fields.name') }}
                     </th>
                     <th>
@@ -52,6 +55,9 @@
                     <th>
                         {{ trans('cruds.bootcampConfirmation.fields.phone_number') }}
                     </th>
+
+
+
                     <th>
                         {{ trans('cruds.bootcampConfirmation.fields.slot') }}
                     </th>
@@ -65,6 +71,16 @@
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
+
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($bootcamp_participants as $key => $item)
+                                <option value="{{ $item->first_priority()->title }}">{{ $item->first_priority()->title }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
@@ -193,6 +209,7 @@
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
                     { data: 'id', name: 'id' },
+                    { data: 'first_priority', name: 'first_priority' },
                     { data: 'name', name: 'name' },
                     { data: 'email', name: 'email' },
                     { data: 'national', name: 'national.name_en' },
