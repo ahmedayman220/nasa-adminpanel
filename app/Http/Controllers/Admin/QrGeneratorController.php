@@ -64,5 +64,6 @@ class QrGeneratorController extends Controller
 //        session()->flash('Status','Your request is processing please wait..');
 //        return response(null);
 
+
     }
 }
