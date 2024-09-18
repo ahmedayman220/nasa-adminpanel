@@ -70,13 +70,17 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
 
+{{--                    <td>--}}
+{{--                        <select class="search">--}}
+{{--                            <option value>{{ trans('global.all') }}</option>--}}
+{{--                            @foreach($workshops as $key => $item)--}}
+{{--                                <option value="{{ $item->title }}">{{ $item->title }}</option>--}}
+{{--                            @endforeach--}}
+{{--                        </select>--}}
+{{--                    </td>--}}
+
                     <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($workshops as $key => $item)
-                                <option value="{{ $item->title }}">{{ $item->title }}</option>
-                            @endforeach
-                        </select>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
 
                     <td>
