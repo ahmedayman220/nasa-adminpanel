@@ -50,7 +50,7 @@ class BootcampConfirmationController extends Controller
                 return $row->id ? $row->id : '';
             });
             $table->editColumn('first_priority', function ($row) {
-                return $row->national->first_priority()->title ? $row->national->first_priority()->title : '';
+                return $row->national->first_priority->title ? $row->national->first_priority->title : '';
             });
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : '';
