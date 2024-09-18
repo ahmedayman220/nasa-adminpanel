@@ -55,11 +55,11 @@ class QrGeneratorController extends Controller
     }
 
 
-    public function generateAndEmailIU (Request $request) {
+    public function generateAndEmailIU(Request $request) {
+
         foreach($request->ids as $key => $id) {
             $delay = now()->addSeconds($key * 1); // Delay each job by 5 seconds
-
-            QrEmailGenerateJob::dispatch($email, $request->host())->delay($delay);
+            QrEmailGenerateJob::dispatch($request->id, $request->host())->delay($delay);
         }
         session()->flash('Status','Your request is processing please wait..');
         return response(null);
