@@ -51,6 +51,7 @@ class QrEmailGenerateJob implements ShouldQueue
     {
         try {
             $attendee = BootcampFormDescription::where('section_2_title', $this->email)->first();
+            dd($attendee);
             // Check if $attendee is null
             if ($attendee) {
                 $name = $this->getShortNameAttribute($attendee->section_1_title);
