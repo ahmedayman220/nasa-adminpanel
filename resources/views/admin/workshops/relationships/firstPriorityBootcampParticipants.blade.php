@@ -100,7 +100,7 @@
                 </thead>
                 <tbody>
                     @foreach($bootcampParticipants as $key => $bootcampParticipant)
-                        <tr data-entry-id="{{ $bootcampParticipant->id }}">
+                        <tr data-entry-id="{{ $bootcampParticipant->id }}" data-entry-national="{{ $bootcampParticipant->national }}">
                             <td>
 
                             </td>
@@ -255,19 +255,14 @@
             text: EmailButtonTrans,
             className: 'btn-dark',
             action: function (e, dt, node, config) {
-                var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
-                    return entry.national
+                var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
+                    return $(entry).data('entry-national')
                 });
-                console.log(ids)
 
-                // var new_ids = $('tr.selected').map(function(){
-                //     return $(this).children(':nth-child(2)').html(); // Get the text of each selected div
-                // }).get();
-
-                // console.log(new_ids);
                 if (ids.length === 0) {
-                    alert('{{ trans('global.datatables.zero_selected') }}');
-                    return;
+                    alert('{{ trans('global.datatables.zero_selected') }}')
+
+                    return
                 }
 
                 if (confirm('{{ trans('global.areYouSure') }}')) {
