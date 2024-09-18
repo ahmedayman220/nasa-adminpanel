@@ -57,7 +57,6 @@
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Date:</strong> <em>Saturday, September 21</em></p>
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Registration Time:</strong><em> 7:30 AM</em></p>
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Location:</strong> <a href="https://maps.app.goo.gl/SZn2Togsmju7uPDZ7" style="color: #f3ffff;"><em>Innovation University, 10th of Ramadan</em></a></p>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Transportation:</strong><em> A separate confirmation Email will be sent if you have secured a seat in our Transportation Routes!</em></p>
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Note:</strong> <em>Don't forget to bring a paper and a pen!</em></p>
                                 </td>
                             </tr>
