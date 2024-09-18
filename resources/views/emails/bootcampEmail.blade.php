@@ -34,7 +34,7 @@
                 <!-- Header Section -->
                 <tr>
                     <td align="center" style="background-color: #f3ffff; padding: 10px 10px 0 10px;">
-                        <img src="{{ url('images/email-cover.jpg') }}" alt="NASA Space Apps Cairo 2024" width="100%" height="auto" style="color: #f3ffff;border-radius: 25px;display: block;box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                        <img src="{{ url('images/Bootcamp-Innovation.jpg') }}" alt="NASA Space Apps Cairo 2024" width="100%" height="auto" style="color: #f3ffff;border-radius: 25px;display: block;box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                     </td>
                 </tr>
                 <!-- Greeting Section -->
@@ -55,10 +55,10 @@
                             <tr>
                                 <td style="margin:auto; float:center; background: #202e42; padding: 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19)">
                                     <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #f3ffff; text-align: center">Event Details</h2>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Date:</strong> <em>Saturday, September 14th</em></p>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Registration Time:</strong><em> 8 AM</em></p>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Location:</strong> <a href="https://maps.app.goo.gl/d6nZRQKrbFWeQcYQ7?g_st=com.google.maps.preview.copy" style="color: #f3ffff; text-decoration: underline"><em>AUC - New Cairo Campus</em></p>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Entrance:</strong> <em>Gate 4 - Pepsi Gate</em></p>
+                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Date:</strong> <em>Saturday, September 21</em></p>
+                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Registration Time:</strong><em> 7:30 AM</em></p>
+                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Location:</strong> <a href="https://maps.app.goo.gl/SZn2Togsmju7uPDZ7" style="color: #f3ffff;"><em>Innovation University, 10th of Ramadan</em></a></p>
+                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Transportation:</strong><em> A separate confirmation Email will be sent if you have secured a seat in our Transportation Routes!</em></p>
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Note:</strong> <em>Don't forget to bring a paper and a pen!</em></p>
                                 </td>
                             </tr>
@@ -87,7 +87,6 @@
                                     <td style="background: #202e42; padding: 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                                         <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #f3ffff; text-align: center">Workshop Details</h2>
                                         <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Workshop Title:</strong> <em> {{ $workshop }}</em></p>
-                                        <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Time:</strong><em> {{ $time }}</em></p>
                                         <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;">To get the most out of this workshop, you will need the following:
                                             {!!  $workshop_description !!}
                                         </p>

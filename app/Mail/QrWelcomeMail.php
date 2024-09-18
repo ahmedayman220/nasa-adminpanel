@@ -23,19 +23,14 @@ class QrWelcomeMail extends Mailable
      * @param $national
      * @param $name
      */
-    public function __construct($name)
+    public function __construct($path,$uuid, $name,$workshop,$workshop_description)
     {
+        $this->uuid = $uuid;
         $this->name = $name;
+        $this->workshop = $workshop;
+        $this->workshop_description = $workshop_description;
+        $this->path = $path;
     }
-//    public function __construct($path,$uuid, $name,$time,$workshop,$workshop_description)
-//    {
-//        $this->uuid = $uuid;
-//        $this->name = $name;
-//        $this->time = $time;
-//        $this->workshop = $workshop;
-//        $this->workshop_description = $workshop_description;
-//        $this->path = $path;
-//    }
     /**
      * Create a new message instance.
      */
@@ -46,36 +41,27 @@ class QrWelcomeMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: "NASA Space Apps Cairo 2024 Bootcamp Confirmation Form: RSVP!",
+            subject: "NASA Space Apps Cairo 2024 Bootcamp Invitation",
         );
     }
 
     /**
      * Get the message content definition.
      */
+
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.bootcampConfirmation',
+            markdown: 'emails.bootcampEmail',
             with: [
-                'name' => $this->name,
-            ],
+                    'uuid' => $this->uuid,
+                    'name' => $this->name,
+                    'workshop' => $this->workshop,
+                    'workshop_description' => $this->workshop_description,
+                    'path' => $this->path
+                ],
         );
     }
-//    public function content(): Content
-//    {
-//        return new Content(
-//            markdown: 'emails.bootcampPostponed',
-//            with: [
-//                    'uuid' => $this->uuid,
-//                   'name' => $this->name,
-//                    'workshop' => $this->workshop,
-//                    'workshop_description' => $this->workshop_description,
-//                    'time' => $this->time,
-//                    'path' => $this->path
-//                ],
-//        );
-//    }
 
     /**
      * Get the attachments for the message.
