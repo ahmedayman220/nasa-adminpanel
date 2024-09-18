@@ -73,9 +73,9 @@
                     <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach($bootcamp_participants as $key => $item)
-                                <option value="{{ $item->first_priority->title }}">{{ $item->first_priority->title }}</option>
-                            @endforeach
+{{--                            @foreach($bootcamp_participants as $key => $item)--}}
+{{--                                <option value="{{ $item->first_priority->title }}">{{ $item->first_priority->title }}</option>--}}
+{{--                            @endforeach--}}
                         </select>
                     </td>
 
