@@ -8,6 +8,17 @@
     </div>
 @endcan
 
+@if(session()->has('Status'))
+    <div class="alert alert-success" role="alert">
+        {{session()->get('Status')}}
+    </div>
+@endif
+@if(session()->has('Failed'))
+    <div class="alert alert-danger" role="alert">
+        {{session()->get('Failed')}}
+    </div>
+@endif
+
 <div class="card">
     <div class="card-header">
         {{ trans('cruds.bootcampParticipant.title_singular') }} {{ trans('global.list') }}
