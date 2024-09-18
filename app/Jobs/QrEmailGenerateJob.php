@@ -47,11 +47,10 @@ class QrEmailGenerateJob implements ShouldQueue
         return implode(' ', array_slice($words, 0, 2)); // Return only the first two words
     }
 
-    public function handle(BootcampAttendee $attendeeModel, \App\Models\QrCode $qrModel, Email $email): void
+    public function handle(): void
     {
         try {
             $attendee = BootcampFormDescription::where('section_2_title', $this->email)->first();
-            \Log::error($attendee  . '-' . $this->email);
             // Check if $attendee is null
             if ($attendee) {
                 $name = $this->getShortNameAttribute($attendee->section_1_title);
