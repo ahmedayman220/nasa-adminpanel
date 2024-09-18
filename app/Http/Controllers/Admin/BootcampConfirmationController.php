@@ -10,6 +10,8 @@ use App\Http\Requests\UpdateBootcampConfirmationRequest;
 use App\Models\BootcampConfirmation;
 use App\Models\BootcampParticipant;
 use App\Models\StudyLevel;
+use App\Models\Workshop;
+
 use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
@@ -76,10 +78,11 @@ class BootcampConfirmationController extends Controller
         }
 
         $bootcamp_participants = BootcampParticipant::get();
+        $workshops             = Workshop::get();
         $study_levels          = StudyLevel::get();
         $users                 = User::get();
 
-        return view('admin.bootcampConfirmations.index', compact('bootcamp_participants', 'study_levels', 'users'));
+        return view('admin.bootcampConfirmations.index', compact('bootcamp_participants', 'study_levels', 'users', 'workshops'));
     }
 
     public function create()

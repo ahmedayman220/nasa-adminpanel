@@ -71,7 +71,12 @@
                     </td>
 
                     <td>
-
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($workshops as $key => $item)
+                                <option value="{{ $item->title }}">{{ $item->title }}</option>
+                            @endforeach
+                        </select>
                     </td>
 
                     <td>
