@@ -32,9 +32,9 @@ class WorkshopsController extends Controller
             $table->addColumn('actions', '&nbsp;');
 
             $table->editColumn('actions', function ($row) {
-                $viewGate      = 'workshop_show';
-                $editGate      = 'workshop_edit';
-                $deleteGate    = 'workshop_delete';
+                $viewGate = 'workshop_show';
+                $editGate = 'workshop_edit';
+                $deleteGate = 'workshop_delete';
                 $crudRoutePart = 'workshops';
 
                 return view('partials.datatablesActions', compact(
@@ -119,8 +119,12 @@ class WorkshopsController extends Controller
     {
         abort_if(Gate::denies('workshop_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $workshop->load('created_by', 'workshopWorkshopSchedules', 'workshopParticipantWorkshopPreferences', 'firstPriorityBootcampParticipants', 'secondPriorityBootcampParticipants', 'thirdPriorityBootcampParticipants');
-
+        $workshop->load(
+            'created_by',
+            'workshopWorkshopSchedules',
+            'workshopParticipantWorkshopPreferences',
+            'firstPriorityBootcampParticipants' => function ($query) {$query->whereHas('nationalBootcampConfirmations');},
+            'secondPriorityBootcampParticipants', 'thirdPriorityBootcampParticipants')
         return view('admin.workshops.show', compact('workshop'));
     }
 
@@ -148,10 +152,10 @@ class WorkshopsController extends Controller
     {
         abort_if(Gate::denies('workshop_create') && Gate::denies('workshop_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $model         = new Workshop();
-        $model->id     = $request->input('crud_id', 0);
+        $model = new Workshop();
+        $model->id = $request->input('crud_id', 0);
         $model->exists = true;
-        $media         = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
+        $media = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
 
         return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
     }
