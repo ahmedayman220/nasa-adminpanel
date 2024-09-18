@@ -37,9 +37,7 @@
                     <th>
                         {{ trans('cruds.bootcampConfirmation.fields.national') }}
                     </th>
-                    <th>
-                        {{ trans('cruds.bootcampParticipant.fields.email') }}
-                    </th>
+
                     <th>
                         {{ trans('cruds.bootcampConfirmation.fields.phone_number') }}
                     </th>
@@ -75,8 +73,7 @@
                             @endforeach
                         </select>
                     </td>
-                    <td>
-                    </td>
+
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
@@ -144,6 +141,7 @@
                     var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
                         return entry.national
                     });
+                    console.log(ids)
 
                     // var new_ids = $('tr.selected').map(function(){
                     //     return $(this).children(':nth-child(2)').html(); // Get the text of each selected div
@@ -185,9 +183,8 @@
                     { data: 'placeholder', name: 'placeholder' },
                     { data: 'id', name: 'id' },
                     { data: 'name', name: 'name' },
-                    { data: 'email_name_en', name: 'email.name_en' },
-                    { data: 'national_name_en', name: 'national.name_en' },
-                    { data: 'national.email', name: 'national.email' },
+                    { data: 'email', name: 'email' },
+                    { data: 'national', name: 'national.name_en' },
                     { data: 'phone_number', name: 'phone_number' },
                     { data: 'slot_title', name: 'slot.title' },
                     { data: 'actions', name: '{{ trans('global.actions') }}' }

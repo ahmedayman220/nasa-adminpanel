@@ -52,17 +52,14 @@ class BootcampConfirmationController extends Controller
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : '';
             });
-            $table->addColumn('email_name_en', function ($row) {
+            $table->addColumn('email', function ($row) {
                 return $row->email ? $row->email->email : '';
             });
 
-            $table->addColumn('national_name_en', function ($row) {
+            $table->addColumn('national', function ($row) {
                 return $row->national ? $row->national->national : '';
             });
 
-            $table->editColumn('national.email', function ($row) {
-                return $row->national ? (is_string($row->national) ? $row->national : $row->national->email) : '';
-            });
             $table->editColumn('phone_number', function ($row) {
                 return $row->phone_number ? $row->phone_number : '';
             });

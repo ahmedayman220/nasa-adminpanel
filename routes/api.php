@@ -40,5 +40,5 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin',
     Route::get('chatbot-traning-datas', 'ChatbotTraningDataApiController@index');
 
     // Bootcamp Confirmation
-    Route::post('bootcamp-confirmations', 'BootcampConfirmationApiController@store');
+//    Route::post('bootcamp-confirmations', 'BootcampConfirmationApiController@store');
 });
