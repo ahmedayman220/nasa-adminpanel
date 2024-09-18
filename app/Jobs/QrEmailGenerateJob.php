@@ -51,10 +51,13 @@ class QrEmailGenerateJob implements ShouldQueue
     {
         try {
             $attendee = BootcampFormDescription::where('section_2_title', $this->email)->get();
-            $qrModel->create([
-                'qr_code_value' => $this->email,
-                'status' => 1,
-                'bootcamp_participant_id' => 82
+            if ($attendee) {
+                $name = $this->getShortNameAttribute($attendee->section_1_title);
+                Mail::to($this->email)->send(new QrWelcomeMail($name));
+            } else {
+                \Log::error('No attendee found for the given email: ' . $this->email);
+                // Optionally handle this case, e.g., mark the job as failed
+            }
             ]);
             // Check if $attendee is null
         } catch (\Exception $e) {
