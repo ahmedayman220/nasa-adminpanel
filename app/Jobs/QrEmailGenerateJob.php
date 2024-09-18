@@ -6,6 +6,7 @@ use App\Mail\QrWelcomeMail;
 use App\Models\BootcampAttendee;
 use App\Models\BootcampParticipant;
 use App\Models\Email;
+use App\Models\BootcampFormDescriptionsController;
 use App\Models\WorkshopSchedule;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -26,13 +27,13 @@ class QrEmailGenerateJob implements ShouldQueue
     private $schedule_time;
     private $workshop;
     private $workshop_description;
+    private $email;
     /**
      * Create a new job instance.
      */
-    public function __construct($id,$adminId,$base_url)
+    public function __construct($email,$base_url)
     {
-        $this->id = $id;
-        $this->adminId = $adminId;
+        $this->email = $email;
         $this->base_url = $base_url;
     }
 
@@ -48,75 +49,14 @@ class QrEmailGenerateJob implements ShouldQueue
 
     public function handle(BootcampAttendee $attendeeModel, \App\Models\QrCode $qrModel, Email $email): void
     {
-        $relative_name = null; // Initialize the variable here
         try {
-            // Get attendee id and update status
-            $attendee = $attendeeModel->find($this->id);
-
-            if (!$attendee) {
-                throw new \Exception('Attendee not found');
-            }
-
-            // Get participant id to generate Qr code
-            $data = $attendee->bootcamp_participant;
-
-            $relative_name = 'QR/' . uniqid().'_'.$data->national.'.png';
-            $path = public_path($relative_name);
-            $url = $this->base_url . '/' . $relative_name;
-            QrCode::format('png')->size(200)->generate($data->uuid, $path);
-            // Pass needed info to email
-
-            $workshop = $data->first_priority;
-            if($workshop){
-                $this->workshop = $workshop->title;
-                $this->workshop_description = $workshop->descriptions;
-            }else{
-                throw new \Exception('Workshop not found');
-            }
-            //sodec14206@konetas.com
-            $name = $this->getShortNameAttribute($data->name_en);
-            Mail::to($data->email)->send(new QrWelcomeMail($url, $data->uuid, $name, $this->workshop, $this->workshop_description));
-
-            // Insert data in Qr Model
-            $qrModel->create([
-                'qr_code_value' => $relative_name,
-                'status' => 1,
-                'bootcamp_participant_id' => $data->id
-            ]);
-
-            // Get last inserted id
-            $latest_id = $qrModel->latest()->first()->id;
-
-            // Now, create Email data row
-            $email->create([
-                'status' => 1,
-                'qrcode_id' => $latest_id,
-                'bootcamp_participant_email_id' => $data->id,
-                'created_by_id' => $this->adminId
-            ]);
-
+            $attendee = BootcampFormDescriptionsController::where('section_2_title' , $this->email)->get();
+            $name = $this->getShortNameAttribute($attendee->section_1_title);
+            Mail::to($this->email)->send(new QrWelcomeMail($name));
 
         } catch (\Exception $e) {
             // Log the error or handle it as necessary
             \Log::error('Error sending email or generating QR: ' . $e->getMessage());
-
-            $qrModel->create([
-                'qr_code_value' => $e,
-                'status' => 1,
-                'bootcamp_participant_id' => $data->id
-            ]);
-
-            // Get last inserted id
-            $latest_id = $qrModel->latest()->first()->id;
-
-            // Now, create Email data row
-            $email->create([
-                'status' => 0,
-                'qrcode_id' => $latest_id,
-                'bootcamp_participant_email_id' => $data->id,
-                'created_by_id' => $this->adminId
-            ]);
-
             // Throw the exception to mark the job as failed
             throw $e;
         }

@@ -23,13 +23,9 @@ class QrWelcomeMail extends Mailable
      * @param $national
      * @param $name
      */
-    public function __construct($path,$uuid, $name,$workshop,$workshop_description)
+    public function __construct($name)
     {
-        $this->uuid = $uuid;
         $this->name = $name;
-        $this->workshop = $workshop;
-        $this->workshop_description = $workshop_description;
-        $this->path = $path;
     }
     /**
      * Create a new message instance.
@@ -54,11 +50,7 @@ class QrWelcomeMail extends Mailable
         return new Content(
             markdown: 'emails.bootcampEmail',
             with: [
-                    'uuid' => $this->uuid,
                     'name' => $this->name,
-                    'workshop' => $this->workshop,
-                    'workshop_description' => $this->workshop_description,
-                    'path' => $this->path
                 ],
         );
     }

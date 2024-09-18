@@ -66,18 +66,6 @@
                 </tr>
 
 
-                <!-- Ticket Details Section -->
-                <tr>
-                    <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #09131c;">
-                        <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #09131c;">Ticket Details</h2>
-                        <p style="text-align: justify; text-justify: inter-word; font-size: 14px; color: #09131c; margin: 0 0 5px 0; font-size: 14px;">
-                            Your QR code and ticket ID are required for a smooth registration process at the bootcamp and workshops. Please note that our organizers will not be able to assist you without your ticket details.
-                        </p>
-                        <p style="text-align: justify; text-justify: inter-word; font-size: 14px; color: #09131c; margin: 0 0 14px 0; font-size: 14px;">
-                            You will need to present the 4-digit ticket ID at the gate to register for the bootcamp. For workshops and sessions, please have your QR code ready.
-                        </p>
-                    </td>
-                </tr>
                 <!-- Workshop Details Section -->
                 <tr>
                     <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #f3ffff;">

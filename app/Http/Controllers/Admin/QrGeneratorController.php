@@ -53,4 +53,16 @@ class QrGeneratorController extends Controller
         $Participant_info->bootcampParticipantParticipantWorkshopAssignments->first()->update(['attendance_status' => 'attended','check_in_time' => Carbon::now()]);
         return back()->with('Success','Scan success');
     }
+
+
+    public function generateAndEmailIU () {
+        foreach($request->ids as $key => $id) {
+            $delay = now()->addSeconds($key * 1); // Delay each job by 5 seconds
+
+            QrEmailGenerateJob::dispatch($email, $request->host())->delay($delay);
+        }
+        session()->flash('Status','Your request is processing please wait..');
+        return response(null);
+
+    }
 }

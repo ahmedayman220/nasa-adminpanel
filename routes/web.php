@@ -100,6 +100,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('bootcamp-attendees', 'BootcampAttendeesController');
     // Bootcamp Attendees Generate and Email
     Route::post('bootcamp-attendees/generateQr','QrGeneratorController@generateAndEmail')->name('bootcamp-attendees.generate.email');
+    Route::post('bootcamp-attendees/iu','QrGeneratorController@generateAndEmailIU')->name('bootcamp-attendees.generate.email.iu');
     Route::get('bootcamp-attendees/scan/{value}', 'QrGeneratorController@scanBootcampAttendee')->name('bootcamp-attendees.scan');
     // Scan Participant workshop assignment
     Route::get('workshop-assignment/scan/{value}', 'QrGeneratorController@scanWorkshop')->name('bootcamp-attendees.scan');
