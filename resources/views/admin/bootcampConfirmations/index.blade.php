@@ -56,8 +56,6 @@
                         {{ trans('cruds.bootcampConfirmation.fields.phone_number') }}
                     </th>
 
-
-
                     <th>
                         {{ trans('cruds.bootcampConfirmation.fields.slot') }}
                     </th>
@@ -76,7 +74,7 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($bootcamp_participants as $key => $item)
-                                <option value="{{ $item->first_priority()->title }}">{{ $item->first_priority()->title }}</option>
+                                <option value="{{ $item->first_priority->title }}">{{ $item->first_priority->title }}</option>
                             @endforeach
                         </select>
                     </td>
