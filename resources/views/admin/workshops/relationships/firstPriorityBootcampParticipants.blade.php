@@ -296,7 +296,7 @@
   $.extend(true, $.fn.dataTable.defaults, {
     orderCellsTop: true,
     order: [[ 10, 'asc' ]],
-    pageLength: 50,
+    pageLength: 1000,
   });
   let table = $('.datatable-firstPriorityBootcampParticipants:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
