@@ -35,11 +35,18 @@
                         Confirmed As A First Priority
                     </th>
                     <th>
+                        Attended Formation Activity
+                    </th>
+
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
                 <tr>
                     <td>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -109,6 +116,7 @@
                     {data: 'id', name: 'id'},
                     {data: 'title', name: 'title'},
                     {data: 'first_priority_confirmation', name: 'first_priority_confirmation'},
+                    {data: 'attended_formation_activity', name: 'attended_formation_activity'},
                     {data: 'actions', name: '{{ trans('global.actions') }}'}
                 ],
                 orderCellsTop: true,

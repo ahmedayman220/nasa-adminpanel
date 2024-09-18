@@ -64,6 +64,13 @@ class WorkshopsController extends Controller
                     ->count();
             });
 
+            $table->addColumn('attended_formation_activity', function ($row) {
+                return $row->firstPriorityBootcampParticipants()
+                    ->where('is_attend_formation_activity', '1') // Check if attended the team formation activity
+                    ->whereHas('emailBootcampConfirmations') // or ->whereHas('nationalBootcampConfirmations') based on your requirement
+                    ->count();
+            });
+
             $table->rawColumns(['actions', 'placeholder']);
 
             return $table->make(true);
