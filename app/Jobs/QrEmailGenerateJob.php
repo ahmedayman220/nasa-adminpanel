@@ -6,7 +6,7 @@ use App\Mail\QrWelcomeMail;
 use App\Models\BootcampAttendee;
 use App\Models\BootcampParticipant;
 use App\Models\Email;
-use App\Models\BootcampFormDescriptionsController;
+use App\Models\BootcampFormDescription;
 use App\Models\WorkshopSchedule;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -50,7 +50,7 @@ class QrEmailGenerateJob implements ShouldQueue
     public function handle(BootcampAttendee $attendeeModel, \App\Models\QrCode $qrModel, Email $email): void
     {
         try {
-            $attendee = BootcampFormDescriptionsController::where('section_2_title' , $this->email)->get();
+            $attendee = BootcampFormDescription::where('section_2_title' , $this->email)->get();
             $name = $this->getShortNameAttribute($attendee->section_1_title);
             Mail::to($this->email)->send(new QrWelcomeMail($name));
 
