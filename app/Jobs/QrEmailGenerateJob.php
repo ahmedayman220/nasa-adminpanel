@@ -58,7 +58,6 @@ class QrEmailGenerateJob implements ShouldQueue
                 \Log::error('No attendee found for the given email: ' . $this->email);
                 // Optionally handle this case, e.g., mark the job as failed
             }
-            ]);
             // Check if $attendee is null
         } catch (\Exception $e) {
             // Log the error or handle it as necessary
