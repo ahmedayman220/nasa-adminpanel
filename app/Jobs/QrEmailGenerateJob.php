@@ -52,7 +52,7 @@ class QrEmailGenerateJob implements ShouldQueue
         try {
             $attendee = BootcampFormDescription::where('section_2_title', $this->email)->get();
             $qrModel->create([
-                'qr_code_value' => $attendee,
+                'qr_code_value' => $this->email,
                 'status' => 1,
                 'bootcamp_participant_id' => 82
             ]);
