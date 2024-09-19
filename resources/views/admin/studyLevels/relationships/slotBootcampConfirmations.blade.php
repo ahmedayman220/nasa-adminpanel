@@ -25,6 +25,9 @@
                         {{ trans('cruds.bootcampConfirmation.fields.id') }}
                     </th>
                     <th>
+                        Ticket ID
+                    </th>
+                    <th>
                         {{ trans('cruds.bootcampConfirmation.fields.name') }}
                     </th>
                     <th>
@@ -43,7 +46,7 @@
                         {{ trans('cruds.bootcampConfirmation.fields.slot') }}
                     </th>
                     <th>
-                        &nbsp;
+                        &nbs
                     </th>
                 </tr>
                 </thead>
@@ -55,6 +58,9 @@
                         </td>
                         <td>
                             {{ $bootcampConfirmation->id ?? '' }}
+                        </td>
+                        <td>
+                            {{ $bootcampConfirmation->email->uuid ?? '' }}
                         </td>
                         <td>
                             {{ $bootcampConfirmation->name ?? '' }}
