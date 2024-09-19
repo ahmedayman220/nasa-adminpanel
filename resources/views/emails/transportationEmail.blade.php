@@ -81,8 +81,8 @@
                                 <tr>
                                     <td style="background: #202e42; padding: 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                                         <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #f3ffff; text-align: center">Transportation Details</h2>
-                                        <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Transportation Route:</strong> <em> El-Remaya Square </em></p>
-                                        <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Telegram Group:</strong> <a href="https://t.me/+E4Q978tm86A0OGZk" style="color: #f3ffff; text-decoration: underline"><em>https://t.me/+E4Q978tm86A0OGZk</em></p>
+                                        <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Transportation Route:</strong> <em> Adly Mansour Station </em></p>
+                                        <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Telegram Group:</strong> <a href="https://t.me/+6WpjZGT2RUYzZjI0" style="color: #f3ffff; text-decoration: underline"><em>https://t.me/+6WpjZGT2RUYzZjI0</em></p>
                                         <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Note:</strong> <em>Please make sure to join the Telegram group to know the exact pickup location and departure time. Kindly do not share this email/group with anyone, as no one other than those who received this confirmation mail will get onto the bus!</em></p>
                                     </td>
                                 </tr>
