@@ -49,7 +49,7 @@
                 </thead>
                 <tbody>
                 @foreach($bootcampConfirmations as $key => $bootcampConfirmation)
-                    <tr data-entry-id="{{ $bootcampConfirmation->id }}">
+                    <tr data-entry-id="{{ $bootcampConfirmation->id }}" data-entry-national="{{ $bootcampConfirmation->national->national }}">
                         <td>
 
                         </td>
@@ -63,7 +63,7 @@
                             {{ $bootcampConfirmation->email->name_en ?? '' }}
                         </td>
                         <td>
-                            {{ $bootcampConfirmation->national->name_en ?? '' }}
+                            {{ $bootcampConfirmation->national->national ?? '' }}
                         </td>
                         <td>
                             {{ $bootcampConfirmation->national->email ?? '' }}
@@ -139,6 +139,40 @@
             }
             dtButtons.push(deleteButton)
             @endcan
+
+            {{-- Start Email Button --}}
+            let EmailButtonTrans = 'Send Email';
+            let EmailButton = {
+                text: EmailButtonTrans,
+                className: 'btn-dark',
+                action: function (e, dt, node, config) {
+                    var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
+                        return $(entry).data('entry-national')
+                    });
+
+                    if (ids.length === 0) {
+                        alert('{{ trans('global.datatables.zero_selected') }}')
+
+                        return
+                    }
+
+                    if (confirm('{{ trans('global.areYouSure') }}')) {
+                        $.ajax({
+                            headers: {'x-csrf-token': _token},
+                            method: 'POST',
+                            url: "{{ route('admin.bootcamp-attendees.generate.email') }}",
+                            data: { ids: ids, _method: 'POST' }
+                        })
+                            .done(function (data) {
+                                // console.log(data)
+                                location.reload();
+                            });
+                    }
+                }
+            };
+
+            dtButtons.push(EmailButton);
+
 
             $.extend(true, $.fn.dataTable.defaults, {
                 orderCellsTop: true,
