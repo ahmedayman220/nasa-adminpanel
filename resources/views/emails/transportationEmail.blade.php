@@ -42,62 +42,48 @@
                     <td style="padding: 20px; font-family: 'CabinetGrotesk', sans-serif; color: #09131c; line-height: 1.5;">
                         <h1 style="text-align:center; font-size: 24px; margin: 0 0 10px 0; color: #09131c;">Welcome to NASA Space Apps Cairo 2024!</h1>
                         <p style="font-size: 14px; color: #09131c;margin: 0 0 20px 0;"><strong>Dear {{$name}},</strong></p>
-                        <p style="font-size: 14px; color: #09131c; margin: 0 0 20px 0; font-size: 14px; text-align: justify; text-justify: inter-word;">
-                            Thank you for your interest in attending <strong>NASA Space Apps Cairo Bootcamp 2024.</strong> We are excited to invite you to join us and experience the great moments we have prepared for you! This email contains essential information, so please ensure you read it thoroughly.
+
+                    </td>
+                </tr>
+                <!--
+
+                @if($workshop && $workshop != "None")
+                    <!-- Workshop Section -->
+                <tr>
+                    <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #09131c;">
+
+                        <p style="text-align: justify; text-justify: inter-word; font-size: 14px; color: #09131c; margin: 0 0 5px 0; font-size: 14px;">
+                            We hope you’re as excited as we are for the upcoming NASA Space Apps Cairo 2024 Bootcamp. We are reaching out to extend our sincerest apologies for not being able to accommodate your request for a seat in our transportation routes. Unfortunately, due to limited availability, we were unable to allocate a seat for you this time.
+                        </p>
+                        <p style="text-align: justify; text-justify: inter-word; font-size: 14px; color: #09131c; margin: 0 0 14px 0; font-size: 14px;">
+                            We have shared several alternative options to reach the event location on our Facebook page. We encourage you to check out the post for detailed information on these alternatives.
                         </p>
                     </td>
                 </tr>
-               <!-- Event Details Section -->
+                <!-- Workshop Details Section -->
                 <tr>
                     <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #f3ffff;">
-                        <table style="margin-right: auto; margin-left: auto; min-width:60%;" border="0" cellspacing="0" cellpadding="0">
+                        <table style="margin-right: auto; margin-left: auto; min-width: 60%;" border="0" cellspacing="0" cellpadding="0">
                             <tr>
-                                <td style="margin:auto; float:center; background: #202e42; padding: 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-                                    <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #f3ffff; text-align: center">Event Details</h2>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Date:</strong> <em>Saturday, September 21</em></p>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Location:</strong> <a href="https://maps.app.goo.gl/SZn2Togsmju7uPDZ7" style="color: #f3ffff;"><em>Innovation University, 10th of Ramadan</em></a></p>
+                                <td style="background: #202e42; padding: 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                                    <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #f3ffff; text-align: center">Transportation Details</h2>
+
+                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Transportation Post:</strong> <a href="https://bit.ly/NASA2024-TransportationDetails" style="color: #f3ffff; text-decoration: underline"><em>https://bit.ly/NASA2024-TransportationDetails</em></p>
+
                                 </td>
                             </tr>
                         </table>
                     </td>
                 </tr>
+                @else
+                @endif
 
-                    <!-- Workshop Section -->
-                    <tr>
-                        <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #09131c;">
-
-                            <p style="text-align: justify; text-justify: inter-word; font-size: 14px; color: #09131c; margin: 0 0 5px 0; font-size: 14px;">
-                                We are pleased to confirm your reserved seat on our transportation routes. Please note that you will not be able to change your transportation route once you have received this email.
-                            </p>
-                            <p style="text-align: justify; text-justify: inter-word; font-size: 14px; color: #09131c; margin: 0 0 14px 0; font-size: 14px;">
-                                Our organizers will guide you to the location and help you jump on your bus, so please be sure to follow their instructions and have your National ID ready.
-                            </p>
-                        </td>
-                    </tr>
-                    <!-- Workshop Details Section -->
-                    <tr>
-                        <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #f3ffff;">
-                            <table style="margin-right: auto; margin-left: auto; min-width: 60%;" border="0" cellspacing="0" cellpadding="0">
-                                <tr>
-                                    <td style="background: #202e42; padding: 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                                        <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #f3ffff; text-align: center">Transportation Details</h2>
-                                        <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Transportation Route:</strong> <em> Abdelmoneam Reyad Bus Stop - Tahrir </em></p>
-                                        <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Telegram Group:</strong> <a href="https://t.me/+b0IhfpLSmjE3YzFk" style="color: #f3ffff; text-decoration: underline"><em>https://t.me/+b0IhfpLSmjE3YzFk</em></p>
-                                        <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Note:</strong> <em>Please make sure to join the Telegram group to know the exact pickup location and departure time. Kindly do not share this email/group with anyone, as no one other than those who received this confirmation mail will get onto the bus!</em></p>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
 
                 <!-- Closing Section -->
                 <tr>
                     <td style="padding: 0 20px 0px 20px; font-family: Arial, sans-serif; color: #09131c;">
-                        <p style="text-align: justify; text-justify: inter-word; font-size: 14px; margin: 0 0 10px 0;">
-                            Please make sure to follow the instructions provided in this email to ensure the best possible experience at the bootcamp. If you have any questions or require further assistance, feel free to reach out to us.
-                        </p>
                         <p style="text-align: justify; text-justify: inter-word; font-size: 14px; margin: 0 0 15px 0;">
-                            We look forward to seeing you at the bootcamp and collaborating to make a difference in the world!
+                            Thank you for your understanding, and we can’t wait to see you at the event. Please feel free to reach out to us if you have any further questions or need additional assistance.!
                         </p>
                     </td>
                 </tr>
