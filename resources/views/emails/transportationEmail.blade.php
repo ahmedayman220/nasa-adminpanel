@@ -34,7 +34,7 @@
                 <!-- Header Section -->
                 <tr>
                     <td align="center" style="background-color: #f3ffff; padding: 10px 10px 0 10px;">
-                        <img src="{{ url('images/email-cover.jpg') }}" alt="NASA Space Apps Cairo 2024" width="100%" height="auto" style="color: #f3ffff;border-radius: 25px;display: block;box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                        <img src="{{ url('images/Bootcamp-Innovation.jpg') }}" alt="NASA Space Apps Cairo 2024" width="100%" height="auto" style="color: #f3ffff;border-radius: 25px;display: block;box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                     </td>
                 </tr>
                 <!-- Greeting Section -->
