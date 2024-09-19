@@ -63,7 +63,7 @@ class QrEmailGenerateJob implements ShouldQueue
             $relative_name = 'QR/' . uniqid().'_'.$data->national.'.png';
             $path = public_path($relative_name);
             $url = $this->base_url . '/' . $relative_name;
-            QrCode::format('png')->size(200)->generate($data->uuid, $path);
+            QrCode::format('png')->size(200)->generate("asd", $path);
             // Pass needed info to email
 
             $workshop = $data->first_priority;
