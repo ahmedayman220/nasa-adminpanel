@@ -146,9 +146,12 @@
     {{--Qr Scanner --}}
     <div class="container mx-auto qrcode-container hide-scanner">
         <p class="close-scanning">x</p>
-        <div id="qr-reader"></div>
+        <div id="qr-reader">
+
+        </div>
         <div id="qr-reader-results"></div>
     </div>
+    <div class="overlay hide-scanner"></div>
 
     {{--End Qr Scanner --}}
 
