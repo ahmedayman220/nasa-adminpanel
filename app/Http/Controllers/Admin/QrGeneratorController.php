@@ -11,11 +11,9 @@ use Illuminate\Http\Request;
 class QrGeneratorController extends Controller
 {
     public function generateAndEmail(Request $request,BootcampParticipant $participant) {
-
-        foreach($request->ids as $key => $id) {
-            $delay = now()->addSeconds($key * 1); // Delay each job by 5 seconds
+        foreach($request->ids as $id) {
             $id = $participant->where('national',$id)->first()->bootcampParticipantBootcampAttendees->first()->id;
-            QrEmailGenerateJob::dispatch($id,auth()->user()->id, $request->host())->delay($delay);
+            QrEmailGenerateJob::dispatch($id,auth()->user()->id, $request->host());
         }
         session()->flash('Status','Your request is processing please wait..');
         return response(null);
@@ -52,18 +50,5 @@ class QrGeneratorController extends Controller
         //if all clear user status will change to attended with succecss
         $Participant_info->bootcampParticipantParticipantWorkshopAssignments->first()->update(['attendance_status' => 'attended','check_in_time' => Carbon::now()]);
         return back()->with('Success','Scan success');
-    }
-
-
-    public function generateAndEmailIU(Request $request) {
-
-        foreach($request->ids as $key => $id) {
-            $delay = now()->addSeconds($key * 1); // Delay each job by 5 seconds
-            QrEmailGenerateJob::dispatch($id, $request->host())->delay($delay);
-        }
-        session()->flash('Status','Your request is processing please wait..');
-        return response(null);
-
-
     }
 }
