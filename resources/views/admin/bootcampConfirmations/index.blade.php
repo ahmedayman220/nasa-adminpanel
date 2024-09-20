@@ -221,7 +221,7 @@
                 ],
                 orderCellsTop: true,
                 order: [[ 1, 'desc' ]],
-                pageLength: 100,
+                pageLength: 4000,
             };
             let table = $('.datatable-BootcampConfirmation').DataTable(dtOverrideGlobals);
             $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
