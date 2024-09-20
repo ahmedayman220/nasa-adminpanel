@@ -42,7 +42,7 @@ class QrWelcomeMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'NASA Space Apps Cairo 2024 Bootcamp Transportation',
+            subject: 'Updated: NASA Space Apps Cairo 2024 Bootcamp Transportation',
         );
     }
 
