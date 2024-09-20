@@ -61,9 +61,6 @@ class BootcampAttendeesController extends Controller
                 return $row->bootcamp_participant ? $row->bootcamp_participant->name_en : '';
             });
 
-            $table->addColumn('workshop_title', function ($row) {
-                return $row->bootcamp_participant->bootcampParticipantParticipantWorkshopAssignments->first()->workshop_schedule->workshop->title . '[' . $row->bootcamp_participant->bootcampParticipantParticipantWorkshopAssignments->first()->workshop_schedule->schedule_time . ']' ?? 'Bootcamp Attendee';
-            });
 
             $table->editColumn('category', function ($row) {
                 return $row->category ? BootcampAttendee::CATEGORY_RADIO[$row->category] : BootcampAttendee::CATEGORY_RADIO[$row->category];
