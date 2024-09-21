@@ -60,6 +60,12 @@ class BootcampAttendeesController extends Controller
             $table->addColumn('bootcamp_participant_name_en', function ($row) {
                 return $row->bootcamp_participant ? $row->bootcamp_participant->name_en : '';
             });
+            $table->addColumn('bootcamp_participant_national', function ($row) {
+                return $row->bootcamp_participant ? $row->bootcamp_participant->national : '';
+            });
+            $table->addColumn('bootcamp_participant_email', function ($row) {
+                return $row->bootcamp_participant ? $row->bootcamp_participant->email : '';
+            });
 
 
             $table->editColumn('category', function ($row) {
