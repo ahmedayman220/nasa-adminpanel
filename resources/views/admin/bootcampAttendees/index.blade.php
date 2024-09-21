@@ -43,7 +43,7 @@
             <form method="POST" action="{{ route("admin.bootcamp-attendees.store") }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label class="required" for="bootcamp_participant_id">{{"Update Attendee Status" }}</label>
+                    <label class="required" for="bootcamp_participant_id">{{"Update Attendee Status With UUID" }}</label>
                     <select class="form-control select2 {{ $errors->has('bootcamp_participant') ? 'is-invalid' : '' }}" name="bootcamp_participant_id" id="bootcamp_participant_id" required>
                         @foreach($bootcamp_participants as $participant)
                             <option value="{{ $participant->id }}" {{ old('bootcamp_participant_id') == $participant->id ? 'selected' : '' }}>{{ $participant->uuid." : ".$participant->name_en}}</option>
