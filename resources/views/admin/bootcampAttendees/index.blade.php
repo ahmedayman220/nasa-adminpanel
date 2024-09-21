@@ -73,7 +73,7 @@
                     <label class="required" for="bootcamp_participant_id">{{"Update Attendee Status With National" }}</label>
                     <select class="form-control select2 {{ $errors->has('bootcamp_participant') ? 'is-invalid' : '' }}" name="bootcamp_participant_id" id="bootcamp_participant_id" required>
                         @foreach($bootcamp_participants as $participant)
-                            <option value="{{ $participant->id }}" {{ old('bootcamp_participant_id') == $participant->national ? 'selected' : '' }}>{{ $participant->national}}</option>
+                            <option value="{{ $participant->id }}" {{ old('bootcamp_participant_id') == $participant->national ? 'selected' : '' }}>{{ $participant->national}} : {{ $participant->email}}</option>
                         @endforeach
                     </select>
                     @if($errors->has('bootcamp_participant'))
