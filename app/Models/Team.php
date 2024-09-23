@@ -17,9 +17,6 @@ class Team extends Model implements HasMedia
 {
     use SoftDeletes, InteractsWithMedia, Auditable, HasFactory;
 
-    protected $appends = [
-        'team_photo',
-    ];
 
     public $table = 'teams';
 
@@ -57,6 +54,10 @@ class Team extends Model implements HasMedia
         'created_at',
         'updated_at',
         'deleted_at',
+    ];
+
+    protected $appends = [
+        'team_photo',
     ];
 
     public function members(): HasMany

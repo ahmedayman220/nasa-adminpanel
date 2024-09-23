@@ -46,7 +46,7 @@ class StoreTeamRequest extends FormRequest
                 'required',
             ],
             'team_photo' => [
-                'required'
+                'required',
             ],
             'project_proposal_url' => [
                 'string',
