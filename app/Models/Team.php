@@ -104,6 +104,19 @@ class Team extends Model implements HasMedia
         $this->addMediaConversion('preview')->fit('crop', 120, 120);
     }
 
+    public function getPhotoAttribute()
+    {
+        $file = $this->getMedia('team_photo')->last();
+        if ($file) {
+            $file->url       = $file->getUrl();
+            $file->thumbnail = $file->getUrl('thumb');
+            $file->preview   = $file->getUrl('preview');
+        }
+
+        return $file;
+    }
+
+
     public function team_leader()
     {
         return $this->belongsTo(Member::class, 'team_leader_id');
