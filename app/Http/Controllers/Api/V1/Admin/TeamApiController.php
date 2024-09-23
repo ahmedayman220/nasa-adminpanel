@@ -48,18 +48,13 @@ class TeamApiController extends Controller
         $leaderId = null;
 
         // Loop through each member from the request
-        foreach ($request->input('members') as $memberData) {
+        foreach ($request->input('members') as $key => $memberData) {
             // Create a new member instance
 
             $memberData['extra_field'] = $memberData['national_id_photo'];
 
             $member = new Member($memberData);
-            $member->save();
-
-            // Handle member photo upload if available
-
-            // Check if this member is the team leader
-            if ($request->input('team_leader_id') == $member->id) {
+            if($key == $memberData['team_leader_id']) {
                 $leaderId = $member->id;
             }
 
