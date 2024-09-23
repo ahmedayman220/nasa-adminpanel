@@ -35,6 +35,11 @@ class TeamApiController extends Controller
             $team->addMedia(storage_path('tmp/uploads/' . basename($request->input('team_photo'))))->toMediaCollection('team_photo');
         }
 
+        if ($media = $request->input('ck-media', false)) {
+            Media::whereIn('id', $media)->update(['model_id' => $team->id]);
+        }
+
+
         return (new TeamResource($team))
             ->response()
             ->setStatusCode(Response::HTTP_CREATED);
