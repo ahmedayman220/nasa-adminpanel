@@ -36,7 +36,7 @@ class TeamApiController extends Controller
         // Step 2: Store the members
         $membersData = $request->input('members'); // Assuming the members are passed in the request
         foreach ($membersData as $memberData) {
-            $memberRequest = Member::create($memberData);
+            $memberRequest = Team::create($memberData);
             $this->store($memberRequest);
             // After storing each member, you may want to attach it to the team
             $team->members()->attach($memberRequest->id); // Attach the member to the team
@@ -47,18 +47,7 @@ class TeamApiController extends Controller
             'message' => 'Team and members registered successfully.'
         ], Response::HTTP_CREATED);
     }
-        // Update the team leader ID if set
-        if ($leaderId) {
-            $team->update(['team_leader_id' => $leaderId]);
-        }
 
-        // Return a success response
-        return response()->json([
-            'message' => 'Registration successful',
-            'team' => $team,
-            'members' => $team->members,
-        ], Response::HTTP_CREATED);
-    }
 
     public function store(StoreTeamRequest $request)
     {
