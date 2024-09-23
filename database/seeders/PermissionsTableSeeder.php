@@ -728,6 +728,558 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 180,
+                'title' => 'hackthon_access',
+            ],
+            [
+                'id'    => 181,
+                'title' => 'hackathon_form_option_access',
+            ],
+            [
+                'id'    => 182,
+                'title' => 'challenge_create',
+            ],
+            [
+                'id'    => 183,
+                'title' => 'challenge_edit',
+            ],
+            [
+                'id'    => 184,
+                'title' => 'challenge_show',
+            ],
+            [
+                'id'    => 185,
+                'title' => 'challenge_delete',
+            ],
+            [
+                'id'    => 186,
+                'title' => 'challenge_access',
+            ],
+            [
+                'id'    => 187,
+                'title' => 'actual_solution_create',
+            ],
+            [
+                'id'    => 188,
+                'title' => 'actual_solution_edit',
+            ],
+            [
+                'id'    => 189,
+                'title' => 'actual_solution_show',
+            ],
+            [
+                'id'    => 190,
+                'title' => 'actual_solution_delete',
+            ],
+            [
+                'id'    => 191,
+                'title' => 'actual_solution_access',
+            ],
+            [
+                'id'    => 192,
+                'title' => 'mentorship_needed_create',
+            ],
+            [
+                'id'    => 193,
+                'title' => 'mentorship_needed_edit',
+            ],
+            [
+                'id'    => 194,
+                'title' => 'mentorship_needed_show',
+            ],
+            [
+                'id'    => 195,
+                'title' => 'mentorship_needed_delete',
+            ],
+            [
+                'id'    => 196,
+                'title' => 'mentorship_needed_access',
+            ],
+            [
+                'id'    => 197,
+                'title' => 'participation_method_create',
+            ],
+            [
+                'id'    => 198,
+                'title' => 'participation_method_edit',
+            ],
+            [
+                'id'    => 199,
+                'title' => 'participation_method_show',
+            ],
+            [
+                'id'    => 200,
+                'title' => 'participation_method_delete',
+            ],
+            [
+                'id'    => 201,
+                'title' => 'participation_method_access',
+            ],
+            [
+                'id'    => 202,
+                'title' => 'member_role_create',
+            ],
+            [
+                'id'    => 203,
+                'title' => 'member_role_edit',
+            ],
+            [
+                'id'    => 204,
+                'title' => 'member_role_show',
+            ],
+            [
+                'id'    => 205,
+                'title' => 'member_role_delete',
+            ],
+            [
+                'id'    => 206,
+                'title' => 'member_role_access',
+            ],
+            [
+                'id'    => 207,
+                'title' => 'study_levelss_create',
+            ],
+            [
+                'id'    => 208,
+                'title' => 'study_levelss_edit',
+            ],
+            [
+                'id'    => 209,
+                'title' => 'study_levelss_show',
+            ],
+            [
+                'id'    => 210,
+                'title' => 'study_levelss_delete',
+            ],
+            [
+                'id'    => 211,
+                'title' => 'study_levelss_access',
+            ],
+            [
+                'id'    => 212,
+                'title' => 'major_create',
+            ],
+            [
+                'id'    => 213,
+                'title' => 'major_edit',
+            ],
+            [
+                'id'    => 214,
+                'title' => 'major_show',
+            ],
+            [
+                'id'    => 215,
+                'title' => 'major_delete',
+            ],
+            [
+                'id'    => 216,
+                'title' => 'major_access',
+            ],
+            [
+                'id'    => 217,
+                'title' => 'tshirt_size_create',
+            ],
+            [
+                'id'    => 218,
+                'title' => 'tshirt_size_edit',
+            ],
+            [
+                'id'    => 219,
+                'title' => 'tshirt_size_show',
+            ],
+            [
+                'id'    => 220,
+                'title' => 'tshirt_size_delete',
+            ],
+            [
+                'id'    => 221,
+                'title' => 'tshirt_size_access',
+            ],
+            [
+                'id'    => 222,
+                'title' => 'team_management_access',
+            ],
+            [
+                'id'    => 223,
+                'title' => 'member_management_access',
+            ],
+            [
+                'id'    => 224,
+                'title' => 'challenge_management_access',
+            ],
+            [
+                'id'    => 225,
+                'title' => 'evaluation_system_access',
+            ],
+            [
+                'id'    => 226,
+                'title' => 'event_management_access',
+            ],
+            [
+                'id'    => 227,
+                'title' => 'skills_and_achievement_access',
+            ],
+            [
+                'id'    => 228,
+                'title' => 'team_create',
+            ],
+            [
+                'id'    => 229,
+                'title' => 'team_edit',
+            ],
+            [
+                'id'    => 230,
+                'title' => 'team_show',
+            ],
+            [
+                'id'    => 231,
+                'title' => 'team_delete',
+            ],
+            [
+                'id'    => 232,
+                'title' => 'team_access',
+            ],
+            [
+                'id'    => 233,
+                'title' => 'team_skill_create',
+            ],
+            [
+                'id'    => 234,
+                'title' => 'team_skill_edit',
+            ],
+            [
+                'id'    => 235,
+                'title' => 'team_skill_show',
+            ],
+            [
+                'id'    => 236,
+                'title' => 'team_skill_delete',
+            ],
+            [
+                'id'    => 237,
+                'title' => 'team_skill_access',
+            ],
+            [
+                'id'    => 238,
+                'title' => 'team_achievement_create',
+            ],
+            [
+                'id'    => 239,
+                'title' => 'team_achievement_edit',
+            ],
+            [
+                'id'    => 240,
+                'title' => 'team_achievement_show',
+            ],
+            [
+                'id'    => 241,
+                'title' => 'team_achievement_delete',
+            ],
+            [
+                'id'    => 242,
+                'title' => 'team_achievement_access',
+            ],
+            [
+                'id'    => 243,
+                'title' => 'member_create',
+            ],
+            [
+                'id'    => 244,
+                'title' => 'member_edit',
+            ],
+            [
+                'id'    => 245,
+                'title' => 'member_show',
+            ],
+            [
+                'id'    => 246,
+                'title' => 'member_delete',
+            ],
+            [
+                'id'    => 247,
+                'title' => 'member_access',
+            ],
+            [
+                'id'    => 248,
+                'title' => 'member_checkpoint_create',
+            ],
+            [
+                'id'    => 249,
+                'title' => 'member_checkpoint_edit',
+            ],
+            [
+                'id'    => 250,
+                'title' => 'member_checkpoint_show',
+            ],
+            [
+                'id'    => 251,
+                'title' => 'member_checkpoint_delete',
+            ],
+            [
+                'id'    => 252,
+                'title' => 'member_checkpoint_access',
+            ],
+            [
+                'id'    => 253,
+                'title' => 'hackathon_qr_code_create',
+            ],
+            [
+                'id'    => 254,
+                'title' => 'hackathon_qr_code_edit',
+            ],
+            [
+                'id'    => 255,
+                'title' => 'hackathon_qr_code_show',
+            ],
+            [
+                'id'    => 256,
+                'title' => 'hackathon_qr_code_delete',
+            ],
+            [
+                'id'    => 257,
+                'title' => 'hackathon_qr_code_access',
+            ],
+            [
+                'id'    => 258,
+                'title' => 'challenge_category_create',
+            ],
+            [
+                'id'    => 259,
+                'title' => 'challenge_category_edit',
+            ],
+            [
+                'id'    => 260,
+                'title' => 'challenge_category_show',
+            ],
+            [
+                'id'    => 261,
+                'title' => 'challenge_category_delete',
+            ],
+            [
+                'id'    => 262,
+                'title' => 'challenge_category_access',
+            ],
+            [
+                'id'    => 263,
+                'title' => 'h_event_management_create',
+            ],
+            [
+                'id'    => 264,
+                'title' => 'h_event_management_edit',
+            ],
+            [
+                'id'    => 265,
+                'title' => 'h_event_management_show',
+            ],
+            [
+                'id'    => 266,
+                'title' => 'h_event_management_delete',
+            ],
+            [
+                'id'    => 267,
+                'title' => 'h_event_management_access',
+            ],
+            [
+                'id'    => 268,
+                'title' => 'event_create',
+            ],
+            [
+                'id'    => 269,
+                'title' => 'event_edit',
+            ],
+            [
+                'id'    => 270,
+                'title' => 'event_show',
+            ],
+            [
+                'id'    => 271,
+                'title' => 'event_delete',
+            ],
+            [
+                'id'    => 272,
+                'title' => 'event_access',
+            ],
+            [
+                'id'    => 273,
+                'title' => 'checkpoint_create',
+            ],
+            [
+                'id'    => 274,
+                'title' => 'checkpoint_edit',
+            ],
+            [
+                'id'    => 275,
+                'title' => 'checkpoint_show',
+            ],
+            [
+                'id'    => 276,
+                'title' => 'checkpoint_delete',
+            ],
+            [
+                'id'    => 277,
+                'title' => 'checkpoint_access',
+            ],
+            [
+                'id'    => 278,
+                'title' => 'checkpoint_type_create',
+            ],
+            [
+                'id'    => 279,
+                'title' => 'checkpoint_type_edit',
+            ],
+            [
+                'id'    => 280,
+                'title' => 'checkpoint_type_show',
+            ],
+            [
+                'id'    => 281,
+                'title' => 'checkpoint_type_delete',
+            ],
+            [
+                'id'    => 282,
+                'title' => 'checkpoint_type_access',
+            ],
+            [
+                'id'    => 283,
+                'title' => 'evaluation_create',
+            ],
+            [
+                'id'    => 284,
+                'title' => 'evaluation_edit',
+            ],
+            [
+                'id'    => 285,
+                'title' => 'evaluation_show',
+            ],
+            [
+                'id'    => 286,
+                'title' => 'evaluation_delete',
+            ],
+            [
+                'id'    => 287,
+                'title' => 'evaluation_access',
+            ],
+            [
+                'id'    => 288,
+                'title' => 'evaluation_criterion_create',
+            ],
+            [
+                'id'    => 289,
+                'title' => 'evaluation_criterion_edit',
+            ],
+            [
+                'id'    => 290,
+                'title' => 'evaluation_criterion_show',
+            ],
+            [
+                'id'    => 291,
+                'title' => 'evaluation_criterion_delete',
+            ],
+            [
+                'id'    => 292,
+                'title' => 'evaluation_criterion_access',
+            ],
+            [
+                'id'    => 293,
+                'title' => 'judge_create',
+            ],
+            [
+                'id'    => 294,
+                'title' => 'judge_edit',
+            ],
+            [
+                'id'    => 295,
+                'title' => 'judge_show',
+            ],
+            [
+                'id'    => 296,
+                'title' => 'judge_delete',
+            ],
+            [
+                'id'    => 297,
+                'title' => 'judge_access',
+            ],
+            [
+                'id'    => 298,
+                'title' => 'skill_create',
+            ],
+            [
+                'id'    => 299,
+                'title' => 'skill_edit',
+            ],
+            [
+                'id'    => 300,
+                'title' => 'skill_show',
+            ],
+            [
+                'id'    => 301,
+                'title' => 'skill_delete',
+            ],
+            [
+                'id'    => 302,
+                'title' => 'skill_access',
+            ],
+            [
+                'id'    => 303,
+                'title' => 'achievement_create',
+            ],
+            [
+                'id'    => 304,
+                'title' => 'achievement_edit',
+            ],
+            [
+                'id'    => 305,
+                'title' => 'achievement_show',
+            ],
+            [
+                'id'    => 306,
+                'title' => 'achievement_delete',
+            ],
+            [
+                'id'    => 307,
+                'title' => 'achievement_access',
+            ],
+            [
+                'id'    => 308,
+                'title' => 'transportation_create',
+            ],
+            [
+                'id'    => 309,
+                'title' => 'transportation_edit',
+            ],
+            [
+                'id'    => 310,
+                'title' => 'transportation_show',
+            ],
+            [
+                'id'    => 311,
+                'title' => 'transportation_delete',
+            ],
+            [
+                'id'    => 312,
+                'title' => 'transportation_access',
+            ],
+            [
+                'id'    => 313,
+                'title' => 'difficulty_level_create',
+            ],
+            [
+                'id'    => 314,
+                'title' => 'difficulty_level_edit',
+            ],
+            [
+                'id'    => 315,
+                'title' => 'difficulty_level_show',
+            ],
+            [
+                'id'    => 316,
+                'title' => 'difficulty_level_delete',
+            ],
+            [
+                'id'    => 317,
+                'title' => 'difficulty_level_access',
+            ],
+            [
+                'id'    => 318,
                 'title' => 'profile_password_edit',
             ],
         ];
