@@ -34,9 +34,16 @@ class TeamApiController extends Controller
             'participation_method_id', 'limited_capacity', 'members_participated_before',
             'project_proposal_url', 'project_video_url'
         ]);
+
+        if ($request->input('team_photo', false)) {
+            $team->addMedia(storage_path('tmp/uploads/' . basename($request->input('team_photo'))))->toMediaCollection('team_photo');
+        }
+
         return response([
             $team_data
         ]);
+
+
         $team = Team::create($team_data);
 
         // Add members to the team and handle leader assignment
