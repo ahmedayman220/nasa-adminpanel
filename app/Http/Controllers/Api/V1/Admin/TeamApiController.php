@@ -28,9 +28,29 @@ class TeamApiController extends Controller
     }
 
     public function HackathonRegistration(StorehackathonRegistrationRequest $request) {
-        return response([
-            $request->all()
+
+        $team_data = $request->only([
+            'team_name', 'challenge_id', 'actual_solution_id', 'mentorship_needed_id',
+            'participation_method_id', 'limited_capacity', 'members_participated_before',
+            'project_proposal_url', 'project_video_url'
         ]);
+        return response([
+            $team_data
+        ]);
+        $team = Team::create($team_data);
+
+        // Add members to the team and handle leader assignment
+        $team->addMembers($request->input('members'), $request->input('team_leader_id'));
+
+        // Return a success response
+        return response()->json([
+            'message' => 'Registration successful',
+            'team' => $team,
+            'members' => $team->members,
+        ], Response::HTTP_CREATED);
+
+
+
     }
     public function store(StoreTeamRequest $request)
     {
