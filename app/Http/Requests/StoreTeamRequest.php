@@ -11,17 +11,12 @@ class StoreTeamRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('team_create');
+        return true;
     }
 
     public function rules()
     {
         return [
-            'uuid' => [
-                'string',
-                'required',
-                'unique:teams',
-            ],
             'team_leader_id' => [
                 'required',
                 'integer',
