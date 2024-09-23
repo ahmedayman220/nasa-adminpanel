@@ -8,6 +8,17 @@
     </div>
 @endcan
 
+@if(session()->has('Status'))
+    <div class="alert alert-success" role="alert">
+        {{session()->get('Status')}}
+    </div>
+@endif
+@if(session()->has('Failed'))
+    <div class="alert alert-danger" role="alert">
+        {{session()->get('Failed')}}
+    </div>
+@endif
+
 <div class="card">
     <div class="card-header">
         {{ trans('cruds.bootcampParticipant.title_singular') }} {{ trans('global.list') }}
@@ -100,7 +111,7 @@
                 </thead>
                 <tbody>
                     @foreach($bootcampParticipants as $key => $bootcampParticipant)
-                        <tr data-entry-id="{{ $bootcampParticipant->id }}">
+                        <tr data-entry-id="{{ $bootcampParticipant->id }}" data-entry-national="{{ $bootcampParticipant->national }}">
                             <td>
 
                             </td>
@@ -249,18 +260,50 @@
   }
   dtButtons.push(deleteButton)
 @endcan
+        {{-- Start Email Button --}}
+        let EmailButtonTrans = 'Send Email';
+        let EmailButton = {
+            text: EmailButtonTrans,
+            className: 'btn-dark',
+            action: function (e, dt, node, config) {
+                var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
+                    return $(entry).data('entry-national')
+                });
+
+                if (ids.length === 0) {
+                    alert('{{ trans('global.datatables.zero_selected') }}')
+
+                    return
+                }
+
+                if (confirm('{{ trans('global.areYouSure') }}')) {
+                    $.ajax({
+                        headers: {'x-csrf-token': _token},
+                        method: 'POST',
+                        url: "{{ route('admin.bootcamp-attendees.generate.email') }}",
+                        data: { ids: ids, _method: 'POST' }
+                    })
+                        .done(function (data) {
+                            // console.log(data)
+                            location.reload();
+                        });
+                }
+            }
+        };
+
+        dtButtons.push(EmailButton);
 
   $.extend(true, $.fn.dataTable.defaults, {
     orderCellsTop: true,
     order: [[ 10, 'asc' ]],
-    pageLength: 50,
+    pageLength: 1000,
   });
   let table = $('.datatable-firstPriorityBootcampParticipants:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 })
 
 </script>

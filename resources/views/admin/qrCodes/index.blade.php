@@ -32,6 +32,9 @@
                         {{ trans('cruds.qrCode.fields.bootcamp_participant') }}
                     </th>
                     <th>
+                        Workshop
+                    </th>
+                    <th>
                         {{ trans('cruds.qrCode.fields.qr_code_value') }}
                     </th>
                     <th>
@@ -52,6 +55,15 @@
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($bootcamp_participants as $key => $item)
                                 <option value="{{ $item->name_en }}">{{ $item->name_en }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            <option value="">Bootcamp Attendee</option>
+                            @foreach($workshops as $workshop)
+                                <option value="{{ $workshop->title }}">{{ $workshop->title }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -123,6 +135,7 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'bootcamp_participant_name_en', name: 'bootcamp_participant.name_en' },
+{ data: 'workshop_title', name: 'workshop_title' },
 { data: 'qr_code_value', name: 'qr_code_value' },
 { data: 'status', name: 'status' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
@@ -136,7 +149,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 let visibleColumnsIndexes = null;
 $('.datatable thead').on('input', '.search', function () {
       let strict = $(this).attr('strict') || false

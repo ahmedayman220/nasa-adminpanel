@@ -110,16 +110,6 @@ class BootcampParticipant extends Model implements HasMedia
         return $this->hasMany(Email::class, 'bootcamp_participant_email_id', 'id');
     }
 
-    public function emailBootcampConfirmations()
-    {
-        return $this->hasMany(BootcampConfirmation::class, 'email_id', 'id');
-    }
-
-    public function nationalBootcampConfirmations()
-    {
-        return $this->hasMany(BootcampConfirmation::class, 'national_id', 'id');
-    }
-
     public function educational_level()
     {
         return $this->belongsTo(EducationLevel::class, 'educational_level_id');
@@ -154,6 +144,18 @@ class BootcampParticipant extends Model implements HasMedia
         return $file;
     }
 
+    // Function to generate a unique 4-digit UUID
+    protected static function generateUniqueFourDigitUuid()
+    {
+        do {
+            // Generate a 4-digit number
+            $uuid = mt_rand(1000, 9999);
+        } while (self::where('uuid', $uuid)->exists()); // Check if the UUID already exists
+
+        return $uuid;
+    }
+
+
     public function first_priority()
     {
         return $this->belongsTo(Workshop::class, 'first_priority_id');
@@ -169,6 +171,15 @@ class BootcampParticipant extends Model implements HasMedia
         return $this->belongsTo(Workshop::class, 'third_priority_id');
     }
 
+    public function emailBootcampConfirmations()
+    {
+        return $this->hasMany(BootcampConfirmation::class, 'email_id', 'id');
+    }
+
+    public function nationalBootcampConfirmations()
+    {
+        return $this->hasMany(BootcampConfirmation::class, 'national_id', 'id');
+    }
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');

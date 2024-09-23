@@ -18,9 +18,9 @@ class ChatbotTraningDataApiController extends Controller
 
     public function index()
     {
-        abort_if(Gate::denies('chatbot_traning_data_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+//        abort_if(Gate::denies('chatbot_traning_data_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ChatbotTraningDataResource(ChatbotTraningData::with(['created_by'])->get());
+        return new ChatbotTraningDataResource(ChatbotTraningData::get());
     }
 
     public function store(StoreChatbotTraningDataRequest $request)

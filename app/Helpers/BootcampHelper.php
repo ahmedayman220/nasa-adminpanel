@@ -10,8 +10,17 @@ use App\Models\ParticipantWorkshopPreference;
 use App\Models\BootcampAttendee;
 use Illuminate\Support\Carbon;
 
-class BootcampHelper
+trait BootcampHelper
 {
+    public function validateRecaptcha($token)
+    {
+        $secretKey = '6LdunDYqAAAAAKtyYz-mPPTcYadAr0Wxpyaa-akS'; // Your secret key
+
+        $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secretKey}&response={$token}");
+        $responseKeys = json_decode($response, true);
+
+        return $responseKeys['success'];
+    }
     public static function checkAvailability($id)
     {
         // Get the bootcamp details
@@ -20,14 +29,15 @@ class BootcampHelper
         // Check if bootcamp has available capacity
         $attendeesCount = $bootcamp->bootcampDetailsBootcampAttendees->count();
         if ($attendeesCount >= $bootcamp->total_capacity) {
-            return 'No available slots in the bootcamp.';
+            return response('No available slots in the bootcamp.');
         }
 
-        // Get user workshop preferences
+        // Get Participant workshop preferences
         $preferences = ParticipantWorkshopPreference::where('bootcamp_participant_id', $id)
             ->orderBy('preference_order')
             ->get();
 
+        // workshop_id from 1 => 3
         // Check each workshop preference for availability
         foreach ($preferences as $preference) {
             //
@@ -52,7 +62,7 @@ class BootcampHelper
                         'check_in_time' => Carbon::now()
                     ]);
 
-                    return 'User assigned to workshop: ' . $schedule->workshop->title;
+                    return response('User assigned to workshop: ' . $schedule->workshop->title);
                 }
             }
         }

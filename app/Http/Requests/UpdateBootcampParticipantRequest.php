@@ -72,15 +72,10 @@ class UpdateBootcampParticipantRequest extends FormRequest
                 'required',
             ],
             'participated_year' => [
-                'string',
                 'nullable',
             ],
             'is_attend_formation_activity' => [
                 'required',
-            ],
-            'first_priority_id' => [
-                'required',
-                'integer',
             ],
             'why_this_workshop' => [
                 'string',

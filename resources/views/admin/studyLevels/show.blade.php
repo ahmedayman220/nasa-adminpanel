@@ -41,7 +41,6 @@
         </div>
     </div>
 </div>
-
 <div class="card">
     <div class="card-header">
         {{ trans('global.relatedData') }}
@@ -59,5 +58,6 @@
         </div>
     </div>
 </div>
+
 
 @endsection

@@ -25,7 +25,7 @@ class ParticipantWorkshopAssignmentController extends Controller
         abort_if(Gate::denies('participant_workshop_assignment_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = ParticipantWorkshopAssignment::with(['bootcamp_participant', 'workshop_schedule', 'created_by'])->select(sprintf('%s.*', (new ParticipantWorkshopAssignment)->table));
+            $query = ParticipantWorkshopAssignment::with(['bootcamp_participant', 'workshop_schedule', 'created_by'])->where('attendance_status','attended')->select(sprintf('%s.*', (new ParticipantWorkshopAssignment)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -47,15 +47,27 @@ class ParticipantWorkshopAssignmentController extends Controller
             });
 
             $table->editColumn('id', function ($row) {
-                return $row->id ? $row->id : '';
+                // Get current page and page length from the request
+                $start = request()->input('start', 0);
+
+                // Increment the index based on current page
+                static $index = 0;
+                return ++$index + $start;
             });
             $table->addColumn('bootcamp_participant_name_en', function ($row) {
                 return $row->bootcamp_participant ? $row->bootcamp_participant->name_en : '';
             });
 
+            $table->addColumn('workshop_title', function ($row) {
+                return $row->workshop_schedule && $row->workshop_schedule->workshop
+                    ? $row->workshop_schedule->workshop->title
+                    : '';
+            });
+
             $table->addColumn('workshop_schedule_schedule_time', function ($row) {
                 return $row->workshop_schedule ? $row->workshop_schedule->schedule_time : '';
             });
+
 
             $table->editColumn('attendance_status', function ($row) {
                 return $row->attendance_status ? ParticipantWorkshopAssignment::ATTENDANCE_STATUS_SELECT[$row->attendance_status] : '';
@@ -89,9 +101,20 @@ class ParticipantWorkshopAssignmentController extends Controller
 
     public function store(StoreParticipantWorkshopAssignmentRequest $request)
     {
-        $participantWorkshopAssignment = ParticipantWorkshopAssignment::create($request->all());
-
-        return redirect()->route('admin.participant-workshop-assignments.index');
+//        $participantWorkshopAssignment = ParticipantWorkshopAssignment::create($request->all());
+        $participant = BootcampParticipant::find($request->bootcamp_participant_id);
+        if(!$participant){
+            return redirect()->route('admin.participant-workshop-assignments.index')->with('Failed','participant not found');
+        }
+        $workshopAttendee = $participant->bootcampParticipantParticipantWorkshopAssignments->first();
+        if($workshopAttendee->attendance_status == 'attended'){
+            return redirect()->route('admin.participant-workshop-assignments.index')->with('Failed','participant already attended workshop');
+        }
+        $workshopAttendee->update([
+            'attendance_status' => 'attended',
+            'check_in_time' => now()
+        ]);
+        return redirect()->route('admin.participant-workshop-assignments.index')->with('Success','participant added to workshop attendee list');
     }
 
     public function edit(ParticipantWorkshopAssignment $participantWorkshopAssignment)

@@ -1,15 +1,31 @@
 @extends('layouts.admin')
+
+
 @section('content')
+    @if(session()->has('Status'))
+        <div class="alert alert-success" role="alert">
+            {{session()->get('Status')}}
+        </div>
+    @endif
+    @if(session()->has('Failed'))
+        <div class="alert alert-danger" role="alert">
+            {{session()->get('Failed')}}
+        </div>
+    @endif
 @can('bootcamp_participant_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
             <a class="btn btn-success" href="{{ route('admin.bootcamp-participants.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.bootcampParticipant.title_singular') }}
             </a>
+            <a class="btn btn-info" href="{{ route('admin.bootcamp-participants.get.media') }}">
+                Show Participants Media
+            </a>
             <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
                 {{ trans('global.app_csvImport') }}
             </button>
             @include('csvImport.modal', ['model' => 'BootcampParticipant', 'route' => 'admin.bootcamp-participants.parseCsvImport'])
+
         </div>
     </div>
 @endcan
@@ -28,6 +44,10 @@
                     <th>
                         {{ trans('cruds.bootcampParticipant.fields.id') }}
                     </th>
+                    <th>
+                        Ticket ID
+                    </th>
+
                     <th>
                         {{ trans('cruds.bootcampParticipant.fields.name_en') }}
                     </th>
@@ -61,12 +81,7 @@
                     <th>
                         {{ trans('cruds.bootcampParticipant.fields.national') }}
                     </th>
-                    <th>
-                        {{ trans('cruds.bootcampParticipant.fields.national_id_front') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.bootcampParticipant.fields.national_id_back') }}
-                    </th>
+
                     <th>
                         {{ trans('cruds.bootcampParticipant.fields.is_participated') }}
                     </th>
@@ -123,6 +138,9 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($education_levels as $key => $item)
@@ -150,10 +168,7 @@
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
-                    <td>
-                    </td>
-                    <td>
-                    </td>
+
                     <td>
                         <select class="search" strict="true">
                             <option value>{{ trans('global.all') }}</option>
@@ -225,6 +240,8 @@
 
 
 @endsection
+
+
 @section('scripts')
 @parent
 <script>
@@ -259,7 +276,44 @@
   }
   dtButtons.push(deleteButton)
 @endcan
+        {{-- Start Email Button --}}
+        let EmailButtonTrans = 'Send Email';
+        let EmailButton = {
+            text: EmailButtonTrans,
+            className: 'btn-dark',
+            action: function (e, dt, node, config) {
+                var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
+                    return entry.national
+                });
 
+                // var new_ids = $('tr.selected').map(function(){
+                //     return $(this).children(':nth-child(2)').html(); // Get the text of each selected div
+                // }).get();
+
+                // console.log(new_ids);
+                if (ids.length === 0) {
+                    alert('{{ trans('global.datatables.zero_selected') }}');
+                    return;
+                }
+
+                if (confirm('{{ trans('global.areYouSure') }}')) {
+                    $.ajax({
+                        headers: {'x-csrf-token': _token},
+                        method: 'POST',
+                        url: "{{ route('admin.bootcamp-attendees.generate.email') }}",
+                        data: { ids: ids, _method: 'POST' }
+                    })
+                        .done(function (data) {
+                            // console.log(data)
+                            location.reload();
+                        });
+                }
+            }
+        };
+
+        dtButtons.push(EmailButton);
+
+        {{-- End Email Button --}}
   let dtOverrideGlobals = {
     buttons: dtButtons,
     processing: true,
@@ -270,6 +324,7 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
+{ data: 'uuid', name: 'uuid' },
 { data: 'name_en', name: 'name_en' },
 { data: 'name_ar', name: 'name_ar' },
 { data: 'email', name: 'email' },
@@ -281,8 +336,6 @@
 { data: 'graduation_year', name: 'graduation_year' },
 { data: 'position', name: 'position' },
 { data: 'national', name: 'national' },
-{ data: 'national_id_front', name: 'national_id_front', sortable: false, searchable: false },
-{ data: 'national_id_back', name: 'national_id_back', sortable: false, searchable: false },
 { data: 'is_participated', name: 'is_participated' },
 { data: 'participated_year', name: 'participated_year' },
 { data: 'is_attend_formation_activity', name: 'is_attend_formation_activity' },
@@ -297,14 +350,15 @@
     ],
     orderCellsTop: true,
     order: [[ 10, 'asc' ]],
-    pageLength: 50,
+
+    pageLength: 4000,
   };
   let table = $('.datatable-BootcampParticipant').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 let visibleColumnsIndexes = null;
 $('.datatable thead').on('input', '.search', function () {
       let strict = $(this).attr('strict') || false

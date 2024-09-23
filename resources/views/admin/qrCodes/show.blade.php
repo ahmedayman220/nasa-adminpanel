@@ -68,18 +68,10 @@
                 {{ trans('cruds.email.title') }}
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#qr_code_members" role="tab" data-toggle="tab">
-                {{ trans('cruds.member.title') }}
-            </a>
-        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="qrcode_emails">
             @includeIf('admin.qrCodes.relationships.qrcodeEmails', ['emails' => $qrCode->qrcodeEmails])
-        </div>
-        <div class="tab-pane" role="tabpanel" id="qr_code_members">
-            @includeIf('admin.qrCodes.relationships.qrCodeMembers', ['members' => $qrCode->qrCodeMembers])
         </div>
     </div>
 </div>

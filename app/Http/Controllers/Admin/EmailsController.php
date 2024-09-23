@@ -47,14 +47,20 @@ class EmailsController extends Controller
             });
 
             $table->editColumn('id', function ($row) {
-                return $row->id ? $row->id : '';
+                // Get current page and page length from the request
+                $start = request()->input('start', 0);
+
+                // Increment the index based on current page
+                static $index = 0;
+                return ++$index + $start;
             });
             $table->addColumn('qrcode_qr_code_value', function ($row) {
                 return $row->qrcode ? $row->qrcode->qr_code_value : '';
             });
 
             $table->editColumn('status', function ($row) {
-                return $row->status ? Email::STATUS_SELECT[$row->status] : '';
+//                return $row->status ? Email::STATUS_SELECT[$row->status] : '';
+                return Email::STATUS_SELECT[$row->status];
             });
             $table->addColumn('bootcamp_participant_email_email', function ($row) {
                 return $row->bootcamp_participant_email ? $row->bootcamp_participant_email->email : '';

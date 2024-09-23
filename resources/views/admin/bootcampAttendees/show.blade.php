@@ -75,5 +75,30 @@
 </div>
 
 
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#bootcamp_attendee_qr_codes" role="tab" data-toggle="tab">
+                {{ trans('cruds.qrCode.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#bootcamp_attendee_email_emails" role="tab" data-toggle="tab">
+                {{ trans('cruds.email.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="bootcamp_attendee_qr_codes">
+            @includeIf('admin.bootcampAttendees.relationships.bootcampAttendeeQrCodes', ['qrCodes' => $bootcampAttendee->bootcamp_participant->bootcampParticipantQrCodes])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="bootcamp_attendee_email_emails">
+            @includeIf('admin.bootcampAttendees.relationships.bootcampAttendeeEmailEmails', ['emails' => $bootcampAttendee->bootcamp_participant->bootcampParticipantEmailEmails])
+        </div>
+    </div>
+</div>
 
 @endsection

@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers\Api\V1\Admin;
 
+use App\Helpers\BootcampHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\StoreBootcampParticipantRequest;
 use App\Http\Requests\UpdateBootcampParticipantRequest;
+use App\Http\Requests\AuthToUpdateBootcampParticipantApiRequest;
 use App\Http\Resources\Admin\BootcampParticipantResource;
+use App\Models\BootcampConfirmation;
 use App\Models\BootcampParticipant;
+use App\Models\ParticipantWorkshopPreference;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\File;
 
 class BootcampParticipantsApiController extends Controller
 {
-    use MediaUploadingTrait;
+    use MediaUploadingTrait, BootcampHelper;
 
     public function index()
     {
@@ -25,7 +30,78 @@ class BootcampParticipantsApiController extends Controller
 
     public function store(StoreBootcampParticipantRequest $request)
     {
+        // Validate reCAPTCHA
+        $recaptchaToken = $request->input('recaptchaToken');
+        $isValidRecaptcha = $this->validateRecaptcha($recaptchaToken);
+
+        if (!$isValidRecaptcha) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid reCAPTCHA token',
+                'errors' => [
+                    "Invalid reCAPTCHA token"
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        };
+
+        $filePathNationalIdFront = storage_path('tmp/uploads/' . basename($request->input('national_id_front')));
+        $filePathNationalIdBack = storage_path('tmp/uploads/' . basename($request->input('national_id_back')));
+        if(!File::exists($filePathNationalIdFront)) {
+            return response()->json([
+                'status' => false,
+
+                'message' => 'Invalid National Id Front Image',
+                'errors' => [
+                    "Invalid National Id Front Image"
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        if(!File::exists($filePathNationalIdBack)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid National Id Back Image',
+                'errors' => [
+                    "Invalid National Id Back Image"
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+
         $bootcampParticipant = BootcampParticipant::create($request->all());
+        $bootcampConfirmation = BootcampConfirmation::create([
+            'name' => $bootcampParticipant->name_en,
+            'email_id' => $bootcampParticipant->id, // Use the participant's ID for email
+            'national_id' => $bootcampParticipant->id, // Use the participant's ID for national
+            'phone_number' => $bootcampParticipant->phone_number,
+            'slot_id' => $request->input('slot_id')
+        ]);
+
+        if (isset($bootcampParticipant->first_priority_id)) {
+            ParticipantWorkshopPreference::create([
+                'bootcamp_participant_id' => $bootcampParticipant->id, // Assuming 'id' is the participant ID
+                'workshop_id' => $bootcampParticipant->first_priority_id,
+                'preference_order' => 1,
+            ]);
+        }
+
+        if (isset($bootcampParticipant->second_priority_id)) {
+            ParticipantWorkshopPreference::create([
+                'bootcamp_participant_id' => $bootcampParticipant->id, // Assuming 'id' is the participant ID
+                'workshop_id' => $bootcampParticipant->second_priority_id,
+                'preference_order' => 2,
+            ]);
+        }
+
+        if (isset($bootcampParticipant->third_priority_id)) {
+            ParticipantWorkshopPreference::create([
+                'bootcamp_participant_id' => $bootcampParticipant->id, // Assuming 'id' is the participant ID
+                'workshop_id' => $bootcampParticipant->third_priority_id,
+                'preference_order' => 3,
+            ]);
+        }
+
+        $this->checkAvailability($bootcampParticipant->id);
 
         if ($request->input('national_id_front', false)) {
             $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_front'))))->toMediaCollection('national_id_front');
@@ -35,16 +111,19 @@ class BootcampParticipantsApiController extends Controller
             $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_back'))))->toMediaCollection('national_id_back');
         }
 
-        return (new BootcampParticipantResource($bootcampParticipant))
-            ->response()
-            ->setStatusCode(Response::HTTP_CREATED);
+        return response()->json([
+            'status'          => True,
+        ]);
     }
 
-    public function show(BootcampParticipant $bootcampParticipant)
+    public function show(AuthToUpdateBootcampParticipantApiRequest $request)
     {
-        abort_if(Gate::denies('bootcamp_participant_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new BootcampParticipantResource($bootcampParticipant->load(['educational_level', 'field_of_study', 'first_priority', 'second_priority', 'third_priority', 'created_by']));
+        $request->validated();
+        $data = BootcampParticipant::where('email',$request->email)->where('national',$request->national)->first();
+
+        return (new BootcampParticipantResource($data))->response()
+            ->setStatusCode(Response::HTTP_ACCEPTED);
     }
 
     public function update(UpdateBootcampParticipantRequest $request, BootcampParticipant $bootcampParticipant)

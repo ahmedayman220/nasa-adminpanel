@@ -46,8 +46,14 @@ class WorkshopSchedulesController extends Controller
             });
 
             $table->editColumn('id', function ($row) {
-                return $row->id ? $row->id : '';
+                // Get current page and page length from the request
+                $start = request()->input('start', 0);
+
+                // Increment the index based on current page
+                static $index = 0;
+                return ++$index + $start;
             });
+
             $table->addColumn('workshop_title', function ($row) {
                 return $row->workshop ? $row->workshop->title : '';
             });
@@ -57,6 +63,32 @@ class WorkshopSchedulesController extends Controller
             });
             $table->editColumn('capacity', function ($row) {
                 return $row->capacity ? $row->capacity : '';
+            });
+            $table->addColumn('available', function ($row) {
+                return $row->SchedualWorkshopAvailability();
+            });
+
+            $table->addColumn('available_on_site', function ($row) {
+                return $row->SchedualWorkshopAvailabilityOnSite();
+            });
+
+            $table->addColumn('first_priority_confirmation', function ($row) {
+                return $row->workshop
+                    ->firstPriorityBootcampParticipants()
+                    ->whereHas('emailBootcampConfirmations') // or ->whereHas('nationalBootcampConfirmations') based on your requirement
+                    ->count();
+            });
+
+            $table->addColumn('first_priority', function ($row) {
+                return $row->workshop->firstPriorityBootcampParticipants()->count();
+            });
+
+            $table->addColumn('second_priority', function ($row) {
+                return $row->workshop->secondPriorityBootcampParticipants()->count();
+            });
+
+            $table->addColumn('third_priority', function ($row) {
+                return $row->workshop->thirdPriorityBootcampParticipants()->count();
             });
 
             $table->rawColumns(['actions', 'placeholder', 'workshop']);

@@ -13,11 +13,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class EducationLevelApiController extends Controller
 {
+    public function getAll()
+    {
+        return new EducationLevelResource(EducationLevel::get());
+    }
     public function index()
     {
-        abort_if(Gate::denies('education_level_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+//        abort_if(Gate::denies('education_level_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new EducationLevelResource(EducationLevel::with(['created_by'])->get());
+        return new EducationLevelResource(EducationLevel::get());
     }
 
     public function store(StoreEducationLevelRequest $request)

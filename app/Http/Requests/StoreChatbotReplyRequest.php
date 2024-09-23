@@ -11,7 +11,8 @@ class StoreChatbotReplyRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('chatbot_reply_create');
+//        return Gate::allows('chatbot_reply_create');
+        return true;
     }
 
     public function rules()

@@ -38,7 +38,6 @@ class StudyLevel extends Model
     {
         return $this->hasMany(BootcampConfirmation::class, 'slot_id', 'id');
     }
-
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');

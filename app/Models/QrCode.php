@@ -16,8 +16,8 @@ class QrCode extends Model
     public $table = 'qr_codes';
 
     public const STATUS_RADIO = [
-        '0' => 'True',
-        '1' => 'False',
+        '0' => 'False',
+        '1' => 'True',
     ];
 
     protected $dates = [
@@ -44,11 +44,6 @@ class QrCode extends Model
     public function qrcodeEmails()
     {
         return $this->hasMany(Email::class, 'qrcode_id', 'id');
-    }
-
-    public function qrCodeMembers()
-    {
-        return $this->hasMany(Member::class, 'qr_code_id', 'id');
     }
 
     public function bootcamp_participant()

@@ -11,7 +11,8 @@ class StoreBootcampFormDescriptionRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('bootcamp_form_description_create');
+//        return Gate::allows('bootcamp_form_description_create');
+        return true;
     }
 
     public function rules()

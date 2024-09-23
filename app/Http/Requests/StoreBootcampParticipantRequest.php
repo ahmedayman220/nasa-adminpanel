@@ -5,25 +5,38 @@ namespace App\Http\Requests;
 use App\Models\BootcampParticipant;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Symfony\Component\HttpFoundation\Response;
 
 class StoreBootcampParticipantRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('bootcamp_participant_create');
+//        return Gate::allows('bootcamp_participant_create');
+        return true;
     }
 
     public function rules()
     {
         return [
+
+            'recaptchaToken' => [
+                'required',
+            ],
             'name_en' => [
                 'string',
                 'required',
+                'min:3',
+                'max:255',
+
+
             ],
             'name_ar' => [
                 'string',
                 'required',
+                'min:3',
+                'max:255',
             ],
             'email' => [
                 'required',
@@ -55,7 +68,8 @@ class StoreBootcampParticipantRequest extends FormRequest
             ],
             'position' => [
                 'string',
-                'required',
+                'nullable',
+                'max:255',
             ],
             'national' => [
                 'string',
@@ -72,7 +86,6 @@ class StoreBootcampParticipantRequest extends FormRequest
                 'required',
             ],
             'participated_year' => [
-                'string',
                 'nullable',
             ],
             'is_attend_formation_activity' => [
@@ -85,18 +98,37 @@ class StoreBootcampParticipantRequest extends FormRequest
             'why_this_workshop' => [
                 'string',
                 'required',
+                'min:3',
+                'max:5000',
             ],
             'is_have_team' => [
                 'required',
             ],
             'comment' => [
                 'string',
-                'required',
+                'nullable',
+                'max:5000',
             ],
             'year' => [
                 'string',
-                'required',
             ],
+            'slot_id' => [
+                'integer',
+                'required',
+            ]
         ];
+    }
+    protected function failedValidation(Validator $validator)
+    {
+        $errors = $validator->errors();
+
+        // Return a JSON response with the validation errors and a 422 status code
+        throw new HttpResponseException(
+            response()->json([
+                'success' => false,
+                'message' => 'Validation errors',
+                'errors' => $errors,
+            ], Response::HTTP_UNPROCESSABLE_ENTITY)
+        );
     }
 }

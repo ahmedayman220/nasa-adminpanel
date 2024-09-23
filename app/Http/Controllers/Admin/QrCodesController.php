@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateQrCodeRequest;
 use App\Models\BootcampParticipant;
 use App\Models\QrCode;
 use App\Models\User;
+use App\Models\Workshop;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,17 +47,27 @@ class QrCodesController extends Controller
             });
 
             $table->editColumn('id', function ($row) {
-                return $row->id ? $row->id : '';
+                // Get current page and page length from the request
+                $start = request()->input('start', 0);
+
+                // Increment the index based on current page
+                static $index = 0;
+                return ++$index + $start;
             });
             $table->addColumn('bootcamp_participant_name_en', function ($row) {
                 return $row->bootcamp_participant ? $row->bootcamp_participant->name_en : '';
+            });
+
+            $table->addColumn('workshop_title', function ($row) {
+                return $row->bootcamp_participant->bootcampParticipantParticipantWorkshopAssignments->first()->workshop_schedule->workshop->title ?? 'Bootcamp Attendee';
             });
 
             $table->editColumn('qr_code_value', function ($row) {
                 return $row->qr_code_value ? $row->qr_code_value : '';
             });
             $table->editColumn('status', function ($row) {
-                return $row->status ? QrCode::STATUS_RADIO[$row->status] : '';
+//                return $row->status ? QrCode::STATUS_RADIO[$row->status] : '';
+                return QrCode::STATUS_RADIO[$row->status];
             });
 
             $table->rawColumns(['actions', 'placeholder', 'bootcamp_participant']);
@@ -66,8 +77,9 @@ class QrCodesController extends Controller
 
         $bootcamp_participants = BootcampParticipant::get();
         $users                 = User::get();
+        $workshops = Workshop::get();
 
-        return view('admin.qrCodes.index', compact('bootcamp_participants', 'users'));
+        return view('admin.qrCodes.index', compact('bootcamp_participants', 'users','workshops'));
     }
 
     public function create()
@@ -108,7 +120,7 @@ class QrCodesController extends Controller
     {
         abort_if(Gate::denies('qr_code_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $qrCode->load('bootcamp_participant', 'created_by', 'qrcodeEmails', 'qrCodeMembers');
+        $qrCode->load('bootcamp_participant', 'created_by', 'qrcodeEmails');
 
         return view('admin.qrCodes.show', compact('qrCode'));
     }

@@ -71,6 +71,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('bootcamp-participants/ckmedia', 'BootcampParticipantsController@storeCKEditorImages')->name('bootcamp-participants.storeCKEditorImages');
     Route::post('bootcamp-participants/parse-csv-import', 'BootcampParticipantsController@parseCsvImport')->name('bootcamp-participants.parseCsvImport');
     Route::post('bootcamp-participants/process-csv-import', 'BootcampParticipantsController@processCsvImport')->name('bootcamp-participants.processCsvImport');
+    Route::get('bootcamp-participants/media','BootcampParticipantsController@getMedia')->name('bootcamp-participants.get.media');
+    Route::get('bootcamp-participants/faild-email','BootcampParticipantsController@faildEmail')->name('bootcamp-participants.get.faild.email');
     Route::resource('bootcamp-participants', 'BootcampParticipantsController');
 
     // Participant Workshop Assignment
@@ -96,6 +98,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('bootcamp-attendees/parse-csv-import', 'BootcampAttendeesController@parseCsvImport')->name('bootcamp-attendees.parseCsvImport');
     Route::post('bootcamp-attendees/process-csv-import', 'BootcampAttendeesController@processCsvImport')->name('bootcamp-attendees.processCsvImport');
     Route::resource('bootcamp-attendees', 'BootcampAttendeesController');
+    // Bootcamp Attendees Generate and Email
+    Route::post('bootcamp-attendees/generateQr','QrGeneratorController@generateAndEmail')->name('bootcamp-attendees.generate.email');
+    Route::post('bootcamp-attendees/iu','QrGeneratorController@generateAndEmailIU')->name('bootcamp-attendees.generate.email.iu');
+    Route::get('bootcamp-attendees/scan/{value}', 'QrGeneratorController@scanBootcampAttendee')->name('bootcamp-attendees.scan');
+    // Scan Participant workshop assignment
+    Route::get('workshop-assignment/scan/{value}', 'QrGeneratorController@scanWorkshop')->name('bootcamp-attendees.scan');
 
     // Time Work Type
     Route::delete('time-work-types/destroy', 'TimeWorkTypeController@massDestroy')->name('time-work-types.massDestroy');

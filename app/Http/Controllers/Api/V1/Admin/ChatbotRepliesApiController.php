@@ -18,9 +18,9 @@ class ChatbotRepliesApiController extends Controller
 
     public function index()
     {
-        abort_if(Gate::denies('chatbot_reply_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $acceptedReplies = ChatbotReply::where('status', 'accepted')->get();
 
-        return new ChatbotReplyResource(ChatbotReply::with(['created_by'])->get());
+        return new ChatbotReplyResource($acceptedReplies);
     }
 
     public function store(StoreChatbotReplyRequest $request)

@@ -10,6 +10,8 @@ use App\Http\Requests\UpdateBootcampConfirmationRequest;
 use App\Models\BootcampConfirmation;
 use App\Models\BootcampParticipant;
 use App\Models\StudyLevel;
+use App\Models\Workshop;
+
 use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
@@ -49,20 +51,22 @@ class BootcampConfirmationController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
+            $table->editColumn('first_priority', function ($row) {
+                return $row->national && $row->national->first_priority
+                    ? $row->national->first_priority->title
+                    : '';
+            });
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : '';
             });
-            $table->addColumn('email_name_en', function ($row) {
-                return $row->email ? $row->email->name_en : '';
+            $table->addColumn('email', function ($row) {
+                return $row->email ? $row->email->email : '';
             });
 
-            $table->addColumn('national_name_en', function ($row) {
-                return $row->national ? $row->national->name_en : '';
+            $table->addColumn('national', function ($row) {
+                return $row->national ? $row->national->national : '';
             });
 
-            $table->editColumn('national.email', function ($row) {
-                return $row->national ? (is_string($row->national) ? $row->national : $row->national->email) : '';
-            });
             $table->editColumn('phone_number', function ($row) {
                 return $row->phone_number ? $row->phone_number : '';
             });
@@ -76,10 +80,11 @@ class BootcampConfirmationController extends Controller
         }
 
         $bootcamp_participants = BootcampParticipant::get();
+        $workshops             = Workshop::get();
         $study_levels          = StudyLevel::get();
         $users                 = User::get();
 
-        return view('admin.bootcampConfirmations.index', compact('bootcamp_participants', 'study_levels', 'users'));
+        return view('admin.bootcampConfirmations.index', compact('bootcamp_participants', 'study_levels', 'users', 'workshops'));
     }
 
     public function create()
@@ -97,6 +102,7 @@ class BootcampConfirmationController extends Controller
 
     public function store(StoreBootcampConfirmationRequest $request)
     {
+        dd($request);
         $bootcampConfirmation = BootcampConfirmation::create($request->all());
 
         return redirect()->route('admin.bootcamp-confirmations.index');

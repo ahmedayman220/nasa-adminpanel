@@ -32,9 +32,9 @@ class WorkshopsController extends Controller
             $table->addColumn('actions', '&nbsp;');
 
             $table->editColumn('actions', function ($row) {
-                $viewGate      = 'workshop_show';
-                $editGate      = 'workshop_edit';
-                $deleteGate    = 'workshop_delete';
+                $viewGate = 'workshop_show';
+                $editGate = 'workshop_edit';
+                $deleteGate = 'workshop_delete';
                 $crudRoutePart = 'workshops';
 
                 return view('partials.datatablesActions', compact(
@@ -47,10 +47,28 @@ class WorkshopsController extends Controller
             });
 
             $table->editColumn('id', function ($row) {
-                return $row->id ? $row->id : '';
+                // Get current page and page length from the request
+                $start = request()->input('start', 0);
+
+                // Increment the index based on current page
+                static $index = 0;
+                return ++$index + $start;
             });
             $table->editColumn('title', function ($row) {
                 return $row->title ? $row->title : '';
+            });
+
+            $table->addColumn('first_priority_confirmation', function ($row) {
+                return $row->firstPriorityBootcampParticipants()
+                    ->whereHas('emailBootcampConfirmations') // or ->whereHas('nationalBootcampConfirmations') based on your requirement
+                    ->count();
+            });
+
+            $table->addColumn('attended_formation_activity', function ($row) {
+                return $row->firstPriorityBootcampParticipants()
+                    ->where('is_attend_formation_activity', '1') // Check if attended the team formation activity
+                    ->whereHas('emailBootcampConfirmations') // or ->whereHas('nationalBootcampConfirmations') based on your requirement
+                    ->count();
             });
 
             $table->rawColumns(['actions', 'placeholder']);
@@ -101,7 +119,22 @@ class WorkshopsController extends Controller
     {
         abort_if(Gate::denies('workshop_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $workshop->load('created_by', 'workshopWorkshopSchedules', 'workshopParticipantWorkshopPreferences', 'firstPriorityBootcampParticipants', 'secondPriorityBootcampParticipants', 'thirdPriorityBootcampParticipants');
+        // Load relationships and filter bootcamp participants with BootcampConfirmations
+        $workshop->load([
+            'created_by',
+            'workshopWorkshopSchedules',
+            'workshopParticipantWorkshopPreferences',
+            // Filter only participants who have bootcamp confirmations
+            'firstPriorityBootcampParticipants' => function ($query) {
+                $query->whereHas('nationalBootcampConfirmations');
+            },
+            'secondPriorityBootcampParticipants' => function ($query) {
+                $query->whereHas('nationalBootcampConfirmations');
+            },
+            'thirdPriorityBootcampParticipants' => function ($query) {
+                $query->whereHas('nationalBootcampConfirmations');
+            }
+        ]);
 
         return view('admin.workshops.show', compact('workshop'));
     }
@@ -130,10 +163,10 @@ class WorkshopsController extends Controller
     {
         abort_if(Gate::denies('workshop_create') && Gate::denies('workshop_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $model         = new Workshop();
-        $model->id     = $request->input('crud_id', 0);
+        $model = new Workshop();
+        $model->id = $request->input('crud_id', 0);
         $model->exists = true;
-        $media         = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
+        $media = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
 
         return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
     }

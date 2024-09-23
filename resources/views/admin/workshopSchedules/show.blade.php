@@ -47,6 +47,14 @@
                             {{ $workshopSchedule->capacity }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            Available
+                        </th>
+                        <td>
+                            {{ $workshopSchedule->SchedualWorkshopAvailability() }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

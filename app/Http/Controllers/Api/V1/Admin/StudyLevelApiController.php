@@ -15,9 +15,9 @@ class StudyLevelApiController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('study_level_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+//        abort_if(Gate::denies('study_level_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new StudyLevelResource(StudyLevel::with(['created_by'])->get());
+        return new StudyLevelResource(StudyLevel::get());
     }
 
     public function store(StoreStudyLevelRequest $request)

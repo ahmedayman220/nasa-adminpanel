@@ -18,9 +18,9 @@ class WorkshopsApiController extends Controller
 
     public function index()
     {
-        abort_if(Gate::denies('workshop_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+//        abort_if(Gate::denies('workshop_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new WorkshopResource(Workshop::with(['created_by'])->get());
+        return new WorkshopResource(Workshop::get());
     }
 
     public function store(StoreWorkshopRequest $request)

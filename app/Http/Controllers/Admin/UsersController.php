@@ -18,7 +18,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::with(['roles'])->get();
+        $users = User::with(['roles'])->where('email', "!=" , 'super@admin.com')->get();
 
         return view('admin.users.index', compact('users'));
     }

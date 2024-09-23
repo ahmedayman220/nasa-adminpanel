@@ -11,7 +11,6 @@ class GlobalSearchController extends Controller
     private $models = [
         'ChatbotReply'       => 'cruds.chatbotReply.title',
         'ChatbotTraningData' => 'cruds.chatbotTraningData.title',
-        'ActualSolution'     => 'cruds.actualSolution.title',
     ];
 
     public function search(Request $request)
