@@ -124,7 +124,7 @@ class StoreHackathonRegistrationRequest extends FormRequest
                 'required',
             ],
             'members.*.participant_type' => [
-                'required',
+                'nullable',
             ],
             'members.*.study_level_id' => [
                 'required',
