@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\StorehackathonRegistrationRequest;
 use App\Http\Requests\UpdateTeamRequest;
+use App\Http\Resources\Admin\BootcampParticipantResource;
 use App\Http\Resources\Admin\TeamResource;
 use App\Models\Member;
 use App\Models\Team;
@@ -37,21 +38,19 @@ class TeamApiController extends Controller
 
         $team = Team::create($team_data);
 
-        return response([
-            $team
-        ]);
+        if ($request->input('team_photo', false)) {
+            $team->addMedia(storage_path('tmp/uploads/' . basename($request->input('team_photo'))))->toMediaCollection('team_photo');
+        }
+
+//        $team->addMembers($request->input('members'), $request->input('team_leader_id'));
 
 
-
-        // Add members to the team and handle leader assignment
-        $team->addMembers($request->input('members'), $request->input('team_leader_id'));
 
         // Return a success response
-        return response()->json([
-            'message' => 'Registration successful',
-            'team' => $team,
-            'members' => $team->members,
-        ], Response::HTTP_CREATED);
+        return (new Team($team))
+            ->response()
+            ->setStatusCode(Response::HTTP_ACCEPTED);
+
 
 
 
