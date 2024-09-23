@@ -9,6 +9,7 @@ use App\Http\Requests\StoreBootcampParticipantRequest;
 use App\Http\Requests\UpdateBootcampParticipantRequest;
 use App\Http\Requests\AuthToUpdateBootcampParticipantApiRequest;
 use App\Http\Resources\Admin\BootcampParticipantResource;
+use App\Models\BootcampConfirmation;
 use App\Models\BootcampParticipant;
 use App\Models\ParticipantWorkshopPreference;
 use Gate;
@@ -18,17 +19,7 @@ use Illuminate\Support\Facades\File;
 
 class BootcampParticipantsApiController extends Controller
 {
-    use MediaUploadingTrait;
-
-    private function validateRecaptcha($token)
-    {
-        $secretKey = '6LdunDYqAAAAAKtyYz-mPPTcYadAr0Wxpyaa-akS'; // Your secret key
-
-        $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secretKey}&response={$token}");
-        $responseKeys = json_decode($response, true);
-
-        return $responseKeys['success'];
-    }
+    use MediaUploadingTrait, BootcampHelper;
 
     public function index()
     {
@@ -77,8 +68,14 @@ class BootcampParticipantsApiController extends Controller
         }
 
 
-
         $bootcampParticipant = BootcampParticipant::create($request->all());
+        $bootcampConfirmation = BootcampConfirmation::create([
+            'name' => $bootcampParticipant->name_en,
+            'email_id' => $bootcampParticipant->id, // Use the participant's ID for email
+            'national_id' => $bootcampParticipant->id, // Use the participant's ID for national
+            'phone_number' => $bootcampParticipant->phone_number,
+            'slot_id' => $request->input('slot_id')
+        ]);
 
         if (isset($bootcampParticipant->first_priority_id)) {
             ParticipantWorkshopPreference::create([
@@ -104,7 +101,7 @@ class BootcampParticipantsApiController extends Controller
             ]);
         }
 
-        BootcampHelper::checkAvailability($bootcampParticipant->id);
+        $this->checkAvailability($bootcampParticipant->id);
 
         if ($request->input('national_id_front', false)) {
             $bootcampParticipant->addMedia(storage_path('tmp/uploads/' . basename($request->input('national_id_front'))))->toMediaCollection('national_id_front');

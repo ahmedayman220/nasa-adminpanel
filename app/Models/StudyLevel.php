@@ -34,6 +34,10 @@ class StudyLevel extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
+    public function slotBootcampConfirmations()
+    {
+        return $this->hasMany(BootcampConfirmation::class, 'slot_id', 'id');
+    }
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');

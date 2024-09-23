@@ -1,4 +1,6 @@
 @extends('layouts.admin')
+
+
 @section('content')
     @if(session()->has('Status'))
         <div class="alert alert-success" role="alert">
@@ -42,6 +44,10 @@
                     <th>
                         {{ trans('cruds.bootcampParticipant.fields.id') }}
                     </th>
+                    <th>
+                        Ticket ID
+                    </th>
+
                     <th>
                         {{ trans('cruds.bootcampParticipant.fields.name_en') }}
                     </th>
@@ -112,6 +118,9 @@
                 </tr>
                 <tr>
                     <td>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -231,6 +240,8 @@
 
 
 @endsection
+
+
 @section('scripts')
 @parent
 <script>
@@ -313,6 +324,7 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
+{ data: 'uuid', name: 'uuid' },
 { data: 'name_en', name: 'name_en' },
 { data: 'name_ar', name: 'name_ar' },
 { data: 'email', name: 'email' },
@@ -339,7 +351,7 @@
     orderCellsTop: true,
     order: [[ 10, 'asc' ]],
 
-    pageLength: 100,
+    pageLength: 4000,
   };
   let table = $('.datatable-BootcampParticipant').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){

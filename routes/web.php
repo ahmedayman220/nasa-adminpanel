@@ -72,6 +72,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('bootcamp-participants/parse-csv-import', 'BootcampParticipantsController@parseCsvImport')->name('bootcamp-participants.parseCsvImport');
     Route::post('bootcamp-participants/process-csv-import', 'BootcampParticipantsController@processCsvImport')->name('bootcamp-participants.processCsvImport');
     Route::get('bootcamp-participants/media','BootcampParticipantsController@getMedia')->name('bootcamp-participants.get.media');
+    Route::get('bootcamp-participants/faild-email','BootcampParticipantsController@faildEmail')->name('bootcamp-participants.get.faild.email');
     Route::resource('bootcamp-participants', 'BootcampParticipantsController');
 
     // Participant Workshop Assignment
@@ -99,6 +100,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('bootcamp-attendees', 'BootcampAttendeesController');
     // Bootcamp Attendees Generate and Email
     Route::post('bootcamp-attendees/generateQr','QrGeneratorController@generateAndEmail')->name('bootcamp-attendees.generate.email');
+    Route::post('bootcamp-attendees/iu','QrGeneratorController@generateAndEmailIU')->name('bootcamp-attendees.generate.email.iu');
     Route::get('bootcamp-attendees/scan/{value}', 'QrGeneratorController@scanBootcampAttendee')->name('bootcamp-attendees.scan');
     // Scan Participant workshop assignment
     Route::get('workshop-assignment/scan/{value}', 'QrGeneratorController@scanWorkshop')->name('bootcamp-attendees.scan');
@@ -206,6 +208,184 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('emails/parse-csv-import', 'EmailsController@parseCsvImport')->name('emails.parseCsvImport');
     Route::post('emails/process-csv-import', 'EmailsController@processCsvImport')->name('emails.processCsvImport');
     Route::resource('emails', 'EmailsController');
+
+    // Bootcamp Confirmation
+    Route::delete('bootcamp-confirmations/destroy', 'BootcampConfirmationController@massDestroy')->name('bootcamp-confirmations.massDestroy');
+    Route::post('bootcamp-confirmations/parse-csv-import', 'BootcampConfirmationController@parseCsvImport')->name('bootcamp-confirmations.parseCsvImport');
+    Route::post('bootcamp-confirmations/process-csv-import', 'BootcampConfirmationController@processCsvImport')->name('bootcamp-confirmations.processCsvImport');
+    Route::resource('bootcamp-confirmations', 'BootcampConfirmationController');
+
+    // Challenges
+    Route::delete('challenges/destroy', 'ChallengesController@massDestroy')->name('challenges.massDestroy');
+    Route::post('challenges/media', 'ChallengesController@storeMedia')->name('challenges.storeMedia');
+    Route::post('challenges/ckmedia', 'ChallengesController@storeCKEditorImages')->name('challenges.storeCKEditorImages');
+    Route::post('challenges/parse-csv-import', 'ChallengesController@parseCsvImport')->name('challenges.parseCsvImport');
+    Route::post('challenges/process-csv-import', 'ChallengesController@processCsvImport')->name('challenges.processCsvImport');
+    Route::resource('challenges', 'ChallengesController');
+
+    // Actual Solution
+    Route::delete('actual-solutions/destroy', 'ActualSolutionController@massDestroy')->name('actual-solutions.massDestroy');
+    Route::post('actual-solutions/parse-csv-import', 'ActualSolutionController@parseCsvImport')->name('actual-solutions.parseCsvImport');
+    Route::post('actual-solutions/process-csv-import', 'ActualSolutionController@processCsvImport')->name('actual-solutions.processCsvImport');
+    Route::resource('actual-solutions', 'ActualSolutionController');
+
+    // Mentorship Needed
+    Route::delete('mentorship-neededs/destroy', 'MentorshipNeededController@massDestroy')->name('mentorship-neededs.massDestroy');
+    Route::post('mentorship-neededs/media', 'MentorshipNeededController@storeMedia')->name('mentorship-neededs.storeMedia');
+    Route::post('mentorship-neededs/ckmedia', 'MentorshipNeededController@storeCKEditorImages')->name('mentorship-neededs.storeCKEditorImages');
+    Route::post('mentorship-neededs/parse-csv-import', 'MentorshipNeededController@parseCsvImport')->name('mentorship-neededs.parseCsvImport');
+    Route::post('mentorship-neededs/process-csv-import', 'MentorshipNeededController@processCsvImport')->name('mentorship-neededs.processCsvImport');
+    Route::resource('mentorship-neededs', 'MentorshipNeededController');
+
+    // Participation Method
+    Route::delete('participation-methods/destroy', 'ParticipationMethodController@massDestroy')->name('participation-methods.massDestroy');
+    Route::post('participation-methods/media', 'ParticipationMethodController@storeMedia')->name('participation-methods.storeMedia');
+    Route::post('participation-methods/ckmedia', 'ParticipationMethodController@storeCKEditorImages')->name('participation-methods.storeCKEditorImages');
+    Route::post('participation-methods/parse-csv-import', 'ParticipationMethodController@parseCsvImport')->name('participation-methods.parseCsvImport');
+    Route::post('participation-methods/process-csv-import', 'ParticipationMethodController@processCsvImport')->name('participation-methods.processCsvImport');
+    Route::resource('participation-methods', 'ParticipationMethodController');
+
+    // Member Role
+    Route::delete('member-roles/destroy', 'MemberRoleController@massDestroy')->name('member-roles.massDestroy');
+    Route::post('member-roles/media', 'MemberRoleController@storeMedia')->name('member-roles.storeMedia');
+    Route::post('member-roles/ckmedia', 'MemberRoleController@storeCKEditorImages')->name('member-roles.storeCKEditorImages');
+    Route::post('member-roles/parse-csv-import', 'MemberRoleController@parseCsvImport')->name('member-roles.parseCsvImport');
+    Route::post('member-roles/process-csv-import', 'MemberRoleController@processCsvImport')->name('member-roles.processCsvImport');
+    Route::resource('member-roles', 'MemberRoleController');
+
+    // Study Levelss
+    Route::delete('study-levelsses/destroy', 'StudyLevelssController@massDestroy')->name('study-levelsses.massDestroy');
+    Route::post('study-levelsses/media', 'StudyLevelssController@storeMedia')->name('study-levelsses.storeMedia');
+    Route::post('study-levelsses/ckmedia', 'StudyLevelssController@storeCKEditorImages')->name('study-levelsses.storeCKEditorImages');
+    Route::post('study-levelsses/parse-csv-import', 'StudyLevelssController@parseCsvImport')->name('study-levelsses.parseCsvImport');
+    Route::post('study-levelsses/process-csv-import', 'StudyLevelssController@processCsvImport')->name('study-levelsses.processCsvImport');
+    Route::resource('study-levelsses', 'StudyLevelssController');
+
+    // Major
+    Route::delete('majors/destroy', 'MajorController@massDestroy')->name('majors.massDestroy');
+    Route::post('majors/media', 'MajorController@storeMedia')->name('majors.storeMedia');
+    Route::post('majors/ckmedia', 'MajorController@storeCKEditorImages')->name('majors.storeCKEditorImages');
+    Route::post('majors/parse-csv-import', 'MajorController@parseCsvImport')->name('majors.parseCsvImport');
+    Route::post('majors/process-csv-import', 'MajorController@processCsvImport')->name('majors.processCsvImport');
+    Route::resource('majors', 'MajorController');
+
+    // Tshirt Size
+    Route::delete('tshirt-sizes/destroy', 'TshirtSizeController@massDestroy')->name('tshirt-sizes.massDestroy');
+    Route::post('tshirt-sizes/parse-csv-import', 'TshirtSizeController@parseCsvImport')->name('tshirt-sizes.parseCsvImport');
+    Route::post('tshirt-sizes/process-csv-import', 'TshirtSizeController@processCsvImport')->name('tshirt-sizes.processCsvImport');
+    Route::resource('tshirt-sizes', 'TshirtSizeController');
+
+    // Team
+    Route::delete('teams/destroy', 'TeamController@massDestroy')->name('teams.massDestroy');
+    Route::post('teams/media', 'TeamController@storeMedia')->name('teams.storeMedia');
+    Route::post('teams/ckmedia', 'TeamController@storeCKEditorImages')->name('teams.storeCKEditorImages');
+    Route::post('teams/parse-csv-import', 'TeamController@parseCsvImport')->name('teams.parseCsvImport');
+    Route::post('teams/process-csv-import', 'TeamController@processCsvImport')->name('teams.processCsvImport');
+    Route::resource('teams', 'TeamController');
+
+    // Team Skills
+    Route::delete('team-skills/destroy', 'TeamSkillsController@massDestroy')->name('team-skills.massDestroy');
+    Route::post('team-skills/parse-csv-import', 'TeamSkillsController@parseCsvImport')->name('team-skills.parseCsvImport');
+    Route::post('team-skills/process-csv-import', 'TeamSkillsController@processCsvImport')->name('team-skills.processCsvImport');
+    Route::resource('team-skills', 'TeamSkillsController');
+
+    // Team Achievements
+    Route::delete('team-achievements/destroy', 'TeamAchievementsController@massDestroy')->name('team-achievements.massDestroy');
+    Route::post('team-achievements/parse-csv-import', 'TeamAchievementsController@parseCsvImport')->name('team-achievements.parseCsvImport');
+    Route::post('team-achievements/process-csv-import', 'TeamAchievementsController@processCsvImport')->name('team-achievements.processCsvImport');
+    Route::resource('team-achievements', 'TeamAchievementsController');
+
+    // Members
+    Route::delete('members/destroy', 'MembersController@massDestroy')->name('members.massDestroy');
+    Route::post('members/media', 'MembersController@storeMedia')->name('members.storeMedia');
+    Route::post('members/ckmedia', 'MembersController@storeCKEditorImages')->name('members.storeCKEditorImages');
+    Route::post('members/parse-csv-import', 'MembersController@parseCsvImport')->name('members.parseCsvImport');
+    Route::post('members/process-csv-import', 'MembersController@processCsvImport')->name('members.processCsvImport');
+    Route::resource('members', 'MembersController');
+
+    // Member Checkpoints
+    Route::delete('member-checkpoints/destroy', 'MemberCheckpointsController@massDestroy')->name('member-checkpoints.massDestroy');
+    Route::post('member-checkpoints/parse-csv-import', 'MemberCheckpointsController@parseCsvImport')->name('member-checkpoints.parseCsvImport');
+    Route::post('member-checkpoints/process-csv-import', 'MemberCheckpointsController@processCsvImport')->name('member-checkpoints.processCsvImport');
+    Route::resource('member-checkpoints', 'MemberCheckpointsController');
+
+    // Hackathon Qr Codes
+    Route::delete('hackathon-qr-codes/destroy', 'HackathonQrCodesController@massDestroy')->name('hackathon-qr-codes.massDestroy');
+    Route::post('hackathon-qr-codes/parse-csv-import', 'HackathonQrCodesController@parseCsvImport')->name('hackathon-qr-codes.parseCsvImport');
+    Route::post('hackathon-qr-codes/process-csv-import', 'HackathonQrCodesController@processCsvImport')->name('hackathon-qr-codes.processCsvImport');
+    Route::resource('hackathon-qr-codes', 'HackathonQrCodesController');
+
+    // Challenge Categories
+    Route::delete('challenge-categories/destroy', 'ChallengeCategoriesController@massDestroy')->name('challenge-categories.massDestroy');
+    Route::resource('challenge-categories', 'ChallengeCategoriesController');
+
+    // H Event Management
+    Route::delete('h-event-managements/destroy', 'HEventManagementController@massDestroy')->name('h-event-managements.massDestroy');
+    Route::post('h-event-managements/parse-csv-import', 'HEventManagementController@parseCsvImport')->name('h-event-managements.parseCsvImport');
+    Route::post('h-event-managements/process-csv-import', 'HEventManagementController@processCsvImport')->name('h-event-managements.processCsvImport');
+    Route::resource('h-event-managements', 'HEventManagementController');
+
+    // Events
+    Route::delete('events/destroy', 'EventsController@massDestroy')->name('events.massDestroy');
+    Route::post('events/parse-csv-import', 'EventsController@parseCsvImport')->name('events.parseCsvImport');
+    Route::post('events/process-csv-import', 'EventsController@processCsvImport')->name('events.processCsvImport');
+    Route::resource('events', 'EventsController');
+
+    // Checkpoints
+    Route::delete('checkpoints/destroy', 'CheckpointsController@massDestroy')->name('checkpoints.massDestroy');
+    Route::post('checkpoints/media', 'CheckpointsController@storeMedia')->name('checkpoints.storeMedia');
+    Route::post('checkpoints/ckmedia', 'CheckpointsController@storeCKEditorImages')->name('checkpoints.storeCKEditorImages');
+    Route::post('checkpoints/parse-csv-import', 'CheckpointsController@parseCsvImport')->name('checkpoints.parseCsvImport');
+    Route::post('checkpoints/process-csv-import', 'CheckpointsController@processCsvImport')->name('checkpoints.processCsvImport');
+    Route::resource('checkpoints', 'CheckpointsController');
+
+    // Checkpoint Types
+    Route::delete('checkpoint-types/destroy', 'CheckpointTypesController@massDestroy')->name('checkpoint-types.massDestroy');
+    Route::post('checkpoint-types/parse-csv-import', 'CheckpointTypesController@parseCsvImport')->name('checkpoint-types.parseCsvImport');
+    Route::post('checkpoint-types/process-csv-import', 'CheckpointTypesController@processCsvImport')->name('checkpoint-types.processCsvImport');
+    Route::resource('checkpoint-types', 'CheckpointTypesController');
+
+    // Evaluations
+    Route::delete('evaluations/destroy', 'EvaluationsController@massDestroy')->name('evaluations.massDestroy');
+    Route::post('evaluations/parse-csv-import', 'EvaluationsController@parseCsvImport')->name('evaluations.parseCsvImport');
+    Route::post('evaluations/process-csv-import', 'EvaluationsController@processCsvImport')->name('evaluations.processCsvImport');
+    Route::resource('evaluations', 'EvaluationsController');
+
+    // Evaluation Criteria
+    Route::delete('evaluation-criteria/destroy', 'EvaluationCriteriaController@massDestroy')->name('evaluation-criteria.massDestroy');
+    Route::post('evaluation-criteria/parse-csv-import', 'EvaluationCriteriaController@parseCsvImport')->name('evaluation-criteria.parseCsvImport');
+    Route::post('evaluation-criteria/process-csv-import', 'EvaluationCriteriaController@processCsvImport')->name('evaluation-criteria.processCsvImport');
+    Route::resource('evaluation-criteria', 'EvaluationCriteriaController');
+
+    // Judges
+    Route::delete('judges/destroy', 'JudgesController@massDestroy')->name('judges.massDestroy');
+    Route::post('judges/parse-csv-import', 'JudgesController@parseCsvImport')->name('judges.parseCsvImport');
+    Route::post('judges/process-csv-import', 'JudgesController@processCsvImport')->name('judges.processCsvImport');
+    Route::resource('judges', 'JudgesController');
+
+    // Skills
+    Route::delete('skills/destroy', 'SkillsController@massDestroy')->name('skills.massDestroy');
+    Route::post('skills/parse-csv-import', 'SkillsController@parseCsvImport')->name('skills.parseCsvImport');
+    Route::post('skills/process-csv-import', 'SkillsController@processCsvImport')->name('skills.processCsvImport');
+    Route::resource('skills', 'SkillsController');
+
+    // Achievements
+    Route::delete('achievements/destroy', 'AchievementsController@massDestroy')->name('achievements.massDestroy');
+    Route::post('achievements/parse-csv-import', 'AchievementsController@parseCsvImport')->name('achievements.parseCsvImport');
+    Route::post('achievements/process-csv-import', 'AchievementsController@processCsvImport')->name('achievements.processCsvImport');
+    Route::resource('achievements', 'AchievementsController');
+
+    // Transportation
+    Route::delete('transportations/destroy', 'TransportationController@massDestroy')->name('transportations.massDestroy');
+    Route::post('transportations/media', 'TransportationController@storeMedia')->name('transportations.storeMedia');
+    Route::post('transportations/ckmedia', 'TransportationController@storeCKEditorImages')->name('transportations.storeCKEditorImages');
+    Route::post('transportations/parse-csv-import', 'TransportationController@parseCsvImport')->name('transportations.parseCsvImport');
+    Route::post('transportations/process-csv-import', 'TransportationController@processCsvImport')->name('transportations.processCsvImport');
+    Route::resource('transportations', 'TransportationController');
+
+    // Difficulty Level
+    Route::delete('difficulty-levels/destroy', 'DifficultyLevelController@massDestroy')->name('difficulty-levels.massDestroy');
+    Route::resource('difficulty-levels', 'DifficultyLevelController');
 
     Route::get('system-calendar', 'SystemCalendarController@index')->name('systemCalendar');
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');

@@ -1,8 +1,8 @@
 <div id="sidebar" class="c-sidebar c-sidebar-fixed c-sidebar-lg-show">
 
     <div class="c-sidebar-brand d-md-down-none">
-        <a class="c-sidebar-brand-full h4 m-4" href="#">
-            <img src="{{ asset('images/nasa_logo_light.png') }}" width="100" alt="">
+        <a class="c-sidebar-brand-full h4" href="#">
+            {{ trans('panel.site_title') }}
         </a>
     </div>
 
@@ -73,7 +73,7 @@
             </li>
         @endcan
         @can('bootcamp_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/bootcamp-participants*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/qr-codes*") ? "c-show" : "" }} {{ request()->is("admin/emails*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/bootcamp-participants*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/qr-codes*") ? "c-show" : "" }} {{ request()->is("admin/emails*") ? "c-show" : "" }} {{ request()->is("admin/bootcamp-confirmations*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
 
@@ -257,6 +257,372 @@
                                 </i>
                                 {{ trans('cruds.email.title') }}
                             </a>
+                        </li>
+                    @endcan
+                    @can('bootcamp_confirmation_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.bootcamp-confirmations.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/bootcamp-confirmations") || request()->is("admin/bootcamp-confirmations/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.bootcampConfirmation.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcan
+        @can('hackthon_access')
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }} {{ request()->is("admin/*") ? "c-show" : "" }}">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.hackthon.title') }}
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    @can('team_management_access')
+                        <li class="c-sidebar-nav-dropdown {{ request()->is("admin/teams*") ? "c-show" : "" }} {{ request()->is("admin/team-skills*") ? "c-show" : "" }} {{ request()->is("admin/team-achievements*") ? "c-show" : "" }}">
+                            <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.teamManagement.title') }}
+                            </a>
+                            <ul class="c-sidebar-nav-dropdown-items">
+                                @can('team_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.teams.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/teams") || request()->is("admin/teams/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.team.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('team_skill_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.team-skills.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/team-skills") || request()->is("admin/team-skills/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.teamSkill.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('team_achievement_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.team-achievements.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/team-achievements") || request()->is("admin/team-achievements/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.teamAchievement.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </li>
+                    @endcan
+                    @can('member_management_access')
+                        <li class="c-sidebar-nav-dropdown {{ request()->is("admin/members*") ? "c-show" : "" }} {{ request()->is("admin/member-checkpoints*") ? "c-show" : "" }} {{ request()->is("admin/hackathon-qr-codes*") ? "c-show" : "" }}">
+                            <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.memberManagement.title') }}
+                            </a>
+                            <ul class="c-sidebar-nav-dropdown-items">
+                                @can('member_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.members.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/members") || request()->is("admin/members/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.member.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('member_checkpoint_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.member-checkpoints.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/member-checkpoints") || request()->is("admin/member-checkpoints/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.memberCheckpoint.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('hackathon_qr_code_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.hackathon-qr-codes.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/hackathon-qr-codes") || request()->is("admin/hackathon-qr-codes/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.hackathonQrCode.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </li>
+                    @endcan
+                    @can('challenge_management_access')
+                        <li class="c-sidebar-nav-dropdown {{ request()->is("admin/challenges*") ? "c-show" : "" }} {{ request()->is("admin/challenge-categories*") ? "c-show" : "" }} {{ request()->is("admin/h-event-managements*") ? "c-show" : "" }} {{ request()->is("admin/difficulty-levels*") ? "c-show" : "" }}">
+                            <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.challengeManagement.title') }}
+                            </a>
+                            <ul class="c-sidebar-nav-dropdown-items">
+                                @can('challenge_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.challenges.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/challenges") || request()->is("admin/challenges/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-chalkboard-teacher c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.challenge.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('challenge_category_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.challenge-categories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/challenge-categories") || request()->is("admin/challenge-categories/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.challengeCategory.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('h_event_management_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.h-event-managements.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/h-event-managements") || request()->is("admin/h-event-managements/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.hEventManagement.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('difficulty_level_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.difficulty-levels.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/difficulty-levels") || request()->is("admin/difficulty-levels/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.difficultyLevel.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </li>
+                    @endcan
+                    @can('event_management_access')
+                        <li class="c-sidebar-nav-dropdown {{ request()->is("admin/events*") ? "c-show" : "" }} {{ request()->is("admin/checkpoints*") ? "c-show" : "" }} {{ request()->is("admin/checkpoint-types*") ? "c-show" : "" }} {{ request()->is("admin/transportations*") ? "c-show" : "" }}">
+                            <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.eventManagement.title') }}
+                            </a>
+                            <ul class="c-sidebar-nav-dropdown-items">
+                                @can('event_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.events.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/events") || request()->is("admin/events/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.event.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('checkpoint_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.checkpoints.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/checkpoints") || request()->is("admin/checkpoints/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.checkpoint.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('checkpoint_type_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.checkpoint-types.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/checkpoint-types") || request()->is("admin/checkpoint-types/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.checkpointType.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('transportation_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.transportations.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/transportations") || request()->is("admin/transportations/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.transportation.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </li>
+                    @endcan
+                    @can('evaluation_system_access')
+                        <li class="c-sidebar-nav-dropdown {{ request()->is("admin/evaluations*") ? "c-show" : "" }} {{ request()->is("admin/evaluation-criteria*") ? "c-show" : "" }} {{ request()->is("admin/judges*") ? "c-show" : "" }}">
+                            <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.evaluationSystem.title') }}
+                            </a>
+                            <ul class="c-sidebar-nav-dropdown-items">
+                                @can('evaluation_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.evaluations.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/evaluations") || request()->is("admin/evaluations/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.evaluation.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('evaluation_criterion_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.evaluation-criteria.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/evaluation-criteria") || request()->is("admin/evaluation-criteria/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.evaluationCriterion.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('judge_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.judges.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/judges") || request()->is("admin/judges/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.judge.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </li>
+                    @endcan
+                    @can('skills_and_achievement_access')
+                        <li class="c-sidebar-nav-dropdown {{ request()->is("admin/skills*") ? "c-show" : "" }} {{ request()->is("admin/achievements*") ? "c-show" : "" }}">
+                            <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.skillsAndAchievement.title') }}
+                            </a>
+                            <ul class="c-sidebar-nav-dropdown-items">
+                                @can('skill_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.skills.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/skills") || request()->is("admin/skills/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.skill.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('achievement_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.achievements.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/achievements") || request()->is("admin/achievements/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.achievement.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </li>
+                    @endcan
+                    @can('hackathon_form_option_access')
+                        <li class="c-sidebar-nav-dropdown {{ request()->is("admin/actual-solutions*") ? "c-show" : "" }} {{ request()->is("admin/mentorship-neededs*") ? "c-show" : "" }} {{ request()->is("admin/participation-methods*") ? "c-show" : "" }} {{ request()->is("admin/member-roles*") ? "c-show" : "" }} {{ request()->is("admin/study-levelsses*") ? "c-show" : "" }} {{ request()->is("admin/majors*") ? "c-show" : "" }} {{ request()->is("admin/tshirt-sizes*") ? "c-show" : "" }}">
+                            <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.hackathonFormOption.title') }}
+                            </a>
+                            <ul class="c-sidebar-nav-dropdown-items">
+                                @can('actual_solution_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.actual-solutions.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/actual-solutions") || request()->is("admin/actual-solutions/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.actualSolution.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('mentorship_needed_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.mentorship-neededs.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/mentorship-neededs") || request()->is("admin/mentorship-neededs/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.mentorshipNeeded.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('participation_method_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.participation-methods.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/participation-methods") || request()->is("admin/participation-methods/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.participationMethod.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('member_role_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.member-roles.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/member-roles") || request()->is("admin/member-roles/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-briefcase c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.memberRole.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('study_levelss_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.study-levelsses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/study-levelsses") || request()->is("admin/study-levelsses/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.studyLevelss.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('major_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.majors.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/majors") || request()->is("admin/majors/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.major.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('tshirt_size_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.tshirt-sizes.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/tshirt-sizes") || request()->is("admin/tshirt-sizes/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.tshirtSize.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
                         </li>
                     @endcan
                 </ul>

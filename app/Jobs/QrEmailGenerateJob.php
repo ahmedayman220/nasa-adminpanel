@@ -22,6 +22,10 @@ class QrEmailGenerateJob implements ShouldQueue
     private $base_url;
     private $id;
     private $adminId;
+    private $schedule;
+    private $schedule_time;
+    private $workshop;
+    private $workshop_description;
     /**
      * Create a new job instance.
      */
@@ -35,30 +39,43 @@ class QrEmailGenerateJob implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(BootcampAttendee $attendeeModel,\App\Models\QrCode $qrModel,Email $email): void
+
+    public function getShortNameAttribute($name)
+    {
+        $words = explode(' ', $name); // Assuming 'name' is your column
+        return implode(' ', array_slice($words, 0, 2)); // Return only the first two words
+    }
+
+    public function handle(BootcampAttendee $attendeeModel, \App\Models\QrCode $qrModel, Email $email): void
     {
         $relative_name = null; // Initialize the variable here
-        $Schedule_time = null;
-        $workshop = null;
-        try{
+        try {
             // Get attendee id and update status
             $attendee = $attendeeModel->find($this->id);
+
+            if (!$attendee) {
+                throw new \Exception('Attendee not found');
+            }
+
             // Get participant id to generate Qr code
             $data = $attendee->bootcamp_participant;
 
             $relative_name = 'QR/' . uniqid().'_'.$data->national.'.png';
             $path = public_path($relative_name);
             $url = $this->base_url . '/' . $relative_name;
-            QrCode::format('png')->size(200)->generate($data->national, $path);
+            QrCode::format('png')->size(200)->generate("asd", $path);
             // Pass needed info to email
-            $participantWorkshopRelation = $data->bootcampParticipantParticipantWorkshopAssignments->first();
-            if($participantWorkshopRelation){
-                $schedule = $participantWorkshopRelation->workshop_schedule;
-                $Schedule_time = $schedule->schedule_time;
-                $workshop = $schedule->workshop->title;
+
+            $workshop = $data->first_priority;
+            if($workshop){
+                $this->workshop = $workshop->title;
+                $this->workshop_description = $workshop->descriptions;
+            }else{
+                throw new \Exception('Workshop not found');
             }
             //sodec14206@konetas.com
-            Mail::to('sodec14206@konetas.com')->send(new QrWelcomeMail($url, $this->id, "Ahmed Ayman", $Schedule_time, $workshop));
+            $name = $this->getShortNameAttribute($data->name_en);
+            Mail::to($data->email)->send(new QrWelcomeMail($url, $data->uuid, $name, "test", $this->workshop, $this->workshop_description));
 
             // Insert data in Qr Model
             $qrModel->create([
@@ -77,12 +94,14 @@ class QrEmailGenerateJob implements ShouldQueue
                 'bootcamp_participant_email_id' => $data->id,
                 'created_by_id' => $this->adminId
             ]);
-        } catch (\Exception $e) {
-            // Handle exceptions here
 
-            // Insert data in Qr Model
+
+        } catch (\Exception $e) {
+            // Log the error or handle it as necessary
+            \Log::error('Error sending email or generating QR: ' . $e->getMessage());
+
             $qrModel->create([
-                'qr_code_value' => $relative_name,
+                'qr_code_value' => $e,
                 'status' => 1,
                 'bootcamp_participant_id' => $data->id
             ]);
@@ -97,5 +116,9 @@ class QrEmailGenerateJob implements ShouldQueue
                 'bootcamp_participant_email_id' => $data->id,
                 'created_by_id' => $this->adminId
             ]);
+
+            // Throw the exception to mark the job as failed
+            throw $e;
         }
-    }}
+    }
+}

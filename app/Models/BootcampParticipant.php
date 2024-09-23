@@ -171,6 +171,15 @@ class BootcampParticipant extends Model implements HasMedia
         return $this->belongsTo(Workshop::class, 'third_priority_id');
     }
 
+    public function emailBootcampConfirmations()
+    {
+        return $this->hasMany(BootcampConfirmation::class, 'email_id', 'id');
+    }
+
+    public function nationalBootcampConfirmations()
+    {
+        return $this->hasMany(BootcampConfirmation::class, 'national_id', 'id');
+    }
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');

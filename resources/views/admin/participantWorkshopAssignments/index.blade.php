@@ -29,12 +29,40 @@
         </div>
     </div>
 @endcan
-<div class="card">
+
+    <div class="card">
     <div class="card-header">
         {{ trans('cruds.participantWorkshopAssignment.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
+{{--    Add workshop Attendee    --}}
+        <div class="card-body">
+            <form method="POST" action="{{ route("admin.participant-workshop-assignments.store") }}" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <label class="required" for="bootcamp_participant_id">{{"Update Workshop Attendee Status"}}</label>
+                    <select class="form-control select2 {{ $errors->has('bootcamp_participant') ? 'is-invalid' : '' }}" name="bootcamp_participant_id" id="bootcamp_participant_id" required>
+                        @foreach($bootcamp_participants as $participant)
+                            <option value="{{ $participant->id }}" {{ old('bootcamp_participant_id') == $participant->id ? 'selected' : '' }}>{{ $participant->uuid." => ".$participant->name_en }}</option>
+                        @endforeach
+                    </select>
+                    @if($errors->has('bootcamp_participant'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('bootcamp_participant') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.participantWorkshopAssignment.fields.bootcamp_participant_helper') }}</span>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-danger" type="submit">
+                        {{ trans('global.save') }}
+                    </button>
+                </div>
+            </form>
+        </div>
+        <hr>
+        {{--    End workshop Attendee    --}}
         <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-ParticipantWorkshopAssignment">
             <thead>
                 <tr>
@@ -89,12 +117,12 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
-                        <select class="search" strict="true">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach(App\Models\ParticipantWorkshopAssignment::ATTENDANCE_STATUS_SELECT as $key => $item)
-                                <option value="{{ $key }}">{{ $item }}</option>
-                            @endforeach
-                        </select>
+{{--                        <select class="search" strict="true">--}}
+{{--                            <option value>{{ trans('global.all') }}</option>--}}
+{{--                            @foreach(App\Models\ParticipantWorkshopAssignment::ATTENDANCE_STATUS_SELECT as $key => $item)--}}
+{{--                                <option value="{{ $key }}">{{ $item }}</option>--}}
+{{--                            @endforeach--}}
+{{--                        </select>--}}
                     </td>
                     <td>
                     </td>

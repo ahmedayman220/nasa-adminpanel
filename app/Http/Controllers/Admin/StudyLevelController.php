@@ -56,6 +56,10 @@ class StudyLevelController extends Controller
                 return $row->title ? $row->title : '';
             });
 
+            $table->editColumn('totla_attendees', function ($row) {
+                return $row->slotBootcampConfirmations()->count();
+            });
+
             $table->rawColumns(['actions', 'placeholder']);
 
             return $table->make(true);
@@ -100,7 +104,7 @@ class StudyLevelController extends Controller
     {
         abort_if(Gate::denies('study_level_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $studyLevel->load('created_by');
+        $studyLevel->load('created_by', 'slotBootcampConfirmations');
 
         return view('admin.studyLevels.show', compact('studyLevel'));
     }
