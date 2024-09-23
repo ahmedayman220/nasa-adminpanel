@@ -94,13 +94,13 @@ class StoreHackathonRegistrationRequest extends FormRequest
             ],
             'members.*.phone_number' => [
                 'string',
+                'min:3',
                 'max:100',
                 'required',
                 'unique:members',
             ],
             'members.*.age' => [
                 'string',
-                'min:3',
                 'max:100',
                 'required',
             ],
