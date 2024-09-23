@@ -22,7 +22,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'
 
     // Bootcamp Participants
 //    Route::post('bootcamp-participants/media', 'BootcampParticipantsApiController@storeMedia')->name('bootcamp-participants.storeMedia');
-//    Route::apiResource('bootcamp-participants', 'BootcampParticipantsApiController');
+    Route::apiResource('bootcamp-participants', 'BootcampParticipantsApiController');
 
     // Assets History
 //    Route::apiResource('assets-histories', 'AssetsHistoryApiController', ['except' => ['store', 'show', 'update', 'destroy']]);

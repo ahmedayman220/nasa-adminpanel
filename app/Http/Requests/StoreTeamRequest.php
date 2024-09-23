@@ -45,6 +45,9 @@ class StoreTeamRequest extends FormRequest
             'members_participated_before' => [
                 'required',
             ],
+            'team_photo' => [
+                'required'
+            ],
             'project_proposal_url' => [
                 'string',
                 'min:3',
@@ -62,6 +65,7 @@ class StoreTeamRequest extends FormRequest
             'team_rating' => [
                 'numeric',
             ],
+
             'total_score' => [
                 'numeric',
             ],

@@ -31,6 +31,10 @@ class TeamApiController extends Controller
     {
         $team = Team::create($request->all());
 
+        if ($request->input('team_photo', false)) {
+            $team->addMedia(storage_path('tmp/uploads/' . basename($request->input('team_photo'))))->toMediaCollection('team_photo');
+        }
+
         return (new TeamResource($team))
             ->response()
             ->setStatusCode(Response::HTTP_CREATED);
