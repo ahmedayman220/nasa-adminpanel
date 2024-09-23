@@ -15,7 +15,7 @@ class ActualSolutionApiController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('actual_solution_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+//        abort_if(Gate::denies('actual_solution_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new ActualSolutionResource(ActualSolution::with(['created_by'])->get());
     }

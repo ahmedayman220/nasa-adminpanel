@@ -18,7 +18,7 @@ class ParticipationMethodApiController extends Controller
 
     public function index()
     {
-        abort_if(Gate::denies('participation_method_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+//        abort_if(Gate::denies('participation_method_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new ParticipationMethodResource(ParticipationMethod::with(['created_by'])->get());
     }

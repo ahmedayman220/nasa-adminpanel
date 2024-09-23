@@ -15,7 +15,7 @@ class TshirtSizeApiController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('tshirt_size_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+//        abort_if(Gate::denies('tshirt_size_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new TshirtSizeResource(TshirtSize::with(['created_by'])->get());
     }

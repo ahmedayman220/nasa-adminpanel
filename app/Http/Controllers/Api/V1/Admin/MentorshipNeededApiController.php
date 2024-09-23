@@ -18,7 +18,7 @@ class MentorshipNeededApiController extends Controller
 
     public function index()
     {
-        abort_if(Gate::denies('mentorship_needed_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+//        abort_if(Gate::denies('mentorship_needed_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new MentorshipNeededResource(MentorshipNeeded::with(['created_by'])->get());
     }

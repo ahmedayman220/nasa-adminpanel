@@ -23,6 +23,10 @@ class TeamApiController extends Controller
         return new TeamResource(Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])->get());
     }
 
+    public function HackathonRegistration(StorehackathonRegistrationRequest $request) {
+
+        return "test";
+    }
     public function store(StoreTeamRequest $request)
     {
         $team = Team::create($request->all());

@@ -38,6 +38,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'
     // Bootcamp Confirmation
 //    Route::apiResource('bootcamp-confirmations', 'BootcampConfirmationApiController');
 
+    // ===================== Hackathon ===================== //
     // Challenges
     Route::post('challenges/media', 'ChallengesApiController@storeMedia')->name('challenges.storeMedia');
     Route::apiResource('challenges', 'ChallengesApiController');
@@ -53,10 +54,6 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'
     Route::post('participation-methods/media', 'ParticipationMethodApiController@storeMedia')->name('participation-methods.storeMedia');
     Route::apiResource('participation-methods', 'ParticipationMethodApiController');
 
-    // Member Role
-    Route::post('member-roles/media', 'MemberRoleApiController@storeMedia')->name('member-roles.storeMedia');
-    Route::apiResource('member-roles', 'MemberRoleApiController');
-
     // Study Levelss
     Route::post('study-levelsses/media', 'StudyLevelssApiController@storeMedia')->name('study-levelsses.storeMedia');
     Route::apiResource('study-levelsses', 'StudyLevelssApiController');
@@ -71,53 +68,11 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'
     // Team
     Route::post('teams/media', 'TeamApiController@storeMedia')->name('teams.storeMedia');
     Route::apiResource('teams', 'TeamApiController');
-
-    // Team Skills
-    Route::apiResource('team-skills', 'TeamSkillsApiController');
-
-    // Team Achievements
-    Route::apiResource('team-achievements', 'TeamAchievementsApiController');
+    Route::post('hackathon-registration', 'TeamApiController@HackathonRegistration');
 
     // Members
     Route::post('members/media', 'MembersApiController@storeMedia')->name('members.storeMedia');
     Route::apiResource('members', 'MembersApiController');
-
-    // Member Checkpoints
-    Route::apiResource('member-checkpoints', 'MemberCheckpointsApiController');
-
-    // Hackathon Qr Codes
-    Route::apiResource('hackathon-qr-codes', 'HackathonQrCodesApiController');
-
-    // Challenge Categories
-    Route::apiResource('challenge-categories', 'ChallengeCategoriesApiController');
-
-    // H Event Management
-    Route::apiResource('h-event-managements', 'HEventManagementApiController');
-
-    // Events
-    Route::apiResource('events', 'EventsApiController');
-
-    // Checkpoints
-    Route::post('checkpoints/media', 'CheckpointsApiController@storeMedia')->name('checkpoints.storeMedia');
-    Route::apiResource('checkpoints', 'CheckpointsApiController');
-
-    // Checkpoint Types
-    Route::apiResource('checkpoint-types', 'CheckpointTypesApiController');
-
-    // Evaluations
-    Route::apiResource('evaluations', 'EvaluationsApiController');
-
-    // Evaluation Criteria
-    Route::apiResource('evaluation-criteria', 'EvaluationCriteriaApiController');
-
-    // Judges
-    Route::apiResource('judges', 'JudgesApiController');
-
-    // Skills
-    Route::apiResource('skills', 'SkillsApiController');
-
-    // Achievements
-    Route::apiResource('achievements', 'AchievementsApiController');
 
     // Transportation
     Route::post('transportations/media', 'TransportationApiController@storeMedia')->name('transportations.storeMedia');
