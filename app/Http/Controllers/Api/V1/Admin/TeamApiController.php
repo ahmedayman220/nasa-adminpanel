@@ -43,11 +43,14 @@ class TeamApiController extends Controller
         $team = Team::create($team_data);
 
         // Loop through each member from the request
-        foreach ($request->input('members') as $KEY => $memberData) {
+        foreach ($request->input('members') as $key => $memberData) {
             // Check if this member is the team leader
-            $isTeamLeader = $request->input('team_leader_id') == $KEY;
+            $isTeamLeader = $request->input('team_leader_id') == $key;
 
             // Create a new member instance
+            $member = new Member(); // Initialize the member instance
+
+            // Manually set member properties
             $member->national = $memberData['national'];
             $member->name = $memberData['name'];
             $member->email = $memberData['email'];
@@ -59,10 +62,9 @@ class TeamApiController extends Controller
             $member->participant_type = $memberData['participant_type'];
             $member->study_level_id = $memberData['study_level_id'];
             $member->transportation_id = $memberData['transportation_id'];
-            $member->extra_field = $memberData['national_id_photo'];
+            $member->extra_field = $memberData['national_id_photo']; // Assuming this is the correct usage
             $member->member_role = $isTeamLeader ? 'team_leader' : 'member';
 
-            // Set the member role
             // Save the member
             $member->save();
 
@@ -75,7 +77,6 @@ class TeamApiController extends Controller
             ->response()
             ->setStatusCode(Response::HTTP_ACCEPTED);
     }
-
     public function store(StoreTeamRequest $request)
     {
         $team = Team::create($request->all());
