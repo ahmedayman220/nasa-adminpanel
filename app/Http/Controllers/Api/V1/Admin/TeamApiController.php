@@ -68,6 +68,11 @@ class TeamApiController extends Controller
 
             // Save the member
             $member->save();
+
+            if( $isTeamLeader ) {
+                $team->team_leader_id = $member->id;
+            }
+            $team->members()->attach($member->id);
         }
 
         // Return a success response

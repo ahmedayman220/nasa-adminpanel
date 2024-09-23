@@ -67,6 +67,12 @@ class Member extends Model implements HasMedia
         }
     }
 
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class, 'member_team', 'member_id', 'team_id')
+            ->withTimestamps();
+    }
+
 
     protected function serializeDate(DateTimeInterface $date)
     {
