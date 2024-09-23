@@ -1384,6 +1384,8 @@ return [
             'name_helper'       => ' ',
             'expertise'         => 'Expertise',
             'expertise_helper'  => ' ',
+            'photo'             => 'Photo',
+            'photo_helper'      => ' ',
         ],
     ],
     'skill' => [

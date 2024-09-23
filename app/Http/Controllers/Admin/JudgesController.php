@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\CsvImportTrait;
+use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyJudgeRequest;
 use App\Http\Requests\StoreJudgeRequest;
 use App\Http\Requests\UpdateJudgeRequest;
@@ -11,12 +12,13 @@ use App\Models\Judge;
 use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
 class JudgesController extends Controller
 {
-    use CsvImportTrait;
+    use MediaUploadingTrait, CsvImportTrait;
 
     public function index(Request $request)
     {
@@ -53,8 +55,19 @@ class JudgesController extends Controller
             $table->editColumn('expertise', function ($row) {
                 return $row->expertise ? $row->expertise : '';
             });
+            $table->editColumn('photo', function ($row) {
+                if ($photo = $row->photo) {
+                    return sprintf(
+                        '<a href="%s" target="_blank"><img src="%s" width="50px" height="50px"></a>',
+                        $photo->url,
+                        $photo->thumbnail
+                    );
+                }
 
-            $table->rawColumns(['actions', 'placeholder']);
+                return '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'photo']);
 
             return $table->make(true);
         }
@@ -75,6 +88,14 @@ class JudgesController extends Controller
     {
         $judge = Judge::create($request->all());
 
+        if ($request->input('photo', false)) {
+            $judge->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photo');
+        }
+
+        if ($media = $request->input('ck-media', false)) {
+            Media::whereIn('id', $media)->update(['model_id' => $judge->id]);
+        }
+
         return redirect()->route('admin.judges.index');
     }
 
@@ -90,6 +111,17 @@ class JudgesController extends Controller
     public function update(UpdateJudgeRequest $request, Judge $judge)
     {
         $judge->update($request->all());
+
+        if ($request->input('photo', false)) {
+            if (! $judge->photo || $request->input('photo') !== $judge->photo->file_name) {
+                if ($judge->photo) {
+                    $judge->photo->delete();
+                }
+                $judge->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photo');
+            }
+        } elseif ($judge->photo) {
+            $judge->photo->delete();
+        }
 
         return redirect()->route('admin.judges.index');
     }
@@ -121,5 +153,17 @@ class JudgesController extends Controller
         }
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function storeCKEditorImages(Request $request)
+    {
+        abort_if(Gate::denies('judge_create') && Gate::denies('judge_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $model         = new Judge();
+        $model->id     = $request->input('crud_id', 0);
+        $model->exists = true;
+        $media         = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
+
+        return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
     }
 }
