@@ -29,30 +29,31 @@ class TeamApiController extends Controller
     }
 
     public function HackathonRegistration(StorehackathonRegistrationRequest $request) {
-
+        // Extract team data from the request
         $team_data = $request->only([
             'team_name', 'challenge_id', 'actual_solution_id', 'mentorship_needed_id',
             'participation_method_id', 'limited_capacity', 'members_participated_before',
             'project_proposal_url', 'project_video_url'
         ]);
 
+        // Store the team photo URL in the extra_field
+        $team_data['extra_field'] = json_encode([
+            'team_photo' => $request->input('team_photo')
+        ]);
+
+        // Create the team
         $team = Team::create($team_data);
 
-        if ($request->input('team_photo', false)) {
-            $team->addMedia(storage_path('tmp/uploads/' . basename($request->input('team_photo'))))->toMediaCollection('team_photo');
-        }
-
-//        $team->addMembers($request->input('members'), $request->input('team_leader_id'));
+        // Optional: Add members to the team if needed
+        // $team->addMembers($request->input('members'), $request->input('team_leader_id'));
 
         // Return a success response
         return (new TeamResource($team))
             ->response()
             ->setStatusCode(Response::HTTP_ACCEPTED);
-
-
-
-
     }
+
+
     public function store(StoreTeamRequest $request)
     {
         $team = Team::create($request->all());
