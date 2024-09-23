@@ -35,16 +35,13 @@ class TeamApiController extends Controller
             'project_proposal_url', 'project_video_url'
         ]);
 
-        if ($request->input('team_photo', false)) {
-            $team->addMedia(storage_path('tmp/uploads/' . basename($request->input('team_photo'))))->toMediaCollection('team_photo');
-        }
+        $team = Team::create($team_data);
 
         return response([
-            $team_data
+            $team
         ]);
 
 
-        $team = Team::create($team_data);
 
         // Add members to the team and handle leader assignment
         $team->addMembers($request->input('members'), $request->input('team_leader_id'));
