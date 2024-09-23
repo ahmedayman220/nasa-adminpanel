@@ -64,7 +64,12 @@ class StoreHackathonRegistrationRequest extends FormRequest
                 'required',
                 'unique:teams',
             ],
-
+            'team_photo' => [
+                'required',
+            ],
+            'national_id_photo' => [
+                'required',
+            ],
             // Member validation rules
             'members.*.national' => [
                 'string',
@@ -72,6 +77,9 @@ class StoreHackathonRegistrationRequest extends FormRequest
                 'max:100',
                 'required',
                 'unique:members',
+            ],
+            'members.*.national_id_photo' => [
+                'required',
             ],
             'members.*.name' => [
                 'string',

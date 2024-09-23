@@ -1090,6 +1090,8 @@ return [
             'nots_helper'                        => ' ',
             'description'                        => 'Description',
             'description_helper'                 => ' ',
+            'team_photo'                         => 'Team Photo',
+            'team_photo_helper'                  => ' ',
         ],
     ],
     'teamSkill' => [
@@ -1180,6 +1182,9 @@ return [
             'notes_helper'            => ' ',
             'transportation'          => 'Transportation',
             'transportation_helper'   => ' ',
+            'team_photo'                         => 'Team Photo',
+            'team_photo_helper'                  => ' ',
+
         ],
     ],
     'memberCheckpoint' => [

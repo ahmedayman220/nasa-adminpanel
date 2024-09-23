@@ -1,20 +1,18 @@
 @extends('layouts.admin')
 @section('content')
-
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.team.title') }}
-    </div>
-
-    <div class="card-body">
-        <div class="form-group">
+    <div class="card">
+        <div class="card-header">
+            {{ trans('global.show') }} {{ trans('cruds.team.title') }}
+        </div>
+        <div class="card-body">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.teams.index') }}">
-                    {{ trans('global.back_to_list') }}
-                </a>
-            </div>
-            <table class="table table-bordered table-striped">
-                <tbody>
+                <div class="form-group">
+                    <a class="btn btn-default" href="{{ route('admin.teams.index') }}">
+                        {{ trans('global.back_to_list') }}
+                    </a>
+                </div>
+                <table class="table table-bordered table-striped">
+                    <tbody>
                     <tr>
                         <th>
                             {{ trans('cruds.team.fields.id') }}
@@ -77,6 +75,18 @@
                         </th>
                         <td>
                             {{ $team->participation_method->title ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.team.fields.team_photo') }}
+                        </th>
+                        <td>
+                            @if($team->team_photo)
+                                <a href="{{ $team->team_photo->getUrl() }}" target="_blank" style="display: inline-block">
+                                    <img src="{{ $team->team_photo->getUrl('thumb') }}">
+                                </a>
+                            @endif
                         </td>
                     </tr>
                     <tr>
@@ -145,18 +155,18 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.team.fields.extra_field') }}
-                        </th>
-                        <td>
-                            {{ $team->extra_field }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.team.fields.nots') }}
                         </th>
                         <td>
                             {!! $team->nots !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.team.fields.extra_field') }}
+                        </th>
+                        <td>
+                            {{ $team->extra_field }}
                         </td>
                     </tr>
                     <tr>
@@ -167,17 +177,14 @@
                             {!! $team->description !!}
                         </td>
                     </tr>
-                </tbody>
-            </table>
-            <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.teams.index') }}">
-                    {{ trans('global.back_to_list') }}
-                </a>
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <a class="btn btn-default" href="{{ route('admin.teams.index') }}">
+                        {{ trans('global.back_to_list') }}
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-
-
 @endsection

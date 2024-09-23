@@ -16,6 +16,10 @@ class Team extends Model implements HasMedia
 {
     use SoftDeletes, InteractsWithMedia, Auditable, HasFactory;
 
+    protected $appends = [
+        'team_photo',
+    ];
+
     public $table = 'teams';
 
     public const STATUS_SELECT = [
@@ -80,6 +84,19 @@ class Team extends Model implements HasMedia
         return $this->belongsTo(ActualSolution::class, 'actual_solution_id');
     }
 
+    public function getTeamPhotoAttribute()
+    {
+        $file = $this->getMedia('team_photo')->last();
+        if ($file) {
+            $file->url       = $file->getUrl();
+            $file->thumbnail = $file->getUrl('thumb');
+            $file->preview   = $file->getUrl('preview');
+        }
+
+        return $file;
+    }
+
+
     public function mentorship_needed()
     {
         return $this->belongsTo(MentorshipNeeded::class, 'mentorship_needed_id');
@@ -109,5 +126,6 @@ class Team extends Model implements HasMedia
             $model->uuid = (string) Str::uuid()->substr(0, 4); // Generate a unique 4-digit UUID
         });
     }
+
 
 }

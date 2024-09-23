@@ -72,6 +72,17 @@ class MembersController extends Controller
             $table->editColumn('age', function ($row) {
                 return $row->age ? $row->age : '';
             });
+            $table->editColumn('nationa_id_photo', function ($row) {
+                if ($photo = $row->nationa_id_photo) {
+                    return sprintf(
+                        '<a href="%s" target="_blank"><img src="%s" width="50px" height="50px"></a>',
+                        $photo->url,
+                        $photo->thumbnail
+                    );
+                }
+
+                return '';
+            });
             $table->editColumn('is_new', function ($row) {
                 return '<input type="checkbox" disabled ' . ($row->is_new ? 'checked' : null) . '>';
             });
@@ -107,7 +118,7 @@ class MembersController extends Controller
                 return $row->transportation ? $row->transportation->title : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'is_new', 'major', 'study_level', 'tshirt_size', 'qr_code', 'transportation']);
+            $table->rawColumns(['actions', 'placeholder', 'nationa_id_photo', 'is_new', 'major', 'study_level', 'tshirt_size', 'qr_code', 'transportation']);
 
             return $table->make(true);
         }
@@ -143,6 +154,10 @@ class MembersController extends Controller
     {
         $member = Member::create($request->all());
 
+        if ($request->input('nationa_id_photo', false)) {
+            $member->addMedia(storage_path('tmp/uploads/' . basename($request->input('nationa_id_photo'))))->toMediaCollection('nationa_id_photo');
+        }
+
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $member->id]);
         }
@@ -172,6 +187,17 @@ class MembersController extends Controller
     public function update(UpdateMemberRequest $request, Member $member)
     {
         $member->update($request->all());
+
+        if ($request->input('nationa_id_photo', false)) {
+            if (! $member->nationa_id_photo || $request->input('nationa_id_photo') !== $member->nationa_id_photo->file_name) {
+                if ($member->nationa_id_photo) {
+                    $member->nationa_id_photo->delete();
+                }
+                $member->addMedia(storage_path('tmp/uploads/' . basename($request->input('nationa_id_photo'))))->toMediaCollection('nationa_id_photo');
+            }
+        } elseif ($member->nationa_id_photo) {
+            $member->nationa_id_photo->delete();
+        }
 
         return redirect()->route('admin.members.index');
     }
