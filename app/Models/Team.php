@@ -118,13 +118,23 @@ class Team extends Model implements HasMedia
         $this->attributes['submission_date'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
     }
 
+    protected static function generateUniqueFourDigitUuid()
+    {
+        do {
+            // Generate a 4-digit number
+            $uuid = mt_rand(1000, 9999);
+        } while (self::where('uuid', $uuid)->exists()); // Check if the UUID already exists
+
+        return $uuid;
+    }
+
 
     protected static function boot()
     {
         parent::boot();
 
         static::creating(function ($model) {
-            $model->uuid = (string) Str::uuid()->substr(0, 4); // Generate a unique 4-digit UUID
+            $model->uuid = $this->generateUniqueFourDigitUuid(); // Generate a unique 4-digit UUID
         });
     }
 
