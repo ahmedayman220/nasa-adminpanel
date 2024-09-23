@@ -64,6 +64,7 @@ class TeamApiController extends Controller
             $member->transportation_id = $memberData['transportation_id'];
             $member->extra_field = $memberData['national_id_photo']; // Assuming this is the correct usage
             $member->member_role = $isTeamLeader ? 'team_leader' : 'member';
+            $member->tshirt_size_id = $memberData['tshirt_size_id'];
 
             // Save the member
             $member->save();
