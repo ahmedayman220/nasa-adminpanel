@@ -35,6 +35,9 @@
                         {{ trans('cruds.judge.fields.expertise') }}
                     </th>
                     <th>
+                        {{ trans('cruds.judge.fields.photo') }}
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -49,6 +52,8 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
                     </td>
                     <td>
                     </td>
@@ -108,6 +113,7 @@
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
 { data: 'expertise', name: 'expertise' },
+{ data: 'photo', name: 'photo', sortable: false, searchable: false },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

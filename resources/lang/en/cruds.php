@@ -1090,8 +1090,6 @@ return [
             'nots_helper'                        => ' ',
             'description'                        => 'Description',
             'description_helper'                 => ' ',
-            'team_photo'                         => 'Team Photo',
-            'team_photo_helper'                  => ' ',
         ],
     ],
     'teamSkill' => [
@@ -1386,6 +1384,8 @@ return [
             'name_helper'       => ' ',
             'expertise'         => 'Expertise',
             'expertise_helper'  => ' ',
+            'photo'             => 'Photo',
+            'photo_helper'      => ' ',
         ],
     ],
     'skill' => [

@@ -109,6 +109,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     Route::apiResource('evaluation-criteria', 'EvaluationCriteriaApiController');
 
     // Judges
+    Route::post('judges/media', 'JudgesApiController@storeMedia')->name('judges.storeMedia');
     Route::apiResource('judges', 'JudgesApiController');
 
     // Skills

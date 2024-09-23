@@ -25,6 +25,9 @@ class StoreJudgeRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'photo' => [
+                'required',
+            ],
         ];
     }
 }

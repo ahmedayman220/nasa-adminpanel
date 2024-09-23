@@ -49,9 +49,6 @@
                             {{ trans('cruds.team.fields.participation_method') }}
                         </th>
                         <th>
-                            {{ trans('cruds.team.fields.team_photo') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.team.fields.limited_capacity') }}
                         </th>
                         <th>
@@ -115,13 +112,6 @@
                             </td>
                             <td>
                                 {{ $team->participation_method->title ?? '' }}
-                            </td>
-                            <td>
-                                @if($team->team_photo)
-                                    <a href="{{ $team->team_photo->getUrl() }}" target="_blank" style="display: inline-block">
-                                        <img src="{{ $team->team_photo->getUrl('thumb') }}">
-                                    </a>
-                                @endif
                             </td>
                             <td>
                                 <span style="display:none">{{ $team->limited_capacity ?? '' }}</span>

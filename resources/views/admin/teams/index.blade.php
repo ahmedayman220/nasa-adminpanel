@@ -53,9 +53,6 @@
                         {{ trans('cruds.team.fields.participation_method') }}
                     </th>
                     <th>
-                        {{ trans('cruds.team.fields.team_photo') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.team.fields.limited_capacity') }}
                     </th>
                     <th>
@@ -139,8 +136,6 @@
                                 <option value="{{ $item->title }}">{{ $item->title }}</option>
                             @endforeach
                         </select>
-                    </td>
-                    <td>
                     </td>
                     <td>
                     </td>
@@ -236,7 +231,6 @@
 { data: 'actual_solution_title', name: 'actual_solution.title' },
 { data: 'mentorship_needed_title', name: 'mentorship_needed.title' },
 { data: 'participation_method_title', name: 'participation_method.title' },
-{ data: 'team_photo', name: 'team_photo', sortable: false, searchable: false },
 { data: 'limited_capacity', name: 'limited_capacity' },
 { data: 'members_participated_before', name: 'members_participated_before' },
 { data: 'project_proposal_url', name: 'project_proposal_url' },
