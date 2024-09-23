@@ -62,7 +62,7 @@ class Team extends Model implements HasMedia
 
     public function members()
     {
-        return $this->belongsToMany(Member::class, 'member_team', 'team_id', 'member_id');
+        return $this->belongsToMany(Member::class, 'team_id', 'member_id');
     }
 
 
