@@ -48,20 +48,28 @@ class TeamApiController extends Controller
         $leaderId = null;
 
         // Loop through each member from the request
-        foreach ($request->input('members') as $key => $memberData) {
+        foreach ($request->input('members') as $memberData) {
+            // Check if this member is the team leader
+            $isTeamLeader = $request->input('team_leader_id') == $memberData['id'];
+
             // Create a new member instance
-
-            $memberData['extra_field'] = $memberData['national_id_photo'];
-
             $member = new Member($memberData);
-            if($key == $request->input('team_leader_id')) {
-                $leaderId = $member->id;
+
+            // Set the member role
+            $member->member_role = $isTeamLeader ? 'team_leader' : 'member';
+
+            // Save the member
+            $member->save();
+
+            // Handle member photo upload if available
+            if ($request->hasFile("members.{$member->id}.national_id_photo")) {
+                $member->addMedia($request->file("members.{$member->id}.national_id_photo"))
+                    ->toMediaCollection('national_id_photos');
             }
 
+            // Associate the member with the team
+            $team->members()->attach($member->id);
         }
-            return response(
-                $leaderId
-            );
 
         // Update the team leader ID if set
         if ($leaderId) {
@@ -86,6 +94,7 @@ class TeamApiController extends Controller
             ->response()
             ->setStatusCode(Response::HTTP_CREATED);
     }
+
     public function show(Team $team)
     {
         abort_if(Gate::denies('team_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -113,10 +122,10 @@ class TeamApiController extends Controller
 
     public function storeCKEditorImages(Request $request)
     {
-        $model         = new Team();
-        $model->id     = $request->input('crud_id', 0);
+        $model = new Team();
+        $model->id = $request->input('crud_id', 0);
         $model->exists = true;
-        $media         = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
+        $media = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
 
         return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
     }

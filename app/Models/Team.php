@@ -60,10 +60,11 @@ class Team extends Model implements HasMedia
         'team_photo',
     ];
 
-    public function members(): HasMany
+    public function members()
     {
-        return $this->hasMany(Member::class);
+        return $this->belongsToMany(Member::class, 'member_team', 'team_id', 'member_id');
     }
+
 
     // Handle adding members to the team
     public function addMembers(array $members, $leaderId)
