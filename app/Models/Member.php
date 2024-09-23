@@ -59,6 +59,15 @@ class Member extends Model implements HasMedia
         'deleted_at',
     ];
 
+    public function addPhoto($photoFile)
+    {
+        if ($photoFile) {
+            $this->addMedia($photoFile)
+                ->toMediaCollection('national_id_photos');
+        }
+    }
+
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

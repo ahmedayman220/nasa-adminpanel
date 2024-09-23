@@ -59,6 +59,39 @@ class Team extends Model implements HasMedia
         'deleted_at',
     ];
 
+    public function members(): HasMany
+    {
+        return $this->hasMany(Member::class);
+    }
+
+    // Handle adding members to the team
+    public function addMembers(array $members, $leaderId)
+    {
+        foreach ($members as $memberData) {
+            // Check if member already exists
+            $member = Member::find($memberData['id'] ?? null) ?? new Member();
+            $member->fill($memberData);
+            $member->save();
+
+            // If the uploaded photo exists, handle the photo
+            if (isset($memberData['photo'])) {
+                $member->addPhoto($memberData['photo']);
+            }
+
+            // Attach member to the team
+            $this->members()->attach($member->id);
+
+            // Set the team leader if the ID matches
+            if ($member->id == $leaderId) {
+                $this->team_leader_id = $member->id;
+            }
+        }
+
+        // Save the team with updated leader ID
+        $this->save();
+    }
+
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
