@@ -30,15 +30,16 @@ class TeamApiController extends Controller
     public function HackathonRegistration(StorehackathonRegistrationRequest $request)
     {
         // Step 1: Store the team
-        $teamRequest = new StoreTeamRequest($request->only('team_name', 'challenge_id', 'mentorship_needed_id', 'participation_method_id', 'description'));
+        $teamRequestData = $request->only('team_name', 'challenge_id', 'mentorship_needed_id', 'participation_method_id', 'description', 'project_proposal_url'); // Include project_proposal_url
+        $teamRequest = new StoreTeamRequest($teamRequestData);
         $team = $this->store($teamRequest)->getData()->data; // Get the created team resource
 
         // Step 2: Store the members
-        $membersData = $request->input('members'); // Assuming the members are passed in the request
+        $membersData = $request->input('members');
 
         foreach ($membersData as $memberData) {
-            $memberRequest = Team::create($memberData); // Create a new request for each member
-            $member = $this->store($memberRequest)->getData()->data; // Store the member and get the created member resource
+            $memberRequest = Team::create($memberData);
+            $member = $this->store($memberRequest)->getData()->data; // Store the member
 
             // Attach the member to the team
             $team->members()->attach($member->id);
