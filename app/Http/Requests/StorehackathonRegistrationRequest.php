@@ -10,7 +10,7 @@ class StoreHackathonRegistrationRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('hackathon_registration_create');
+        return true;
     }
 
     public function rules()
