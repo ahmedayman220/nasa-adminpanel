@@ -37,7 +37,7 @@ class TeamApiController extends Controller
         $membersData = $request->input('members'); // Assuming the members are passed in the request
 
         foreach ($membersData as $memberData) {
-            $memberRequest = new StoreMemberRequest($memberData); // Create a new request for each member
+            $memberRequest = Team::create($memberData); // Create a new request for each member
             $member = $this->store($memberRequest)->getData()->data; // Store the member and get the created member resource
 
             // Attach the member to the team
