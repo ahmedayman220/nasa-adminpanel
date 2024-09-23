@@ -62,7 +62,8 @@ class Team extends Model implements HasMedia
 
     public function members()
     {
-        return $this->belongsToMany(Member::class, 'team_leader_id', 'id');
+        return $this->belongsToMany(Member::class, 'teams', 'team_id', 'member_id')
+            ->withTimestamps();
     }
 
 
