@@ -44,10 +44,8 @@ class TeamApiController extends Controller
 
 //        $team->addMembers($request->input('members'), $request->input('team_leader_id'));
 
-
-
         // Return a success response
-        return (new Team($team))
+        return (new TeamResource($team))
             ->response()
             ->setStatusCode(Response::HTTP_ACCEPTED);
 
