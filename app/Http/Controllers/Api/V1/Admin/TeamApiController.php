@@ -37,15 +37,10 @@ class TeamApiController extends Controller
         ]);
 
         // Store the team photo URL in the extra_field
-        $team_data['extra_field'] = json_encode([
-            'team_photo' => $request->input('team_photo')
-        ]);
+        $team_data['extra_field'] = $request->input('team_photo');
 
         // Create the team
         $team = Team::create($team_data);
-
-        // Initialize team leader ID
-        $leaderId = null;
 
         // Loop through each member from the request
         foreach ($request->input('members') as $memberData) {
@@ -57,23 +52,12 @@ class TeamApiController extends Controller
 
             // Set the member role
             $member->member_role = $isTeamLeader ? 'team_leader' : 'member';
-
+            $member->extra_field = $memberData['national_id_photo'];
             // Save the member
             $member->save();
 
-            // Handle member photo upload if available
-            if ($request->hasFile("members.{$member->id}.national_id_photo")) {
-                $member->addMedia($request->file("members.{$member->id}.national_id_photo"))
-                    ->toMediaCollection('national_id_photos');
-            }
-
             // Associate the member with the team
             $team->members()->attach($member->id);
-        }
-
-        // Update the team leader ID if set
-        if ($leaderId) {
-            $team->update(['team_leader_id' => $leaderId]);
         }
 
         // Return a success response
