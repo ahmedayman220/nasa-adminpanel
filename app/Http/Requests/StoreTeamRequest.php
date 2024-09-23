@@ -48,9 +48,6 @@ class StoreTeamRequest extends FormRequest
                 'required',
                 'integer',
             ],
-            'team_photo' => [
-                'required',
-            ],
             'limited_capacity' => [
                 'required',
             ],
