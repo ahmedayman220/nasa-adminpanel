@@ -122,6 +122,10 @@ class StoreHackathonRegistrationRequest extends FormRequest
                 'required',
                 'integer',
             ],
+            'members.*.tshirt_size_id' => [
+                'required',
+                'integer',
+            ],
             'members.*.transportation_id' => [
                 'required',
                 'integer',
