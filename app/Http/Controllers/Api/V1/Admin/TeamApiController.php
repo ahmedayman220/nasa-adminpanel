@@ -44,15 +44,39 @@ class TeamApiController extends Controller
         // Create the team
         $team = Team::create($team_data);
 
-        // Optional: Add members to the team if needed
-        // $team->addMembers($request->input('members'), $request->input('team_leader_id'));
+        // Initialize team leader ID
+        $leaderId = null;
+
+        // Loop through each member from the request
+        foreach ($request->input('members') as $memberData) {
+            // Create a new member instance
+
+            $memberData['extra_field'] = $memberData['national_id_photo'];
+
+            $member = new Member($memberData);
+            $member->save();
+
+            // Handle member photo upload if available
+
+            // Check if this member is the team leader
+            if ($request->input('team_leader_id') == $member->id) {
+                $leaderId = $member->id;
+            }
+
+            // Associate the member with the team (assuming you have a pivot table)
+            $team->members()->attach($member->id);
+        }
+
+        // Update the team leader ID if set
+        if ($leaderId) {
+            $team->update(['team_leader_id' => $leaderId]);
+        }
 
         // Return a success response
         return (new TeamResource($team))
             ->response()
             ->setStatusCode(Response::HTTP_ACCEPTED);
     }
-
 
     public function store(StoreTeamRequest $request)
     {
