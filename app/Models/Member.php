@@ -108,4 +108,14 @@ class Member extends Model implements HasMedia
     {
         return $this->belongsTo(User::class, 'created_by_id');
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->uuid = (string) Str::uuid()->substr(0, 4); // Generate a unique 4-digit UUID
+        });
+    }
+
 }
