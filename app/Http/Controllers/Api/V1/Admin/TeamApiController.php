@@ -54,7 +54,7 @@ class TeamApiController extends Controller
             $memberData['extra_field'] = $memberData['national_id_photo'];
 
             $member = new Member($memberData);
-            if($key == $memberData['team_leader_id']) {
+            if($key == $request->input('team_leader_id')) {
                 $leaderId = $member->id;
             }
 
