@@ -30,11 +30,9 @@ class TeamApiController extends Controller
     public function HackathonRegistration(StorehackathonRegistrationRequest $request)
     {
         // Generate a unique 4-digit UUID for the team
-        $uuid = Str::random(4);
 
         // Create a new team with the provided data
         $team = Team::create([
-            'uuid' => $uuid,
             'team_name' => $request->input('team_name'),
             'challenge_id' => $request->input('challenge_id'),
             'actual_solution_id' => $request->input('actual_solution_id'),
