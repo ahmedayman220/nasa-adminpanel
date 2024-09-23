@@ -63,6 +63,9 @@ class TeamApiController extends Controller
                 $leaderId = $member->id;
             }
 
+            return response(
+                $leaderId
+            );
             // Associate the member with the team (assuming you have a pivot table)
             $team->members()->attach($member->id);
         }
