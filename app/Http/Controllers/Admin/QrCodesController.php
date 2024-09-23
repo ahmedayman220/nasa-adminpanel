@@ -108,7 +108,7 @@ class QrCodesController extends Controller
     {
         abort_if(Gate::denies('qr_code_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $qrCode->load('bootcamp_participant', 'created_by', 'qrcodeEmails');
+        $qrCode->load('bootcamp_participant', 'created_by', 'qrcodeEmails', 'qrCodeMembers');
 
         return view('admin.qrCodes.show', compact('qrCode'));
     }

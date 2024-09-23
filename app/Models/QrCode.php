@@ -46,6 +46,11 @@ class QrCode extends Model
         return $this->hasMany(Email::class, 'qrcode_id', 'id');
     }
 
+    public function qrCodeMembers()
+    {
+        return $this->hasMany(Member::class, 'qr_code_id', 'id');
+    }
+
     public function bootcamp_participant()
     {
         return $this->belongsTo(BootcampParticipant::class, 'bootcamp_participant_id');
