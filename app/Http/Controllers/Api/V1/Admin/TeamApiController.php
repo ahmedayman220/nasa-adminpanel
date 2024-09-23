@@ -29,7 +29,7 @@ class TeamApiController extends Controller
 
     public function HackathonRegistration(StorehackathonRegistrationRequest $request) {
         return response([
-            $request
+            $request->all()
         ]);
     }
     public function store(StoreTeamRequest $request)
