@@ -18,7 +18,7 @@ class ChallengesApiController extends Controller
 
     public function index()
     {
-        abort_if(Gate::denies('challenge_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+//        abort_if(Gate::denies('challenge_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new ChallengeResource(Challenge::with(['category', 'difficulty_level', 'created_by'])->get());
     }
