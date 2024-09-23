@@ -27,31 +27,37 @@ class TeamApiController extends Controller
         return new TeamResource(Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])->get());
     }
 
-    public function HackathonRegistration(StoreHackathonRegistrationRequest $request)
+    public function HackathonRegistration(StorehackathonRegistrationRequest $request)
     {
-        // Begin a transaction to ensure data integrity
-        DB::beginTransaction();
+        // Generate a unique 4-digit UUID for the team
+        $uuid = Str::random(4);
 
-        try {
-            // Extract the team data
-            $teamData = $request->only([
-                'team_name', 'challenge_id', 'actual_solution_id',
-                'mentorship_needed_id', 'participation_method_id',
-                'limited_capacity', 'members_participated_before',
-                'project_proposal_url', 'project_video_url'
-            ]);
+        // Create a new team with the provided data
+        $team = Team::create([
+            'uuid' => $uuid,
+            'team_name' => $request->input('team_name'),
+            'challenge_id' => $request->input('challenge_id'),
+            'actual_solution_id' => $request->input('actual_solution_id'),
+            'mentorship_needed_id' => $request->input('mentorship_needed_id'),
+            'participation_method_id' => $request->input('participation_method_id'),
+            'limited_capacity' => $request->input('limited_capacity'),
+            'members_participated_before' => $request->input('members_participated_before'),
+            'project_proposal_url' => $request->input('project_proposal_url'),
+            'project_video_url' => $request->input('project_video_url'),
+        ]);
 
-            // First, create the team without the 'team_leader_id' for now
-            $team = Team::create($teamData);
+        $leaderId = null; // Initialize team leader ID
 
-            // Create members and associate them with the team
-            $leaderId = null;
-            foreach ($request->input('members') as $memberData) {
-                // Add team id to member data
-                $memberData['team_id'] = $team->id;
+        // Iterate over each member from the request
+        foreach ($request->input('members') as $memberData) {
+            // Ensure the 'id' key exists to handle existing members
+            if (isset($memberData['id'])) {
+                // Retrieve or create the member based on the ID
+                $member = Member::find($memberData['id']) ?? new Member();
 
-                // Create each member
-                $member = Member::create($memberData);
+                // Update the member with provided data
+                $member->fill($memberData);
+                $member->save();
 
                 // Handle member photo upload if available
                 if ($request->hasFile("members.{$member->id}.national_id_photo")) {
@@ -63,27 +69,38 @@ class TeamApiController extends Controller
                 if ($memberData['id'] == $request->input('team_leader_id')) {
                     $leaderId = $member->id;
                 }
+            } else {
+                // Handle the creation of a new member if ID is not present
+                $member = new Member($memberData);
+                $member->save();
+
+                // Handle member photo upload if available
+                if ($request->hasFile("members.{$member->id}.national_id_photo")) {
+                    $member->addMedia($request->file("members.{$member->id}.national_id_photo"))
+                        ->toMediaCollection('national_id_photos');
+                }
+
+                // Check if this new member is the team leader
+                if ($request->input('team_leader_id') == $member->id) {
+                    $leaderId = $member->id;
+                }
             }
 
-            // Now update the team with the team_leader_id
-            $team->update(['team_leader_id' => $leaderId]);
-
-            // Handle team photo upload if available
-            if ($request->hasFile('team_photo')) {
-                $team->addMedia($request->file('team_photo'))->toMediaCollection('team_photo');
-            }
-
-            // Commit the transaction
-            DB::commit();
-
-            return (new TeamResource($team))
-                ->response()
-                ->setStatusCode(Response::HTTP_CREATED);
-        } catch (\Exception $e) {
-            // Rollback the transaction on failure
-            DB::rollBack();
-            return response()->json(['error' => 'Registration failed: ' . $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+            // Associate the member with the team if required (if you're tracking team members in a pivot table)
+            $team->members()->attach($member->id);
         }
+
+        // Update the team leader ID if set
+        if ($leaderId) {
+            $team->update(['team_leader_id' => $leaderId]);
+        }
+
+        // Return a success response
+        return response()->json([
+            'message' => 'Registration successful',
+            'team' => $team,
+            'members' => $team->members,
+        ], Response::HTTP_CREATED);
     }
 
     public function store(StoreTeamRequest $request)
