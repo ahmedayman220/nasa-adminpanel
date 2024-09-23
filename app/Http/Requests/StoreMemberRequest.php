@@ -11,17 +11,12 @@ class StoreMemberRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('member_create');
+        return true;
     }
 
     public function rules()
     {
         return [
-            'uuid' => [
-                'string',
-                'required',
-                'unique:members',
-            ],
             'national' => [
                 'string',
                 'min:3',
@@ -72,9 +67,8 @@ class StoreMemberRequest extends FormRequest
                 'required',
                 'integer',
             ],
-            'extra_field' => [
-                'string',
-                'nullable',
+            'transportaion' => [
+                'required',
             ],
         ];
     }
