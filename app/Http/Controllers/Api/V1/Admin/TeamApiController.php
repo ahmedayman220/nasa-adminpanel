@@ -59,14 +59,12 @@ class TeamApiController extends Controller
             $member->is_new = $memberData['is_new'];
             $member->major_id = $memberData['major_id'];
             $member->organization = $memberData['organization'];
-            $member->participant_type = $memberData['participant_type'] ? $memberData['participant_type'] : null;
+            $member->participant_type = $memberData['participant_type'] ?? null; // Allow null
             $member->study_level_id = $memberData['study_level_id'];
-
-            $member->transportation_id = $memberData['transportation_id'] ? $memberData['transportation_id'] : null;
-
-            $member->extra_field = $memberData['national_id_photo']; // Assuming this is the correct usage
+            $member->transportation_id = $memberData['transportation_id'] ?? null; // Allow null
+            $member->extra_field = $memberData['national_id_photo'];
             $member->member_role = $isTeamLeader ? 'team_leader' : 'member';
-            $member->tshirt_size_id = $memberData['tshirt_size_id'] ? $memberData['tshirt_size_id'] : null;
+            $member->tshirt_size_id = $memberData['tshirt_size_id'] ?? null; // Allow null
 
             // Save the member
             $member->save();
