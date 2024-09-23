@@ -27,6 +27,14 @@ class StoreHackathonRegistrationRequest extends FormRequest
                 'min:3',
                 'max:50',
                 'required',
+                // Regex to prevent numbers in team_name
+                'regex:/^[A-Za-z\s]+$/',
+                // Case-sensitive unique validation
+                function($attribute, $value, $fail) {
+                    if (\DB::table('teams')->whereRaw('BINARY `team_name` = ?', [$value])->exists()) {
+                        $fail('The team name has already been taken.');
+                    }
+                },
             ],
             'challenge_id' => [
                 'required',
