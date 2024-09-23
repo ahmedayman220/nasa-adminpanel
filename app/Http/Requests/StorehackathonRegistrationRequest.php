@@ -60,10 +60,9 @@ class StoreHackathonRegistrationRequest extends FormRequest
             ],
             'project_proposal_url' => [
                 'string',
-                'min:3',
-                'max:200',
+                'min:50',
+                'max:150',
                 'required',
-                'unique:teams',
             ],
             'project_video_url' => [
                 'string',
