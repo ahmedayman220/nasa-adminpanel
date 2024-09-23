@@ -8,6 +8,7 @@ use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\StorehackathonRegistrationRequest;
 use App\Http\Requests\UpdateTeamRequest;
 use App\Http\Resources\Admin\TeamResource;
+use App\Models\Member;
 use App\Models\Team;
 use Gate;
 use Illuminate\Support\Facades\DB;
