@@ -67,15 +67,10 @@ class TeamApiController extends Controller
 
             // Save the member
             $member->save();
-
-            // Associate the member with the team
-            $team->members()->attach($member->id);
         }
 
         // Return a success response
-        return (new TeamResource($team))
-            ->response()
-            ->setStatusCode(Response::HTTP_ACCEPTED);
+        return true;
     }
     public function store(StoreTeamRequest $request)
     {
