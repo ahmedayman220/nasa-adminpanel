@@ -63,12 +63,12 @@ class TeamApiController extends Controller
                 $leaderId = $member->id;
             }
 
-            return response(
-                $leaderId
-            );
             // Associate the member with the team (assuming you have a pivot table)
             $team->members()->attach($member->id);
         }
+            return response(
+                $leaderId
+            );
 
         // Update the team leader ID if set
         if ($leaderId) {
