@@ -126,7 +126,7 @@ class Member extends Model implements HasMedia
         parent::boot();
 
         static::creating(function ($model) {
-            $model->uuid = $this->generateUniqueFourDigitUuid(); // Generate a unique 4-digit UUID
+            $model->uuid = self::generateUniqueFourDigitUuid(); // Generate a unique 4-digit UUID
         });
     }
 
