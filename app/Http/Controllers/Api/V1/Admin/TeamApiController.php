@@ -31,15 +31,17 @@ class TeamApiController extends Controller
     {
         // Step 1: Store the team
         $teamRequest = new StoreTeamRequest($request->only('team_name', 'challenge_id', 'mentorship_needed_id', 'participation_method_id', 'description'));
-        $team = $this->store($teamRequest)->getData()->data; // Assuming this returns the created team resource
+        $team = $this->store($teamRequest)->getData()->data; // Get the created team resource
 
         // Step 2: Store the members
         $membersData = $request->input('members'); // Assuming the members are passed in the request
+
         foreach ($membersData as $memberData) {
-            $memberRequest = Team::create($memberData);
-            $this->store($memberRequest);
-            // After storing each member, you may want to attach it to the team
-            $team->members()->attach($memberRequest->id); // Attach the member to the team
+            $memberRequest = new StoreMemberRequest($memberData); // Create a new request for each member
+            $member = $this->store($memberRequest)->getData()->data; // Store the member and get the created member resource
+
+            // Attach the member to the team
+            $team->members()->attach($member->id);
         }
 
         return response()->json([
@@ -47,7 +49,6 @@ class TeamApiController extends Controller
             'message' => 'Team and members registered successfully.'
         ], Response::HTTP_CREATED);
     }
-
 
     public function store(StoreTeamRequest $request)
     {
