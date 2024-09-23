@@ -48,11 +48,21 @@ class TeamApiController extends Controller
             $isTeamLeader = $request->input('team_leader_id') == $KEY;
 
             // Create a new member instance
-            $member = new Member($memberData);
+            $member->national = $memberData['national'];
+            $member->name = $memberData['name'];
+            $member->email = $memberData['email'];
+            $member->phone_number = $memberData['phone_number'];
+            $member->age = $memberData['age'];
+            $member->is_new = $memberData['is_new'];
+            $member->major_id = $memberData['major_id'];
+            $member->organization = $memberData['organization'];
+            $member->participant_type = $memberData['participant_type'];
+            $member->study_level_id = $memberData['study_level_id'];
+            $member->transportation_id = $memberData['transportation_id'];
+            $member->extra_field = $memberData['national_id_photo'];
+            $member->member_role = $isTeamLeader ? 'team_leader' : 'member';
 
             // Set the member role
-            $member->member_role = $isTeamLeader ? 'team_leader' : 'member';
-            $member->extra_field = $memberData['national_id_photo'];
             // Save the member
             $member->save();
 
