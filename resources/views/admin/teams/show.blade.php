@@ -81,18 +81,6 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.team.fields.team_photo') }}
-                        </th>
-                        <td>
-                            @if($team->team_photo)
-                                <a href="{{ $team->team_photo->getUrl() }}" target="_blank" style="display: inline-block">
-                                    <img src="{{ $team->team_photo->getUrl('thumb') }}">
-                                </a>
-                            @endif
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.team.fields.limited_capacity') }}
                         </th>
                         <td>

@@ -100,17 +100,6 @@
                 <span class="help-block">{{ trans('cruds.team.fields.participation_method_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="team_photo">{{ trans('cruds.team.fields.team_photo') }}</label>
-                <div class="needsclick dropzone {{ $errors->has('team_photo') ? 'is-invalid' : '' }}" id="team_photo-dropzone">
-                </div>
-                @if($errors->has('team_photo'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('team_photo') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.team.fields.team_photo_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <div class="form-check {{ $errors->has('limited_capacity') ? 'is-invalid' : '' }}">
                     <input class="form-check-input" type="checkbox" name="limited_capacity" id="limited_capacity" value="1" required {{ old('limited_capacity', 0) == 1 ? 'checked' : '' }}>
                     <label class="required form-check-label" for="limited_capacity">{{ trans('cruds.team.fields.limited_capacity') }}</label>
@@ -243,61 +232,6 @@
 @endsection
 
 @section('scripts')
-<script>
-    Dropzone.options.teamPhotoDropzone = {
-    url: '{{ route('admin.teams.storeMedia') }}',
-    maxFilesize: 2, // MB
-    acceptedFiles: '.jpeg,.jpg,.png,.gif',
-    maxFiles: 1,
-    addRemoveLinks: true,
-    headers: {
-      'X-CSRF-TOKEN': "{{ csrf_token() }}"
-    },
-    params: {
-      size: 2,
-      width: 4096,
-      height: 4096
-    },
-    success: function (file, response) {
-      $('form').find('input[name="team_photo"]').remove()
-      $('form').append('<input type="hidden" name="team_photo" value="' + response.name + '">')
-    },
-    removedfile: function (file) {
-      file.previewElement.remove()
-      if (file.status !== 'error') {
-        $('form').find('input[name="team_photo"]').remove()
-        this.options.maxFiles = this.options.maxFiles + 1
-      }
-    },
-    init: function () {
-@if(isset($team) && $team->team_photo)
-      var file = {!! json_encode($team->team_photo) !!}
-          this.options.addedfile.call(this, file)
-      this.options.thumbnail.call(this, file, file.preview ?? file.preview_url)
-      file.previewElement.classList.add('dz-complete')
-      $('form').append('<input type="hidden" name="team_photo" value="' + file.file_name + '">')
-      this.options.maxFiles = this.options.maxFiles - 1
-@endif
-    },
-    error: function (file, response) {
-        if ($.type(response) === 'string') {
-            var message = response //dropzone sends it's own error messages in string
-        } else {
-            var message = response.errors.file
-        }
-        file.previewElement.classList.add('dz-error')
-        _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
-        _results = []
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            node = _ref[_i]
-            _results.push(node.textContent = message)
-        }
-
-        return _results
-    }
-}
-
-</script>
 <script>
     $(document).ready(function () {
   function SimpleUploadAdapter(editor) {

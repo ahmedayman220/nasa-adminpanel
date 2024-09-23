@@ -82,17 +82,6 @@ class TeamController extends Controller
                 return $row->participation_method ? $row->participation_method->title : '';
             });
 
-            $table->editColumn('team_photo', function ($row) {
-                if ($photo = $row->team_photo) {
-                    return sprintf(
-                        '<a href="%s" target="_blank"><img src="%s" width="50px" height="50px"></a>',
-                        $photo->url,
-                        $photo->thumbnail
-                    );
-                }
-
-                return '';
-            });
             $table->editColumn('limited_capacity', function ($row) {
                 return '<input type="checkbox" disabled ' . ($row->limited_capacity ? 'checked' : null) . '>';
             });
@@ -119,7 +108,7 @@ class TeamController extends Controller
                 return $row->extra_field ? $row->extra_field : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method', 'team_photo', 'limited_capacity', 'members_participated_before']);
+            $table->rawColumns(['actions', 'placeholder', 'team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method', 'limited_capacity', 'members_participated_before']);
 
             return $table->make(true);
         }
@@ -154,10 +143,6 @@ class TeamController extends Controller
     {
         $team = Team::create($request->all());
 
-        if ($request->input('team_photo', false)) {
-            $team->addMedia(storage_path('tmp/uploads/' . basename($request->input('team_photo'))))->toMediaCollection('team_photo');
-        }
-
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $team->id]);
         }
@@ -187,17 +172,6 @@ class TeamController extends Controller
     public function update(UpdateTeamRequest $request, Team $team)
     {
         $team->update($request->all());
-
-        if ($request->input('team_photo', false)) {
-            if (! $team->team_photo || $request->input('team_photo') !== $team->team_photo->file_name) {
-                if ($team->team_photo) {
-                    $team->team_photo->delete();
-                }
-                $team->addMedia(storage_path('tmp/uploads/' . basename($request->input('team_photo'))))->toMediaCollection('team_photo');
-            }
-        } elseif ($team->team_photo) {
-            $team->team_photo->delete();
-        }
 
         return redirect()->route('admin.teams.index');
     }

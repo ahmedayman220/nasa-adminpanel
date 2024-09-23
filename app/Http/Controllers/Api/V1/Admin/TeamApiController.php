@@ -27,10 +27,6 @@ class TeamApiController extends Controller
     {
         $team = Team::create($request->all());
 
-        if ($request->input('team_photo', false)) {
-            $team->addMedia(storage_path('tmp/uploads/' . basename($request->input('team_photo'))))->toMediaCollection('team_photo');
-        }
-
         return (new TeamResource($team))
             ->response()
             ->setStatusCode(Response::HTTP_CREATED);
@@ -46,17 +42,6 @@ class TeamApiController extends Controller
     public function update(UpdateTeamRequest $request, Team $team)
     {
         $team->update($request->all());
-
-        if ($request->input('team_photo', false)) {
-            if (! $team->team_photo || $request->input('team_photo') !== $team->team_photo->file_name) {
-                if ($team->team_photo) {
-                    $team->team_photo->delete();
-                }
-                $team->addMedia(storage_path('tmp/uploads/' . basename($request->input('team_photo'))))->toMediaCollection('team_photo');
-            }
-        } elseif ($team->team_photo) {
-            $team->team_photo->delete();
-        }
 
         return (new TeamResource($team))
             ->response()

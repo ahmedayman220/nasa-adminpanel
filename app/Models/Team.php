@@ -18,10 +18,6 @@ class Team extends Model implements HasMedia
 
     public $table = 'teams';
 
-    protected $appends = [
-        'team_photo',
-    ];
-
     public const STATUS_SELECT = [
         'accepted' => 'Accepted',
         'rejected' => 'Eejected',
@@ -92,18 +88,6 @@ class Team extends Model implements HasMedia
     public function participation_method()
     {
         return $this->belongsTo(ParticipationMethod::class, 'participation_method_id');
-    }
-
-    public function getTeamPhotoAttribute()
-    {
-        $file = $this->getMedia('team_photo')->last();
-        if ($file) {
-            $file->url       = $file->getUrl();
-            $file->thumbnail = $file->getUrl('thumb');
-            $file->preview   = $file->getUrl('preview');
-        }
-
-        return $file;
     }
 
     public function getSubmissionDateAttribute($value)
