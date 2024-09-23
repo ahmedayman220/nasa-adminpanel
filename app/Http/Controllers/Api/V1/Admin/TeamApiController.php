@@ -29,15 +29,28 @@ class TeamApiController extends Controller
 
     public function HackathonRegistration(StorehackathonRegistrationRequest $request)
     {
-        // Create a new team with the provided data
-        $team = Team::create($request->only([
-            'team_name', 'challenge_id', 'actual_solution_id', 'mentorship_needed_id',
-            'participation_method_id', 'limited_capacity', 'members_participated_before',
-            'project_proposal_url', 'project_video_url'
-        ]));
+        // Step 1: Store the team
+        $teamRequest = new StoreTeamRequest($request->only('team_name', 'challenge_id', 'mentorship_needed_id', 'participation_method_id', 'description'));
+        $team = $this->store($teamRequest)->getData()->data; // Assuming this returns the created team resource
 
-        // Add members to the team and handle leader assignment
-        $team->addMembers($request->input('members'), $request->input('team_leader_id'));
+        // Step 2: Store the members
+        $membersData = $request->input('members'); // Assuming the members are passed in the request
+        foreach ($membersData as $memberData) {
+            $memberRequest = Member::create($memberData);
+            $this->store($memberRequest);
+            // After storing each member, you may want to attach it to the team
+            $team->members()->attach($memberRequest->id); // Attach the member to the team
+        }
+
+        return response()->json([
+            'team' => $team,
+            'message' => 'Team and members registered successfully.'
+        ], Response::HTTP_CREATED);
+    }
+        // Update the team leader ID if set
+        if ($leaderId) {
+            $team->update(['team_leader_id' => $leaderId]);
+        }
 
         // Return a success response
         return response()->json([
@@ -46,7 +59,6 @@ class TeamApiController extends Controller
             'members' => $team->members,
         ], Response::HTTP_CREATED);
     }
-
 
     public function store(StoreTeamRequest $request)
     {
