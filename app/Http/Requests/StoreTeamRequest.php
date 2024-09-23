@@ -17,10 +17,6 @@ class StoreTeamRequest extends FormRequest
     public function rules()
     {
         return [
-            'team_leader_id' => [
-                'required',
-                'integer',
-            ],
             'team_name' => [
                 'string',
                 'min:3',
