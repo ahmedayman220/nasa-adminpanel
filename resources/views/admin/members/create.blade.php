@@ -1,0 +1,292 @@
+@extends('layouts.admin')
+@section('content')
+
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.create') }} {{ trans('cruds.member.title_singular') }}
+    </div>
+
+    <div class="card-body">
+        <form method="POST" action="{{ route("admin.members.store") }}" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label class="required" for="uuid">{{ trans('cruds.member.fields.uuid') }}</label>
+                <input class="form-control {{ $errors->has('uuid') ? 'is-invalid' : '' }}" type="text" name="uuid" id="uuid" value="{{ old('uuid', '') }}" required>
+                @if($errors->has('uuid'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('uuid') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.member.fields.uuid_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="national">{{ trans('cruds.member.fields.national') }}</label>
+                <input class="form-control {{ $errors->has('national') ? 'is-invalid' : '' }}" type="text" name="national" id="national" value="{{ old('national', '') }}" required>
+                @if($errors->has('national'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('national') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.member.fields.national_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="name">{{ trans('cruds.member.fields.name') }}</label>
+                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', '') }}" required>
+                @if($errors->has('name'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('name') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.member.fields.name_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="email">{{ trans('cruds.member.fields.email') }}</label>
+                <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email" id="email" value="{{ old('email') }}" required>
+                @if($errors->has('email'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('email') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.member.fields.email_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="phone_number">{{ trans('cruds.member.fields.phone_number') }}</label>
+                <input class="form-control {{ $errors->has('phone_number') ? 'is-invalid' : '' }}" type="text" name="phone_number" id="phone_number" value="{{ old('phone_number', '') }}" required>
+                @if($errors->has('phone_number'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('phone_number') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.member.fields.phone_number_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="age">{{ trans('cruds.member.fields.age') }}</label>
+                <input class="form-control {{ $errors->has('age') ? 'is-invalid' : '' }}" type="text" name="age" id="age" value="{{ old('age', '') }}" required>
+                @if($errors->has('age'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('age') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.member.fields.age_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <div class="form-check {{ $errors->has('is_new') ? 'is-invalid' : '' }}">
+                    <input class="form-check-input" type="checkbox" name="is_new" id="is_new" value="1" required {{ old('is_new', 0) == 1 ? 'checked' : '' }}>
+                    <label class="required form-check-label" for="is_new">{{ trans('cruds.member.fields.is_new') }}</label>
+                </div>
+                @if($errors->has('is_new'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('is_new') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.member.fields.is_new_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="major_id">{{ trans('cruds.member.fields.major') }}</label>
+                <select class="form-control select2 {{ $errors->has('major') ? 'is-invalid' : '' }}" name="major_id" id="major_id" required>
+                    @foreach($majors as $id => $entry)
+                        <option value="{{ $id }}" {{ old('major_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('major'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('major') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.member.fields.major_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="organization">{{ trans('cruds.member.fields.organization') }}</label>
+                <input class="form-control {{ $errors->has('organization') ? 'is-invalid' : '' }}" type="text" name="organization" id="organization" value="{{ old('organization', '') }}" required>
+                @if($errors->has('organization'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('organization') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.member.fields.organization_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required">{{ trans('cruds.member.fields.participant_type') }}</label>
+                <select class="form-control {{ $errors->has('participant_type') ? 'is-invalid' : '' }}" name="participant_type" id="participant_type" required>
+                    <option value disabled {{ old('participant_type', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                    @foreach(App\Models\Member::PARTICIPANT_TYPE_SELECT as $key => $label)
+                        <option value="{{ $key }}" {{ old('participant_type', 'onsite') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('participant_type'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('participant_type') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.member.fields.participant_type_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="study_level_id">{{ trans('cruds.member.fields.study_level') }}</label>
+                <select class="form-control select2 {{ $errors->has('study_level') ? 'is-invalid' : '' }}" name="study_level_id" id="study_level_id" required>
+                    @foreach($study_levels as $id => $entry)
+                        <option value="{{ $id }}" {{ old('study_level_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('study_level'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('study_level') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.member.fields.study_level_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="tshirt_size_id">{{ trans('cruds.member.fields.tshirt_size') }}</label>
+                <select class="form-control select2 {{ $errors->has('tshirt_size') ? 'is-invalid' : '' }}" name="tshirt_size_id" id="tshirt_size_id">
+                    @foreach($tshirt_sizes as $id => $entry)
+                        <option value="{{ $id }}" {{ old('tshirt_size_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('tshirt_size'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('tshirt_size') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.member.fields.tshirt_size_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="qr_code_id">{{ trans('cruds.member.fields.qr_code') }}</label>
+                <select class="form-control select2 {{ $errors->has('qr_code') ? 'is-invalid' : '' }}" name="qr_code_id" id="qr_code_id">
+                    @foreach($qr_codes as $id => $entry)
+                        <option value="{{ $id }}" {{ old('qr_code_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('qr_code'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('qr_code') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.member.fields.qr_code_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label>{{ trans('cruds.member.fields.member_role') }}</label>
+                <select class="form-control {{ $errors->has('member_role') ? 'is-invalid' : '' }}" name="member_role" id="member_role">
+                    <option value disabled {{ old('member_role', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                    @foreach(App\Models\Member::MEMBER_ROLE_SELECT as $key => $label)
+                        <option value="{{ $key }}" {{ old('member_role', 'member') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('member_role'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('member_role') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.member.fields.member_role_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="extra_field">{{ trans('cruds.member.fields.extra_field') }}</label>
+                <input class="form-control {{ $errors->has('extra_field') ? 'is-invalid' : '' }}" type="text" name="extra_field" id="extra_field" value="{{ old('extra_field', '') }}">
+                @if($errors->has('extra_field'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('extra_field') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.member.fields.extra_field_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="notes">{{ trans('cruds.member.fields.notes') }}</label>
+                <textarea class="form-control ckeditor {{ $errors->has('notes') ? 'is-invalid' : '' }}" name="notes" id="notes">{!! old('notes') !!}</textarea>
+                @if($errors->has('notes'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('notes') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.member.fields.notes_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="transportation_id">{{ trans('cruds.member.fields.transportation') }}</label>
+                <select class="form-control select2 {{ $errors->has('transportation') ? 'is-invalid' : '' }}" name="transportation_id" id="transportation_id">
+                    @foreach($transportations as $id => $entry)
+                        <option value="{{ $id }}" {{ old('transportation_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('transportation'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('transportation') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.member.fields.transportation_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-danger" type="submit">
+                    {{ trans('global.save') }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function () {
+  function SimpleUploadAdapter(editor) {
+    editor.plugins.get('FileRepository').createUploadAdapter = function(loader) {
+      return {
+        upload: function() {
+          return loader.file
+            .then(function (file) {
+              return new Promise(function(resolve, reject) {
+                // Init request
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '{{ route('admin.members.storeCKEditorImages') }}', true);
+                xhr.setRequestHeader('x-csrf-token', window._token);
+                xhr.setRequestHeader('Accept', 'application/json');
+                xhr.responseType = 'json';
+
+                // Init listeners
+                var genericErrorText = `Couldn't upload file: ${ file.name }.`;
+                xhr.addEventListener('error', function() { reject(genericErrorText) });
+                xhr.addEventListener('abort', function() { reject() });
+                xhr.addEventListener('load', function() {
+                  var response = xhr.response;
+
+                  if (!response || xhr.status !== 201) {
+                    return reject(response && response.message ? `${genericErrorText}\n${xhr.status} ${response.message}` : `${genericErrorText}\n ${xhr.status} ${xhr.statusText}`);
+                  }
+
+                  $('form').append('<input type="hidden" name="ck-media[]" value="' + response.id + '">');
+
+                  resolve({ default: response.url });
+                });
+
+                if (xhr.upload) {
+                  xhr.upload.addEventListener('progress', function(e) {
+                    if (e.lengthComputable) {
+                      loader.uploadTotal = e.total;
+                      loader.uploaded = e.loaded;
+                    }
+                  });
+                }
+
+                // Send request
+                var data = new FormData();
+                data.append('upload', file);
+                data.append('crud_id', '{{ $member->id ?? 0 }}');
+                xhr.send(data);
+              });
+            })
+        }
+      };
+    }
+  }
+
+  var allEditors = document.querySelectorAll('.ckeditor');
+  for (var i = 0; i < allEditors.length; ++i) {
+    ClassicEditor.create(
+      allEditors[i], {
+        extraPlugins: [SimpleUploadAdapter]
+      }
+    );
+  }
+});
+</script>
+
+@endsection
