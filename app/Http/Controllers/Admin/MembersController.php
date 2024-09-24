@@ -72,17 +72,7 @@ class MembersController extends Controller
             $table->editColumn('age', function ($row) {
                 return $row->age ? $row->age : '';
             });
-            $table->editColumn('nationa_id_photo', function ($row) {
-                if ($photo = $row->nationa_id_photo) {
-                    return sprintf(
-                        '<a href="%s" target="_blank"><img src="%s" width="50px" height="50px"></a>',
-                        $photo->url,
-                        $photo->thumbnail
-                    );
-                }
 
-                return '';
-            });
             $table->editColumn('is_new', function ($row) {
                 return '<input type="checkbox" disabled ' . ($row->is_new ? 'checked' : null) . '>';
             });
