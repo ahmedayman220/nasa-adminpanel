@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Admin;
 
+use App\Helpers\BootcampHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\StoreTeamRequest;
@@ -19,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TeamApiController extends Controller
 {
-    use MediaUploadingTrait;
+    use MediaUploadingTrait , BootcampHelper;
 
     public function index()
     {
@@ -29,11 +30,29 @@ class TeamApiController extends Controller
     }
 
     public function HackathonRegistration(StorehackathonRegistrationRequest $request) {
+
+
+        // Validate reCAPTCHA
+        $recaptchaToken = $request->input('recaptchaToken');
+        $isValidRecaptcha = $this->validateRecaptcha($recaptchaToken);
+
+        if (!$isValidRecaptcha) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid reCAPTCHA token',
+                'errors' => [
+                    "Invalid reCAPTCHA token"
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        };
+
+
+
         // Extract team data from the request
         $team_data = $request->only([
             'team_name', 'challenge_id', 'actual_solution_id', 'mentorship_needed_id',
             'participation_method_id', 'limited_capacity', 'members_participated_before',
-            'project_proposal_url', 'project_video_url'
+            'project_proposal_url', 'project_video_url','comment'
         ]);
 
         // Store the team photo URL in the extra_field

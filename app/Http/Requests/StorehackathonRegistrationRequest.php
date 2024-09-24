@@ -36,6 +36,10 @@ class StoreHackathonRegistrationRequest extends FormRequest
                     }
                 },
             ],
+            'comment' => [
+                'nullable',
+                'max:225'
+            ],
             'challenge_id' => [
                 'required',
                 'integer',

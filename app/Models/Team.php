@@ -49,6 +49,8 @@ class Team extends Model implements HasMedia
         'status',
         'submission_date',
         'extra_field',
+        'comment',
+        'confrimation',
         'nots',
         'description',
         'created_at',
