@@ -46,6 +46,7 @@ class Team extends Model implements HasMedia
         'project_video_url',
         'team_rating',
         'total_score',
+        "participated_hackathons",
         'status',
         'submission_date',
         'extra_field',

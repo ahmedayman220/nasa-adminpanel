@@ -52,7 +52,7 @@ class TeamApiController extends Controller
         $team_data = $request->only([
             'team_name', 'challenge_id', 'actual_solution_id', 'mentorship_needed_id',
             'participation_method_id', 'limited_capacity', 'members_participated_before',
-            'project_proposal_url', 'project_video_url','comment'
+            'project_proposal_url', 'project_video_url','comment', 'participated_hackathons'
         ]);
 
         // Store the team photo URL in the extra_field
