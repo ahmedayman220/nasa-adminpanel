@@ -76,7 +76,6 @@ class StoreHackathonRegistrationRequest extends FormRequest
             'project_video_url' => [
                 'string',
                 'min:3',
-                'max:200',
                 'required',
                 'unique:teams',
             ],
@@ -183,8 +182,8 @@ class StoreHackathonRegistrationRequest extends FormRequest
             'participation_method_id.required' => 'The participation method is required.',
             'limited_capacity.required' => 'Please specify the limited capacity',
             'members_participated_before.nullable' => 'This field is optional.',
-            'project_proposal_url.required' => 'The slutions/ideal descriptions URL is required.',
-            'project_proposal_url.string' => 'The slutions/ideal descriptions must be a string.',
+            'project_proposal_url.required' => 'The ideal description is required.',
+            'project_proposal_url.string' => 'The ideal description must be a string.',
             'project_video_url.required' => 'The project video URL is required.',
             'project_video_url.unique' => 'This project video URL has already been used.',
             'team_photo.required' => 'A team photo is required.',
