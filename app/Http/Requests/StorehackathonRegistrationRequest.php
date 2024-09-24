@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use DB;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
+use App\Rules\WordCount;
 
 class StoreHackathonRegistrationRequest extends FormRequest
 {
@@ -33,8 +35,8 @@ class StoreHackathonRegistrationRequest extends FormRequest
                 // Regex to prevent numbers in team_name
                 'regex:/^[A-Za-z\s]+$/',
                 // Case-sensitive unique validation
-                function($attribute, $value, $fail) {
-                    if (\DB::table('teams')->whereRaw('BINARY `team_name` = ?', [$value])->exists()) {
+                function ($attribute, $value, $fail) {
+                    if (DB::table('teams')->whereRaw('BINARY `team_name` = ?', [$value])->exists()) {
                         $fail('The team name has already been taken.');
                     }
                 },
@@ -65,12 +67,13 @@ class StoreHackathonRegistrationRequest extends FormRequest
             'members_participated_before' => [
                 'required',
             ],
+
             'project_proposal_url' => [
-                'string',
-                'min:50',
-                'max:150',
                 'required',
+                'string',
+                new WordCount(50, 150)
             ],
+
             'project_video_url' => [
                 'string',
                 'min:3',
