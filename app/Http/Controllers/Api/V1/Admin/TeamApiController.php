@@ -59,7 +59,7 @@ class TeamApiController extends Controller
             $member->is_new = $memberData['is_new'];
             $member->major_id = $memberData['major_id'];
             $member->organization = $memberData['organization'];
-            $member->participant_type = $memberData['participant_type'] ?? null; // Allow null
+            $member->participant_type = $memberData['participant_type'] ? 'onsite' : 'online'; // Allow null
             $member->study_level_id = $memberData['study_level_id'];
             $member->transportation_id = $memberData['transportation_id'] ?? null; // Allow null
             $member->extra_field = $memberData['national_id_photo'];
