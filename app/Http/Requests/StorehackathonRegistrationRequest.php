@@ -60,7 +60,7 @@ class StoreHackathonRegistrationRequest extends FormRequest
                 'integer',
             ],
             'limited_capacity' => [
-                'required',
+                'nullable',
             ],
             'members_participated_before' => [
                 'nullable',
@@ -180,7 +180,6 @@ class StoreHackathonRegistrationRequest extends FormRequest
             'actual_solution_id.required' => 'The actual solution ID is required.',
             'mentorship_needed_id.required' => 'Please specify whether mentorship is needed.',
             'participation_method_id.required' => 'The participation method is required.',
-            'limited_capacity.required' => 'Please specify the limited capacity',
             'members_participated_before.nullable' => 'This field is optional.',
             'project_proposal_url.required' => 'The ideal description is required.',
             'project_proposal_url.string' => 'The ideal description must be a string.',
