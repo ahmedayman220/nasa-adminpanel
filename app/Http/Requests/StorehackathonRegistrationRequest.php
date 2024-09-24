@@ -32,9 +32,7 @@ class StoreHackathonRegistrationRequest extends FormRequest
                 'min:3',
                 'max:50',
                 'required',
-                // Regex to prevent numbers in team_name
                 'regex:/^[A-Za-z\s]+$/',
-                // Case-sensitive unique validation
                 function ($attribute, $value, $fail) {
                     if (DB::table('teams')->whereRaw('BINARY `team_name` = ?', [$value])->exists()) {
                         $fail('The team name has already been taken.');
@@ -67,17 +65,14 @@ class StoreHackathonRegistrationRequest extends FormRequest
             'members_participated_before' => [
                 'nullable',
             ],
-
             'participated_hackathons' => [
                 'nullable'
             ],
-
             'project_proposal_url' => [
                 'required',
                 'string',
                 new WordCount(50, 150)
             ],
-
             'project_video_url' => [
                 'string',
                 'min:3',
@@ -148,6 +143,24 @@ class StoreHackathonRegistrationRequest extends FormRequest
             ],
             'members.*.transportation_id' => [
                 'nullable',
+            ],
+
+            // Custom validation to check if at least one member is onsite when participation_method_id is 1
+            'members' => [
+                function ($attribute, $value, $fail) {
+                    if ($this->input('participation_method_id') == 1) {
+                        $onsiteMemberFound = false;
+                        foreach ($value as $member) {
+                            if (isset($member['participant_type']) && $member['participant_type'] == 1) {
+                                $onsiteMemberFound = true;
+                                break;
+                            }
+                        }
+                        if (!$onsiteMemberFound) {
+                            $fail('At least one team member must have participant type "onsite" when participation method is "onsite".');
+                        }
+                    }
+                }
             ],
         ];
     }
