@@ -65,8 +65,10 @@ class StoreHackathonRegistrationRequest extends FormRequest
                 'required',
             ],
             'members_participated_before' => [
-                'required',
+                'nullable',
             ],
+
+
 
             'project_proposal_url' => [
                 'required',
