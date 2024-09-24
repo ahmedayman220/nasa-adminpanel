@@ -99,7 +99,7 @@ class MembersController extends Controller
             });
 
             $table->editColumn('member_role', function ($row) {
-                return $row->member_role ? Member::MEMBER_ROLE_SELECT[$row->member_role] : '';
+                return "test";
             });
             $table->editColumn('extra_field', function ($row) {
                 return $row->extra_field ? $row->extra_field : '';
