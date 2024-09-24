@@ -108,7 +108,7 @@ class MembersController extends Controller
                 return $row->transportation ? $row->transportation->title : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'nationa_id_photo', 'is_new', 'major', 'study_level', 'tshirt_size', 'qr_code', 'transportation']);
+            $table->rawColumns(['actions', 'placeholder', 'is_new', 'major', 'study_level', 'tshirt_size', 'qr_code', 'transportation']);
 
             return $table->make(true);
         }
