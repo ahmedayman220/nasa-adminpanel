@@ -68,7 +68,7 @@ class StoreHackathonRegistrationRequest extends FormRequest
                 'nullable',
             ],
 
-            "participated_hackathons" => [
+            'participated_hackathons' => [
                 'nullable'
             ],
 
