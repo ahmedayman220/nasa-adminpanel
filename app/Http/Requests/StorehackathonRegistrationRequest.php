@@ -18,6 +18,9 @@ class StoreHackathonRegistrationRequest extends FormRequest
         return [
             // Team validation rules
 
+            'recaptchaToken' => [
+                'required'
+            ],
             'team_leader_id' => [
                 'required',
                 'integer',
