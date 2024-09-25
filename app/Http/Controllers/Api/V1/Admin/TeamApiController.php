@@ -64,7 +64,7 @@ class TeamApiController extends Controller
         // Loop through each member from the request
         foreach ($request->input('members') as $key => $memberData) {
             // Check if this member is the team leader
-            $isTeamLeader = $request->input('team_leader_id') == $key;
+            $isTeamLeader = $request->input('team_leader_id') == $key + 1;
 
             // Create a new member instance
             $member = new Member(); // Initialize the member instance
