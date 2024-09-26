@@ -108,6 +108,11 @@ class MembersController extends Controller
                 return $row->transportation ? $row->transportation->title : '';
             });
 
+            $table->editColumn('team', function ($row) {
+                return $row->teams->first()->team_name ?? '';
+            });
+
+
             $table->rawColumns(['actions', 'placeholder', 'is_new', 'major', 'study_level', 'tshirt_size', 'qr_code', 'transportation']);
 
             return $table->make(true);
@@ -122,6 +127,44 @@ class MembersController extends Controller
 
         return view('admin.members.index', compact('majors', 'study_levelsses', 'tshirt_sizes', 'qr_codes', 'transportations', 'users'));
     }
+
+    public function getMedia(Request $request)
+    {
+        abort_if(Gate::denies('member_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        if ($request->ajax()) {
+            $query = Member::select(sprintf('%s.*', (new Member)->table));
+            $table = Datatables::of($query);
+
+            $table->addColumn('placeholder', '&nbsp;');
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('uuid', function ($row) {
+                return $row->uuid ? $row->uuid : '';
+            });
+            $table->editColumn('national', function ($row) {
+                return $row->national ? $row->national : '';
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+
+            $table->editColumn('extra_field', function ($row) {
+                return $row->extra_field ? $row->extra_field : '';
+            });
+
+            $table->rawColumns([ 'placeholder']);
+
+            return $table->make(true);
+        }
+
+        $users           = User::get();
+
+        return view('admin.members.media', compact('users'));
+    }
+
 
     public function create()
     {
