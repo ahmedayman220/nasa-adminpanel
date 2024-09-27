@@ -110,7 +110,8 @@ class TeamController extends Controller
                     "<select class='form-control-sm role-select' name='status' onchange='this.form.submit()'>
                         <option value='0' disabled selected>-- Choose Status --</option>
                         <option value='1'>Rejected</option>
-                        <option value='2'>Accepted</option>
+                        <option value='2'>Accepted On Site</option>
+                        <option value='3'>Accepted Virtual</option>
                         </select>";
             });
 
@@ -222,7 +223,9 @@ class TeamController extends Controller
         if ($request->status == 1)
             $status = 'rejected';
         else if ($request->status == 2)
-            $status = 'accepted';
+            $status = 'accepted_onsite';
+        else if ($request->status == 3)
+            $status = 'accepted_virtual';
         else
             return back()->with('Failed', 'status not found');
 
