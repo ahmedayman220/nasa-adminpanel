@@ -31,20 +31,8 @@ class TeamController extends Controller
 
         if ($request->ajax()) {
             $user = auth()->user(); // Or use User::find($userId);
-            $userChallenges = $user->userChallenges();
-
-            if ($userChallenges->isEmpty()) {
-                return response()->json([
-                    'message' => 'No challenges found for this user'
-                ]);
-            }
-
-            // Loop through each user challenge and print its id
-            $challengeIds = $userChallenges->pluck('id'); // Get all the challenge IDs
-
-            return response()->json([
-                'user_challenge_ids' => $challengeIds
-            ]);
+            $userChallenges = UserChallenge::where('user_id', $user->id)->get();
+            return response()->json($userChallenges);
 
 //            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
 //                ->select(sprintf('%s.*', (new Team)->table));
