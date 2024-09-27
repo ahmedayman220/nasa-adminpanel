@@ -38,10 +38,11 @@ class TeamController extends Controller
             // Get UserChallenges for the authenticated user
             $userChallenges = $user->userUserChallenges()->pluck('challenge_id');
 
+            return response()->json($userChallenges);
             // Get Challenges associated with the UserChallenges
             $challenges = Challenge::whereIn('id', $userChallenges)->pluck('id');
 
-            dd($challenges);
+//            dd($challenges);
             // Get Teams associated with the Challenges
             $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
                 ->whereIn('challenge_id', $challenges)
