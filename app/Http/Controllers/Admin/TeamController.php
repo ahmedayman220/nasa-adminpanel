@@ -39,7 +39,7 @@ class TeamController extends Controller
                 $challenge = $challenge_id->challenge()->first();
 //                $teams = $challenge->teams()->get();
 //                $query1 = $teams;
-                return response()->json($challenge);
+                return response()->json($challenge->challengeTeams()->get());
             }
 
 
