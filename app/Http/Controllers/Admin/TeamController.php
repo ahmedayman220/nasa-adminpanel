@@ -42,10 +42,10 @@ class TeamController extends Controller
                     $teamIds[] = $team->id;
                 }
             }
-            return response()->json($teamIds);
+//            return response()->json($teamIds);
             // i need display all teams for the user without query
-
-
+            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
+                ->select(sprintf('%s.*', (new Team)->table))->whereIn('id', $teamIds);
 
 
 
