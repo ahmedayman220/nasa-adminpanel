@@ -49,7 +49,7 @@ class TeamController extends Controller
 
 
 
-            $table = Datatables::of($query1);
+            $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
