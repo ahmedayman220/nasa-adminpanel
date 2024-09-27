@@ -52,9 +52,6 @@
                     </th>
 
                     <th>
-                        {{ trans('cruds.team.fields.team_leader') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.member.fields.email') }}
                     </th>
                     <th>
@@ -112,14 +109,6 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
 
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($members as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </td>
                     <td>
                     </td>
                     <td>
@@ -282,7 +271,6 @@
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
                     { data: 'id', name: 'id' },
-                    { data: 'team_leader_name', name: 'team_leader.name' },
                     { data: 'team_leader.email', name: 'team_leader.email' },
                     { data: 'team_name', name: 'team_name' },
                     { data: 'challenge_title', name: 'challenge.title' },
