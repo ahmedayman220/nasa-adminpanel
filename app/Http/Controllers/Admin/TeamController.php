@@ -99,6 +99,15 @@ class TeamController extends Controller
                 return $row->status ? Team::STATUS_SELECT[$row->status] : '';
             });
 
+            $table->addColumn('participation_method_title', function ($row) {
+                return $row->participation_method ? $row->participation_method->title : '';
+            });
+
+            $table->editColumn('limited_capacity', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->limited_capacity ? 'checked' : null) . '>';
+            });
+
+
             $table->editColumn('extra_field', function ($row) {
                 return $row->extra_field ? $row->extra_field : '';
             });
@@ -482,6 +491,7 @@ class TeamController extends Controller
             $table->addColumn('participation_method_title', function ($row) {
                 return $row->participation_method ? $row->participation_method->title : '';
             });
+
 
             $table->editColumn('limited_capacity', function ($row) {
                 return '<input type="checkbox" disabled ' . ($row->limited_capacity ? 'checked' : null) . '>';

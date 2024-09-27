@@ -55,7 +55,9 @@
                     <th>{{ trans('cruds.team.fields.actual_solution') }}</th>
                     <th>{{ trans('cruds.team.fields.total_score') }}</th>
                     <th>{{ trans('cruds.team.fields.status') }}</th>
-                    <th>{{ trans('cruds.team.fields.extra_field') }}</th>
+                    <th>Team Photo</th>
+                    <th>{{ trans('cruds.team.fields.participation_method') }}</th>
+                    <th>{{ trans('cruds.team.fields.limited_capacity') }}</th>
                 </tr>
                 <tr>
                     <td></td>
@@ -69,6 +71,9 @@
                     <td><select class="search"><option value>{{ trans('global.all') }}</option>@foreach($actual_solutions as $key => $item)<option value="{{ $item->title }}">{{ $item->title }}</option>@endforeach</select></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><select class="search" strict="true"><option value>{{ trans('global.all') }}</option>@foreach(App\Models\Team::STATUS_SELECT as $key => $item)<option value="{{ $key }}">{{ $item }}</option>@endforeach</select></td><td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
+                    <td><select class="search"><option value>{{ trans('global.all') }}</option>@foreach($participation_methods as $key => $item)<option value="{{ $item->title }}">{{ $item->title }}</option>@endforeach</select></td>
+                    <td>
+                    </td>
                 </tr>
                 </thead>
             </table>
@@ -169,7 +174,10 @@
                     { data: 'actual_solution_title', name: 'actual_solution.title' },
                     { data: 'total_score', name: 'total_score' },
                     { data: 'status', name: 'status' },
-                    { data: 'extra_field', name: 'extra_field' }
+                    { data: 'extra_field', name: 'extra_field' },
+                    { data: 'participation_method_title', name: 'participation_method.title' },
+                    { data: 'limited_capacity', name: 'limited_capacity' }
+
                 ],
                 orderCellsTop: true,
                 order: [[ 1, 'desc' ]],
