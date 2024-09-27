@@ -44,115 +44,37 @@
             <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Team">
                 <thead>
                 <tr>
-                    <th width="10">
-
-                    </th>
-                    <th>
-                        {{ trans('cruds.team.fields.id') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.team.fields.team_name') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.team.fields.challenge') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.team.fields.actual_solution') }}
-                    </th>
-
-                    <th>
-                        {{ trans('cruds.team.fields.limited_capacity') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.team.fields.members_participated_before') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.team.fields.project_proposal_url') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.team.fields.project_video_url') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.team.fields.team_rating') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.team.fields.total_score') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.team.fields.status') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.team.fields.submission_date') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.team.fields.extra_field') }}
-                    </th>
-                    <th>
-                        Change Status
-                    </th>
-                    <th>
-                    </th>
+                    <th width="10"></th>
+                    <th>{{ trans('cruds.team.fields.id') }}</th>
+                    <th>{{ trans('cruds.team.fields.team_name') }}</th>
+                    <th>{{ trans('cruds.team.fields.challenge') }}</th>
+                    <th>{{ trans('cruds.team.fields.actual_solution') }}</th>
+                    <th>{{ trans('cruds.team.fields.limited_capacity') }}</th>
+                    <th>{{ trans('cruds.team.fields.project_proposal_url') }}</th>
+                    <th>{{ trans('cruds.team.fields.project_video_url') }}</th>
+                    <th>{{ trans('cruds.team.fields.team_rating') }}</th>
+                    <th>{{ trans('cruds.team.fields.total_score') }}</th>
+                    <th>{{ trans('cruds.team.fields.status') }}</th>
+                    <th>{{ trans('cruds.team.fields.submission_date') }}</th>
+                    <th>{{ trans('cruds.team.fields.extra_field') }}</th>
+                    <th>Change Status</th>
+                    <th></th>
                 </tr>
                 <tr>
-                    <td>
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($challenges as $key => $item)
-                                <option value="{{ $item->title }}">{{ $item->title }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($actual_solutions as $key => $item)
-                                <option value="{{ $item->title }}">{{ $item->title }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <select class="search" strict="true">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach(App\Models\Team::STATUS_SELECT as $key => $item)
-                                <option value="{{ $key }}">{{ $item }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                    </td>
+                    <td></td>
+                    <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
+                    <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
+                    <td><select class="search"><option value>{{ trans('global.all') }}</option>@foreach($challenges as $key => $item)<option value="{{ $item->title }}">{{ $item->title }}</option>@endforeach</select></td>
+                    <td><select class="search"><option value>{{ trans('global.all') }}</option>@foreach($actual_solutions as $key => $item)<option value="{{ $item->title }}">{{ $item->title }}</option>@endforeach</select></td>
+                    <td></td>
+                    <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
+                    <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
+                    <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
+                    <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
+                    <td><select class="search" strict="true"><option value>{{ trans('global.all') }}</option>@foreach(App\Models\Team::STATUS_SELECT as $key => $item)<option value="{{ $key }}">{{ $item }}</option>@endforeach</select></td><td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
+                    <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 </thead>
             </table>
@@ -248,7 +170,6 @@
                     { data: 'challenge_title', name: 'challenge.title' },
                     { data: 'actual_solution_title', name: 'actual_solution.title' },
                     { data: 'limited_capacity', name: 'limited_capacity' },
-                    { data: 'members_participated_before', name: 'members_participated_before' },
                     { data: 'project_proposal_url', name: 'project_proposal_url' },
                     { data: 'project_video_url', name: 'project_video_url' },
                     { data: 'team_rating', name: 'team_rating' },

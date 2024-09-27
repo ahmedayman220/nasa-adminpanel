@@ -89,9 +89,7 @@ class TeamController extends Controller
             $table->editColumn('limited_capacity', function ($row) {
                 return '<input type="checkbox" disabled ' . ($row->limited_capacity ? 'checked' : null) . '>';
             });
-            $table->editColumn('members_participated_before', function ($row) {
-                return '<input type="checkbox" disabled ' . ($row->members_participated_before ? 'checked' : null) . '>';
-            });
+
             $table->editColumn('project_proposal_url', function ($row) {
                 return $row->project_proposal_url ? $row->project_proposal_url : '';
             });
