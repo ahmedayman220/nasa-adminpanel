@@ -20,9 +20,6 @@ use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-
 
 class TeamController extends Controller
 {
@@ -33,22 +30,17 @@ class TeamController extends Controller
         abort_if(Gate::denies('team_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $user = Auth::user();
+            $user = auth()->user(); // Or use User::find($userId);
 
-            // Get UserChallenges for the authenticated user
-            $userChallenges = $user->userUserChallenges()->first();
-
-            return response()->json($userChallenges);
-            // Get Challenges associated with the UserChallenges
-            $challenges = Challenge::whereIn('id', $userChallenges)->pluck('id');
-
-//            dd($challenges);
-            // Get Teams associated with the Challenges
-            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
-                ->whereIn('challenge_id', $challenges)
+            $query1 = Team::whereHas('challenge.userChallenges.users', function ($query) use ($user) {
+                $query->where('id', $user->id);
+            })->with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
                 ->select(sprintf('%s.*', (new Team)->table));
 
-            $table = Datatables::of($query);
+//            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
+//                ->select(sprintf('%s.*', (new Team)->table));
+
+            $table = Datatables::of($query1);
 
             $table->addColumn('placeholder', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');

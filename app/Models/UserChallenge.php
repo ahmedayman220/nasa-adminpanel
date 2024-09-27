@@ -26,6 +26,12 @@ class UserChallenge extends Model
         'deleted_at',
     ];
 
+    public function challenges()
+    {
+        return $this->belongsToMany(Challenge::class);
+    }
+
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

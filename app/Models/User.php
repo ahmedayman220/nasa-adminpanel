@@ -45,6 +45,10 @@ class User extends Authenticatable
         'two_factor_expires_at',
     ];
 
+    public function teams()
+    {
+        return $this->hasManyThrough(Team::class, UserChallenge::class, 'user_id', 'challenge_id', 'id', 'challenge_id');
+    }
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
