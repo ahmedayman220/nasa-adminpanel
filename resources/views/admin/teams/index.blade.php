@@ -1,84 +1,55 @@
 @extends('layouts.admin')
 @section('content')
-@can('team_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.teams.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.team.title_singular') }}
-            </a>
-            <a class="btn btn-secondary" href="{{ route('admin.teams.showOnsite') }}">
-                {{ 'Accepted Onsite Teams' }}
-            </a>
-            <a class="btn btn-dark" href="{{ route('admin.teams.showVirtual') }}">
-                {{ 'Accepted Virtual Teams' }}
-            </a>
-            <a class="btn btn-danger" href="{{ route('admin.teams.showRejected') }}">
-                {{ 'Rejected Teams' }}
-            </a>
-{{--            <a class="btn btn-info" href="{{ route('admin.members.media') }}">--}}
-{{--                {{ 'Media' }}--}}
-{{--            </a>--}}
-            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
-                {{ trans('global.app_csvImport') }}
-            </button>
-            @include('csvImport.modal', ['model' => 'Team', 'route' => 'admin.teams.parseCsvImport'])
+    @can('team_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route('admin.teams.create') }}">
+                    {{ trans('global.add') }} {{ trans('cruds.team.title_singular') }}
+                </a>
+                <a class="btn btn-secondary" href="{{ route('admin.teams.showOnsite') }}">
+                    {{ 'Accepted Onsite Teams' }}
+                </a>
+                <a class="btn btn-dark" href="{{ route('admin.teams.showVirtual') }}">
+                    {{ 'Accepted Virtual Teams' }}
+                </a>
+                <a class="btn btn-danger" href="{{ route('admin.teams.showRejected') }}">
+                    {{ 'Rejected Teams' }}
+                </a>
+                {{--            <a class="btn btn-info" href="{{ route('admin.members.media') }}">--}}
+                {{--                {{ 'Media' }}--}}
+                {{--            </a>--}}
+                <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                    {{ trans('global.app_csvImport') }}
+                </button>
+                @include('csvImport.modal', ['model' => 'Team', 'route' => 'admin.teams.parseCsvImport'])
+            </div>
         </div>
-    </div>
-@endcan
-@if(session()->has('success'))
-    <div class="alert alert-success" role="alert">
-        {{session()->get('success')}}
-    </div>
-@endif
-@if(session()->has('Failed'))
-    <div class="alert alert-danger" role="alert">
-        {{session()->get('Failed')}}
-    </div>
-@endif
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.team.title_singular') }} {{ trans('global.list') }}
-    </div>
+    @endcan
+    @if(session()->has('success'))
+        <div class="alert alert-success" role="alert">
+            {{session()->get('success')}}
+        </div>
+    @endif
+    @if(session()->has('Failed'))
+        <div class="alert alert-danger" role="alert">
+            {{session()->get('Failed')}}
+        </div>
+    @endif
+    <div class="card">
+        <div class="card-header">
+            {{ trans('cruds.team.title_singular') }} {{ trans('global.list') }}
+        </div>
 
-    <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Team">
-            <thead>
+        <div class="card-body">
+            <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Team">
+                <thead>
                 <tr>
                     <th width="10">
 
                     </th>
                     <th>
-                    </th>
-                    <th>
-                        Change Status
-                    </th>
-                    <th>
                         {{ trans('cruds.team.fields.id') }}
                     </th>
-                    <th>
-                        {{ trans('cruds.team.fields.team_name') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.team.fields.challenge') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.team.fields.project_video_url') }}
-                    </th>
-                    <th>
-                        Project Description
-                    </th>
-                    <th>
-                        {{ trans('cruds.team.fields.actual_solution') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.team.fields.total_score') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.team.fields.status') }}
-                    </th>
-
-
-
                     <th>
                         {{ trans('cruds.team.fields.uuid') }}
                     </th>
@@ -88,7 +59,15 @@
                     <th>
                         {{ trans('cruds.member.fields.email') }}
                     </th>
-
+                    <th>
+                        {{ trans('cruds.team.fields.team_name') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.team.fields.challenge') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.team.fields.actual_solution') }}
+                    </th>
                     <th>
                         {{ trans('cruds.team.fields.mentorship_needed') }}
                     </th>
@@ -101,58 +80,42 @@
                     <th>
                         {{ trans('cruds.team.fields.members_participated_before') }}
                     </th>
-
-
+                    <th>
+                        {{ trans('cruds.team.fields.project_proposal_url') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.team.fields.project_video_url') }}
+                    </th>
                     <th>
                         {{ trans('cruds.team.fields.team_rating') }}
                     </th>
-
-
+                    <th>
+                        {{ trans('cruds.team.fields.total_score') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.team.fields.status') }}
+                    </th>
                     <th>
                         {{ trans('cruds.team.fields.submission_date') }}
                     </th>
                     <th>
                         {{ trans('cruds.team.fields.extra_field') }}
                     </th>
+                    <th>
+                        Change Status
+                    </th>
+                    <th>
+                    </th>
                 </tr>
                 <tr>
                     <td>
                     </td>
                     <td>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($challenges as $key => $item)
-                                <option value="{{ $item->title }}">{{ $item->title }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($actual_solutions as $key => $item)
-                                <option value="{{ $item->title }}">{{ $item->title }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-
-
-
                     <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
@@ -167,31 +130,21 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-
-                    <td>
-                        <select class="search" strict="true">
+                        <select class="search">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach(App\Models\Team::STATUS_SELECT as $key => $item)
-                                <option value="{{ $key }}">{{ $item }}</option>
+                            @foreach($challenges as $key => $item)
+                                <option value="{{ $item->title }}">{{ $item->title }}</option>
                             @endforeach
                         </select>
                     </td>
-
                     <td>
-                        <select class="search" strict="true">
+                        <select class="search">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach(App\Models\Team::STATUS_SELECT as $key => $item)
-                                <option value="{{ $key }}">{{ $item }}</option>
+                            @foreach($actual_solutions as $key => $item)
+                                <option value="{{ $item->title }}">{{ $item->title }}</option>
                             @endforeach
                         </select>
                     </td>
-
-
-
-
-
                     <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
@@ -212,26 +165,41 @@
                     </td>
                     <td>
                     </td>
-
-
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
-
-
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
-
-
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <select class="search" strict="true">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach(App\Models\Team::STATUS_SELECT as $key => $item)
+                                <option value="{{ $key }}">{{ $item }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
                 </tr>
-            </thead>
-        </table>
+                </thead>
+            </table>
+        </div>
     </div>
-</div>
 
 
 
@@ -317,29 +285,26 @@
                 ajax: "{{ route('admin.teams.index') }}",
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
-                    { data: 'actions', name: '{{ trans('global.actions') }}' },
-                    { data: 'change_status', name: 'change_status' },
                     { data: 'id', name: 'id' },
-                    { data: 'team_name', name: 'team_name' },
-                    { data: 'challenge_title', name: 'challenge.title' },
-                    { data: 'project_video_url', name: 'project_video_url' },
-                    { data: 'project_proposal_url', name: 'project_proposal_url' },
-                    { data: 'actual_solution_title', name: 'actual_solution.title' },
-                    { data: 'total_score', name: 'total_score' },
-                    { data: 'status', name: 'status' },
-
-
-
                     { data: 'uuid', name: 'uuid' },
                     { data: 'team_leader_name', name: 'team_leader.name' },
                     { data: 'team_leader.email', name: 'team_leader.email' },
+                    { data: 'team_name', name: 'team_name' },
+                    { data: 'challenge_title', name: 'challenge.title' },
+                    { data: 'actual_solution_title', name: 'actual_solution.title' },
                     { data: 'mentorship_needed_title', name: 'mentorship_needed.title' },
                     { data: 'participation_method_title', name: 'participation_method.title' },
                     { data: 'limited_capacity', name: 'limited_capacity' },
                     { data: 'members_participated_before', name: 'members_participated_before' },
+                    { data: 'project_proposal_url', name: 'project_proposal_url' },
+                    { data: 'project_video_url', name: 'project_video_url' },
                     { data: 'team_rating', name: 'team_rating' },
+                    { data: 'total_score', name: 'total_score' },
+                    { data: 'status', name: 'status' },
                     { data: 'submission_date', name: 'submission_date' },
                     { data: 'extra_field', name: 'extra_field' },
+                    { data: 'change_status', name: 'change_status' },
+                    { data: 'actions', name: '{{ trans('global.actions') }}' }
                 ],
                 orderCellsTop: true,
                 order: [[ 1, 'desc' ]],
