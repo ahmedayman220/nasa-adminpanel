@@ -96,9 +96,7 @@ class TeamController extends Controller
             $table->editColumn('project_video_url', function ($row) {
                 return $row->project_video_url ? $row->project_video_url : '';
             });
-            $table->editColumn('team_rating', function ($row) {
-                return $row->team_rating ? $row->team_rating : '';
-            });
+
             $table->editColumn('total_score', function ($row) {
                 return $row->total_score ? $row->total_score : '';
             });
