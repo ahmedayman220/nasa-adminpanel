@@ -51,10 +51,10 @@ class TeamController extends Controller
 
 
 
-//            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
-//                ->select(sprintf('%s.*', (new Team)->table));
+            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
+                ->select(sprintf('%s.*', (new Team)->table));
 
-            $table = Datatables::of($query1);
+            $table = Datatables::of($query);
             return response()->json($table);
 
             $table->addColumn('placeholder', '&nbsp;');
