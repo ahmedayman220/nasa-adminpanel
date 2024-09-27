@@ -45,6 +45,7 @@
                 <thead>
                 <tr>
                     <th width="10"></th>
+                    <th></th>
                     <th>{{ trans('cruds.team.fields.id') }}</th>
                     <th>{{ trans('cruds.team.fields.team_name') }}</th>
                     <th>{{ trans('cruds.team.fields.challenge') }}</th>
@@ -55,9 +56,9 @@
                     <th>{{ trans('cruds.team.fields.status') }}</th>
                     <th>{{ trans('cruds.team.fields.extra_field') }}</th>
                     <th>Change Status</th>
-                    <th></th>
                 </tr>
                 <tr>
+                    <td></td>
                     <td></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
@@ -67,7 +68,6 @@
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><select class="search" strict="true"><option value>{{ trans('global.all') }}</option>@foreach(App\Models\Team::STATUS_SELECT as $key => $item)<option value="{{ $key }}">{{ $item }}</option>@endforeach</select></td><td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
-                    <td></td>
                     <td></td>
                 </tr>
                 </thead>
@@ -160,6 +160,7 @@
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
                     { data: 'id', name: 'id' },
+                    { data: 'actions', name: '{{ trans('global.actions') }}' },
                     { data: 'team_name', name: 'team_name' },
                     { data: 'challenge_title', name: 'challenge.title' },
                     { data: 'actual_solution_title', name: 'actual_solution.title' },
@@ -168,8 +169,7 @@
                     { data: 'total_score', name: 'total_score' },
                     { data: 'status', name: 'status' },
                     { data: 'extra_field', name: 'extra_field' },
-                    { data: 'change_status', name: 'change_status' },
-                    { data: 'actions', name: '{{ trans('global.actions') }}' }
+                    { data: 'change_status', name: 'change_status' }
                 ],
                 orderCellsTop: true,
                 order: [[ 1, 'desc' ]],
