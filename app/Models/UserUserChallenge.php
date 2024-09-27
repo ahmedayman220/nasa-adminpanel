@@ -18,7 +18,7 @@ class UserUserChallenge extends Model
 
     public function userChallenge()
     {
-        return $this->belongsTo(UserChallenge::class);
+        return $this->belongsTo(UserChallenge::class, 'user_challenge_id', 'id');
     }
 
 
