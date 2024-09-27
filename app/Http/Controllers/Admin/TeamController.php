@@ -86,10 +86,6 @@ class TeamController extends Controller
             });
 
 
-            $table->addColumn('participation_method_title', function ($row) {
-                return $row->participation_method ? $row->participation_method->title : '';
-            });
-
             $table->editColumn('limited_capacity', function ($row) {
                 return '<input type="checkbox" disabled ' . ($row->limited_capacity ? 'checked' : null) . '>';
             });
