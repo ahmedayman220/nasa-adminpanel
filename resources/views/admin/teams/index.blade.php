@@ -50,9 +50,7 @@
                     <th>
                         {{ trans('cruds.team.fields.id') }}
                     </th>
-                    <th>
-                        {{ trans('cruds.team.fields.uuid') }}
-                    </th>
+
                     <th>
                         {{ trans('cruds.team.fields.team_leader') }}
                     </th>
@@ -113,9 +111,7 @@
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
+
                     <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
@@ -286,7 +282,6 @@
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
                     { data: 'id', name: 'id' },
-                    { data: 'uuid', name: 'uuid' },
                     { data: 'team_leader_name', name: 'team_leader.name' },
                     { data: 'team_leader.email', name: 'team_leader.email' },
                     { data: 'team_name', name: 'team_name' },

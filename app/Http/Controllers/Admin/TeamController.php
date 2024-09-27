@@ -72,9 +72,7 @@ class TeamController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
-            $table->editColumn('uuid', function ($row) {
-                return $row->uuid ? $row->uuid : '';
-            });
+
             $table->addColumn('team_leader_name', function ($row) {
                 return $row->team_leader ? $row->team_leader->name : '';
             });
