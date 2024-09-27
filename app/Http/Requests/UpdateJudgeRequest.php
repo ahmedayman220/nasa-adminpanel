@@ -25,6 +25,9 @@ class UpdateJudgeRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'photo' => [
+                'required',
+            ],
         ];
     }
 }

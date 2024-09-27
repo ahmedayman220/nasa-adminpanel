@@ -1280,6 +1280,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 318,
+                'title' => 'user_challenge_create',
+            ],
+            [
+                'id'    => 319,
+                'title' => 'user_challenge_edit',
+            ],
+            [
+                'id'    => 320,
+                'title' => 'user_challenge_show',
+            ],
+            [
+                'id'    => 321,
+                'title' => 'user_challenge_delete',
+            ],
+            [
+                'id'    => 322,
+                'title' => 'user_challenge_access',
+            ],
+            [
+                'id'    => 323,
                 'title' => 'profile_password_edit',
             ],
         ];

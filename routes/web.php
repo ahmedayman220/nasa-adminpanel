@@ -351,6 +351,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Judges
     Route::delete('judges/destroy', 'JudgesController@massDestroy')->name('judges.massDestroy');
+    Route::post('judges/media', 'JudgesController@storeMedia')->name('judges.storeMedia');
+    Route::post('judges/ckmedia', 'JudgesController@storeCKEditorImages')->name('judges.storeCKEditorImages');
     Route::post('judges/parse-csv-import', 'JudgesController@parseCsvImport')->name('judges.parseCsvImport');
     Route::post('judges/process-csv-import', 'JudgesController@processCsvImport')->name('judges.processCsvImport');
     Route::resource('judges', 'JudgesController');
@@ -378,6 +380,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Difficulty Level
     Route::delete('difficulty-levels/destroy', 'DifficultyLevelController@massDestroy')->name('difficulty-levels.massDestroy');
     Route::resource('difficulty-levels', 'DifficultyLevelController');
+
+    // User Challenges
+    Route::delete('user-challenges/destroy', 'UserChallengesController@massDestroy')->name('user-challenges.massDestroy');
+    Route::resource('user-challenges', 'UserChallengesController');
 
     Route::get('system-calendar', 'SystemCalendarController@index')->name('systemCalendar');
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');

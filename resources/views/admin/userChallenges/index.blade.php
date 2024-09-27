@@ -1,41 +1,34 @@
 @extends('layouts.admin')
 @section('content')
-@can('judge_create')
+@can('user_challenge_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.judges.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.judge.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.user-challenges.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.userChallenge.title_singular') }}
             </a>
-            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
-                {{ trans('global.app_csvImport') }}
-            </button>
-            @include('csvImport.modal', ['model' => 'Judge', 'route' => 'admin.judges.parseCsvImport'])
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.judge.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.userChallenge.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Judge">
+        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-UserChallenge">
             <thead>
                 <tr>
                     <th width="10">
 
                     </th>
                     <th>
-                        {{ trans('cruds.judge.fields.id') }}
+                        {{ trans('cruds.userChallenge.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.judge.fields.name') }}
+                        {{ trans('cruds.userChallenge.fields.user') }}
                     </th>
                     <th>
-                        {{ trans('cruds.judge.fields.expertise') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.judge.fields.photo') }}
+                        {{ trans('cruds.userChallenge.fields.challenge') }}
                     </th>
                     <th>
                         &nbsp;
@@ -48,12 +41,20 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($users as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($challenges as $key => $item)
+                                <option value="{{ $item->title }}">{{ $item->title }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                     </td>
@@ -71,11 +72,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('judge_delete')
+@can('user_challenge_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.judges.massDestroy') }}",
+    url: "{{ route('admin.user-challenges.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
@@ -107,20 +108,19 @@
     serverSide: true,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('admin.judges.index') }}",
+    ajax: "{{ route('admin.user-challenges.index') }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
-{ data: 'name', name: 'name' },
-{ data: 'expertise', name: 'expertise' },
-{ data: 'photo', name: 'photo', sortable: false, searchable: false },
+{ data: 'user', name: 'users.name' },
+{ data: 'challenge', name: 'challenges.title' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   };
-  let table = $('.datatable-Judge').DataTable(dtOverrideGlobals);
+  let table = $('.datatable-UserChallenge').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

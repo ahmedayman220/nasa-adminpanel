@@ -84,10 +84,18 @@
                 {{ trans('cruds.team.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#challenge_user_challenges" role="tab" data-toggle="tab">
+                {{ trans('cruds.userChallenge.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="challenge_teams">
             @includeIf('admin.challenges.relationships.challengeTeams', ['teams' => $challenge->challengeTeams])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="challenge_user_challenges">
+            @includeIf('admin.challenges.relationships.challengeUserChallenges', ['userChallenges' => $challenge->challengeUserChallenges])
         </div>
     </div>
 </div>
