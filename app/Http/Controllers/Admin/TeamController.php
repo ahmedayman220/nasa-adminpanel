@@ -39,32 +39,15 @@ class TeamController extends Controller
             foreach ($challenges_ids as $challenge_id) {
                 $teamsForEachChallenge = $challenge_id->challenge()->first()->challengeTeams()->get();
                 foreach ($teamsForEachChallenge as $team) {
-                    $teams[] = $team;
+                    $teamIds[] = $team->id;
                 }
             }
+            return response()->json($teamIds);
+            // i need display all teams for the user without query
 
-            return response()->json($teams);
 
 
 
-            // loop through the challenges and get the teams and then generate quere
-            $query1 = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
-                ->select(sprintf('%s.*', (new Team)->table))
-                ->where('status', 'accepted')
-                ->where(function ($query) use ($challenges_ids) {
-                    foreach ($challenges_ids as $challenge_id) {
-                        $challenge = $challenge_id->challenge()->first();
-                        $teams = $challenge->challengeTeams()->get();
-                        foreach ($teams as $team) {
-                            $query->orWhere('id', $team->id);
-                        }
-                    }
-                });
-
-            return response()->json($query1->get());
-
-//            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
-//                ->select(sprintf('%s.*', (new Team)->table));
 
             $table = Datatables::of($query1);
 
