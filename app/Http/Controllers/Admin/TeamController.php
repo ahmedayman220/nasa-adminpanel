@@ -31,9 +31,8 @@ class TeamController extends Controller
 
         if ($request->ajax()) {
             $user = auth()->user(); // Or use User::find($userId);
-            return response()->json($user->id);
-            $userChallenge = $user->userUserChallenges()->first();
 
+            $userChallenge = $user->userUserChallenges()->first();
             $challenges_ids = $userChallenge->userChallenge()->first()->challengeUserChallenges()->get();
 
 
