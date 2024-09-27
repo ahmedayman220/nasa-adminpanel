@@ -316,7 +316,7 @@
 
 
                 { data: 'placeholder', name: 'placeholder' },
-                { data: 'actions', name: '{{ trans('global.actions') }}' }
+                { data: 'actions', name: '{{ trans('global.actions') }}' },
                 { data: 'change_status', name: 'change_status' },
                 { data: 'id', name: 'id' },
                 { data: 'team_name', name: 'team_name' },
