@@ -73,9 +73,7 @@ class TeamController extends Controller
                 return $row->id ? $row->id : '';
             });
 
-            $table->editColumn('team_leader.email', function ($row) {
-                return $row->team_leader ? (is_string($row->team_leader) ? $row->team_leader : $row->team_leader->email) : '';
-            });
+
             $table->editColumn('team_name', function ($row) {
                 return $row->team_name ? $row->team_name : '';
             });

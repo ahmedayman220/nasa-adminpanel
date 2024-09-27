@@ -50,10 +50,6 @@
                     <th>
                         {{ trans('cruds.team.fields.id') }}
                     </th>
-
-                    <th>
-                        {{ trans('cruds.member.fields.email') }}
-                    </th>
                     <th>
                         {{ trans('cruds.team.fields.team_name') }}
                     </th>
@@ -109,8 +105,6 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
 
-                    <td>
-                    </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
@@ -271,7 +265,6 @@
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
                     { data: 'id', name: 'id' },
-                    { data: 'team_leader.email', name: 'team_leader.email' },
                     { data: 'team_name', name: 'team_name' },
                     { data: 'challenge_title', name: 'challenge.title' },
                     { data: 'actual_solution_title', name: 'actual_solution.title' },
