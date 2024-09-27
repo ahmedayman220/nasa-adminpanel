@@ -16,6 +16,7 @@ class UserUserChallenge extends Model
         'user_challenge_id',
     ];
 
+
     public $timestamps = true; // If the pivot table has timestamps
 
 

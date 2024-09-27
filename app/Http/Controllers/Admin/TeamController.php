@@ -32,7 +32,9 @@ class TeamController extends Controller
         if ($request->ajax()) {
             $user = auth()->user(); // Or use User::find($userId);
 
-            return response()->json($user->userUserChallenges()->get());
+            $userChallenge = $user->userUserChallenges()->get();
+
+            return response()->json($userChallenge);
 
 //            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
 //                ->select(sprintf('%s.*', (new Team)->table));
