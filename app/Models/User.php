@@ -76,8 +76,7 @@ class User extends Authenticatable
     }
     public function userChallenges()
     {
-        return $this->belongsToMany(UserChallenge::class)
-            ->using(UserUserChallenge::class); // Use the pivot model
+        return $this->belongsToMany(UserChallenge::class , 'user_user_challenge' , 'user_id' , 'user_challenge_id');
     }
     public function getIsAdminAttribute()
     {
