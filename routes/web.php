@@ -382,6 +382,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('achievements/process-csv-import', 'AchievementsController@processCsvImport')->name('achievements.processCsvImport');
     Route::resource('achievements', 'AchievementsController');
 
+    // User Challenges
+    Route::delete('user-challenges/destroy', 'UserChallengesController@massDestroy')->name('user-challenges.massDestroy');
+    Route::resource('user-challenges', 'UserChallengesController');
+
     // Transportation
     Route::delete('transportations/destroy', 'TransportationController@massDestroy')->name('transportations.massDestroy');
     Route::post('transportations/media', 'TransportationController@storeMedia')->name('transportations.storeMedia');

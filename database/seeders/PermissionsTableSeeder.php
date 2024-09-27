@@ -1282,6 +1282,30 @@ class PermissionsTableSeeder extends Seeder
                 'id'    => 318,
                 'title' => 'profile_password_edit',
             ],
+            [
+                'id'    => 319,
+                'title' => 'user_challenge_create',
+            ],
+            [
+                'id'    => 320,
+                'title' => 'user_challenge_edit',
+            ],
+            [
+                'id'    => 321,
+                'title' => 'user_challenge_show',
+            ],
+            [
+                'id'    => 322,
+                'title' => 'user_challenge_delete',
+            ],
+            [
+                'id'    => 323,
+                'title' => 'user_challenge_access',
+            ],
+            [
+                'id'    => 324,
+                'title' => 'profile_password_edit',
+            ],
         ];
 
         Permission::insert($permissions);

@@ -66,6 +66,10 @@ class User extends Authenticatable
         $this->save();
     }
 
+    public function userUserChallenges()
+    {
+        return $this->belongsToMany(UserChallenge::class);
+    }
     public function getIsAdminAttribute()
     {
         return $this->roles()->where('id', 1)->exists();
