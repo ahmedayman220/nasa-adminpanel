@@ -31,15 +31,16 @@ class UserChallenge extends Model
         return $this->belongsToMany(Challenge::class);
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class)
+            ->using(UserUserChallenge::class); // Use the pivot model
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
     }
-
-    public function users()
-    {
-        return $this->belongsToMany(User::class);
-    }
+    
 
 }
