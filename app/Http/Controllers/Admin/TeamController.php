@@ -16,6 +16,7 @@ use App\Models\MentorshipNeeded;
 use App\Models\ParticipationMethod;
 use App\Models\Team;
 use App\Models\UserChallenge;
+use App\Models\UserUserChallenge;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -32,7 +33,7 @@ class TeamController extends Controller
 
         if ($request->ajax()) {
             $user = auth()->user(); // Or use User::find($userId);
-            $userChallenges = UserChallenge::where('user_id', $user->id)->get();
+            $userChallenges = UserUserChallenge::where('user_id', $user->id)->get();
             return response()->json($userChallenges);
 
 //            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
