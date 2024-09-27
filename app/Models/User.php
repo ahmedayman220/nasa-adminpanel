@@ -74,6 +74,11 @@ class User extends Authenticatable
     {
         return $this->belongsTo(UserChallenge::class);
     }
+    public function userChallenges()
+    {
+        return $this->belongsToMany(UserChallenge::class)
+            ->using(UserUserChallenge::class); // Use the pivot model
+    }
     public function getIsAdminAttribute()
     {
         return $this->roles()->where('id', 1)->exists();
