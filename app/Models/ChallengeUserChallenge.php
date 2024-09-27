@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ChallengeUserChallenge extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     public $table = 'challenge_user_challenge';
 
