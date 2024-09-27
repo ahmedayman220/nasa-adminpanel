@@ -41,6 +41,7 @@ class TeamController extends Controller
             // Get Challenges associated with the UserChallenges
             $challenges = Challenge::whereIn('id', $userChallenges)->pluck('id');
 
+            dd($challenges);
             // Get Teams associated with the Challenges
             $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
                 ->whereIn('challenge_id', $challenges)
