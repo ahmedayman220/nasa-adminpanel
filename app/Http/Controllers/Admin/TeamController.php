@@ -36,7 +36,7 @@ class TeamController extends Controller
             $user = Auth::user();
 
             // Get UserChallenges for the authenticated user
-            $userChallenges = $user->userUserChallenges();
+            $userChallenges = $user->userUserChallenges()->challenges();
 
             return response()->json($userChallenges);
             // Get Challenges associated with the UserChallenges
