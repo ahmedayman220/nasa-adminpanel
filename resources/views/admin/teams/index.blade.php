@@ -235,144 +235,144 @@
 
 
 
-<script>
-    $(function () {
-        let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-        @can('team_delete')
-        let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
-        let deleteButton = {
-            text: deleteButtonTrans,
-            url: "{{ route('admin.teams.massDestroy') }}",
-            className: 'btn-danger',
-            action: function (e, dt, node, config) {
-                var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
-                    return entry.id
-                });
-
-                if (ids.length === 0) {
-                    alert('{{ trans('global.datatables.zero_selected') }}')
-
-                    return
-                }
-
-                if (confirm('{{ trans('global.areYouSure') }}')) {
-                    $.ajax({
-                        headers: {'x-csrf-token': _token},
-                        method: 'POST',
-                        url: config.url,
-                        data: { ids: ids, _method: 'DELETE' }})
-                        .done(function () { location.reload() })
-                }
-            }
-        }
-        dtButtons.push(deleteButton)
-        @endcan
-        {{-- Start Email Button --}}
-        let EmailButtonTrans = 'Send Email';
-        let EmailButton = {
-            text: EmailButtonTrans,
-            className: 'btn-dark',
-            action: function (e, dt, node, config) {
-                var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
-                    return entry.id
-                });
-
-                // var new_ids = $('tr.selected').map(function(){
-                //     return $(this).children(':nth-child(2)').html(); // Get the text of each selected div
-                // }).get();
-
-                // console.log(new_ids);
-                if (ids.length === 0) {
-                    alert('{{ trans('global.datatables.zero_selected') }}');
-                    return;
-                }
-
-                if (confirm('{{ trans('global.areYouSure') }}')) {
-                    $.ajax({
-                        headers: {'x-csrf-token': _token},
-                        method: 'POST',
-                        url: "{{ route('admin.teams.generateAndEmail') }}",
-                        data: { ids: ids, _method: 'POST' }
-                    })
-                        .done(function (data) {
-                            console.log(data)
-                            // location.reload();
-                        });
-                }
-            }
-        };
-
-        // dtButtons.push(EmailButton);
-
-        {{-- End Email Button --}}
-        let dtOverrideGlobals = {
-            buttons: dtButtons,
-            processing: true,
-            serverSide: true,
-            retrieve: true,
-            aaSorting: [],
-            ajax: "{{ route('admin.teams.index') }}",
-            columns: [
-                { data: 'placeholder', name: 'placeholder' },
-                { data: 'actions', name: '{{ trans('global.actions') }}' },
-                { data: 'change_status', name: 'change_status' },
-                { data: 'id', name: 'id' },
-                { data: 'team_name', name: 'team_name' },
-                { data: 'challenge_title', name: 'challenge.title' },
-                { data: 'project_video_url', name: 'project_video_url' },
-                { data: 'project_proposal_url', name: 'project_proposal_url' },
-                { data: 'actual_solution_title', name: 'actual_solution.title' },
-                { data: 'total_score', name: 'total_score' },
-                { data: 'status', name: 'status' },
-
-
-
-                { data: 'uuid', name: 'uuid' },
-                { data: 'team_leader_name', name: 'team_leader.name' },
-                { data: 'team_leader.email', name: 'team_leader.email' },
-                { data: 'mentorship_needed_title', name: 'mentorship_needed.title' },
-                { data: 'participation_method_title', name: 'participation_method.title' },
-                { data: 'limited_capacity', name: 'limited_capacity' },
-                { data: 'members_participated_before', name: 'members_participated_before' },
-                { data: 'team_rating', name: 'team_rating' },
-                { data: 'submission_date', name: 'submission_date' },
-                { data: 'extra_field', name: 'extra_field' },
-            ],
-            orderCellsTop: true,
-            order: [[ 1, 'desc' ]],
-            pageLength: 100,
-        };
-        let table = $('.datatable-Team').DataTable(dtOverrideGlobals);
-        $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
-            $($.fn.dataTable.tables(true)).DataTable()
-                .columns.adjust();
-        });
-
-        let visibleColumnsIndexes = null;
-        $('.datatable thead').on('input', '.search', function () {
-            let strict = $(this).attr('strict') || false
-            let value = strict && this.value ? "^" + this.value + "$" : this.value
-
-            let index = $(this).parent().index()
-            if (visibleColumnsIndexes !== null) {
-                index = visibleColumnsIndexes[index]
-            }
-
-            table
-                .column(index)
-                .search(value, strict)
-                .draw()
-        });
-        table.on('column-visibility.dt', function(e, settings, column, state) {
-            visibleColumnsIndexes = []
-            table.columns(":visible").every(function(colIdx) {
-                visibleColumnsIndexes.push(colIdx);
-            });
-        })
-    });
-
-</script>
 @endsection
 @section('scripts')
     @parent
+    <script>
+        $(function () {
+            let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
+            @can('team_delete')
+            let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
+            let deleteButton = {
+                text: deleteButtonTrans,
+                url: "{{ route('admin.teams.massDestroy') }}",
+                className: 'btn-danger',
+                action: function (e, dt, node, config) {
+                    var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
+                        return entry.id
+                    });
+
+                    if (ids.length === 0) {
+                        alert('{{ trans('global.datatables.zero_selected') }}')
+
+                        return
+                    }
+
+                    if (confirm('{{ trans('global.areYouSure') }}')) {
+                        $.ajax({
+                            headers: {'x-csrf-token': _token},
+                            method: 'POST',
+                            url: config.url,
+                            data: { ids: ids, _method: 'DELETE' }})
+                            .done(function () { location.reload() })
+                    }
+                }
+            }
+            dtButtons.push(deleteButton)
+            @endcan
+            {{-- Start Email Button --}}
+            let EmailButtonTrans = 'Send Email';
+            let EmailButton = {
+                text: EmailButtonTrans,
+                className: 'btn-dark',
+                action: function (e, dt, node, config) {
+                    var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
+                        return entry.id
+                    });
+
+                    // var new_ids = $('tr.selected').map(function(){
+                    //     return $(this).children(':nth-child(2)').html(); // Get the text of each selected div
+                    // }).get();
+
+                    // console.log(new_ids);
+                    if (ids.length === 0) {
+                        alert('{{ trans('global.datatables.zero_selected') }}');
+                        return;
+                    }
+
+                    if (confirm('{{ trans('global.areYouSure') }}')) {
+                        $.ajax({
+                            headers: {'x-csrf-token': _token},
+                            method: 'POST',
+                            url: "{{ route('admin.teams.generateAndEmail') }}",
+                            data: { ids: ids, _method: 'POST' }
+                        })
+                            .done(function (data) {
+                                console.log(data)
+                                // location.reload();
+                            });
+                    }
+                }
+            };
+
+            // dtButtons.push(EmailButton);
+
+            {{-- End Email Button --}}
+            let dtOverrideGlobals = {
+                buttons: dtButtons,
+                processing: true,
+                serverSide: true,
+                retrieve: true,
+                aaSorting: [],
+                ajax: "{{ route('admin.teams.index') }}",
+                columns: [
+                    { data: 'placeholder', name: 'placeholder' },
+                    { data: 'actions', name: '{{ trans('global.actions') }}' },
+                    { data: 'change_status', name: 'change_status' },
+                    { data: 'id', name: 'id' },
+                    { data: 'team_name', name: 'team_name' },
+                    { data: 'challenge_title', name: 'challenge.title' },
+                    { data: 'project_video_url', name: 'project_video_url' },
+                    { data: 'project_proposal_url', name: 'project_proposal_url' },
+                    { data: 'actual_solution_title', name: 'actual_solution.title' },
+                    { data: 'total_score', name: 'total_score' },
+                    { data: 'status', name: 'status' },
+
+
+
+                    { data: 'uuid', name: 'uuid' },
+                    { data: 'team_leader_name', name: 'team_leader.name' },
+                    { data: 'team_leader.email', name: 'team_leader.email' },
+                    { data: 'mentorship_needed_title', name: 'mentorship_needed.title' },
+                    { data: 'participation_method_title', name: 'participation_method.title' },
+                    { data: 'limited_capacity', name: 'limited_capacity' },
+                    { data: 'members_participated_before', name: 'members_participated_before' },
+                    { data: 'team_rating', name: 'team_rating' },
+                    { data: 'submission_date', name: 'submission_date' },
+                    { data: 'extra_field', name: 'extra_field' },
+                ],
+                orderCellsTop: true,
+                order: [[ 1, 'desc' ]],
+                pageLength: 100,
+            };
+            let table = $('.datatable-Team').DataTable(dtOverrideGlobals);
+            $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
+                $($.fn.dataTable.tables(true)).DataTable()
+                    .columns.adjust();
+            });
+
+            let visibleColumnsIndexes = null;
+            $('.datatable thead').on('input', '.search', function () {
+                let strict = $(this).attr('strict') || false
+                let value = strict && this.value ? "^" + this.value + "$" : this.value
+
+                let index = $(this).parent().index()
+                if (visibleColumnsIndexes !== null) {
+                    index = visibleColumnsIndexes[index]
+                }
+
+                table
+                    .column(index)
+                    .search(value, strict)
+                    .draw()
+            });
+            table.on('column-visibility.dt', function(e, settings, column, state) {
+                visibleColumnsIndexes = []
+                table.columns(":visible").every(function(colIdx) {
+                    visibleColumnsIndexes.push(colIdx);
+                });
+            })
+        });
+
+    </script>
 @endsection
