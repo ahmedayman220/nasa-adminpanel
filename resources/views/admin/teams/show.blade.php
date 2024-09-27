@@ -1,5 +1,10 @@
 @extends('layouts.admin')
 @section('content')
+    @if(session()->has('success'))
+        <div class="alert alert-success" role="alert">
+            {{session()->get('success')}}
+        </div>
+    @endif
     <div class="card">
         <div class="card-header">
             {{ trans('global.show') }} {{ trans('cruds.team.title') }}
@@ -123,12 +128,49 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.team.fields.team_rating') }}
+                            {{ "Relevancy" }}
                         </th>
                         <td>
-                            {{ $team->team_rating }}
+                            {{ $team->relevancy }}
                         </td>
                     </tr>
+
+                    <tr>
+                        <th>
+                            {{ "Impact" }}
+                        </th>
+                        <td>
+                            {{ $team->impact }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            {{ "Creativity/Innovation" }}
+                        </th>
+                        <td>
+                            {{ $team->creativity }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            {{ "Proposal" }}
+                        </th>
+                        <td>
+                            {{ $team->proposal }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            {{ "Video" }}
+                        </th>
+                        <td>
+                            {{ $team->video }}
+                        </td>
+                    </tr>
+
                     <tr>
                         <th>
                             {{ trans('cruds.team.fields.total_score') }}
@@ -185,6 +227,44 @@
                     </a>
                 </div>
             </div>
+        </div>
+    </div>
+{{-- Score Changes --}}
+    <div class="card">
+        <div class="card-header">
+            Edit Team Score
+        </div>
+        <div class="card-body">
+            <form action="{{route('admin.teams.updateTeamScore',$team->id)}}" method="post">
+                @csrf
+                <div class="form-group">
+                <label>Relevancy</label>
+                <input type="number" min="0" max="5" class="form-control" name="relevancy" value="{{$team->relevancy}}">
+                </div>
+
+                <div class="form-group">
+                <label>Impact</label>
+                <input type="number" min="0" max="5" class="form-control" name="impact" value="{{$team->impact}}">
+                </div>
+
+                <div class="form-group">
+                <label>Creativity/Innovation</label>
+                <input type="number" min="0" max="5" class="form-control" name="creativity" value="{{$team->creativity}}">
+                </div>
+
+                <div class="form-group">
+                <label>Proposal</label>
+                <input type="number" min="0" max="5" class="form-control" name="proposal" value="{{$team->proposal}}">
+                </div>
+
+                <div class="form-group">
+                <label>Video</label>
+                <input type="number" min="0" max="5" class="form-control" name="video" value="{{$team->video}}">
+                </div>
+
+                <input type="Submit" value="Submit Changes" class="btn btn-primary">
+
+            </form>
         </div>
     </div>
 @endsection

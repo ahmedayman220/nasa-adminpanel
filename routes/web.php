@@ -281,6 +281,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('teams/ckmedia', 'TeamController@storeCKEditorImages')->name('teams.storeCKEditorImages');
     Route::post('teams/parse-csv-import', 'TeamController@parseCsvImport')->name('teams.parseCsvImport');
     Route::post('teams/process-csv-import', 'TeamController@processCsvImport')->name('teams.processCsvImport');
+    Route::post('teams/update-score/{id}','TeamController@updateTeamScore')->name('teams.updateTeamScore');
+    Route::post('teams/update-status','TeamController@updateTeamStatus')->name('teams.updateTeamStatus');
+    Route::get('teams/onsite','TeamController@showOnsiteTeams')->name('teams.showOnsite');
+    Route::get('teams/virtual','TeamController@showVirtualTeams')->name('teams.showVirtual');
+    Route::get('teams/rejected','TeamController@showRejectedTeams')->name('teams.showRejected');
+    Route::post('teams/generateAndEmail','TeamController@generateAndEmail')->name('teams.generateAndEmail');
     Route::resource('teams', 'TeamController');
 
     // Team Skills
@@ -301,6 +307,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('members/ckmedia', 'MembersController@storeCKEditorImages')->name('members.storeCKEditorImages');
     Route::post('members/parse-csv-import', 'MembersController@parseCsvImport')->name('members.parseCsvImport');
     Route::post('members/process-csv-import', 'MembersController@processCsvImport')->name('members.processCsvImport');
+    Route::get('members/media', 'MembersController@getMedia')->name('members.media');
     Route::resource('members', 'MembersController');
 
     // Member Checkpoints

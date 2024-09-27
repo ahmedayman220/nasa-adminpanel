@@ -21,6 +21,7 @@ class CreateTeamsTable extends Migration
             $table->string('status')->nullable();
             $table->datetime('submission_date')->nullable();
             $table->string('extra_field')->nullable();
+            $table->string('comment');
             $table->longText('nots')->nullable();
             $table->longText('description')->nullable();
             $table->timestamps();

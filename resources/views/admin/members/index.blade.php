@@ -6,6 +6,9 @@
             <a class="btn btn-success" href="{{ route('admin.members.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.member.title_singular') }}
             </a>
+            <a class="btn btn-info" href="{{ route('admin.members.media') }}">
+                {{ 'Media' }}
+            </a>
             <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
                 {{ trans('global.app_csvImport') }}
             </button>
@@ -77,7 +80,10 @@
                         {{ trans('cruds.member.fields.transportation') }}
                     </th>
                     <th>
-                        &nbsp;
+                        Team
+                    </th>
+                    <th>
+
                     </th>
                 </tr>
                 <tr>
@@ -169,6 +175,9 @@
                         </select>
                     </td>
                     <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
                     </td>
                 </tr>
             </thead>
@@ -240,6 +249,7 @@
 { data: 'member_role', name: 'member_role' },
 { data: 'extra_field', name: 'extra_field' },
 { data: 'transportation_title', name: 'transportation.title' },
+{ data: 'team', name: 'team' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,
@@ -251,7 +261,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 let visibleColumnsIndexes = null;
 $('.datatable thead').on('input', '.search', function () {
       let strict = $(this).attr('strict') || false
