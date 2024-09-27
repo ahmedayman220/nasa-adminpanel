@@ -16,6 +16,11 @@ class UserUserChallenge extends Model
         'user_challenge_id',
     ];
 
+    public function userChallenge()
+    {
+        return $this->belongsTo(UserChallenge::class);
+    }
+
 
     public $timestamps = true; // If the pivot table has timestamps
 
