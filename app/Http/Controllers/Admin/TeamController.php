@@ -33,8 +33,17 @@ class TeamController extends Controller
             $user = auth()->user(); // Or use User::find($userId);
 
             $userChallenge = $user->userUserChallenges()->first();
+            $challenges_ids = $userChallenge->userChallenge()->first()->challengeUserChallenges()->get();
+            // loop through the challenges and get the teams
+            foreach ($challenges_ids as $challenge_id){
+                $challenge = $challenge_id->challenge()->first();
+//                $teams = $challenge->teams()->get();
+//                $query1 = $teams;
+                return response()->json($challenge);
+            }
 
-            return response()->json($userChallenge->userChallenge()->first()->challengeUserChallenges()->get());
+
+            return response()->json();
 
 //            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
 //                ->select(sprintf('%s.*', (new Team)->table));
