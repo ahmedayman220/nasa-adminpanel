@@ -45,8 +45,8 @@
                 <thead>
                 <tr>
                     <th width="10"></th>
-                    <th></th>
                     <th>{{ trans('cruds.team.fields.id') }}</th>
+                    <th></th>
                     <th>{{ trans('cruds.team.fields.team_name') }}</th>
                     <th>{{ trans('cruds.team.fields.challenge') }}</th>
                     <th>{{ trans('cruds.team.fields.actual_solution') }}</th>
@@ -59,8 +59,8 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
+                    <td></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><select class="search"><option value>{{ trans('global.all') }}</option>@foreach($challenges as $key => $item)<option value="{{ $item->title }}">{{ $item->title }}</option>@endforeach</select></td>
                     <td><select class="search"><option value>{{ trans('global.all') }}</option>@foreach($actual_solutions as $key => $item)<option value="{{ $item->title }}">{{ $item->title }}</option>@endforeach</select></td>
@@ -159,8 +159,8 @@
                 ajax: "{{ route('admin.teams.index') }}",
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
-                    { data: 'actions', name: '{{ trans('global.actions') }}' },
                     { data: 'id', name: 'id' },
+                    { data: 'actions', name: '{{ trans('global.actions') }}' },
                     { data: 'team_name', name: 'team_name' },
                     { data: 'challenge_title', name: 'challenge.title' },
                     { data: 'actual_solution_title', name: 'actual_solution.title' },
