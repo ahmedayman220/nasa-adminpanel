@@ -60,9 +60,6 @@
                         {{ trans('cruds.team.fields.actual_solution') }}
                     </th>
                     <th>
-                        {{ trans('cruds.team.fields.mentorship_needed') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.team.fields.participation_method') }}
                     </th>
                     <th>
@@ -120,14 +117,6 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($actual_solutions as $key => $item)
-                                <option value="{{ $item->title }}">{{ $item->title }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($mentorship_neededs as $key => $item)
                                 <option value="{{ $item->title }}">{{ $item->title }}</option>
                             @endforeach
                         </select>
@@ -268,7 +257,6 @@
                     { data: 'team_name', name: 'team_name' },
                     { data: 'challenge_title', name: 'challenge.title' },
                     { data: 'actual_solution_title', name: 'actual_solution.title' },
-                    { data: 'mentorship_needed_title', name: 'mentorship_needed.title' },
                     { data: 'participation_method_title', name: 'participation_method.title' },
                     { data: 'limited_capacity', name: 'limited_capacity' },
                     { data: 'members_participated_before', name: 'members_participated_before' },

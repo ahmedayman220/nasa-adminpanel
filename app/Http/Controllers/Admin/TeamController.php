@@ -85,9 +85,6 @@ class TeamController extends Controller
                 return $row->actual_solution ? $row->actual_solution->title : '';
             });
 
-            $table->addColumn('mentorship_needed_title', function ($row) {
-                return $row->mentorship_needed ? $row->mentorship_needed->title : '';
-            });
 
             $table->addColumn('participation_method_title', function ($row) {
                 return $row->participation_method ? $row->participation_method->title : '';
