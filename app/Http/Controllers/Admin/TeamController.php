@@ -30,16 +30,20 @@ class TeamController extends Controller
         abort_if(Gate::denies('team_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])->select(sprintf('%s.*', (new Team)->table));
+            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
+                ->whereHas('challenge', function ($query) {
+                    $query->where('user_id', auth()->id());
+                })
+                ->select(sprintf('%s.*', (new Team)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
 
             $table->editColumn('actions', function ($row) {
-                $viewGate      = 'team_show';
-                $editGate      = 'team_edit';
-                $deleteGate    = 'team_delete';
+                $viewGate = 'team_show';
+                $editGate = 'team_edit';
+                $deleteGate = 'team_delete';
                 $crudRoutePart = 'teams';
 
                 return view('partials.datatablesActions', compact(
@@ -110,25 +114,25 @@ class TeamController extends Controller
             });
             $table->editColumn('change_status', function ($row) {
                 $teamID = $row->id;
-                return "<form method='POST' class='d-inline' action='".route('admin.teams.updateTeamStatus')."'>".
-                        csrf_field().
-                        "<input type='hidden' name='team_id' value='$teamID'>".
-                        "<select class='form-control-sm role-select' name='status' onchange='this.form.submit()'>
+                return "<form method='POST' class='d-inline' action='" . route('admin.teams.updateTeamStatus') . "'>" .
+                    csrf_field() .
+                    "<input type='hidden' name='team_id' value='$teamID'>" .
+                    "<select class='form-control-sm role-select' name='status' onchange='this.form.submit()'>
                         <option value='0' disabled selected>-- Choose Status --</option>
                         <option value='1'>Rejected</option>
                         <option value='2'>Accepted</option>
                         </select>";
             });
 
-            $table->rawColumns(['actions','change_status', 'placeholder', 'team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method', 'limited_capacity', 'members_participated_before']);
+            $table->rawColumns(['actions', 'change_status', 'placeholder', 'team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method', 'limited_capacity', 'members_participated_before']);
 
             return $table->make(true);
         }
 
-        $members               = Member::get();
-        $challenges            = Challenge::get();
-        $actual_solutions      = ActualSolution::get();
-        $mentorship_neededs    = MentorshipNeeded::get();
+        $members = Member::get();
+        $challenges = Challenge::get();
+        $actual_solutions = ActualSolution::get();
+        $mentorship_neededs = MentorshipNeeded::get();
         $participation_methods = ParticipationMethod::get();
         return view('admin.teams.index', compact('members', 'challenges', 'actual_solutions', 'mentorship_neededs', 'participation_methods'));
     }
@@ -196,17 +200,18 @@ class TeamController extends Controller
         return view('admin.teams.show', compact('team'));
     }
 
-    public function updateTeamScore(updateTeamScoreRequest $request,$id){
+    public function updateTeamScore(updateTeamScoreRequest $request, $id)
+    {
         // Define Variables
-        $relevancy = (int) $request->relevancy;
-        $impact = (int) $request->impact;
-        $creativity = (int) $request->creativity;
-        $proposal = (int) $request->proposal;
-        $video = (int) $request->video;
-        $sum =  $relevancy + $impact + $creativity + $proposal + $video;
+        $relevancy = (int)$request->relevancy;
+        $impact = (int)$request->impact;
+        $creativity = (int)$request->creativity;
+        $proposal = (int)$request->proposal;
+        $video = (int)$request->video;
+        $sum = $relevancy + $impact + $creativity + $proposal + $video;
         $total_score = $sum / 5;
         // Find and Update
-        $team =Team::findorFail($id);
+        $team = Team::findorFail($id);
         $team->relevancy = $relevancy;
         $team->impact = $impact;
         $team->creativity = $creativity;
@@ -215,40 +220,42 @@ class TeamController extends Controller
         $team->total_score = $total_score;
         $team->save();
 
-        return back()->with('success','score updated successfully');
+        return back()->with('success', 'score updated successfully');
     }
 
-    public function updateTeamStatus(Request $request){
+    public function updateTeamStatus(Request $request)
+    {
         $team = Team::find($request->team_id);
-        if(!$team){
-            return back()->with('Failed','Team not found');
+        if (!$team) {
+            return back()->with('Failed', 'Team not found');
         }
-        if($request->status == 1)
+        if ($request->status == 1)
             $status = 'rejected';
-        else if($request->status == 2)
+        else if ($request->status == 2)
             $status = 'accepted';
         else
-            return back()->with('Failed','status not found');
+            return back()->with('Failed', 'status not found');
 
         $team->update([
             'status' => $status
         ]);
-        return back()->with('success','Team status updated successfully');
+        return back()->with('success', 'Team status updated successfully');
     }
 
-    public function showOnsiteTeams(Request $request){
-            if ($request->ajax()) {
-            $condition_id = ParticipationMethod::where('title','Onsite')->pluck('id')->first();
-            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])->select(sprintf('%s.*', (new Team)->table))->where('participation_method_id',$condition_id)->where('status','accepted');
+    public function showOnsiteTeams(Request $request)
+    {
+        if ($request->ajax()) {
+            $condition_id = ParticipationMethod::where('title', 'Onsite')->pluck('id')->first();
+            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])->select(sprintf('%s.*', (new Team)->table))->where('participation_method_id', $condition_id)->where('status', 'accepted');
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
 
             $table->editColumn('actions', function ($row) {
-                $viewGate      = 'team_show';
-                $editGate      = 'team_edit';
-                $deleteGate    = 'team_delete';
+                $viewGate = 'team_show';
+                $editGate = 'team_edit';
+                $deleteGate = 'team_delete';
                 $crudRoutePart = 'teams';
 
                 return view('partials.datatablesActions', compact(
@@ -323,26 +330,28 @@ class TeamController extends Controller
             return $table->make(true);
         }
 
-        $members               = Member::get();
-        $challenges            = Challenge::get();
-        $actual_solutions      = ActualSolution::get();
-        $mentorship_neededs    = MentorshipNeeded::get();
+        $members = Member::get();
+        $challenges = Challenge::get();
+        $actual_solutions = ActualSolution::get();
+        $mentorship_neededs = MentorshipNeeded::get();
         $participation_methods = ParticipationMethod::get();
         return view('admin.teams.extra.show-onsite', compact('members', 'challenges', 'actual_solutions', 'mentorship_neededs', 'participation_methods'));
     }
-    public function showVirtualTeams(Request $request){
-            if ($request->ajax()) {
-            $condition_id = ParticipationMethod::where('title','Virtual')->pluck('id')->first();
-            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])->select(sprintf('%s.*', (new Team)->table))->where('participation_method_id',$condition_id)->where('status','accepted');
+
+    public function showVirtualTeams(Request $request)
+    {
+        if ($request->ajax()) {
+            $condition_id = ParticipationMethod::where('title', 'Virtual')->pluck('id')->first();
+            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])->select(sprintf('%s.*', (new Team)->table))->where('participation_method_id', $condition_id)->where('status', 'accepted');
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
 
             $table->editColumn('actions', function ($row) {
-                $viewGate      = 'team_show';
-                $editGate      = 'team_edit';
-                $deleteGate    = 'team_delete';
+                $viewGate = 'team_show';
+                $editGate = 'team_edit';
+                $deleteGate = 'team_delete';
                 $crudRoutePart = 'teams';
 
                 return view('partials.datatablesActions', compact(
@@ -417,25 +426,27 @@ class TeamController extends Controller
             return $table->make(true);
         }
 
-        $members               = Member::get();
-        $challenges            = Challenge::get();
-        $actual_solutions      = ActualSolution::get();
-        $mentorship_neededs    = MentorshipNeeded::get();
+        $members = Member::get();
+        $challenges = Challenge::get();
+        $actual_solutions = ActualSolution::get();
+        $mentorship_neededs = MentorshipNeeded::get();
         $participation_methods = ParticipationMethod::get();
         return view('admin.teams.extra.show-virtual', compact('members', 'challenges', 'actual_solutions', 'mentorship_neededs', 'participation_methods'));
     }
-    public function showRejectedTeams(Request $request){
-            if ($request->ajax()) {
-            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])->select(sprintf('%s.*', (new Team)->table))->where('status','rejected');
+
+    public function showRejectedTeams(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])->select(sprintf('%s.*', (new Team)->table))->where('status', 'rejected');
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
 
             $table->editColumn('actions', function ($row) {
-                $viewGate      = 'team_show';
-                $editGate      = 'team_edit';
-                $deleteGate    = 'team_delete';
+                $viewGate = 'team_show';
+                $editGate = 'team_edit';
+                $deleteGate = 'team_delete';
                 $crudRoutePart = 'teams';
 
                 return view('partials.datatablesActions', compact(
@@ -510,15 +521,16 @@ class TeamController extends Controller
             return $table->make(true);
         }
 
-        $members               = Member::get();
-        $challenges            = Challenge::get();
-        $actual_solutions      = ActualSolution::get();
-        $mentorship_neededs    = MentorshipNeeded::get();
+        $members = Member::get();
+        $challenges = Challenge::get();
+        $actual_solutions = ActualSolution::get();
+        $mentorship_neededs = MentorshipNeeded::get();
         $participation_methods = ParticipationMethod::get();
         return view('admin.teams.extra.show-rejected', compact('members', 'challenges', 'actual_solutions', 'mentorship_neededs', 'participation_methods'));
     }
 
-    public function generateAndEmail(Request $request,Member $member){
+    public function generateAndEmail(Request $request, Member $member)
+    {
 //        foreach ($request->ids as $id){
 //            $member->
 //        }
@@ -548,10 +560,10 @@ class TeamController extends Controller
     {
         abort_if(Gate::denies('team_create') && Gate::denies('team_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $model         = new Team();
-        $model->id     = $request->input('crud_id', 0);
+        $model = new Team();
+        $model->id = $request->input('crud_id', 0);
         $model->exists = true;
-        $media         = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
+        $media = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
 
         return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
     }
