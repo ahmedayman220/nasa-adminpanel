@@ -86,7 +86,7 @@ class UserChallengesController extends Controller
 
     public function store(StoreUserChallengeRequest $request)
     {
-        dd($request->all('users', []));
+        dd($request->input('users', []));
         $userChallenge = UserChallenge::create($request->all());
         $userChallenge->users()->sync($request->input('users', []));
         $userChallenge->challenges()->sync($request->input('challenges', []));
