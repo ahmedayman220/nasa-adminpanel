@@ -44,13 +44,12 @@ class TeamController extends Controller
                         $challenge = $challenge_id->challenge()->first();
                         $teams = $challenge->challengeTeams()->get();
                         foreach($teams as $team){
-                            return response()->json($team);
                             $query->orWhere('id',$team->id);
                         }
                     }
                 });
 
-
+            return response()->json($query1->get());
 
 //            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
 //                ->select(sprintf('%s.*', (new Team)->table));
