@@ -72,7 +72,7 @@ class User extends Authenticatable
 
     public function userUserChallenges()
     {
-        return $this->belongsToMany(UserChallenge::class);
+        return $this->belongsTo(UserChallenge::class);
     }
     public function getIsAdminAttribute()
     {
