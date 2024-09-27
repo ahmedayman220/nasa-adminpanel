@@ -72,7 +72,7 @@ class User extends Authenticatable
 
     public function userUserChallenges()
     {
-        return $this->belongsTo(UserChallenge::class);
+        return $this->belongsToMany(UserUserChallenge::class);
     }
     public function userChallenges()
     {
