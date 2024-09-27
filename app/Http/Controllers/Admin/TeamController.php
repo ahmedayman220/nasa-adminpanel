@@ -104,7 +104,7 @@ class TeamController extends Controller
             });
 
             $table->editColumn('limited_capacity', function ($row) {
-                return '<input type="checkbox" disabled ' . ($row->limited_capacity ? 'checked' : null) . '>';
+                return $row->limited_capacity ? 'True' : null;
             });
 
 
