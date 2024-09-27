@@ -47,8 +47,8 @@
                     <th width="10">
 
                     </th>
-                    <td>
-                    </td>
+                    <th>
+                    </th>
                     <th>
                         {{ trans('cruds.team.fields.id') }}
                     </th>
@@ -105,8 +105,6 @@
                     </th>
                     <th>
                         Change Status
-                    </th>
-                    <th>
                     </th>
                 </tr>
                 <tr>
