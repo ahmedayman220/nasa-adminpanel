@@ -33,6 +33,7 @@ class TeamController extends Controller
             $user = auth()->user(); // Or use User::find($userId);
 
             $userChallenge = $user->userUserChallenges()->first();
+            return response()->json($userChallenge);
             $challenges_ids = $userChallenge->userChallenge()->first()->challengeUserChallenges()->get();
 
 
