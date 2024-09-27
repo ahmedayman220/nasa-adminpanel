@@ -287,7 +287,7 @@
                 ajax: "{{ route('admin.teams.index') }}",
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
-                    { data: 'actions', name: '{{ trans('global.actions') }}' }
+                    { data: 'actions', name: '{{ trans('global.actions') }}',
                     { data: 'id', name: 'id' },
                     { data: 'uuid', name: 'uuid' },
                     { data: 'team_leader_name', name: 'team_leader.name' },
