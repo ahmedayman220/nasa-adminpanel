@@ -159,8 +159,8 @@
                 ajax: "{{ route('admin.teams.index') }}",
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
-                    { data: 'id', name: 'id' },
                     { data: 'actions', name: '{{ trans('global.actions') }}' },
+                    { data: 'id', name: 'id' },
                     { data: 'team_name', name: 'team_name' },
                     { data: 'challenge_title', name: 'challenge.title' },
                     { data: 'actual_solution_title', name: 'actual_solution.title' },
