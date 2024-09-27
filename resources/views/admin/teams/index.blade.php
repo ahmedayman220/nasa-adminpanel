@@ -313,8 +313,6 @@
             aaSorting: [],
             ajax: "{{ route('admin.teams.index') }}",
             columns: [
-
-
                 { data: 'placeholder', name: 'placeholder' },
                 { data: 'actions', name: '{{ trans('global.actions') }}' },
                 { data: 'change_status', name: 'change_status' },
