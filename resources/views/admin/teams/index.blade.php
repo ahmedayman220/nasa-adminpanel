@@ -47,6 +47,8 @@
                     <th width="10">
 
                     </th>
+                    <td>
+                    </td>
                     <th>
                         {{ trans('cruds.team.fields.id') }}
                     </th>
@@ -108,6 +110,8 @@
                     </th>
                 </tr>
                 <tr>
+                    <td>
+                    </td>
                     <td>
                     </td>
                     <td>
@@ -191,10 +195,8 @@
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
-                    <td>
-                    </td>
-                    <td>
-                    </td>
+
+
                 </tr>
                 </thead>
             </table>
@@ -285,6 +287,7 @@
                 ajax: "{{ route('admin.teams.index') }}",
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
+                    { data: 'actions', name: '{{ trans('global.actions') }}' }
                     { data: 'id', name: 'id' },
                     { data: 'uuid', name: 'uuid' },
                     { data: 'team_leader_name', name: 'team_leader.name' },
@@ -304,7 +307,6 @@
                     { data: 'submission_date', name: 'submission_date' },
                     { data: 'extra_field', name: 'extra_field' },
                     { data: 'change_status', name: 'change_status' },
-                    { data: 'actions', name: '{{ trans('global.actions') }}' }
                 ],
                 orderCellsTop: true,
                 order: [[ 1, 'desc' ]],
