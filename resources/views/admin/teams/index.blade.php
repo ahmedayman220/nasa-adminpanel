@@ -273,7 +273,7 @@
             }
         };
 
-        dtButtons.push(EmailButton);
+        // dtButtons.push(EmailButton);
 
         {{-- End Email Button --}}
   let dtOverrideGlobals = {
