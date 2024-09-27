@@ -34,7 +34,7 @@ class TeamController extends Controller
 
             $userChallenge = $user->userUserChallenges()->first();
 
-            return response()->json($userChallenge->userChallenge()->first());
+            return response()->json($userChallenge->userChallenge()->first()->challengeUserChallenges()->get());
 
 //            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
 //                ->select(sprintf('%s.*', (new Team)->table));
