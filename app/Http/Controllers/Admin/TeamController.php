@@ -83,9 +83,7 @@ class TeamController extends Controller
             $table->addColumn('actual_solution_title', function ($row) {
                 return $row->actual_solution ? $row->actual_solution->title : '';
             });
-            $table->editColumn('comments', function ($row) {
-                return $row->comments ? $row->comments : '';
-            });
+            
             $table->editColumn('total_score', function ($row) {
                 return $row->total_score ? $row->total_score : '';
             });

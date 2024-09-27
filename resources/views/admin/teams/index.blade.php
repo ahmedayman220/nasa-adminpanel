@@ -53,7 +53,6 @@
                     <th>{{ trans('cruds.team.fields.project_video_url') }}</th>
                     <th>{{ trans('cruds.team.fields.project_proposal_url') }}</th>
                     <th>{{ trans('cruds.team.fields.actual_solution') }}</th>
-                    <th>Comments</th>
                     <th>{{ trans('cruds.team.fields.total_score') }}</th>
                     <th>{{ trans('cruds.team.fields.status') }}</th>
                 </tr>
@@ -79,7 +78,6 @@
                             @endforeach
                         </select>
                     </td>
-                    <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><select class="search" strict="true">
                             <option value>{{ trans('global.all') }}</option>
@@ -187,7 +185,6 @@
                     { data: 'project_video_url', name: 'project_video_url' },
                     { data: 'project_proposal_url', name: 'project_proposal_url' },
                     { data: 'actual_solution_title', name: 'actual_solution.title' },
-                    { data: 'comments', name: 'comments' },
                     { data: 'total_score', name: 'total_score' },
                     { data: 'status', name: 'status' }
                 ],
