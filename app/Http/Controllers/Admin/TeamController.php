@@ -41,7 +41,11 @@ class TeamController extends Controller
                 ->where('status','accepted')
                 ->where(function($query) use ($challenges_ids){
                     foreach($challenges_ids as $challenge_id){
-                        $query->orWhere('challenge_id',$challenge_id->challenge_id);
+                        $challenge = $challenge_id->challenge()->first();
+                        $teams = $challenge->challengeTeams()->get();
+                        foreach($teams as $team){
+                            $query->orWhere('challenge_id',$team->id);
+                        }
                     }
                 });
 
