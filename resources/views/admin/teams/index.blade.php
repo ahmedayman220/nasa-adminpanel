@@ -267,13 +267,13 @@
                         })
                             .done(function (data) {
                                 console.log(data)
-                                // location.reload();
+                                location.reload();
                             });
                     }
                 }
             };
 
-            // dtButtons.push(EmailButton);
+            dtButtons.push(EmailButton);
 
             {{-- End Email Button --}}
             let dtOverrideGlobals = {
