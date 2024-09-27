@@ -15,6 +15,7 @@ use App\Models\Member;
 use App\Models\MentorshipNeeded;
 use App\Models\ParticipationMethod;
 use App\Models\Team;
+use App\Models\UserChallenge;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
