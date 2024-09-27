@@ -35,15 +35,19 @@ class TeamController extends Controller
             $userChallenge = $user->userUserChallenges()->first();
             $challenges_ids = $userChallenge->userChallenge()->first()->challengeUserChallenges()->get();
 
+
             foreach ($challenges_ids as $challenge_id) {
                 $teamsForEachChallenge = $challenge_id->challenge()->first()->challengeTeams()->get();
                 foreach ($teamsForEachChallenge as $team) {
                     $teamIds[] = $team->id;
                 }
             }
-
+//            return response()->json($teamIds);
+            // i need display all teams for the user without query
             $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
                 ->select(sprintf('%s.*', (new Team)->table))->whereIn('id', $teamIds);
+
+
 
             $table = Datatables::of($query);
 
@@ -68,27 +72,59 @@ class TeamController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
+            $table->editColumn('uuid', function ($row) {
+                return $row->uuid ? $row->uuid : '';
+            });
+            $table->addColumn('team_leader_name', function ($row) {
+                return $row->team_leader ? $row->team_leader->name : '';
+            });
+
+            $table->editColumn('team_leader.email', function ($row) {
+                return $row->team_leader ? (is_string($row->team_leader) ? $row->team_leader : $row->team_leader->email) : '';
+            });
             $table->editColumn('team_name', function ($row) {
                 return $row->team_name ? $row->team_name : '';
             });
             $table->addColumn('challenge_title', function ($row) {
                 return $row->challenge ? $row->challenge->title : '';
             });
-            $table->editColumn('project_video_url', function ($row) {
-                return $row->project_video_url ? $row->project_video_url : '';
+
+            $table->addColumn('actual_solution_title', function ($row) {
+                return $row->actual_solution ? $row->actual_solution->title : '';
+            });
+
+            $table->addColumn('mentorship_needed_title', function ($row) {
+                return $row->mentorship_needed ? $row->mentorship_needed->title : '';
+            });
+
+            $table->addColumn('participation_method_title', function ($row) {
+                return $row->participation_method ? $row->participation_method->title : '';
+            });
+
+            $table->editColumn('limited_capacity', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->limited_capacity ? 'checked' : null) . '>';
+            });
+            $table->editColumn('members_participated_before', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->members_participated_before ? 'checked' : null) . '>';
             });
             $table->editColumn('project_proposal_url', function ($row) {
                 return $row->project_proposal_url ? $row->project_proposal_url : '';
             });
-            $table->addColumn('actual_solution_title', function ($row) {
-                return $row->actual_solution ? $row->actual_solution->title : '';
+            $table->editColumn('project_video_url', function ($row) {
+                return $row->project_video_url ? $row->project_video_url : '';
             });
-            
+            $table->editColumn('team_rating', function ($row) {
+                return $row->team_rating ? $row->team_rating : '';
+            });
             $table->editColumn('total_score', function ($row) {
                 return $row->total_score ? $row->total_score : '';
             });
             $table->editColumn('status', function ($row) {
                 return $row->status ? Team::STATUS_SELECT[$row->status] : '';
+            });
+
+            $table->editColumn('extra_field', function ($row) {
+                return $row->extra_field ? $row->extra_field : '';
             });
             $table->editColumn('change_status', function ($row) {
                 $teamID = $row->id;
@@ -96,13 +132,13 @@ class TeamController extends Controller
                     csrf_field() .
                     "<input type='hidden' name='team_id' value='$teamID'>" .
                     "<select class='form-control-sm role-select' name='status' onchange='this.form.submit()'>
-                    <option value='0' disabled selected>-- Choose Status --</option>
-                    <option value='1'>Rejected</option>
-                    <option value='2'>Accepted</option>
-                    </select>";
+                        <option value='0' disabled selected>-- Choose Status --</option>
+                        <option value='1'>Rejected</option>
+                        <option value='2'>Accepted</option>
+                        </select>";
             });
 
-            $table->rawColumns(['actions', 'change_status', 'placeholder']);
+            $table->rawColumns(['actions', 'change_status', 'placeholder', 'team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method', 'limited_capacity', 'members_participated_before']);
 
             return $table->make(true);
         }
@@ -114,7 +150,6 @@ class TeamController extends Controller
         $participation_methods = ParticipationMethod::get();
         return view('admin.teams.index', compact('members', 'challenges', 'actual_solutions', 'mentorship_neededs', 'participation_methods'));
     }
-
 
     public function create()
     {
