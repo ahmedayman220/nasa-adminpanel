@@ -44,7 +44,7 @@ class TeamController extends Controller
                         $challenge = $challenge_id->challenge()->first();
                         $teams = $challenge->challengeTeams()->get();
                         foreach($teams as $team){
-                            $query->orWhere('challenge_id',$team->id);
+                            $query->orWhere('id',$team->id);
                         }
                     }
                 });
