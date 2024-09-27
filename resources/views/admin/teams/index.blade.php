@@ -49,7 +49,6 @@
                     <th>{{ trans('cruds.team.fields.team_name') }}</th>
                     <th>{{ trans('cruds.team.fields.challenge') }}</th>
                     <th>{{ trans('cruds.team.fields.actual_solution') }}</th>
-                    <th>{{ trans('cruds.team.fields.limited_capacity') }}</th>
                     <th>{{ trans('cruds.team.fields.project_proposal_url') }}</th>
                     <th>{{ trans('cruds.team.fields.project_video_url') }}</th>
                     <th>{{ trans('cruds.team.fields.total_score') }}</th>
@@ -65,7 +64,6 @@
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><select class="search"><option value>{{ trans('global.all') }}</option>@foreach($challenges as $key => $item)<option value="{{ $item->title }}">{{ $item->title }}</option>@endforeach</select></td>
                     <td><select class="search"><option value>{{ trans('global.all') }}</option>@foreach($actual_solutions as $key => $item)<option value="{{ $item->title }}">{{ $item->title }}</option>@endforeach</select></td>
-                    <td></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
@@ -167,7 +165,6 @@
                     { data: 'team_name', name: 'team_name' },
                     { data: 'challenge_title', name: 'challenge.title' },
                     { data: 'actual_solution_title', name: 'actual_solution.title' },
-                    { data: 'limited_capacity', name: 'limited_capacity' },
                     { data: 'project_proposal_url', name: 'project_proposal_url' },
                     { data: 'project_video_url', name: 'project_video_url' },
                     { data: 'total_score', name: 'total_score' },
