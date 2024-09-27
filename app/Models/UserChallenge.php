@@ -36,6 +36,10 @@ class UserChallenge extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function challengeUserChallenges()
+    {
+        return $this->hasMany(ChallengeUserChallenge::class , 'id' , 'user_challenge_id');
+    }
     public function challenges()
     {
         return $this->belongsToMany(Challenge::class);
