@@ -34,12 +34,24 @@ class TeamController extends Controller
 
             $userChallenge = $user->userUserChallenges()->first();
             $challenges_ids = $userChallenge->userChallenge()->first()->challengeUserChallenges()->get();
-            // loop through the challenges and get the teams
-            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
-                ->select(sprintf('%s.*', (new Team)->table))
 
-            return response->json($query);
-            $table = Datatables::of($query);
+            // loop through the challenges and get the teams and then generate quere
+            $query1 = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
+                ->select(sprintf('%s.*', (new Team)->table))
+                ->where('status','accepted')
+                ->where(function($query) use ($challenges_ids){
+                    foreach($challenges_ids as $challenge_id){
+                        $query->orWhere('challenge_id',$challenge_id->challenge_id);
+                    }
+                });
+
+
+            return response()->json($query1);
+
+//            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
+//                ->select(sprintf('%s.*', (new Team)->table));
+
+            $table = Datatables::of($query1);
 
             $table->addColumn('placeholder', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
