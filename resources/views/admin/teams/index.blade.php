@@ -47,6 +47,7 @@
                     <th width="10"></th>
                     <th>{{ trans('cruds.team.fields.id') }}</th>
                     <th></th>
+                    <th>Change Status</th>
                     <th>{{ trans('cruds.team.fields.team_name') }}</th>
                     <th>{{ trans('cruds.team.fields.challenge') }}</th>
                     <th>{{ trans('cruds.team.fields.actual_solution') }}</th>
@@ -55,11 +56,11 @@
                     <th>{{ trans('cruds.team.fields.total_score') }}</th>
                     <th>{{ trans('cruds.team.fields.status') }}</th>
                     <th>{{ trans('cruds.team.fields.extra_field') }}</th>
-                    <th>Change Status</th>
                 </tr>
                 <tr>
                     <td></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
+                    <td></td>
                     <td></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><select class="search"><option value>{{ trans('global.all') }}</option>@foreach($challenges as $key => $item)<option value="{{ $item->title }}">{{ $item->title }}</option>@endforeach</select></td>
@@ -68,7 +69,6 @@
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><select class="search" strict="true"><option value>{{ trans('global.all') }}</option>@foreach(App\Models\Team::STATUS_SELECT as $key => $item)<option value="{{ $key }}">{{ $item }}</option>@endforeach</select></td><td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
-                    <td></td>
                 </tr>
                 </thead>
             </table>
@@ -161,6 +161,7 @@
                     { data: 'placeholder', name: 'placeholder' },
                     { data: 'id', name: 'id' },
                     { data: 'actions', name: '{{ trans('global.actions') }}' },
+                    { data: 'change_status', name: 'change_status' },
                     { data: 'team_name', name: 'team_name' },
                     { data: 'challenge_title', name: 'challenge.title' },
                     { data: 'actual_solution_title', name: 'actual_solution.title' },
@@ -168,8 +169,7 @@
                     { data: 'project_video_url', name: 'project_video_url' },
                     { data: 'total_score', name: 'total_score' },
                     { data: 'status', name: 'status' },
-                    { data: 'extra_field', name: 'extra_field' },
-                    { data: 'change_status', name: 'change_status' }
+                    { data: 'extra_field', name: 'extra_field' }
                 ],
                 orderCellsTop: true,
                 order: [[ 1, 'desc' ]],
