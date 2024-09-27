@@ -52,6 +52,11 @@ class Challenge extends Model implements HasMedia
         return $this->hasMany(Team::class, 'challenge_id', 'id');
     }
 
+    public function challengeUserChallenges()
+    {
+        return $this->belongsToMany(UserChallenge::class);
+    }
+
     public function category()
     {
         return $this->belongsTo(ChallengeCategory::class, 'category_id');

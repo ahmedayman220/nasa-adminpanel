@@ -86,10 +86,18 @@
                 {{ trans('cruds.userAlert.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#user_user_challenges" role="tab" data-toggle="tab">
+                {{ trans('cruds.userChallenge.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="user_user_alerts">
             @includeIf('admin.users.relationships.userUserAlerts', ['userAlerts' => $user->userUserAlerts])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="user_user_challenges">
+            @includeIf('admin.users.relationships.userUserChallenges', ['userChallenges' => $user->userUserChallenges])
         </div>
     </div>
 </div>

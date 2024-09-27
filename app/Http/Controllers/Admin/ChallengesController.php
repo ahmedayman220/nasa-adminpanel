@@ -123,7 +123,7 @@ class ChallengesController extends Controller
     {
         abort_if(Gate::denies('challenge_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $challenge->load('category', 'difficulty_level', 'created_by', 'challengeTeams');
+        $challenge->load('category', 'difficulty_level', 'created_by', 'challengeTeams', 'challengeUserChallenges');
 
         return view('admin.challenges.show', compact('challenge'));
     }
