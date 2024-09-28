@@ -284,6 +284,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('teams/update-score/{id}','TeamController@updateTeamScore')->name('teams.updateTeamScore');
     Route::post('teams/update-status','TeamController@updateTeamStatus')->name('teams.updateTeamStatus');
     Route::get('teams/onsite','TeamController@showOnsiteTeams')->name('teams.showOnsite');
+    Route::get('teams/all','TeamController@AllTeams')->name('teams.all');
     Route::get('teams/virtual','TeamController@showVirtualTeams')->name('teams.showVirtual');
     Route::get('teams/rejected','TeamController@showRejectedTeams')->name('teams.showRejected');
     Route::post('teams/generateAndEmail','TeamController@generateAndEmail')->name('teams.generateAndEmail');
