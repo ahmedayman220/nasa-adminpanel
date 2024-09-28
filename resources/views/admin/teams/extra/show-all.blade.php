@@ -71,7 +71,7 @@
                         {{ trans('cruds.team.fields.submission_date') }}
                     </th>
                     <th>
-                        {{ trans('cruds.team.fields.extra_field') }}
+                        Team Photo
                     </th>
                     <th>
                         &nbsp;
@@ -238,7 +238,7 @@
                 ],
                 orderCellsTop: true,
                 order: [[ 1, 'desc' ]],
-                pageLength: 100,
+                pageLength: 500,
             };
             let table = $('.datatable-Team').DataTable(dtOverrideGlobals);
             $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
