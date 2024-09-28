@@ -213,7 +213,7 @@
                 serverSide: true,
                 retrieve: true,
                 aaSorting: [],
-                ajax: "{{ route('admin.teams.showOnsite') }}",
+                ajax: "{{ route('admin.teams.showAll') }}",
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
                     { data: 'id', name: 'id' },
