@@ -71,7 +71,7 @@
                     <td><select class="search"><option value>{{ trans('global.all') }}</option>@foreach($actual_solutions as $key => $item)<option value="{{ $item->title }}">{{ $item->title }}</option>@endforeach</select></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><select class="search" strict="true"><option value>{{ trans('global.all') }}</option>@foreach(App\Models\Team::STATUS_SELECT as $key => $item)<option value="{{ $key }}">{{ $item }}</option>@endforeach</select></td><td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
-                    <td><select class="search"><option value>{{ trans('global.all') }}</option>@foreach($participation_methods as $key => $item)<option value="{{ $item->id }}">{{ $item->title }}</option>@endforeach</select></td>
+                    <td><select class="search"><option value>{{ trans('global.all') }}</option>@foreach($participation_methods as $key => $item)<option value="{{ $item->title }}">{{ $item->title }}</option>@endforeach</select></td>
                     <td>
                     </td>
                 </tr>
