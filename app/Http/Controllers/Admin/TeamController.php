@@ -346,8 +346,8 @@ class TeamController extends Controller
     public function showVirtualTeams(Request $request)
     {
         if ($request->ajax()) {
-            $condition_id = ParticipationMethod::where('title', 'Virtual')->pluck('id')->first();
-            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])->select(sprintf('%s.*', (new Team)->table))->where('participation_method_id', $condition_id)->where('status', 'accepted_virtual');
+//            $condition_id = ParticipationMethod::where('title', 'Virtual')->pluck('id')->first();
+            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])->select(sprintf('%s.*', (new Team)->table))->where('status', 'accepted_virtual');
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
