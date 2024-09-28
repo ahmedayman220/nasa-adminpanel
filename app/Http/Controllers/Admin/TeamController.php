@@ -9,6 +9,7 @@ use App\Http\Requests\MassDestroyTeamRequest;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
 use App\Http\Requests\updateTeamScoreRequest;
+use App\Jobs\QRandEmailTeamMembersJob;
 use App\Models\ActualSolution;
 use App\Models\Challenge;
 use App\Models\Member;
@@ -640,11 +641,21 @@ class TeamController extends Controller
         return view('admin.teams.extra.show-all', compact('members', 'challenges', 'actual_solutions', 'mentorship_neededs', 'participation_methods'));
     }
 
-    public function generateAndEmail(Request $request, Member $member)
+    public function generateAndEmail(Request $request, Team $team)
     {
-//        foreach ($request->ids as $id){
-//            $member->
-//        }
+        $flag = null; // initialize flag
+        foreach ($request->ids as $id){
+            $teamObject = $team->findorFail($id);
+            // $condition_id = ParticipationMethod::where('title', 'Onsite')->pluck('id')->first();
+            if($teamObject->participation_method->title == 'Onsite'){
+                $flag = 1; // flag for onsite participated teams
+            } else{
+                $flag = 0; // flag for virtual participated teams
+            }
+            dispatch(new QRandEmailTeamMembersJob($teamObject->members,$flag,$request->host()));
+        }
+        session()->flash('success','Your request is processing please wait..');
+        return response(null);
     }
 
     public function destroy(Team $team)
