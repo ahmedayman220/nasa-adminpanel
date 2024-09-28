@@ -74,6 +74,9 @@
                         Team Photo
                     </th>
                     <th>
+                        &nbsComment
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -163,6 +166,8 @@
                     </td>
                     <td>
                     </td>
+                    <td>
+                    </td>
                 </tr>
                 </thead>
             </table>
@@ -234,6 +239,7 @@
                     { data: 'status', name: 'status' },
                     { data: 'submission_date', name: 'submission_date' },
                     { data: 'extra_field', name: 'extra_field' },
+                    { data: 'comment', name: 'comment' },
                     { data: 'actions', name: '{{ trans('global.actions') }}' }
                 ],
                 orderCellsTop: true,
