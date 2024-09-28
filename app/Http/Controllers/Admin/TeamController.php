@@ -25,7 +25,7 @@ class TeamController extends Controller
 {
     use MediaUploadingTrait, CsvImportTrait;
 
-    public function index(Request $request)
+     public function index(Request $request)
     {
         abort_if(Gate::denies('team_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -45,7 +45,7 @@ class TeamController extends Controller
 //            return response()->json($teamIds);
             // i need display all teams for the user without query
             $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
-                ->select(sprintf('%s.*', (new Team)->table))->whereIn('id', $teamIds);
+                ->select(sprintf('%s.*', (new Team)->table));//->whereIn('id', $teamIds);
 
 
 
@@ -96,7 +96,8 @@ class TeamController extends Controller
                 return $row->total_score ? $row->total_score : '';
             });
             $table->editColumn('status', function ($row) {
-                return $row->status ? Team::STATUS_SELECT[$row->status] : '';
+//                return $row->status ? Team::STATUS_SELECT[$row->status] : '';
+                return $row->status ??  '';
             });
 
             $table->addColumn('participation_method_title', function ($row) {
@@ -360,7 +361,8 @@ class TeamController extends Controller
     {
         if ($request->ajax()) {
             $condition_id = ParticipationMethod::where('title', 'Onsite')->pluck('id')->first();
-            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])->select(sprintf('%s.*', (new Team)->table))->where('participation_method_id', $condition_id)->where('status', 'accepted');
+            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
+                ->select(sprintf('%s.*', (new Team)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -432,7 +434,8 @@ class TeamController extends Controller
                 return $row->total_score ? $row->total_score : '';
             });
             $table->editColumn('status', function ($row) {
-                return $row->status ? Team::STATUS_SELECT[$row->status] : '';
+//                return $row->status ? Team::STATUS_SELECT[$row->status] : '';
+                return $row->status ?? '';
             });
 
             $table->editColumn('extra_field', function ($row) {
@@ -528,7 +531,8 @@ class TeamController extends Controller
                 return $row->total_score ? $row->total_score : '';
             });
             $table->editColumn('status', function ($row) {
-                return $row->status ? Team::STATUS_SELECT[$row->status] : '';
+//                return $row->status ? Team::STATUS_SELECT[$row->status] : '';
+                return $row->status ?? '';
             });
 
             $table->editColumn('extra_field', function ($row) {
@@ -624,7 +628,9 @@ class TeamController extends Controller
                 return $row->total_score ? $row->total_score : '';
             });
             $table->editColumn('status', function ($row) {
-                return $row->status ? Team::STATUS_SELECT[$row->status] : '';
+//                return $row->status ? Team::STATUS_SELECT[$row->status] : '';
+                return $row->status ?? '';
+
             });
 
             $table->editColumn('extra_field', function ($row) {
@@ -642,6 +648,103 @@ class TeamController extends Controller
         $mentorship_neededs = MentorshipNeeded::get();
         $participation_methods = ParticipationMethod::get();
         return view('admin.teams.extra.show-rejected', compact('members', 'challenges', 'actual_solutions', 'mentorship_neededs', 'participation_methods'));
+    }
+
+    public function showAll(Request $request){
+        if ($request->ajax()) {
+            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])->select(sprintf('%s.*', (new Team)->table));
+            $table = Datatables::of($query);
+
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'team_show';
+                $editGate = 'team_edit';
+                $deleteGate = 'team_delete';
+                $crudRoutePart = 'teams';
+
+                return view('partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('uuid', function ($row) {
+                return $row->uuid ? $row->uuid : '';
+            });
+            $table->addColumn('team_leader_name', function ($row) {
+                return $row->team_leader ? $row->team_leader->name : '';
+            });
+
+            $table->editColumn('team_leader.email', function ($row) {
+                return $row->team_leader ? (is_string($row->team_leader) ? $row->team_leader : $row->team_leader->email) : '';
+            });
+            $table->editColumn('team_name', function ($row) {
+                return $row->team_name ? $row->team_name : '';
+            });
+            $table->addColumn('challenge_title', function ($row) {
+                return $row->challenge ? $row->challenge->title : '';
+            });
+
+            $table->addColumn('actual_solution_title', function ($row) {
+                return $row->actual_solution ? $row->actual_solution->title : '';
+            });
+
+            $table->addColumn('mentorship_needed_title', function ($row) {
+                return $row->mentorship_needed ? $row->mentorship_needed->title : '';
+            });
+
+            $table->addColumn('participation_method_title', function ($row) {
+                return $row->participation_method ? $row->participation_method->title : '';
+            });
+
+
+            $table->editColumn('limited_capacity', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->limited_capacity ? 'checked' : null) . '>';
+            });
+            $table->editColumn('members_participated_before', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->members_participated_before ? 'checked' : null) . '>';
+            });
+            $table->editColumn('project_proposal_url', function ($row) {
+                return $row->project_proposal_url ? $row->project_proposal_url : '';
+            });
+            $table->editColumn('project_video_url', function ($row) {
+                return $row->project_video_url ? $row->project_video_url : '';
+            });
+            $table->editColumn('team_rating', function ($row) {
+                return $row->team_rating ? $row->team_rating : '';
+            });
+            $table->editColumn('total_score', function ($row) {
+                return $row->total_score ? $row->total_score : '';
+            });
+            $table->editColumn('status', function ($row) {
+//                return $row->status ? Team::STATUS_SELECT[$row->status] : '';
+                return $row->status ?? '';
+
+            });
+
+            $table->editColumn('extra_field', function ($row) {
+                return $row->extra_field ? $row->extra_field : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method', 'limited_capacity', 'members_participated_before']);
+
+            return $table->make(true);
+        }
+
+        $members = Member::get();
+        $challenges = Challenge::get();
+        $actual_solutions = ActualSolution::get();
+        $mentorship_neededs = MentorshipNeeded::get();
+        $participation_methods = ParticipationMethod::get();
+        return view('admin.teams.extra.show-all', compact('members', 'challenges', 'actual_solutions', 'mentorship_neededs', 'participation_methods'));
     }
 
     public function generateAndEmail(Request $request, Member $member)
