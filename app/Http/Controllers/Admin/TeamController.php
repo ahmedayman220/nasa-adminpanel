@@ -249,7 +249,7 @@ class TeamController extends Controller
     public function showOnsiteTeams(Request $request)
     {
         if ($request->ajax()) {
-            $condition_id = ParticipationMethod::where('title', 'Onsite')->pluck('id')->first();
+            $condition_id = ParticipationMethod::where('title', 'accepted_onsite')->pluck('id')->first();
             $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])->select(sprintf('%s.*', (new Team)->table))->where('participation_method_id', $condition_id)->where('status', 'accepted');
             $table = Datatables::of($query);
 
@@ -346,7 +346,7 @@ class TeamController extends Controller
     public function showVirtualTeams(Request $request)
     {
         if ($request->ajax()) {
-            $condition_id = ParticipationMethod::where('title', 'Virtual')->pluck('id')->first();
+            $condition_id = ParticipationMethod::where('title', 'accepted_virtual')->pluck('id')->first();
             $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])->select(sprintf('%s.*', (new Team)->table))->where('participation_method_id', $condition_id)->where('status', 'accepted');
             $table = Datatables::of($query);
 
