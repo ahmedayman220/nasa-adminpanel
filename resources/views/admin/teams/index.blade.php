@@ -6,6 +6,9 @@
                 <a class="btn btn-success" href="{{ route('admin.teams.create') }}">
                     {{ trans('global.add') }} {{ trans('cruds.team.title_singular') }}
                 </a>
+                <a class="btn btn-info" href="{{ route('admin.teams.showAll') }}">
+                    {{ 'Teams Data' }}
+                </a>
                 <a class="btn btn-secondary" href="{{ route('admin.teams.showOnsite') }}">
                     {{ 'Accepted Onsite Teams' }}
                 </a>
