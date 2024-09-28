@@ -74,7 +74,7 @@
                         Team Photo
                     </th>
                     <th>
-                        &nbsComment
+                        Comment
                     </th>
                     <th>
                         &nbsp;
