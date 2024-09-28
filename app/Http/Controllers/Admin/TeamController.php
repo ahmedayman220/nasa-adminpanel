@@ -595,10 +595,10 @@ class TeamController extends Controller
 
 
             $table->editColumn('limited_capacity', function ($row) {
-                return '<input type="checkbox" disabled ' . ($row->limited_capacity ? 'checked' : null) . '>';
+                return $row->limited_capacity ? 'Yes' : 'No';
             });
             $table->editColumn('members_participated_before', function ($row) {
-                return '<input type="checkbox" disabled ' . ($row->members_participated_before ? 'checked' : null) . '>';
+                return $row->members_participated_before ? 'Yes' : 'No';
             });
             $table->editColumn('project_proposal_url', function ($row) {
                 return $row->project_proposal_url ? $row->project_proposal_url : '';
