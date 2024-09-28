@@ -287,9 +287,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('teams/all','TeamController@AllTeams')->name('teams.all');
     Route::get('teams/virtual','TeamController@showVirtualTeams')->name('teams.showVirtual');
     Route::get('teams/rejected','TeamController@showRejectedTeams')->name('teams.showRejected');
-    Route::get('teams/showAllData','TeamController@showAll')->name('teams.showAll');
     Route::post('teams/generateAndEmail','TeamController@generateAndEmail')->name('teams.generateAndEmail');
     Route::resource('teams', 'TeamController');
+    Route::get('teams/showAllData','TeamController@showAll')->name('teams.showAll');
 
     // Team Skills
     Route::delete('team-skills/destroy', 'TeamSkillsController@massDestroy')->name('team-skills.massDestroy');
