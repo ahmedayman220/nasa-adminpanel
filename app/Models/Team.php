@@ -23,7 +23,7 @@ class Team extends Model implements HasMedia
     public const STATUS_SELECT = [
         'accepted_on_site' => 'Accepted On Site',
         'accepted_virtual' => 'Accepted Virtual',
-        'rejected' => 'Reejected',
+        'rejected' => 'Rejected',
     ];
 
     protected $dates = [

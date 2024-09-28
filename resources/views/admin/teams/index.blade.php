@@ -178,6 +178,9 @@
                     { data: 'participation_method_title', name: 'participation_method.title' },
                     { data: 'limited_capacity', name: 'limited_capacity' }
 
+
+
+
                 ],
                 orderCellsTop: true,
                 order: [[ 1, 'desc' ]],
