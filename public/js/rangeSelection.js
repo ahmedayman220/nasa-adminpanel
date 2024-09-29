@@ -1,7 +1,6 @@
-document.addEventListener('DOMContentLoaded', function () { // Select Elements
-    const buttonsConatiner = document.querySelector(".dt-buttons");
+const buttonsConatiner = document.querySelector(".dt-buttons");
 
-    const html = `
+const html = `
           <a class="btn select-range-button btn-primary">
             <span>Select</span>
           </a>
@@ -17,44 +16,44 @@ document.addEventListener('DOMContentLoaded', function () { // Select Elements
           />
           <input type="number" name="To" id="toField" placeholder="To" min="1" />
     `
-    buttonsConatiner.insertAdjacentHTML("beforeend", html);
+buttonsConatiner.insertAdjacentHTML("beforeend", html);
 
-    //Select Elemtns
-    const fromInput = document.querySelector("#fromField");
-    const toInput = document.querySelector("#toField");
-    const selectBtn = document.querySelector(".select-range-button");
-    const deselectBtn = document.querySelector(".deselect-range-button");
+//Select Elemtns
+const fromInput = document.querySelector("#fromField");
+const toInput = document.querySelector("#toField");
+const selectBtn = document.querySelector(".select-range-button");
+const deselectBtn = document.querySelector(".deselect-range-button");
 
-    selectBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        handleRangeSelction('select');
-    });
-    deselectBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        handleRangeSelction('deselect');
-    });
-    function rangeValidation(start, end, size) {
-        return start <= end && start > 0 && end <= size;
-    }
-    function handleRangeSelction(action) {
-        const rows = document.querySelectorAll(".row");
-        const size = rows.length;
-        const start = parseInt(fromInput.value, 10) || 0;
-        const end = parseInt(toInput.value, 10) || 0;
+selectBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    handleRangeSelction('select');
+});
+deselectBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    handleRangeSelction('deselect');
+});
+function rangeValidation(start, end, size) {
+    return start <= end && start > 0 && end <= size;
+}
+function handleRangeSelction(action) {
+    const rows = document.querySelectorAll(".row");
+    const size = rows.length;
+    const start = parseInt(fromInput.value, 10);
+    const end = parseInt(toInput.value, 10);
 
-        const isValid = rangeValidation(start, end, size);
-        if (isValid) {
-            for (let i = start - 1; i < end; i++) {
-                const el = rows[i];
-                if (action == 'select') {
-                    el.classList.add('selected');
-                } else {
-                    el.classList.remove('selected');
-                }
+    console.log(size, start, end);
+    const isValid = rangeValidation(start, end, size);
+    if (isValid) {
+        for (let i = start - 1; i < end; i++) {
+            const el = rows[i];
+            if (action == 'select') {
+                el.classList.add('selected');
+            } else {
+                el.classList.remove('selected');
             }
         }
-        else {
-            alert("Enter A Valid Range");
-        }
     }
-});
+    else {
+        alert("Enter A Valid Range");
+    }
+}
