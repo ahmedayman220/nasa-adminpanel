@@ -311,4 +311,5 @@
         });
 
     </script>
+    <script src="{{asset('rangeSelection.js')}}"></script>
 @endsection
