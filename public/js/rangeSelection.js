@@ -45,7 +45,7 @@ function handleRangeSelction(action) {
     console.log(rows);
     console.log(size, start, end);
 
-    const isValid = rangeValidation(start, end, size);
+    const isValid = start <= end && start > 0 && end <= size;
     if (isValid) {
         for (let i = start - 1; i < end; i++) {
             const el = rows[i];
