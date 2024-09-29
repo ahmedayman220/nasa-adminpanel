@@ -178,6 +178,7 @@
 @section('scripts')
     @parent
     <script>
+        console.log("The Start");
         $(function () {
             let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
             @can('team_delete')
@@ -312,6 +313,7 @@
             script.defer = true; // Use defer to ensure it runs after parsing the document
             document.body.appendChild(script);
         });
+        console.log("the end");
     </script>
 
 @endsection

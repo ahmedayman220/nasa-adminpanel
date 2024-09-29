@@ -1,3 +1,4 @@
+'use strict'
 console.log("Entered Script");
 const buttonsConatiner = document.querySelector(".dt-buttons");
 
