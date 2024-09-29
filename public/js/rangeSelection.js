@@ -32,16 +32,17 @@ deselectBtn.addEventListener('click', function (e) {
     e.preventDefault();
     handleRangeSelction('deselect');
 });
-function rangeValidation(start, end, size) {
-    return start <= end && start > 0 && end <= size;
-}
+
 function handleRangeSelction(action) {
+    console.log("Clicked");
     const rows = document.querySelectorAll(".row");
     const size = rows.length;
     const start = parseInt(fromInput.value, 10);
     const end = parseInt(toInput.value, 10);
 
+    console.log(rows);
     console.log(size, start, end);
+
     const isValid = rangeValidation(start, end, size);
     if (isValid) {
         for (let i = start - 1; i < end; i++) {
@@ -56,4 +57,7 @@ function handleRangeSelction(action) {
     else {
         alert("Enter A Valid Range");
     }
+}
+function rangeValidation(start, end, size) {
+    return start <= end && start > 0 && end <= size;
 }
