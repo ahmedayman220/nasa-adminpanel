@@ -39,8 +39,8 @@ document.addEventListener('DOMContentLoaded', function () { // Select Elements
     function handleRangeSelction(action) {
         const rows = document.querySelectorAll(".row");
         const size = rows.length;
-        const start = fromInput.value || 0;
-        const end = toInput.value || 0;
+        const start = parseInt(fromInput.value, 10) || 0;
+        const end = parseInt(toInput.value, 10) || 0;
 
         const isValid = rangeValidation(start, end, size);
         if (isValid) {
