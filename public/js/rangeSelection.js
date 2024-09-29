@@ -1,13 +1,11 @@
 'use strict'
-console.log("Entered Script");
 const buttonsConatiner = document.querySelector(".dt-buttons");
 
-console.log(buttonsConatiner);
 const html = `
-          <a class="btn select-range-button btn-primary">
+          <a class="btn select-range-button btn-primary text-white">
             <span>Select</span>
           </a>
-          <a class="btn  deselect-range-button btn-primary disabled">
+          <a class="btn deselect-range-button btn-primary text-white">
             <span>Deselect</span>
           </a>
           <input
@@ -32,7 +30,6 @@ selectBtn.addEventListener('click', function (e) {
     handleRangeSelction('select');
 });
 deselectBtn.addEventListener('click', function (e) {
-    console.log("deselect");
     e.preventDefault();
     handleRangeSelction('deselect');
 });
@@ -43,8 +40,6 @@ function handleRangeSelction(action) {
     const start = parseInt(fromInput.value, 10);
     const end = parseInt(toInput.value, 10);
 
-    console.log(rows);
-    console.log(size, start, end);
 
     const isValid = start <= end && start > 0 && end <= size;
     if (isValid) {
