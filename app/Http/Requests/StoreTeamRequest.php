@@ -45,9 +45,9 @@ class StoreTeamRequest extends FormRequest
             'members_participated_before' => [
                 'required',
             ],
-            'team_photo' => [
-                'required',
-            ],
+            // 'team_photo' => [
+            //     'required',
+            // ],
             'project_proposal_url' => [
                 'string',
                 'min:3',
