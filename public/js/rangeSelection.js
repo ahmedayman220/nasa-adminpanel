@@ -28,7 +28,6 @@ const selectBtn = document.querySelector(".select-range-button");
 const deselectBtn = document.querySelector(".deselect-range-button");
 
 selectBtn.addEventListener('click', function (e) {
-    console.log("Select");
     e.preventDefault();
     handleRangeSelction('select');
 });
@@ -39,8 +38,7 @@ deselectBtn.addEventListener('click', function (e) {
 });
 
 function handleRangeSelction(action) {
-    console.log("Clicked");
-    const rows = document.querySelectorAll('[role="row"]');
+    const rows = document.querySelectorAll('tbody [role="row"]');
     const size = rows.length;
     const start = parseInt(fromInput.value, 10);
     const end = parseInt(toInput.value, 10);
