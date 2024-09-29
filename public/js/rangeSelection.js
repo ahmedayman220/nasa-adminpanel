@@ -1,4 +1,4 @@
-
+console.log("Entered Script");
 const buttonsConatiner = document.querySelector(".dt-buttons");
 
 console.log(buttonsConatiner);
@@ -27,10 +27,12 @@ const selectBtn = document.querySelector(".select-range-button");
 const deselectBtn = document.querySelector(".deselect-range-button");
 
 selectBtn.addEventListener('click', function (e) {
+    console.log("Select");
     e.preventDefault();
     handleRangeSelction('select');
 });
 deselectBtn.addEventListener('click', function (e) {
+    console.log("deselect");
     e.preventDefault();
     handleRangeSelction('deselect');
 });
@@ -49,7 +51,7 @@ function handleRangeSelction(action) {
     if (isValid) {
         for (let i = start - 1; i < end; i++) {
             const el = rows[i];
-            if (action == 'select') {
+            if (action === 'select') {
                 el.classList.add('selected');
             } else {
                 el.classList.remove('selected');

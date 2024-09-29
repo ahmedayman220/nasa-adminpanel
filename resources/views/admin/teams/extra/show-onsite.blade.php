@@ -312,8 +312,6 @@
             script.defer = true; // Use defer to ensure it runs after parsing the document
             document.body.appendChild(script);
         });
-
-
     </script>
 
 @endsection
