@@ -124,8 +124,8 @@ class CheckpointsController extends Controller
         abort_if(Gate::denies('checkpoint_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $checkpoint->load('event', 'checkpoint_type', 'created_by', 'checkpointMemberCheckpoints');
-
-        return view('admin.checkpoints.show', compact('checkpoint'));
+        $members = Member::all();
+        return view('admin.checkpoints.show', compact('checkpoint','members'));
     }
 
     public function handlingScan($uuid,$checkpoint_id,$checkpoint_name,Member $member){
@@ -153,6 +153,37 @@ class CheckpointsController extends Controller
             'completion_time' => now(),
             'member_id' => $memberId,
             'checkpoint_id' => $checkpoint_id
+        ]);
+
+        return back()->with('success','Member Scanned Successfully');
+    }
+
+    public function manualScan(Request $request,Member $member)
+    {
+        // if un-authorized user somehow accessed this page, give return 403 HTTP-ERROR
+        abort_if(Gate::denies("scan_$request->checkpoint_name"), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $get_member = $member->where('uuid',$request->member_uuid);
+        // now make sure member exists and that's not fake uuid
+        if(!$get_member->exists()){
+            return back()->with('failed','Fake UUID');
+        }
+        $memberId = $get_member->get()->first()->id;
+        // Make sure member hasn't scanned the same criteria before
+        $condition = MemberCheckpoint::where([
+            ['completed', true],
+            ['member_id', $memberId],
+            ['checkpoint_id', $request->checkpoint_id]
+        ])->exists();
+        // If he is then redirect back with session error
+        if($condition){
+            return back()->with('failed','Member Already Scanned in Same Category');
+        }
+        // Else create the member checkpoint with session success
+        MemberCheckpoint::create([
+            'completed' => true,
+            'completion_time' => now(),
+            'member_id' => $memberId,
+            'checkpoint_id' => $request->checkpoint_id
         ]);
 
         return back()->with('success','Member Scanned Successfully');
