@@ -1,5 +1,7 @@
+
 const buttonsConatiner = document.querySelector(".dt-buttons");
 
+console.log(buttonsConatiner);
 const html = `
           <a class="btn select-range-button btn-primary">
             <span>Select</span>

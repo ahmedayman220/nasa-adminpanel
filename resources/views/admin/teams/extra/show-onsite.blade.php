@@ -308,9 +308,73 @@
                 });
             })
             const script = document.createElement('script');
-            script.src = "{{ asset('js/rangeSelection.js') }}";
-            script.defer = true; // Use defer to ensure it runs after parsing the document
-            document.body.appendChild(script);
+script.src = "{{ asset('js/rangeSelection.js') }}";
+script.defer = true; // Use defer to ensure it runs after parsing the document
+
+// Add a load event listener to execute your code after the script is loaded
+script.onload = function () {
+    // Your button-related code here
+    const buttonsConatiner = document.querySelector(".dt-buttons");
+    console.log(buttonsConatiner);
+
+    const html = `
+        <a class="btn select-range-button btn-primary">
+            <span>Select</span>
+        </a>
+        <a class="btn deselect-range-button btn-primary disabled">
+            <span>Deselect</span>
+        </a>
+        <input type="number" name="from" id="fromField" placeholder="From" min="1" />
+        <input type="number" name="To" id="toField" placeholder="To" min="1" />
+    `;
+    buttonsConatiner.insertAdjacentHTML("beforeend", html);
+
+    // Select Elements
+    const fromInput = document.querySelector("#fromField");
+    const toInput = document.querySelector("#toField");
+    const selectBtn = document.querySelector(".select-range-button");
+    const deselectBtn = document.querySelector(".deselect-range-button");
+
+    selectBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        handleRangeSelction('select');
+    });
+    deselectBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        handleRangeSelction('deselect');
+    });
+
+    function handleRangeSelction(action) {
+        console.log("Clicked");
+        const rows = document.querySelectorAll(".row");
+        const size = rows.length;
+        const start = parseInt(fromInput.value, 10);
+        const end = parseInt(toInput.value, 10);
+
+        console.log(rows);
+        console.log(size, start, end);
+
+        const isValid = rangeValidation(start, end, size);
+        if (isValid) {
+            for (let i = start - 1; i < end; i++) {
+                const el = rows[i];
+                if (action === 'select') {
+                    el.classList.add('selected');
+                } else {
+                    el.classList.remove('selected');
+                }
+            }
+        } else {
+            alert("Enter A Valid Range");
+        }
+    }
+
+    function rangeValidation(start, end, size) {
+        return start <= end && start > 0 && end <= size;
+    }
+};
+
+document.body.appendChild(script);
         });
 
 
