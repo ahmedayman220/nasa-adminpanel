@@ -45,6 +45,10 @@ class User extends Authenticatable
         'two_factor_expires_at',
     ];
 
+    public function teams()
+    {
+        return $this->hasManyThrough(Team::class, UserChallenge::class, 'user_id', 'challenge_id', 'id', 'challenge_id');
+    }
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
@@ -66,6 +70,15 @@ class User extends Authenticatable
         $this->save();
     }
 
+    public function userUserChallenges()
+    {
+        return $this->belongsTo(UserUserChallenge::class, 'id', 'user_id');
+    }
+    public function userChallenges()
+    {
+        return $this->belongsToMany(UserChallenge::class, 'user_user_challenge', 'user_id', 'user_challenge_id')
+            ->using(UserUserChallenge::class); // Use the pivot model
+    }
     public function getIsAdminAttribute()
     {
         return $this->roles()->where('id', 1)->exists();
