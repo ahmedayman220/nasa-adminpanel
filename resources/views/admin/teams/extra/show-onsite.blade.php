@@ -311,5 +311,5 @@
 
 
     </script>
-    <script src="{{asset('js/rangeSelection.js')}}"></script>
+    <script src="{{asset('js/rangeSelection.js')}}" defer></script>
 @endsection
