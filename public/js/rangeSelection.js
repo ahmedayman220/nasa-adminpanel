@@ -39,7 +39,7 @@ deselectBtn.addEventListener('click', function (e) {
 
 function handleRangeSelction(action) {
     console.log("Clicked");
-    const rows = document.querySelectorAll(".row");
+    const rows = document.querySelectorAll('[role="row"]');
     const size = rows.length;
     const start = parseInt(fromInput.value, 10);
     const end = parseInt(toInput.value, 10);
