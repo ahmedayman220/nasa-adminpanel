@@ -308,6 +308,11 @@
                     visibleColumnsIndexes.push(colIdx);
                 });
             })
+
+            const script = document.createElement('script');
+            script.src = "{{ asset('js/rangeSelection.js') }}";
+            script.defer = true; // Use defer to ensure it runs after parsing the document
+            document.body.appendChild(script);
         });
 
     </script>
