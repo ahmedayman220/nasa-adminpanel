@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,17 +57,14 @@
                                 ,</strong></p>
                         <p
                             style="font-size: 14px; color: #09131c; margin: 0 0 20px 0; font-size: 14px; text-align: justify; text-justify: inter-word;">
-                            We are pleased to announce that <strong>your application to participate in NASA Space
-                                Apps Cairo 2024 has been approved!</strong> Congratulations to you and your team
-                            <strong>{{ $team->team_name }}</strong> for securing a spot in one of the most esteemed
-                            space
-                            hackathons in the world. Your dedication and enthusiasm for space exploration and
-                            technology distinguished your application from the many we received. We are confident
-                            that your distinctive skills and insights will greatly enhance the event's success.
+                            We are pleased to see you participate in <strong>NASA Space Apps Cairo 2024!</strong>
+                            Congratulations to you and your team <strong>{{ $team->team_name }}</strong> for securing a spot in the largest Space Apps Challenge local hackathon worldwide.
+                            We are confident your distinctive skills and insights will greatly enhance the hackathon's success.
+
                         </p>
                     </td>
                 </tr>
-           <!-- Event Details Section -->
+                <!-- Event Details Section -->
                 <tr>
                     <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #f3ffff;">
                         <table style="margin-right: auto; margin-left: auto; min-width:60%;" border="0"
