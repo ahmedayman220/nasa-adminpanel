@@ -56,7 +56,7 @@ class TshirtSizeController extends Controller
                 return $row->description ? $row->description : '';
             });
             $table->editColumn('members_count', function ($row) {
-                return $row->tshirtSizeMembers->count();
+                return $row->scopeWithAcceptedOnsiteTeam()->count();
             });
 
             $table->rawColumns(['actions', 'placeholder']);

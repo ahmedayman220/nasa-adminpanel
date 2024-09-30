@@ -41,6 +41,13 @@ class TshirtSize extends Model
         return $this->hasMany(Member::class, 'tshirt_size_id', 'id');
     }
 
+    public function scopeWithAcceptedOnsiteTeam($query)
+    {
+        return $query->whereHas('teams', function ($q) {
+            $q->where('accepted_onsite', true);
+        });
+    }
+
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');
