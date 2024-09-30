@@ -178,7 +178,6 @@
 @section('scripts')
     @parent
     <script>
-        console.log("The Start");
         $(function () {
             let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
             @can('team_delete')
@@ -308,12 +307,8 @@
                     visibleColumnsIndexes.push(colIdx);
                 });
             })
-            const script = document.createElement('script');
-            script.src = "{{ asset('js/rangeSelection.js') }}";
-            script.defer = true; // Use defer to ensure it runs after parsing the document
-            document.body.appendChild(script);
+            
         });
-        console.log("the end");
-    </script>
 
+    </script>
 @endsection
