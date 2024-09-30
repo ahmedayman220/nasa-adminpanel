@@ -17,13 +17,11 @@ class OnsiteAcceptedOnsiteMail extends Mailable
      * Create a new message instance.
      */
     private $team;
-    private $members;
     private $currentMember;
     private $qrCode;
-    public function __construct($team,$members,$currentMember,$qrCode)
+    public function __construct($team,$currentMember,$qrCode)
     {
         $this->team = $team;
-        $this->members = $members;
         $this->currentMember = $currentMember;
         $this->qrCode = $qrCode;
     }
@@ -47,7 +45,6 @@ class OnsiteAcceptedOnsiteMail extends Mailable
             markdown: 'emails.onsiteAcceptedOnsite',
             with: [
                 'team' => $this->team,
-                'members' => $this->members,
                 'currentMember' => $this->currentMember,
                 'qrCode' => $this->qrCode,
             ],
