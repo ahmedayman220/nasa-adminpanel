@@ -185,11 +185,7 @@
                     { data: 'extra_field', name: 'extra_field' },
                     { data: 'participation_method_title', name: 'participation_method.title' },
                     { data: 'limited_capacity', name: 'limited_capacity' }
-                    { data: 'comment', name: 'comment' },
-
-
-
-
+                    { data: 'comment', name: 'comment' }
                 ],
                 orderCellsTop: true,
                 order: [[ 1, 'desc' ]],
