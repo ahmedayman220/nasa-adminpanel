@@ -121,8 +121,6 @@ class CheckpointsController extends Controller
 
     public function show(Checkpoint $checkpoint)
     {
-        // i need check if the user has multi permission to view this checkpoint "scan_$checkpoint->name"
-
         abort_if(Gate::denies('checkpoint_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         abort_if(Gate::denies("scan_$checkpoint->name"), Response::HTTP_FORBIDDEN, '403 Forbidden');
 

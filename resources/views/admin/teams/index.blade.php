@@ -161,8 +161,6 @@
 
 {{--            --}}{{-- End Email Button --}}
             @endcan
-
-            {{-- End Email Button --}}
             let dtOverrideGlobals = {
                 buttons: dtButtons,
                 processing: true,

@@ -37,7 +37,7 @@ class OnsiteAcceptedOnsite implements ShouldQueue
             QrCode::format('png')->size(200)->generate($member->uuid, $qr_path);
             $qrGeneratedUrl = $this->base_url.'/'.$relative_path;
             try{
-                Mail::to($member->email)->send(new OnsiteAcceptedOnsiteMail($this->team,$this->members,$member,$qrGeneratedUrl));
+                Mail::to($member->email)->send(new OnsiteAcceptedOnsiteMail($this->team,$member,$qrGeneratedUrl));
             } catch(\Exception $e){
                 throw $e;
             }
