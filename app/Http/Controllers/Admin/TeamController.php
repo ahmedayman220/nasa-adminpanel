@@ -9,6 +9,8 @@ use App\Http\Requests\MassDestroyTeamRequest;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
 use App\Http\Requests\updateTeamScoreRequest;
+use App\Jobs\AcceptedVirtual;
+use App\Jobs\OnsiteAcceptedOnsite;
 use App\Jobs\QRandEmailTeamMembersJob;
 use App\Models\ActualSolution;
 use App\Models\Challenge;
@@ -643,16 +645,15 @@ class TeamController extends Controller
 
     public function generateAndEmail(Request $request, Team $team)
     {
-        $flag = null; // initialize flag
         foreach ($request->ids as $id){
             $teamObject = $team->findorFail($id);
-            // $condition_id = ParticipationMethod::where('title', 'Onsite')->pluck('id')->first();
-            if($teamObject->participation_method->title == 'Onsite'){
-                $flag = 1; // flag for onsite participated teams
+            if($teamObject->participation_method->title == 'Onsite' && $teamObject->status == 'accepted_onsite'){
+                //for onsite participated teams
+                dispatch(new OnsiteAcceptedOnsite($teamObject->members,$request->host(),$teamObject));
             } else{
-                $flag = 0; // flag for virtual participated teams
+                // for virtual participated teams
+                dispatch(new AcceptedVirtual($teamObject->members,$request->host(),$teamObject));
             }
-            dispatch(new QRandEmailTeamMembersJob($teamObject->members,$flag,$request->host()));
         }
         session()->flash('success','Your request is processing please wait..');
         return response(null);
