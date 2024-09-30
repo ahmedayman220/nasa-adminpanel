@@ -324,6 +324,9 @@ class TeamController extends Controller
             $table->editColumn('total_score', function ($row) {
                 return $row->total_score ? $row->total_score : '';
             });
+            $table->editColumn('comment', function ($row) {
+                return $row->comment ? $row->comment : '';
+            });
             $table->editColumn('status', function ($row) {
 //                return $row->status ? Team::STATUS_SELECT[$row->status] : '';
                 return $row->status ?? '';

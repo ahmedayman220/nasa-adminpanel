@@ -51,30 +51,33 @@
                     <th>{{ trans('cruds.team.fields.id') }}</th>
                     <th></th>
                     <th>Change Status</th>
+                    <th>{{ trans('cruds.team.fields.status') }}</th>
                     <th>{{ trans('cruds.team.fields.team_name') }}</th>
                     <th>{{ trans('cruds.team.fields.challenge') }}</th>
                     <th>{{ trans('cruds.team.fields.project_proposal_url') }}</th>
                     <th>{{ trans('cruds.team.fields.project_video_url') }}</th>
                     <th>{{ trans('cruds.team.fields.actual_solution') }}</th>
                     <th>{{ trans('cruds.team.fields.total_score') }}</th>
-                    <th>{{ trans('cruds.team.fields.status') }}</th>
                     <th>Team Photo</th>
                     <th>{{ trans('cruds.team.fields.participation_method') }}</th>
                     <th>{{ trans('cruds.team.fields.limited_capacity') }}</th>
+                    <th>Comment</th>
                 </tr>
                 <tr>
                     <td></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td></td>
                     <td></td>
+                    <td><select class="search" strict="true"><option value>{{ trans('global.all') }}</option>@foreach(App\Models\Team::STATUS_SELECT as $key => $item)<option value="{{ $key }}">{{ $item }}</option>@endforeach</select></td><td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><select class="search"><option value>{{ trans('global.all') }}</option>@foreach($challenges as $key => $item)<option value="{{ $item->title }}">{{ $item->title }}</option>@endforeach</select></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><select class="search"><option value>{{ trans('global.all') }}</option>@foreach($actual_solutions as $key => $item)<option value="{{ $item->title }}">{{ $item->title }}</option>@endforeach</select></td>
                     <td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
-                    <td><select class="search" strict="true"><option value>{{ trans('global.all') }}</option>@foreach(App\Models\Team::STATUS_SELECT as $key => $item)<option value="{{ $key }}">{{ $item }}</option>@endforeach</select></td><td><input class="search" type="text" placeholder="{{ trans('global.search') }}"></td>
                     <td><select class="search"><option value>{{ trans('global.all') }}</option>@foreach($participation_methods as $key => $item)<option value="{{ $item->title }}">{{ $item->title }}</option>@endforeach</select></td>
+                    <td>
+                    </td>
                     <td>
                     </td>
                 </tr>
@@ -180,6 +183,7 @@
                     { data: 'extra_field', name: 'extra_field' },
                     { data: 'participation_method_title', name: 'participation_method.title' },
                     { data: 'limited_capacity', name: 'limited_capacity' }
+                    { data: 'comment', name: 'comment' },
 
 
 
