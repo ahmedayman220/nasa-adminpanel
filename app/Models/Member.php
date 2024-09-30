@@ -120,6 +120,13 @@ class Member extends Model implements HasMedia
         return $this->belongsTo(Transportation::class, 'transportation_id');
     }
 
+    public function scopeWithAcceptedOnsiteTeam($query)
+    {
+        return $query->whereHas('team', function ($q) {
+            $q->where('accepted_onsite', true);
+        });
+    }
+
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');
