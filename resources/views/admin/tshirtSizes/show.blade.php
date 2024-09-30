@@ -68,10 +68,18 @@
                 {{ trans('cruds.member.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#tshirt_size_accepted_members" role="tab" data-toggle="tab">
+                Accepted Onsite Members
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="tshirt_size_members">
             @includeIf('admin.tshirtSizes.relationships.tshirtSizeMembers', ['members' => $tshirtSize->tshirtSizeMembers])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="tshirt_size_accepted_members">
+            @includeIf('admin.tshirtSizes.relationships.tshirtSizeAcceptedOnsiteMembers', ['members' => $tshirtSize->tshirtSizeMembers])
         </div>
     </div>
 </div>

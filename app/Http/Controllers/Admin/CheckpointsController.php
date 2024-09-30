@@ -136,6 +136,10 @@ class CheckpointsController extends Controller
         if(!$get_member->exists()){
             return back()->with('failed','Fake UUID');
         }
+        // make sure the member team status is accepted_onsite
+        if(!$get_member->get()->first()->teams->status=='accepted_onsite'){
+            return back()->with('failed','member team status is not accepted onsite');
+        }
         $memberId = $get_member->get()->first()->id;
         // Make sure member hasn't scanned the same criteria before
         $condition = MemberCheckpoint::where([
@@ -166,6 +170,10 @@ class CheckpointsController extends Controller
         // now make sure member exists and that's not fake uuid
         if(!$get_member->exists()){
             return back()->with('failed','Fake UUID');
+        }
+        // make sure the member team status is accepted_onsite
+        if(!$get_member->get()->first()->teams->first()->status=='accepted_onsite'){
+            return back()->with('failed','member team status is not accepted onsite');
         }
         $memberId = $get_member->get()->first()->id;
         // Make sure member hasn't scanned the same criteria before

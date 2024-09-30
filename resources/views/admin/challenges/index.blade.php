@@ -38,8 +38,18 @@
                         {{ trans('cruds.challenge.fields.extra_field') }}
                     </th>
                     <th>
+                        Onsite Teams
+                    </th>
+                    <th>
+                        Virtual Teams
+                    </th>
+                    <th>
+                        Total Teams
+                    </th>
+                    <th>
                         {{ trans('cruds.challenge.fields.difficulty_level') }}
                     </th>
+
                     <th>
                         &nbsp;
                     </th>
@@ -63,6 +73,12 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
                     </td>
                     <td>
                         <select class="search">
@@ -131,6 +147,9 @@
 { data: 'title', name: 'title' },
 { data: 'category_name', name: 'category.name' },
 { data: 'extra_field', name: 'extra_field' },
+{ data: 'onsite', name: 'onsite' },
+{ data: 'virtual', name: 'virtual' },
+{ data: 'total', name: 'total' },
 { data: 'difficulty_level_name', name: 'difficulty_level.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
@@ -143,7 +162,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 let visibleColumnsIndexes = null;
 $('.datatable thead').on('input', '.search', function () {
       let strict = $(this).attr('strict') || false

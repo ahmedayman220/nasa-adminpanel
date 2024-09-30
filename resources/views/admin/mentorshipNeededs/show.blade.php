@@ -68,10 +68,26 @@
                 {{ trans('cruds.team.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#mentorship_needed_teams_onsite" role="tab" data-toggle="tab">
+                Onsite Teams
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#mentorship_needed_teams_virtual" role="tab" data-toggle="tab">
+                Virtual Teams
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="mentorship_needed_teams">
             @includeIf('admin.mentorshipNeededs.relationships.mentorshipNeededTeams', ['teams' => $mentorshipNeeded->mentorshipNeededTeams])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="mentorship_needed_teams_onsite">
+            @includeIf('admin.mentorshipNeededs.relationships.mentorshipNeededTeamsOnsite', ['teams' => $mentorshipNeeded->mentorshipNeededTeams])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="mentorship_needed_teams_virtual">
+            @includeIf('admin.mentorshipNeededs.relationships.mentorshipNeededTeamsVirtual', ['teams' => $mentorshipNeeded->mentorshipNeededTeams])
         </div>
     </div>
 </div>

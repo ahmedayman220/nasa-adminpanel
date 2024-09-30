@@ -15,7 +15,7 @@
     @endcan
     <div class="card">
         <div class="card-header">
-            Onsite Members {{ trans('global.list') }}
+             Virtual Members {{ trans('global.list') }}
         </div>
 
         <div class="card-body">
@@ -226,7 +226,7 @@
                 serverSide: true,
                 retrieve: true,
                 aaSorting: [],
-                ajax: "{{ route('admin.members.showOnsiteMembers') }}",
+                ajax: "{{ route('admin.members.showVirtualMembers') }}",
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
                     { data: 'id', name: 'id' },

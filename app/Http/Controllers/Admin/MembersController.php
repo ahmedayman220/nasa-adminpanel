@@ -268,6 +268,418 @@ class MembersController extends Controller
 
         return view('admin.members.extra.showOnsiteMembers', compact('majors', 'study_levelsses', 'tshirt_sizes', 'qr_codes', 'transportations', 'users'));
     }
+    public function showNonOnsiteMembers(Request $request){
+        abort_if(Gate::denies('member_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        if ($request->ajax()) {
+            $status = 'accepted_onsite';
+            $query = Member::with(['major', 'study_level', 'tshirt_size', 'qr_code', 'transportation', 'created_by'])->select(sprintf('%s.*', (new Member)->table))->whereHas('teams', function ($query) use ($status) {
+                $query->where('status','!=', $status)->orwhere('status',null);
+            });
+            $table = Datatables::of($query);
+
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate      = 'member_show';
+                $editGate      = 'member_edit';
+                $deleteGate    = 'member_delete';
+                $crudRoutePart = 'members';
+
+                return view('partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('uuid', function ($row) {
+                return $row->uuid ? $row->uuid : '';
+            });
+            $table->editColumn('national', function ($row) {
+                return $row->national ? $row->national : '';
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+            $table->editColumn('email', function ($row) {
+                return $row->email ? $row->email : '';
+            });
+            $table->editColumn('phone_number', function ($row) {
+                return $row->phone_number ? $row->phone_number : '';
+            });
+            $table->editColumn('age', function ($row) {
+                return $row->age ? $row->age : '';
+            });
+
+            $table->editColumn('is_new', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->is_new ? 'checked' : null) . '>';
+            });
+            $table->addColumn('major_title', function ($row) {
+                return $row->major ? $row->major->title : '';
+            });
+
+            $table->editColumn('organization', function ($row) {
+                return $row->organization ? $row->organization : '';
+            });
+            $table->editColumn('participant_type', function ($row) {
+                return $row->participant_type ? Member::PARTICIPANT_TYPE_SELECT[$row->participant_type] : '';
+            });
+            $table->addColumn('study_level_title', function ($row) {
+                return $row->study_level ? $row->study_level->title : '';
+            });
+
+            $table->addColumn('tshirt_size_title', function ($row) {
+                return $row->tshirt_size ? $row->tshirt_size->title : '';
+            });
+
+            $table->addColumn('qr_code_qr_code_value', function ($row) {
+                return $row->qr_code ? $row->qr_code->qr_code_value : '';
+            });
+
+            $table->editColumn('member_role', function ($row) {
+                return "test";
+            });
+            $table->editColumn('extra_field', function ($row) {
+                return $row->extra_field ? $row->extra_field : '';
+            });
+            $table->addColumn('transportation_title', function ($row) {
+                return $row->transportation ? $row->transportation->title : '';
+            });
+
+            $table->editColumn('team', function ($row) {
+                return $row->teams->first()->team_name ?? '';
+            });
+
+
+            $table->rawColumns(['actions', 'placeholder', 'is_new', 'major', 'study_level', 'tshirt_size', 'qr_code', 'transportation']);
+
+            return $table->make(true);
+        }
+
+        $majors          = Major::get();
+        $study_levelsses = StudyLevelss::get();
+        $tshirt_sizes    = TshirtSize::get();
+        $qr_codes        = QrCode::get();
+        $transportations = Transportation::get();
+        $users           = User::get();
+
+        return view('admin.members.extra.showNonOnsiteMembers', compact('majors', 'study_levelsses', 'tshirt_sizes', 'qr_codes', 'transportations', 'users'));
+    }
+    public function showVirtualMembers(Request $request){
+        abort_if(Gate::denies('member_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        if ($request->ajax()) {
+            $status = 'accepted_virtual';
+            $query = Member::with(['major', 'study_level', 'tshirt_size', 'qr_code', 'transportation', 'created_by'])->select(sprintf('%s.*', (new Member)->table))->whereHas('teams', function ($query) use ($status) {
+                $query->where('status', $status);
+            });
+            $table = Datatables::of($query);
+
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate      = 'member_show';
+                $editGate      = 'member_edit';
+                $deleteGate    = 'member_delete';
+                $crudRoutePart = 'members';
+
+                return view('partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('uuid', function ($row) {
+                return $row->uuid ? $row->uuid : '';
+            });
+            $table->editColumn('national', function ($row) {
+                return $row->national ? $row->national : '';
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+            $table->editColumn('email', function ($row) {
+                return $row->email ? $row->email : '';
+            });
+            $table->editColumn('phone_number', function ($row) {
+                return $row->phone_number ? $row->phone_number : '';
+            });
+            $table->editColumn('age', function ($row) {
+                return $row->age ? $row->age : '';
+            });
+
+            $table->editColumn('is_new', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->is_new ? 'checked' : null) . '>';
+            });
+            $table->addColumn('major_title', function ($row) {
+                return $row->major ? $row->major->title : '';
+            });
+
+            $table->editColumn('organization', function ($row) {
+                return $row->organization ? $row->organization : '';
+            });
+            $table->editColumn('participant_type', function ($row) {
+                return $row->participant_type ? Member::PARTICIPANT_TYPE_SELECT[$row->participant_type] : '';
+            });
+            $table->addColumn('study_level_title', function ($row) {
+                return $row->study_level ? $row->study_level->title : '';
+            });
+
+            $table->addColumn('tshirt_size_title', function ($row) {
+                return $row->tshirt_size ? $row->tshirt_size->title : '';
+            });
+
+            $table->addColumn('qr_code_qr_code_value', function ($row) {
+                return $row->qr_code ? $row->qr_code->qr_code_value : '';
+            });
+
+            $table->editColumn('member_role', function ($row) {
+                return "test";
+            });
+            $table->editColumn('extra_field', function ($row) {
+                return $row->extra_field ? $row->extra_field : '';
+            });
+            $table->addColumn('transportation_title', function ($row) {
+                return $row->transportation ? $row->transportation->title : '';
+            });
+
+            $table->editColumn('team', function ($row) {
+                return $row->teams->first()->team_name ?? '';
+            });
+
+
+            $table->rawColumns(['actions', 'placeholder', 'is_new', 'major', 'study_level', 'tshirt_size', 'qr_code', 'transportation']);
+
+            return $table->make(true);
+        }
+
+        $majors          = Major::get();
+        $study_levelsses = StudyLevelss::get();
+        $tshirt_sizes    = TshirtSize::get();
+        $qr_codes        = QrCode::get();
+        $transportations = Transportation::get();
+        $users           = User::get();
+
+        return view('admin.members.extra.showVirtualMembers', compact('majors', 'study_levelsses', 'tshirt_sizes', 'qr_codes', 'transportations', 'users'));
+    }
+    public function showRejectedMembers(Request $request){
+        abort_if(Gate::denies('member_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        if ($request->ajax()) {
+            $status = 'rejected';
+            $query = Member::with(['major', 'study_level', 'tshirt_size', 'qr_code', 'transportation', 'created_by'])->select(sprintf('%s.*', (new Member)->table))->whereHas('teams', function ($query) use ($status) {
+                $query->where('status', $status);
+            });
+            $table = Datatables::of($query);
+
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate      = 'member_show';
+                $editGate      = 'member_edit';
+                $deleteGate    = 'member_delete';
+                $crudRoutePart = 'members';
+
+                return view('partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('uuid', function ($row) {
+                return $row->uuid ? $row->uuid : '';
+            });
+            $table->editColumn('national', function ($row) {
+                return $row->national ? $row->national : '';
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+            $table->editColumn('email', function ($row) {
+                return $row->email ? $row->email : '';
+            });
+            $table->editColumn('phone_number', function ($row) {
+                return $row->phone_number ? $row->phone_number : '';
+            });
+            $table->editColumn('age', function ($row) {
+                return $row->age ? $row->age : '';
+            });
+
+            $table->editColumn('is_new', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->is_new ? 'checked' : null) . '>';
+            });
+            $table->addColumn('major_title', function ($row) {
+                return $row->major ? $row->major->title : '';
+            });
+
+            $table->editColumn('organization', function ($row) {
+                return $row->organization ? $row->organization : '';
+            });
+            $table->editColumn('participant_type', function ($row) {
+                return $row->participant_type ? Member::PARTICIPANT_TYPE_SELECT[$row->participant_type] : '';
+            });
+            $table->addColumn('study_level_title', function ($row) {
+                return $row->study_level ? $row->study_level->title : '';
+            });
+
+            $table->addColumn('tshirt_size_title', function ($row) {
+                return $row->tshirt_size ? $row->tshirt_size->title : '';
+            });
+
+            $table->addColumn('qr_code_qr_code_value', function ($row) {
+                return $row->qr_code ? $row->qr_code->qr_code_value : '';
+            });
+
+            $table->editColumn('member_role', function ($row) {
+                return "test";
+            });
+            $table->editColumn('extra_field', function ($row) {
+                return $row->extra_field ? $row->extra_field : '';
+            });
+            $table->addColumn('transportation_title', function ($row) {
+                return $row->transportation ? $row->transportation->title : '';
+            });
+
+            $table->editColumn('team', function ($row) {
+                return $row->teams->first()->team_name ?? '';
+            });
+
+
+            $table->rawColumns(['actions', 'placeholder', 'is_new', 'major', 'study_level', 'tshirt_size', 'qr_code', 'transportation']);
+
+            return $table->make(true);
+        }
+
+        $majors          = Major::get();
+        $study_levelsses = StudyLevelss::get();
+        $tshirt_sizes    = TshirtSize::get();
+        $qr_codes        = QrCode::get();
+        $transportations = Transportation::get();
+        $users           = User::get();
+
+        return view('admin.members.extra.showRejectedMembers', compact('majors', 'study_levelsses', 'tshirt_sizes', 'qr_codes', 'transportations', 'users'));
+    }
+    public function showNullMembers(Request $request){
+        abort_if(Gate::denies('member_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        if ($request->ajax()) {
+            $status = null;
+            $query = Member::with(['major', 'study_level', 'tshirt_size', 'qr_code', 'transportation', 'created_by'])->select(sprintf('%s.*', (new Member)->table))->whereHas('teams', function ($query) use ($status) {
+                $query->where('status', $status);
+            });
+            $table = Datatables::of($query);
+
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate      = 'member_show';
+                $editGate      = 'member_edit';
+                $deleteGate    = 'member_delete';
+                $crudRoutePart = 'members';
+
+                return view('partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('uuid', function ($row) {
+                return $row->uuid ? $row->uuid : '';
+            });
+            $table->editColumn('national', function ($row) {
+                return $row->national ? $row->national : '';
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+            $table->editColumn('email', function ($row) {
+                return $row->email ? $row->email : '';
+            });
+            $table->editColumn('phone_number', function ($row) {
+                return $row->phone_number ? $row->phone_number : '';
+            });
+            $table->editColumn('age', function ($row) {
+                return $row->age ? $row->age : '';
+            });
+
+            $table->editColumn('is_new', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->is_new ? 'checked' : null) . '>';
+            });
+            $table->addColumn('major_title', function ($row) {
+                return $row->major ? $row->major->title : '';
+            });
+
+            $table->editColumn('organization', function ($row) {
+                return $row->organization ? $row->organization : '';
+            });
+            $table->editColumn('participant_type', function ($row) {
+                return $row->participant_type ? Member::PARTICIPANT_TYPE_SELECT[$row->participant_type] : '';
+            });
+            $table->addColumn('study_level_title', function ($row) {
+                return $row->study_level ? $row->study_level->title : '';
+            });
+
+            $table->addColumn('tshirt_size_title', function ($row) {
+                return $row->tshirt_size ? $row->tshirt_size->title : '';
+            });
+
+            $table->addColumn('qr_code_qr_code_value', function ($row) {
+                return $row->qr_code ? $row->qr_code->qr_code_value : '';
+            });
+
+            $table->editColumn('member_role', function ($row) {
+                return "test";
+            });
+            $table->editColumn('extra_field', function ($row) {
+                return $row->extra_field ? $row->extra_field : '';
+            });
+            $table->addColumn('transportation_title', function ($row) {
+                return $row->transportation ? $row->transportation->title : '';
+            });
+
+            $table->editColumn('team', function ($row) {
+                return $row->teams->first()->team_name ?? '';
+            });
+
+
+            $table->rawColumns(['actions', 'placeholder', 'is_new', 'major', 'study_level', 'tshirt_size', 'qr_code', 'transportation']);
+
+            return $table->make(true);
+        }
+
+        $majors          = Major::get();
+        $study_levelsses = StudyLevelss::get();
+        $tshirt_sizes    = TshirtSize::get();
+        $qr_codes        = QrCode::get();
+        $transportations = Transportation::get();
+        $users           = User::get();
+
+        return view('admin.members.extra.showNullMembers', compact('majors', 'study_levelsses', 'tshirt_sizes', 'qr_codes', 'transportations', 'users'));
+    }
 
     public function create()
     {

@@ -68,10 +68,18 @@
                 {{ trans('cruds.member.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#transportation_accepted_members" role="tab" data-toggle="tab">
+                Accepted Onsite Members
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="transportation_members">
             @includeIf('admin.transportations.relationships.transportationMembers', ['members' => $transportation->transportationMembers])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="transportation_accepted_members">
+            @includeIf('admin.transportations.relationships.transportationAcceptedOnsiteMembers', ['members' => $transportation->transportationMembers])
         </div>
     </div>
 </div>
