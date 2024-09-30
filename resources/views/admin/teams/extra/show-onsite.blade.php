@@ -77,6 +77,9 @@
                         {{ trans('cruds.team.fields.extra_field') }}
                     </th>
                     <th>
+                        Comment
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -163,6 +166,8 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
                     </td>
                     <td>
                     </td>
@@ -274,6 +279,7 @@
                     { data: 'status', name: 'status' },
                     { data: 'submission_date', name: 'submission_date' },
                     { data: 'extra_field', name: 'extra_field' },
+                    { data: 'comment', name: 'comment' },
                     { data: 'actions', name: '{{ trans('global.actions') }}' }
                 ],
                 orderCellsTop: true,
