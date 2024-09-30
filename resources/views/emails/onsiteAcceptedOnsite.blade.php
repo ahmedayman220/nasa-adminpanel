@@ -58,8 +58,10 @@
                         <p
                             style="font-size: 14px; color: #09131c; margin: 0 0 20px 0; font-size: 14px; text-align: justify; text-justify: inter-word;">
                             We are pleased to see you participate in <strong>NASA Space Apps Cairo 2024!</strong>
-                            Congratulations to you and your team <strong>{{ $team->team_name }}</strong> for securing a spot in the largest Space Apps Challenge local hackathon worldwide.
-                            We are confident your distinctive skills and insights will greatly enhance the hackathon's success.
+                            Congratulations to you and your team <strong>{{ $team->team_name }}</strong> for securing a
+                            spot in the largest Space Apps Challenge local hackathon worldwide.
+                            We are confident your distinctive skills and insights will greatly enhance the hackathon's
+                            success.
 
                         </p>
                     </td>
@@ -114,16 +116,17 @@
                                     <h2
                                         style="font-size: 22px; margin: 0 0 10px 0; color: #f3ffff; text-align: center">
                                         Important Notes</h2>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Hackathon
-                                            Guide:</strong> <em><a
-                                                href="https://docs.google.com/document/d/1N9076zTK5R5qCRaha9G2V76ouVqPhcP8A8qIKgspQ5s/edit">Document
-                                                Link</a></em></p>
+
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Before going
                                             to the hackathon, make sure to:</strong>
                                     <ul>
-                                        <li>Fully charge your laptops and power banks.</li>
-                                        <li>Install or update any necessary software.</li>
-                                        <li>Download and backup any files, datasets, or resources you'll need.</li>
+                                        <li>Fully charge your laptops and power banks, as power sockets are limited per
+                                            team!
+                                        </li>
+                                        <li>Install or update any necessary software/tools.</li>
+                                        <li>Download and backup any files, datasets, models, or resources you'll need.
+                                        </li>
+                                        <li>Bring your own MiFi, to avoid any internet access/speed issues!</li>
                                     </ul>
                                 </td>
                             </tr>
@@ -140,7 +143,8 @@
                             style="text-align: justify; text-justify: inter-word; font-size: 14px; color: #09131c; margin: 0 0 5px 0; font-size: 14px;">
                             You will need your ticket details to register for the event.
                             Please note that this is a private ticket and cannot be transferred to anyone else.
-                            Make sure to have your <strong> QR Code</strong> and <strong>Ticket ID</strong> ready for quick and easy entry when approaching the registration desk.
+                            Make sure to have your <strong> QR Code</strong> and <strong>Ticket ID</strong> ready for
+                            quick and easy entry when approaching the registration desk.
                         </p>
                         <p
                             style="text-align: justify; text-justify: inter-word; font-size: 14px; color: #09131c; margin: 0 0 14px 0; font-size: 14px;">
