@@ -41,7 +41,7 @@
                 <tr>
                     <td style="padding: 20px; font-family: 'CabinetGrotesk', sans-serif; color: #09131c; line-height: 1.5;">
                         <h1 style="text-align:center; font-size: 24px; margin: 0 0 10px 0; color: #09131c;">Welcome to NASA Space Apps Cairo 2024!</h1>
-                        <p style="font-size: 14px; color: #09131c;margin: 0 0 20px 0;"><strong>Dear {{$currentMember->name}},</strong></p>
+                        <p style="font-size: 14px; color: #09131c;margin: 0 0 20px 0;"><strong>Dear {{ $name  }},</strong></p>
                         <p style="font-size: 14px; color: #09131c; margin: 0 0 20px 0; font-size: 14px; text-align: justify; text-justify: inter-word;">
                             Thank you for registering to attend <strong>NASA Space Apps Cairo 2024</strong>. We were truly inspired by the solution idea your team proposed, and we’re excited to inform you that your team <strong>{{$team->team_name}}</strong> has been selected to participate <strong>on-site</strong>! This email contains all the necessary information you’ll need for smooth registration at the hackathon.
                         </p>

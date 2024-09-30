@@ -39,6 +39,13 @@ class OnsiteAcceptedOnsiteMail extends Mailable
     /**
      * Get the message content definition.
      */
+
+    public function getShortNameAttribute($name)
+    {
+        $words = explode(' ', $name); // Assuming 'name' is your column
+        return implode(' ', array_slice($words, 0, 2)); // Return only the first two words
+    }
+
     public function content(): Content
     {
         return new Content(
@@ -46,6 +53,7 @@ class OnsiteAcceptedOnsiteMail extends Mailable
             with: [
                 'team' => $this->team,
                 'currentMember' => $this->currentMember,
+                'name' => $this->getShortNameAttribute($this->currentMember->name),
                 'qrCode' => $this->qrCode,
             ],
         );

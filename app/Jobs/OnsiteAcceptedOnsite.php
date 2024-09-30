@@ -31,6 +31,8 @@ class OnsiteAcceptedOnsite implements ShouldQueue
     /**
      * Execute the job.
      */
+
+
     public function handle(): void
     {
         foreach ($this->members as $member) {
