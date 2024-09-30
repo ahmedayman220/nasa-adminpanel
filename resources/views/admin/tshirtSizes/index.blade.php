@@ -32,13 +32,13 @@
                         {{ trans('cruds.tshirtSize.fields.title') }}
                     </th>
                     <th>
+                        Members Count
+                    </th>
+                    <th>
                         {{ trans('cruds.tshirtSize.fields.extra_field') }}
                     </th>
                     <th>
                         {{ trans('cruds.tshirtSize.fields.description') }}
-                    </th>
-                    <th>
-                        Members Count
                     </th>
                     <th>
 
@@ -98,9 +98,9 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'title', name: 'title' },
+{ data: 'members_count', name: 'members_count' },
 { data: 'extra_field', name: 'extra_field' },
 { data: 'description', name: 'description' },
-{ data: 'members_count', name: 'members_count' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,
