@@ -98,9 +98,10 @@
                         <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #09131c;">Important Notes</h2>
                         <p
                             style="font-size: 14px; color: #09131c; margin: 0 0 14px 0; font-size: 14px; text-align: justify; text-justify: inter-word;">
-                            To ensure you are well-prepared, we recommend reading our comprehensive Hackathon Guide
-                            below. It contains answers to many of your questions and provides essential information
-                            about the hackathon.
+                            To ensure you are well-prepared, please make sure to read to following notes.
+                            <strong>Every Team Lead will receive another email with the Team Code, Team Leaders' Meeting
+                                Link, and Hackathon Guidelines.</strong>
+                            Transportation details will be sent in another email to all participants.
                         </p>
                     </td>
                 </tr>
