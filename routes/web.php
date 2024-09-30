@@ -310,6 +310,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('members/parse-csv-import', 'MembersController@parseCsvImport')->name('members.parseCsvImport');
     Route::post('members/process-csv-import', 'MembersController@processCsvImport')->name('members.processCsvImport');
     Route::get('members/media', 'MembersController@getMedia')->name('members.media');
+    Route::get('members/showOnsiteMembers', 'MembersController@showOnsiteMembers')->name('members.showOnsiteMembers');
     Route::resource('members', 'MembersController');
 
     // Member Checkpoints

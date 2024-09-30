@@ -38,7 +38,10 @@
                         {{ trans('cruds.tshirtSize.fields.description') }}
                     </th>
                     <th>
-                        &nbsp;
+                        Members Count
+                    </th>
+                    <th>
+
                     </th>
                 </tr>
             </thead>
@@ -97,6 +100,7 @@
 { data: 'title', name: 'title' },
 { data: 'extra_field', name: 'extra_field' },
 { data: 'description', name: 'description' },
+{ data: 'members_count', name: 'members_count' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,
@@ -108,7 +112,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 });
 
 </script>

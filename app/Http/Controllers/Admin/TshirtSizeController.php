@@ -55,6 +55,9 @@ class TshirtSizeController extends Controller
             $table->editColumn('description', function ($row) {
                 return $row->description ? $row->description : '';
             });
+            $table->editColumn('members_count', function ($row) {
+                return $row->tshirtSizeMembers->count();
+            });
 
             $table->rawColumns(['actions', 'placeholder']);
 
