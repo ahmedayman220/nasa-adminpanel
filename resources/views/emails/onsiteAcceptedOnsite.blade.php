@@ -138,10 +138,9 @@
                         </h2>
                         <p
                             style="text-align: justify; text-justify: inter-word; font-size: 14px; color: #09131c; margin: 0 0 5px 0; font-size: 14px;">
-                            You will need your personal ticket details to register for the event. Please note that
-                            this ticket is for your use only and cannot be transferred to anyone else. Make sure to
-                            have your <strong> QR Code</strong> and <strong>Ticket ID</strong> ready when
-                            approaching the registration desk for quick and easy entry.
+                            You will need your ticket details to register for the event.
+                            Please note that this is a private ticket and cannot be transferred to anyone else.
+                            Make sure to have your <strong> QR Code</strong> and <strong>Ticket ID</strong> ready for quick and easy entry when approaching the registration desk.
                         </p>
                         <p
                             style="text-align: justify; text-justify: inter-word; font-size: 14px; color: #09131c; margin: 0 0 14px 0; font-size: 14px;">
