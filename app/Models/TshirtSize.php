@@ -38,8 +38,9 @@ class TshirtSize extends Model
 
     public function tshirtSizeMembers()
     {
-        return $this->hasMany(Member::class, 'tshirt_size_id', 'id')->withAcceptedOnsiteTeam();
+        return $this->hasMany(Member::class, 'tshirt_size_id', 'id');
     }
+
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');

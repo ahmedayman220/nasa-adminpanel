@@ -56,7 +56,14 @@ class TransportationController extends Controller
                 return $row->extra_field ? $row->extra_field : '';
             });
             $table->editColumn('members_count', function ($row) {
-                return $row->transportationMembers->count();
+
+                $count = 0;
+                foreach ($row->transportationMembers as $member){
+                    if($member->teams->first()->status == 'accepted_onsite'){
+                        $count++;
+                    }
+                }
+                return $count;
             });
 
             $table->rawColumns(['actions', 'placeholder']);
