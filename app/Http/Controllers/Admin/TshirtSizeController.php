@@ -58,6 +58,7 @@ class TshirtSizeController extends Controller
             $table->editColumn('members_count', function ($row) {
                 $count = 0;
                 foreach ($row->tshirtSizeMembers as $member) {
+                    dd($member->teams);
                     $team = $member->teams->first();
                     if ($team && isset($team->status)) {
                         if ($team->status == 'accepted_onsite') {
