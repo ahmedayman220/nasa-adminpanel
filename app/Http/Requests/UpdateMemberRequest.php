@@ -48,8 +48,6 @@ class UpdateMemberRequest extends FormRequest
             ],
             'age' => [
                 'string',
-                'min:3',
-                'max:100',
                 'required',
             ],
             'is_new' => [
