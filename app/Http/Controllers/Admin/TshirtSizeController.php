@@ -59,14 +59,11 @@ class TshirtSizeController extends Controller
                 $count = 0;
                 foreach ($row->tshirtSizeMembers as $member) {
                     $team = $member->teams->first();
-                    if(isset($team->status)) {
+                    if ($team && isset($team->status)) {
                         if ($team->status == 'accepted_onsite') {
                             $count++;
                         }
-                    }else{
-                        continue;
                     }
-
                 }
                 return $count;
             });
