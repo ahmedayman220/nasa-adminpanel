@@ -35,7 +35,9 @@
                         {{ trans('cruds.transportation.fields.extra_field') }}
                     </th>
                     <th>
-                        &nbsp;
+                        Members Count
+                    </th>
+                    <th>
                     </th>
                 </tr>
                 <tr>
@@ -49,6 +51,8 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
                     </td>
                     <td>
                     </td>
@@ -108,6 +112,7 @@
 { data: 'id', name: 'id' },
 { data: 'title', name: 'title' },
 { data: 'extra_field', name: 'extra_field' },
+{ data: 'members_count', name: 'members_count' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,
@@ -119,7 +124,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 let visibleColumnsIndexes = null;
 $('.datatable thead').on('input', '.search', function () {
       let strict = $(this).attr('strict') || false

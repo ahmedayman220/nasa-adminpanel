@@ -55,6 +55,9 @@ class TransportationController extends Controller
             $table->editColumn('extra_field', function ($row) {
                 return $row->extra_field ? $row->extra_field : '';
             });
+            $table->editColumn('members_count', function ($row) {
+                return $row->transportationMembers->count();
+            });
 
             $table->rawColumns(['actions', 'placeholder']);
 
