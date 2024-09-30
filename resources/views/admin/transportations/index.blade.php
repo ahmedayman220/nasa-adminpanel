@@ -32,10 +32,10 @@
                         {{ trans('cruds.transportation.fields.title') }}
                     </th>
                     <th>
-                        {{ trans('cruds.transportation.fields.extra_field') }}
+                        Members Count
                     </th>
                     <th>
-                        Members Count
+                        {{ trans('cruds.transportation.fields.extra_field') }}
                     </th>
                     <th>
                     </th>
@@ -50,9 +50,9 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                     </td>
@@ -111,8 +111,8 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'title', name: 'title' },
-{ data: 'extra_field', name: 'extra_field' },
 { data: 'members_count', name: 'members_count' },
+{ data: 'extra_field', name: 'extra_field' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,
