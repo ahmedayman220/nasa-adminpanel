@@ -164,9 +164,9 @@
                                         style="font-size: 20px; margin: 0 0 15px 0; color: #f3ffff; text-align: center">
                                         QR Code</h2>
                                     <img
-                                        src="https://drive.google.com/uc?export=view&id=1ieZ11zvzUv3_p5XTNGyam6_w4xeihpRk"
+                                        src="{{ $qrCode }}"
                                         alt="QR Code"
-                                        style="display:block; border-radius:25px; width:250px; height:250px; margin-right: auto; margin-left: auto; background-image:url('https://img.freepik.com/free-photo/cement-texture_1194-5331.jpg'); padding:10px">
+                                        style="display:block; border-radius:25px; width:250px; height:250px; margin-right: auto; margin-left: auto; background-image: url('{{ url('images/white-background.png') }}'); padding:10px">
                                     <br/>
                                     <h2 style="font-size: 20px; color: #f3ffff; text-align: center; margin: 5px;">
                                         {{ $name }}</h2>
