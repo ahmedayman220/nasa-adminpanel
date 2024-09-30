@@ -32,7 +32,7 @@ class OnsiteAcceptedOnsiteMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Onsite Accepted Onsite Mail',
+            subject: 'NASA Space Apps Cairo 2024 Hackathon Invitation',
         );
     }
 
