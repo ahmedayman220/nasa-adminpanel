@@ -38,6 +38,12 @@ class AcceptedVirtualMail extends Mailable
         );
     }
 
+    public function getShortNameAttribute($name)
+    {
+        $words = explode(' ', $name); // Assuming 'name' is your column
+        return implode(' ', array_slice($words, 0, 2)); // Return only the first two words
+    }
+
     /**
      * Get the message content definition.
      */
@@ -48,6 +54,7 @@ class AcceptedVirtualMail extends Mailable
             with: [
                 'team' => $this->team,
                 'members' => $this->members,
+                'name' => $this->getShortNameAttribute($this->currentMember->name),
                 'currentMember' => $this->currentMember,
                 'qrCode' => $this->qrCode,
             ],
