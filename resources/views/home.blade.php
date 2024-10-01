@@ -66,7 +66,7 @@
                                 <tbody>
                                 @foreach($Onsiteteams as $team)
                                     <tr>
-                                        <td>{{ $team->name }}</td>
+                                        <td>{{ $team->team_name }}</td>
                                         <td>{{ $team->members_count }}</td>
                                     </tr>
                                 @endforeach
