@@ -38,6 +38,10 @@
                         {{ trans('cruds.team.fields.team_name') }}
                     </th>
                     <th>
+                        Members Count
+                    </th>
+
+                    <th>
                         {{ trans('cruds.team.fields.challenge') }}
                     </th>
                     <th>
@@ -104,6 +108,9 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+
                     </td>
                     <td>
                         <select class="search">
@@ -266,6 +273,7 @@
                     { data: 'team_leader_name', name: 'team_leader.name' },
                     { data: 'team_leader.email', name: 'team_leader.email' },
                     { data: 'team_name', name: 'team_name' },
+                    { data: 'members_count' , name: 'members_count' },
                     { data: 'challenge_title', name: 'challenge.title' },
                     { data: 'actual_solution_title', name: 'actual_solution.title' },
                     { data: 'mentorship_needed_title', name: 'mentorship_needed.title' },

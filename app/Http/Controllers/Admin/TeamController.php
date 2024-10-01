@@ -253,7 +253,9 @@ class TeamController extends Controller
     {
         if ($request->ajax()) {
             $condition_id = ParticipationMethod::where('title', 'Onsite')->pluck('id')->first();
-            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])->select(sprintf('%s.*', (new Team)->table))->where('participation_method_id', $condition_id)->where('status', 'accepted_onsite');
+            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])
+                ->withCount('members')
+                ->select(sprintf('%s.*', (new Team)->table))->where('participation_method_id', $condition_id)->where('status', 'accepted_onsite');
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -273,6 +275,11 @@ class TeamController extends Controller
                     'row'
                 ));
             });
+
+            $table->editColumn('members_count', function ($row) {
+                return $row->members_count ? $row->members_count : 0;
+            });
+
 
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
