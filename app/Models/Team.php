@@ -71,6 +71,19 @@ class Team extends Model implements HasMedia
             ->withTimestamps();
     }
 
+    public static function getMemberCountCategories()
+    {
+        return DB::table('member_team')
+            ->join('teams', 'member_team.team_id', '=', 'teams.id')
+            ->select('member_team.team_id', DB::raw('COUNT(*) as member_count'))
+            ->groupBy('member_team.team_id')
+            ->get()
+            ->groupBy('member_count')
+            ->map->count()
+            ->sortKeys();
+    }
+
+
     public static function getMemberCountCategoriesForAcceptedOnsite()
     {
         return DB::table('member_team')
