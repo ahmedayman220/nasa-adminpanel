@@ -70,6 +70,19 @@ class Team extends Model implements HasMedia
             ->withTimestamps();
     }
 
+    public static function getMemberCountCategoriesForAcceptedOnsite()
+    {
+        return DB::table('member_team')
+            ->join('teams', 'member_team.team_id', '=', 'teams.id')
+            ->where('teams.status', 'accepted_onsite')
+            ->select('member_team.team_id', DB::raw('COUNT(*) as member_count'))
+            ->groupBy('member_team.team_id')
+            ->get()
+            ->groupBy('member_count')
+            ->map->count()
+            ->sortKeys();
+    }
+
 
     // Handle adding members to the team
     public function addMembers(array $members, $leaderId)
