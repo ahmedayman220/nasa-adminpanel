@@ -268,12 +268,13 @@ class MembersController extends Controller
 
         return view('admin.members.extra.showOnsiteMembers', compact('majors', 'study_levelsses', 'tshirt_sizes', 'qr_codes', 'transportations', 'users'));
     }
+
     public function showNonOnsiteMembers(Request $request){
         abort_if(Gate::denies('member_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         if ($request->ajax()) {
             $status = 'accepted_onsite';
             $query = Member::with(['major', 'study_level', 'tshirt_size', 'qr_code', 'transportation', 'created_by'])->select(sprintf('%s.*', (new Member)->table))->whereHas('teams', function ($query) use ($status) {
-                $query->where('status','!=', $status);
+                $query->where('status','!=', $status)->orwhere('status',null);
             });
             $table = Datatables::of($query);
 
@@ -371,6 +372,7 @@ class MembersController extends Controller
 
         return view('admin.members.extra.showNonOnsiteMembers', compact('majors', 'study_levelsses', 'tshirt_sizes', 'qr_codes', 'transportations', 'users'));
     }
+
     public function showVirtualMembers(Request $request){
         abort_if(Gate::denies('member_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         if ($request->ajax()) {
