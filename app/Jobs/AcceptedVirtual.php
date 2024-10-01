@@ -49,7 +49,7 @@ class AcceptedVirtual implements ShouldQueue
                     ->delay($delay); // Delays dispatch by calculated delay time
 
                 // Increment the delay by 2 seconds for the next member
-                $delay = $delay->addSeconds(2);
+                $delay = $delay->addSeconds(1);
             }
         } catch (Throwable $e) {
             // Log the error with relevant details
