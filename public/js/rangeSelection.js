@@ -19,7 +19,7 @@ const html = `
     `
 buttonsConatiner.insertAdjacentHTML("beforeend", html);
 
-//Select Elemtns
+// Select Elements
 const fromInput = document.querySelector("#fromField");
 const toInput = document.querySelector("#toField");
 const selectBtn = document.querySelector(".select-range-button");
@@ -36,39 +36,28 @@ deselectBtn.addEventListener('click', function (e) {
 
 function handleRangeSelction(action) {
     const table = $('.datatable-Team').DataTable();
-    const rows = table.rows(); // Get the filtered rows
-    console.log(rows);
-    // const rows = document.querySelectorAll('tbody .select-checkbox');
-    const size = rows.length;
+    const rows = table.rows({ search: 'applied' }); // Get only visible rows after filtering
+    const size = rows.count(); // Get total number of rows
+    const rowIndexes = rows.indexes().toArray(); // Convert row indexes to an array
+
     const start = parseInt(fromInput.value, 10);
     const end = parseInt(toInput.value, 10);
 
-
     const isValid = start <= end && start > 0 && end <= size;
     if (isValid) {
-
         for (let i = start - 1; i < end; i++) {
-            const row = rows[i];
-            if (action == 'select') {
-                row.select();
-                console.log("SELECT");
+            const rowIndex = rowIndexes[i]; // Get the row index
+            const row = table.row(rowIndex); // Get row instance by index
+
+            if (action === 'select') {
+                row.select(); // Select the row
+                console.log(`SELECTED row ${i + 1}`);
             } else {
-                row.deselect();
+                row.deselect(); // Deselect the row
+                console.log(`DESELECTED row ${i + 1}`);
             }
-            // const checkbox = row.querySelector('.select-checkbox');
-            // console.log(checkbox);
-            // if (checkbox) {
-            //     const event = new Event("click")
-            //     checkbox.dispatchEvent(event);
-            // } else {
-            //     console.error('There No Checkbox');
-            // }
         }
-    }
-    else {
+    } else {
         alert("Enter A Valid Range");
     }
-}
-function rangeValidation(start, end, size) {
-    return start <= end && start > 0 && end <= size;
 }
