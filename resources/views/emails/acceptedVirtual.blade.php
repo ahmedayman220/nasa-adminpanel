@@ -88,7 +88,7 @@
                         <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #09131c;">Important Notes</h2>
                         <p
                             style="font-size: 14px; color: #09131c; margin: 0 0 14px 0; font-size: 14px; text-align: justify; text-justify: inter-word;">
-                            To confirm your participation, please complete this <strong>Attendance Confirmation Form</strong> below. Your confirmation helps us plan and ensures a smooth start to the hackathon.
+                            To confirm your participation, please complete this <strong>Participation Confirmation Form</strong> below. Your confirmation helps us plan and ensures a smooth start to the hackathon.
                         </p>
                     </td>
                 </tr>
