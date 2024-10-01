@@ -315,5 +315,4 @@
         });
 
     </script>
-    <!-- <script src="{{asset('js/rangeSelection.js')}}" defer></script> -->
 @endsection
