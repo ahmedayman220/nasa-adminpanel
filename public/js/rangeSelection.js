@@ -49,12 +49,10 @@ function handleRangeSelction(action) {
         for (let i = start - 1; i < end; i++) {
             const row = rows[i];
             const checkbox = row.querySelector('.select-checkbox');
-            console.log(checkbox);
-            if (checkbox) {
-                const event = new Event('click');
-                checkbox.dispatchEvent(event);
+            if (action === 'select') {
+                checkbox.select();
             } else {
-                console.error('There No Checkbox');
+                checkbox.deselect();
             }
         }
     }
