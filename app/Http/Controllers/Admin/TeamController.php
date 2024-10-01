@@ -30,10 +30,6 @@ class TeamController extends Controller
 
     public function index(Request $request)
     {
-
-        return response(
-            Team::getMemberCountCategories()
-        );
         abort_if(Gate::denies('team_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
