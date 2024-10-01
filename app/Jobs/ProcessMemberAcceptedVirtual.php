@@ -39,9 +39,7 @@ class ProcessMemberAcceptedVirtual implements ShouldQueue
             $qrGeneratedUrl = $this->base_url.'/'.$relative_path;
 
             // Send the email to the member
-            Mail::to("ahmeday.maks@gmail.com")->send(new AcceptedVirtualMail($this->team, [$this->member], $this->member, $qrGeneratedUrl));
-
-//            Mail::to($this->member->email)->send(new AcceptedVirtualMail($this->team, [$this->member], $this->member, $qrGeneratedUrl));
+            Mail::to($this->member->email)->send(new AcceptedVirtualMail($this->team, [$this->member], $this->member, $qrGeneratedUrl));
         } catch (\Exception $e) {
             // Log the error
             Log::error('Error processing member: ' . $this->member->email . ' - ' . $e->getMessage());
