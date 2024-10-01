@@ -53,6 +53,27 @@
                                 </tbody>
                             </table>
 
+                        <br />
+                        <br />
+                            <h3>Onsite Team Members Count</h3>
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Team Name</th>
+                                    <th>Member Count</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($Onsiteteams as $team)
+                                    <tr>
+                                        <td>{{ $team->name }}</td>
+                                        <td>{{ $team->members_count }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+
+
                     </div>
                 </div>
             </div>
