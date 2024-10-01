@@ -36,7 +36,8 @@ deselectBtn.addEventListener('click', function (e) {
 
 function handleRangeSelction(action) {
     const table = $('.datatable-Team').DataTable();
-    const rows = table.rows({ 'search': 'applied' }).nodes(); // Get the filtered rows
+    const rows = table.rows(); // Get the filtered rows
+    console.log(rows);
     // const rows = document.querySelectorAll('tbody .select-checkbox');
     const size = rows.length;
     const start = parseInt(fromInput.value, 10);
@@ -48,12 +49,20 @@ function handleRangeSelction(action) {
 
         for (let i = start - 1; i < end; i++) {
             const row = rows[i];
-            const checkbox = row.querySelector('.select-checkbox');
-            if (action === 'select') {
-                checkbox.select();
+            if (action == 'select') {
+                row.select();
+                console.log("SELECT");
             } else {
-                checkbox.deselect();
+                row.deselect();
             }
+            // const checkbox = row.querySelector('.select-checkbox');
+            // console.log(checkbox);
+            // if (checkbox) {
+            //     const event = new Event("click")
+            //     checkbox.dispatchEvent(event);
+            // } else {
+            //     console.error('There No Checkbox');
+            // }
         }
     }
     else {
