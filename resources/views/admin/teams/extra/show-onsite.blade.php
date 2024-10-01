@@ -32,11 +32,15 @@
                         {{ trans('cruds.team.fields.team_leader') }}
                     </th>
                     <th>
+                        Phone Number
+                    </th>
+                    <th>
                         {{ trans('cruds.member.fields.email') }}
                     </th>
                     <th>
                         {{ trans('cruds.team.fields.team_name') }}
                     </th>
+
                     <th>
                         Members Count
                     </th>
@@ -103,6 +107,9 @@
                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                     </td>
@@ -271,6 +278,7 @@
                     { data: 'id', name: 'id' },
                     { data: 'uuid', name: 'uuid' },
                     { data: 'team_leader_name', name: 'team_leader.name' },
+                    { data: 'team_leader.phone_number', name: 'team_leader.phone_number' },
                     { data: 'team_leader.email', name: 'team_leader.email' },
                     { data: 'team_name', name: 'team_name' },
                     { data: 'members_count' , name: 'members_count' },
