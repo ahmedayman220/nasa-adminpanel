@@ -128,6 +128,12 @@ class CheckpointsController extends Controller
         return view('admin.checkpoints.show', compact('checkpoint','members'));
     }
 
+    public function showScan($checkpoint_id,$checkpoint_name)
+    {
+        abort_if(Gate::denies("scan_$checkpoint_name"), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        return view('admin.checkpoints.scan',compact('checkpoint_id','checkpoint_name'));
+    }
+
     public function handlingScan($uuid,$checkpoint_id,$checkpoint_name,Member $member){
         // if un-authorized user somehow accessed this page, give return 403 HTTP-ERROR
         abort_if(Gate::denies("scan_$checkpoint_name"), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -137,7 +143,7 @@ class CheckpointsController extends Controller
             return back()->with('failed','Fake UUID');
         }
         // make sure the member team status is accepted_onsite
-        if(!$get_member->get()->first()->teams->status=='accepted_onsite'){
+        if(!$get_member->get()->first()->teams->first()->status=='accepted_onsite'){
             return back()->with('failed','member team status is not accepted onsite');
         }
         $memberId = $get_member->get()->first()->id;
