@@ -311,6 +311,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('members/process-csv-import', 'MembersController@processCsvImport')->name('members.processCsvImport');
     Route::get('members/media', 'MembersController@getMedia')->name('members.media');
     Route::get('members/showOnsiteMembers', 'MembersController@showOnsiteMembers')->name('members.showOnsiteMembers');
+    Route::get('members/showVirtualMembers', 'MembersController@showVirtualMembers')->name('members.showVirtualMembers');
+    Route::get('members/showNonOnsiteMembers', 'MembersController@showNonOnsiteMembers')->name('members.showNonOnsiteMembers');
+    Route::get('members/showRejectedMembers', 'MembersController@showRejectedMembers')->name('members.showRejectedMembers');
+    Route::get('members/showNullMembers', 'MembersController@showNullMembers')->name('members.showNullMembers');
     Route::resource('members', 'MembersController');
 
     // Member Checkpoints

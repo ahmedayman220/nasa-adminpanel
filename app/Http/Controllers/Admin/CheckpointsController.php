@@ -122,11 +122,16 @@ class CheckpointsController extends Controller
     public function show(Checkpoint $checkpoint)
     {
         abort_if(Gate::denies('checkpoint_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        abort_if(Gate::denies("scan_$checkpoint->name"), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $checkpoint->load('event', 'checkpoint_type', 'created_by', 'checkpointMemberCheckpoints');
         $members = Member::all();
         return view('admin.checkpoints.show', compact('checkpoint','members'));
+    }
+
+    public function showScan($checkpoint_id,$checkpoint_name)
+    {
+        abort_if(Gate::denies("scan_$checkpoint_name"), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        return view('admin.checkpoints.scan',compact('checkpoint_id','checkpoint_name'));
     }
 
     public function handlingScan($uuid,$checkpoint_id,$checkpoint_name,Member $member){
@@ -136,6 +141,10 @@ class CheckpointsController extends Controller
         // now make sure member exists and that's not fake uuid
         if(!$get_member->exists()){
             return back()->with('failed','Fake UUID');
+        }
+        // make sure the member team status is accepted_onsite
+        if(!$get_member->get()->first()->teams->first()->status=='accepted_onsite'){
+            return back()->with('failed','member team status is not accepted onsite');
         }
         $memberId = $get_member->get()->first()->id;
         // Make sure member hasn't scanned the same criteria before
@@ -167,6 +176,10 @@ class CheckpointsController extends Controller
         // now make sure member exists and that's not fake uuid
         if(!$get_member->exists()){
             return back()->with('failed','Fake UUID');
+        }
+        // make sure the member team status is accepted_onsite
+        if(!$get_member->get()->first()->teams->first()->status=='accepted_onsite'){
+            return back()->with('failed','member team status is not accepted onsite');
         }
         $memberId = $get_member->get()->first()->id;
         // Make sure member hasn't scanned the same criteria before

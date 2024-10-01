@@ -12,6 +12,18 @@
             <a class="btn btn-secondary" href="{{ route('admin.members.showOnsiteMembers') }}">
                 {{ 'Accepted Onsite Members' }}
             </a>
+            <a class="btn btn-dark" href="{{ route('admin.members.showNonOnsiteMembers') }}">
+                {{ 'Accepted Non-Onsite Members' }}
+            </a>
+            <a class="btn btn-primary" href="{{ route('admin.members.showVirtualMembers') }}">
+                {{ 'Accepted Virtual Members' }}
+            </a>
+            <a class="btn btn-outline-dark" href="{{ route('admin.members.showNullMembers') }}">
+                {{ 'Null Status Members' }}
+            </a>
+            <a class="btn btn-danger" href="{{ route('admin.members.showRejectedMembers') }}">
+                {{ 'Rejected Members' }}
+            </a>
             <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
                 {{ trans('global.app_csvImport') }}
             </button>

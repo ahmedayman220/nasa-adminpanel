@@ -1,7 +1,7 @@
 @extends('layouts.admin')
-@section('styles')
-    <link rel="stylesheet" href="{{asset('css/scanner.css')}}"/>
-@endsection
+{{--@section('styles')--}}
+{{--    <link rel="stylesheet" href="{{asset('css/scanner.css')}}"/>--}}
+{{--@endsection--}}
 
 @section('content')
     @if(session()->has('success'))
@@ -84,9 +84,9 @@
                 <a class="btn btn-default" href="{{ route('admin.checkpoints.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
-                <button class="btn btn-warning scan-Qrcode" data-toggle="modal">
+                <a href="{{route('admin.checkpoints.showScan',[$checkpoint->id,$checkpoint->name])}}" class="btn btn-warning scan-Qrcode">
                     Scan Qr Code
-                </button>
+                </a>
             </div>
             <table class="table table-bordered table-striped">
                 <tbody>
@@ -159,54 +159,54 @@
     </div>
 </div>
 
-    {{--Qr Scanner --}}
-    <div class="container mx-auto qrcode-container hide-scanner">
-        <p class="close-scanning">x</p>
-        <div id="qr-reader">
+{{--    --}}{{--Qr Scanner --}}
+{{--    <div class="container mx-auto qrcode-container hide-scanner">--}}
+{{--        <p class="close-scanning">x</p>--}}
+{{--        <div id="qr-reader">--}}
 
-        </div>
-        <div id="qr-reader-results"></div>
-    </div>
-    <div class="overlay hide-scanner"></div>
+{{--        </div>--}}
+{{--        <div id="qr-reader-results"></div>--}}
+{{--    </div>--}}
+{{--    <div class="overlay hide-scanner"></div>--}}
 
-    {{--End Qr Scanner --}}
+{{--    --}}{{--End Qr Scanner --}}
 @endsection
-@section('scripts')
-    <script src="https://unpkg.com/html5-qrcode"></script>
-    <script>
-        var resultContainer = document.getElementById("qr-reader-results");
-        var lastResult,
-            countResults = 0;
+{{--@section('scripts')--}}
+{{--    <script src="https://unpkg.com/html5-qrcode"></script>--}}
+{{--    <script>--}}
+{{--        var resultContainer = document.getElementById("qr-reader-results");--}}
+{{--        var lastResult,--}}
+{{--            countResults = 0;--}}
 
-        function onScanSuccess(decodedText, decodedResult) {
-            if (decodedText !== lastResult) {
-                ++countResults;
-                lastResult = decodedText;
-                // Handle on success condition with the decoded message.
-                console.log(`Scan result ${decodedText}`, decodedResult);
-                document.location = "/admin/checkpoints/scan/" + decodedText +"{{'/'.$checkpoint->id . '/' . $checkpoint->name}}";
-            }
-        }
-        var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", {
-            fps: 10,
-            qrbox: 250,
-        });
-        html5QrcodeScanner.render(onScanSuccess);
+{{--        function onScanSuccess(decodedText, decodedResult) {--}}
+{{--            if (decodedText !== lastResult) {--}}
+{{--                ++countResults;--}}
+{{--                lastResult = decodedText;--}}
+{{--                // Handle on success condition with the decoded message.--}}
+{{--                console.log(`Scan result ${decodedText}`, decodedResult);--}}
+{{--                document.location = "/admin/checkpoints/scan/" + decodedText +"{{'/'.$checkpoint->id . '/' . $checkpoint->name}}";--}}
+{{--            }--}}
+{{--        }--}}
+{{--        var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", {--}}
+{{--            fps: 10,--}}
+{{--            qrbox: 250,--}}
+{{--        });--}}
+{{--        html5QrcodeScanner.render(onScanSuccess);--}}
 
-        // Hide and Display the scanner functionality
-        const scanBtn = document.querySelector(".scan-Qrcode");
-        const closeScannerBtn = document.querySelector(".close-scanning");
-        const qrContainer = document.querySelector(".qrcode-container");
+{{--        // Hide and Display the scanner functionality--}}
+{{--        const scanBtn = document.querySelector(".scan-Qrcode");--}}
+{{--        const closeScannerBtn = document.querySelector(".close-scanning");--}}
+{{--        const qrContainer = document.querySelector(".qrcode-container");--}}
 
-        function displayQrScanner() {
-            qrContainer.classList.remove("hide-scanner");
-        }
-        function hideQrScanner() {
-            qrContainer.classList.add("hide-scanner");
-        }
+{{--        function displayQrScanner() {--}}
+{{--            qrContainer.classList.remove("hide-scanner");--}}
+{{--        }--}}
+{{--        function hideQrScanner() {--}}
+{{--            qrContainer.classList.add("hide-scanner");--}}
+{{--        }--}}
 
-        scanBtn.addEventListener("click", displayQrScanner);
-        closeScannerBtn.addEventListener("click", hideQrScanner);
+{{--        scanBtn.addEventListener("click", displayQrScanner);--}}
+{{--        closeScannerBtn.addEventListener("click", hideQrScanner);--}}
 
-    </script>
-@endsection
+{{--    </script>--}}
+{{--@endsection--}}

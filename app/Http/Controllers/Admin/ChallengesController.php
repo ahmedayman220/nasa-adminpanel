@@ -61,6 +61,33 @@ class ChallengesController extends Controller
             $table->editColumn('extra_field', function ($row) {
                 return $row->extra_field ? $row->extra_field : '';
             });
+            $table->editColumn('onsite', function ($row) {
+                $count = 0;
+                foreach ($row->challengeTeams as $team){
+                    if($team->status == 'accepted_onsite'){
+                        $count++;
+                    }
+                }
+                return $count;
+            });
+            $table->editColumn('virtual', function ($row) {
+                $count = 0;
+                foreach ($row->challengeTeams as $team){
+                    if($team->status == 'accepted_virtual'){
+                        $count++;
+                    }
+                }
+                return $count;
+            });
+            $table->editColumn('total', function ($row) {
+                $count = 0;
+                foreach ($row->challengeTeams as $team){
+                    if($team->status == 'accepted_onsite' || $team->status == 'accepted_virtual'){
+                        $count++;
+                    }
+                }
+                return $count;
+            });
             $table->addColumn('difficulty_level_name', function ($row) {
                 return $row->difficulty_level ? $row->difficulty_level->name : '';
             });
