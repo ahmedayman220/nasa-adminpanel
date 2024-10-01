@@ -35,7 +35,7 @@ deselectBtn.addEventListener('click', function (e) {
 });
 
 function handleRangeSelction(action) {
-    const rows = document.querySelectorAll('tbody [role="row"]');
+    const rows = document.querySelectorAll('tbody .select-checkbox');
     const size = rows.length;
     const start = parseInt(fromInput.value, 10);
     const end = parseInt(toInput.value, 10);
@@ -44,12 +44,9 @@ function handleRangeSelction(action) {
     const isValid = start <= end && start > 0 && end <= size;
     if (isValid) {
         for (let i = start - 1; i < end; i++) {
-            const el = rows[i];
-            if (action === 'select') {
-                el.classList.add('selected');
-            } else {
-                el.classList.remove('selected');
-            }
+            const row = rows[i];
+            let event = new Event('click');
+            row.dispatchEvent(event);
         }
     }
     else {
