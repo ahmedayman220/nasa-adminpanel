@@ -353,7 +353,7 @@ class TeamController extends Controller
     {
         if ($request->ajax()) {
 //            $condition_id = ParticipationMethod::where('title', 'Virtual')->pluck('id')->first();
-            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])->select(sprintf('%s.*', (new Team)->table))->where('status', 'accepted_virtual');
+            $query = Team::with(['team_leader', 'challenge', 'actual_solution', 'mentorship_needed', 'participation_method'])->select(sprintf('%s.*', (new Team)->table))->where('status', 'accepted_virtual')->orWhere('status', NULL);
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
