@@ -16,12 +16,12 @@
                             </div>
                         @endif
 
-                        <h3>Team Member Count by Category</h3>
+                        <h3>Team Member Count Distribution</h3>
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>Category</th>
-                                <th>Count</th>
+                                <th>Number of Members</th>
+                                <th>Number of Teams</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -33,6 +33,26 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <br />
+                        <br />
+                            <h3>Onsite Team Member Count Distribution</h3>
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Number of Members</th>
+                                    <th>Number of Teams</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($OnsiteMemberCountCategories as $category => $count)
+                                    <tr>
+                                        <td>{{ $category }}</td>
+                                        <td>{{ $count }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+
                     </div>
                 </div>
             </div>
