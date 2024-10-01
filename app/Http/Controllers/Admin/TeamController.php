@@ -277,9 +277,8 @@ class TeamController extends Controller
             });
 
             $table->editColumn('members_count', function ($row) {
-                return $row->members_count ? $row->members_count : 0;
+                return $row->members()->count();
             });
-
 
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
