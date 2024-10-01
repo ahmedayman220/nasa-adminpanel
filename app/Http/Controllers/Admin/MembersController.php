@@ -273,7 +273,7 @@ class MembersController extends Controller
         if ($request->ajax()) {
             $status = 'accepted_onsite';
             $query = Member::with(['major', 'study_level', 'tshirt_size', 'qr_code', 'transportation', 'created_by'])->select(sprintf('%s.*', (new Member)->table))->whereHas('teams', function ($query) use ($status) {
-                $query->where('status','!=', $status)->orwhere('status',null);
+                $query->where('status','!=', $status);
             });
             $table = Datatables::of($query);
 
