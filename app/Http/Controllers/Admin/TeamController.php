@@ -33,7 +33,7 @@ class TeamController extends Controller
 
         return response(
             Team::getMemberCountCategoriesForAcceptedOnsite()
-        )
+        );
         abort_if(Gate::denies('team_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
