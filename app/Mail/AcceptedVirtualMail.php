@@ -34,7 +34,7 @@ class AcceptedVirtualMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Virtual Accepted Mail',
+            subject: 'NASA Space Apps Cairo 2024 Hackathon: Virtual Invitation!',
         );
     }
 

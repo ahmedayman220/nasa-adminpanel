@@ -1,16 +1,13 @@
 <?php
-
 namespace App\Jobs;
 
-use App\Mail\AcceptedVirtualMail;
-use App\Mail\OnsiteAcceptedOnsiteMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Mail;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Log; // For error logging
+use Throwable;
 
 class AcceptedVirtual implements ShouldQueue
 {
@@ -19,7 +16,18 @@ class AcceptedVirtual implements ShouldQueue
     private $members;
     private $base_url;
     private $team;
-    public function __construct($members,$base_url,$team)
+
+    /**
+     * The number of attempts to retry the job before failing.
+     *
+     * @var int
+     */
+    public $tries = 3; // Set how many times to retry
+
+    /**
+     * Create a new job instance.
+     */
+    public function __construct($members, $base_url, $team)
     {
         $this->members = $members;
         $this->base_url = $base_url;
@@ -31,18 +39,45 @@ class AcceptedVirtual implements ShouldQueue
      */
     public function handle(): void
     {
-        foreach($this->members as $member){
-            // Define a null variable to identify if qr is generated or not later in the logic
-            $relative_path = 'QR/'.$member->uuid.'_'.$member->national.'.png';
-            $qr_path = public_path($relative_path);
-            QrCode::format('png')->size(200)->generate($member->uuid, $qr_path);
-            $qrGeneratedUrl = $this->base_url.'/'.$relative_path;
-            try{
-                Mail::to($member->email)->send(new AcceptedVirtualMail($this->team,$this->members,$member,$qrGeneratedUrl));
-            } catch(\Exception $e){
-                throw $e;
-            }
+        $delay = now(); // Initialize delay time
 
+        try {
+            // Dispatch individual jobs for each member with a delay
+            foreach ($this->members as $member) {
+                // Dispatch the job for each member with a delay of 2 seconds between jobs
+                ProcessMemberAcceptedVirtual::dispatch($member, $this->base_url, $this->team)
+                    ->delay($delay); // Delays dispatch by calculated delay time
+
+                // Increment the delay by 2 seconds for the next member
+                $delay = $delay->addSeconds(2);
+            }
+        } catch (Throwable $e) {
+            // Log the error with relevant details
+            Log::error('Error dispatching jobs in AcceptedVirtual', [
+                'message' => $e->getMessage(),
+                'members' => $this->members,
+                'team' => $this->team,
+                'base_url' => $this->base_url,
+            ]);
+
+            // Optionally rethrow the exception if you want the job to retry
+            throw $e;
         }
+    }
+
+    /**
+     * Handle a job failure.
+     */
+    public function failed(Throwable $exception)
+    {
+        // Log the error when the job fails completely
+        Log::error('AcceptedVirtual job failed after retries', [
+            'exception' => $exception->getMessage(),
+            'members' => $this->members,
+            'team' => $this->team,
+            'base_url' => $this->base_url,
+        ]);
+
+        // You can also notify admins or take further action here if necessary
     }
 }
