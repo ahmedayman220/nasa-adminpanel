@@ -288,6 +288,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('teams/virtual','TeamController@showVirtualTeams')->name('teams.showVirtual');
     Route::get('teams/rejected','TeamController@showRejectedTeams')->name('teams.showRejected');
     Route::post('teams/generateAndEmail','TeamController@generateAndEmail')->name('teams.generateAndEmail');
+    Route::post('teams/EmailTeamLead','TeamController@EmailTeamLead')->name('teams.EmailTeamLead');
     Route::get('teams/showAllData','TeamController@showAll')->name('teams.showAll');
     Route::resource('teams', 'TeamController');
 

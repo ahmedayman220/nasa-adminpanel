@@ -10,6 +10,7 @@ use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
 use App\Http\Requests\updateTeamScoreRequest;
 use App\Jobs\AcceptedVirtual;
+use App\Jobs\EmailTeamLeadJob;
 use App\Jobs\OnsiteAcceptedOnsite;
 use App\Jobs\QRandEmailTeamMembersJob;
 use App\Models\ActualSolution;
@@ -657,6 +658,15 @@ class TeamController extends Controller
         return view('admin.teams.extra.show-all', compact('members', 'challenges', 'actual_solutions', 'mentorship_neededs', 'participation_methods'));
     }
 
+    public function EmailTeamLead(Request $request, Team $team)
+    {
+        foreach ($request->ids as $id){
+            $teamObject = $team->findorFail($id);
+            dispatch(new EmailTeamLeadJob($teamObject));
+        }
+        session()->flash('success','Your request is processing please wait..');
+        return response(null);
+    }
     public function generateAndEmail(Request $request, Team $team)
     {
         foreach ($request->ids as $id){

@@ -122,44 +122,44 @@
                 }
             }
             dtButtons.push(deleteButton)
-{{--            --}}{{-- Start Email Button --}}
-{{--            let EmailButtonTrans = 'Send Email';--}}
-{{--            let EmailButton = {--}}
-{{--                text: EmailButtonTrans,--}}
-{{--                className: 'btn-dark',--}}
-{{--                action: function (e, dt, node, config) {--}}
-{{--                    var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {--}}
-{{--                        return entry.id--}}
-{{--                    });--}}
+             // Start Email Button
+            let EmailButtonTrans = 'Send Email';
+            let EmailButton = {
+                text: EmailButtonTrans,
+                className: 'btn-dark',
+                action: function (e, dt, node, config) {
+                    var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
+                        return entry.id
+                    });
 
-{{--                    // var new_ids = $('tr.selected').map(function(){--}}
-{{--                    //     return $(this).children(':nth-child(2)').html(); // Get the text of each selected div--}}
-{{--                    // }).get();--}}
+                    // var new_ids = $('tr.selected').map(function(){
+                    //     return $(this).children(':nth-child(2)').html(); // Get the text of each selected div
+                    // }).get();
 
-{{--                    // console.log(new_ids);--}}
-{{--                    if (ids.length === 0) {--}}
-{{--                        alert('{{ trans('global.datatables.zero_selected') }}');--}}
-{{--                        return;--}}
-{{--                    }--}}
+                    // console.log(new_ids);
+                    if (ids.length === 0) {
+                        alert('{{ trans('global.datatables.zero_selected') }}');
+                        return;
+                    }
 
-{{--                    if (confirm('{{ trans('global.areYouSure') }}')) {--}}
-{{--                        $.ajax({--}}
-{{--                            headers: {'x-csrf-token': _token},--}}
-{{--                            method: 'POST',--}}
-{{--                            url: "{{ route('admin.teams.generateAndEmail') }}",--}}
-{{--                            data: { ids: ids, _method: 'POST' }--}}
-{{--                        })--}}
-{{--                            .done(function (data) {--}}
-{{--                                console.log(data)--}}
-{{--                                location.reload();--}}
-{{--                            });--}}
-{{--                    }--}}
-{{--                }--}}
-{{--            };--}}
+                    if (confirm('{{ trans('global.areYouSure') }}')) {
+                        $.ajax({
+                            headers: {'x-csrf-token': _token},
+                            method: 'POST',
+                            url: "{{ route('admin.teams.EmailTeamLead') }}",
+                            data: { ids: ids, _method: 'POST' }
+                        })
+                            .done(function (data) {
+                                // console.log(data)
+                                location.reload();
+                            });
+                    }
+                }
+            };
 
-{{--            dtButtons.push(EmailButton);--}}
+            dtButtons.push(EmailButton);
 
-{{--            --}}{{-- End Email Button --}}
+             // End Email Button
             @endcan
             let dtOverrideGlobals = {
                 buttons: dtButtons,
