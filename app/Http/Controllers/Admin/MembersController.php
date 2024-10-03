@@ -165,6 +165,19 @@ class MembersController extends Controller
         return view('admin.members.media', compact('users'));
     }
 
+    public function showDetailsScan()
+    {
+        abort_if(Gate::denies('member_details'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        return view('admin.members.scan');
+    }
+
+    public function showDetails($uuid)
+    {
+        abort_if(Gate::denies('scan_view_access','member_details'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $member = Member::where('uuid',$uuid)->first();
+        return view('admin.members.showDetails',compact('member'));
+    }
+
     public function showOnsiteMembers(Request $request){
         abort_if(Gate::denies('member_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         if ($request->ajax()) {

@@ -67,9 +67,9 @@ class StoreMemberRequest extends FormRequest
                 'required',
                 'integer',
             ],
-            'transportaion' => [
-                'required',
-            ],
+//            'transportaion' => [
+//                'required',
+//            ],
         ];
     }
 }
