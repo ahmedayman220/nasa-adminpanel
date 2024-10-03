@@ -351,6 +351,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('checkpoints/ckmedia', 'CheckpointsController@storeCKEditorImages')->name('checkpoints.storeCKEditorImages');
     Route::post('checkpoints/parse-csv-import', 'CheckpointsController@parseCsvImport')->name('checkpoints.parseCsvImport');
     Route::post('checkpoints/process-csv-import', 'CheckpointsController@processCsvImport')->name('checkpoints.processCsvImport');
+    Route::get('checkpoints/showScan/{checkpoint_id}/{checkpoint_name}', 'CheckpointsController@showScan')->name('checkpoints.showScan');
     Route::get('checkpoints/scan/{uuid}/{checkpoint_id}/{checkpoint_name}', 'CheckpointsController@handlingScan')->name('checkpoints.handlingScan');
     Route::post('checkpoints/scan', 'CheckpointsController@manualScan')->name('checkpoints.manualScan');
     Route::resource('checkpoints', 'CheckpointsController');
