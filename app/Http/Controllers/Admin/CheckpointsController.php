@@ -142,6 +142,25 @@ class CheckpointsController extends Controller
         if(!($get_member->exists())){
             return back()->with('failed','Fake UUID');
         }
+        // make sure only 5 team members are registered
+        $teamMembers = $get_member->first()->teams->first()->members;
+        $count = 0;
+        // iterate on each member and check if member exists
+        foreach ($teamMembers as $teamMember){
+            if($count >= 5){
+                return back()->with('failed','Team Limit Reached (5)');
+            }
+
+            $checkCondition = MemberCheckpoint::where([
+                ['completed', true],
+                ['member_id', $teamMember->id],
+                ['checkpoint_id', $checkpoint_id]
+            ])->exists();
+
+            if($checkCondition){
+                $count++;
+            }
+        }
         // make sure the member team status is accepted_onsite
         if(!($get_member->get()->first()->teams->first()->status=='accepted_onsite')){
             return back()->with('failed','member team status is not accepted onsite');
@@ -155,7 +174,7 @@ class CheckpointsController extends Controller
         ])->exists();
         // If he is then redirect back with session error
         if($condition){
-            return back()->with('failed','Member Already Scanned in Same Category');
+            return back()->with('failed','Member Already Scanned');
         }
         // Else create the member checkpoint with session success
         MemberCheckpoint::create([
@@ -176,6 +195,25 @@ class CheckpointsController extends Controller
         // now make sure member exists and that's not fake uuid
         if(!($get_member->exists())){
             return back()->with('failed','Fake UUID');
+        }
+        // make sure only 5 team members are registered
+        $teamMembers = $get_member->first()->teams->first()->members;
+        $count = 0;
+        // iterate on each member and check if member exists
+        foreach ($teamMembers as $teamMember){
+            if($count >= 5){
+                return back()->with('failed','Team Limit Reached (5)');
+            }
+
+            $checkCondition = MemberCheckpoint::where([
+                ['completed', true],
+                ['member_id', $teamMember->id],
+                ['checkpoint_id', $request->checkpoint_id]
+            ])->exists();
+
+            if($checkCondition){
+                $count++;
+            }
         }
         // make sure the member team status is accepted_onsite
         if(!($get_member->get()->first()->teams->first()->status=='accepted_onsite')){

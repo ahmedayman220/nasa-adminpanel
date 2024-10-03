@@ -315,6 +315,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('members/showNonOnsiteMembers', 'MembersController@showNonOnsiteMembers')->name('members.showNonOnsiteMembers');
     Route::get('members/showRejectedMembers', 'MembersController@showRejectedMembers')->name('members.showRejectedMembers');
     Route::get('members/showNullMembers', 'MembersController@showNullMembers')->name('members.showNullMembers');
+    Route::get('members/showDetailsScan', 'MembersController@showDetailsScan')->name('members.showDetailsScan');
+    Route::get('members/showDetails/{uuid}', 'MembersController@showDetails')->name('members.showDetails');
     Route::resource('members', 'MembersController');
 
     // Member Checkpoints

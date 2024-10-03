@@ -16,7 +16,7 @@
     @endif
     <div class="card">
         <div class="card-header">
-            Scan {{$checkpoint_name}} Page
+            Get Member Details
         </div>
         <div class="card-body">
         <div class="form-group">
@@ -25,7 +25,7 @@
                 </a>
             <button class="btn  scan-Qrcode" data-toggle="modal">
                 <img src="{{ asset('images/scan-me-free-png.png') }}" alt="">
-            </button>
+                </button>
             </div>
         </div>
     </div>
@@ -38,8 +38,7 @@
         <div id="qr-reader-results"></div>
     </div>
     <div class="overlay hide-scanner"></div>
-{{--                      document.location = "/admin/checkpoints/scan/" + decodedText +"{{'/'.$checkpoint_id . '/' . $checkpoint_name}}";
-      --}}
+
     {{--End Qr Scanner --}}
 @endsection
 @section('scripts')
@@ -55,7 +54,8 @@
                 lastResult = decodedText;
                 // Handle on success condition with the decoded message.
                 console.log(`Scan result ${decodedText}`, decodedResult);
-                document.location = "/admin/checkpoints/scan/" + decodedText +"{{'/'.$checkpoint_id . '/' . $checkpoint_name}}";            }
+                document.location = "/admin/members/showDetails/" + decodedText;
+            }
         }
         var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", {
             fps: 10,
@@ -94,7 +94,6 @@
 
         scanBtn.addEventListener("click", displayQrScanner);
         closeScannerBtn.addEventListener("click", hideQrScanner);
-
 
     </script>
 @endsection

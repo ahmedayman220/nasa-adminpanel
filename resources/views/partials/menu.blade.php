@@ -372,6 +372,18 @@
                                         </a>
                                     </li>
                                 @endcan
+
+                                @can('member_details')
+                                        <li class="c-sidebar-nav-item">
+                                            <a href="{{ route("admin.members.showDetailsScan") }}" class="c-sidebar-nav-link {{ request()->is("admin/members") || request()->is("admin/members/*") ? "c-active" : "" }}">
+                                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                                </i>
+                                                Member Details
+                                            </a>
+                                        </li>
+                                @endcan
+
                             </ul>
                         </li>
                     @endcan
