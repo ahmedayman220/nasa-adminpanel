@@ -193,7 +193,7 @@ class TeamController extends Controller
     {
         $team->update($request->all());
 
-        return redirect()->route('admin.teams.index');
+        return back();
     }
 
     public function show(Team $team)
