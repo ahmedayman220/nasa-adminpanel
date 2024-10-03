@@ -97,6 +97,15 @@
                                     <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Before going
                                             to the hackathon, make sure to:</strong>
                                     <ul>
+                                        <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;">
+                                            <strong>Hackathon Guidelines:</strong> <a
+                                                href="https://bit.ly/NASA2024-HackathonGuidelines"
+                                                style="color: #f3ffff; text-decoration: underline"><em>This contains the submission guide for the Space Apps Challenge website and the submission guide for Space Apps Cairo, judging criteria, mentorship guide, Space Apps Connect guide, and the agenda.</em></a></p>
+                                        <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;">
+                                            <strong>Discord Guide:</strong> <a
+                                                href="https://bit.ly/NASA2024-DiscordGuidelines"
+                                                style="color: #f3ffff; text-decoration: underline"><em>This contains everything you need to know about our communication channel.</em></a></p>
+
                                         <li>Fully charge your laptops and power banks, as power sockets are limited per
                                             team!
                                         </li>
