@@ -165,10 +165,7 @@
                                     <h2
                                         style="font-size: 20px; margin: 0 0 15px 0; color: #f3ffff; text-align: center">
                                         QR Code</h2>
-                                    <img
-                                        src="https://{{ $qrCode }}"
-                                        alt="QR Code"
-                                        style="display:block; border-radius:25px; width:250px; height:250px; margin-right: auto; margin-left: auto; background-image: url('{{ url('images/white-background.png') }}'); padding:10px">
+
                                     <br/>
                                     <h2 style="font-size: 20px; color: #f3ffff; text-align: center; margin: 5px;">
                                         {{ $name }}</h2>
