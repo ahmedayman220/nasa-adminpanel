@@ -40,8 +40,8 @@ class OnsiteAcceptedOnsite implements ShouldQueue
         foreach ($this->members as $member) {
             try {
 
-                ProcessMemberAcceptedOnsite::dispatch($this->team, $member)
-                ->delay(now()->addSeconds(1));
+                ProcessMemberAcceptedOnsite::dispatch($this->team, $member);
+
             } catch (Exception $e) {
                 Log::error("Failed to process member: {$member->email}. Error: " . $e->getMessage());
                 throw $e;
