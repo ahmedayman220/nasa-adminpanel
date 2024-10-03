@@ -22,66 +22,20 @@ class UpdateTeamRequest extends FormRequest
                 'required',
                 'unique:teams,uuid,' . request()->route('team')->id,
             ],
-            'team_leader_id' => [
-                'required',
-                'integer',
-            ],
-            'team_name' => [
-                'string',
-                'min:3',
-                'max:50',
-                'required',
-            ],
-            'challenge_id' => [
-                'required',
-                'integer',
-            ],
-            'actual_solution_id' => [
-                'required',
-                'integer',
-            ],
-            'mentorship_needed_id' => [
-                'required',
-                'integer',
-            ],
-            'participation_method_id' => [
-                'required',
-                'integer',
-            ],
-            'limited_capacity' => [
-                'required',
-            ],
-            'members_participated_before' => [
-                'required',
-            ],
-            'project_proposal_url' => [
-                'string',
-                'min:3',
-                'max:200',
-                'required',
-                'unique:teams,project_proposal_url,' . request()->route('team')->id,
-            ],
-            'project_video_url' => [
-                'string',
-                'min:3',
-                'max:200',
-                'required',
-                'unique:teams,project_video_url,' . request()->route('team')->id,
-            ],
-            'team_rating' => [
-                'numeric',
-            ],
-            'total_score' => [
-                'numeric',
-            ],
-            'submission_date' => [
-                'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
-                'nullable',
-            ],
-            'extra_field' => [
-                'string',
-                'nullable',
-            ],
+            'team_leader_id' => ['nullable'],
+            'team_name' =>['nullable'],
+            'challenge_id' => ['nullable'],
+            'actual_solution_id' => ['nullable'],
+            'mentorship_needed_id' => ['nullable'],
+            'participation_method_id' => ['nullable'],
+            'limited_capacity' => ['nullable'],
+            'members_participated_before' => ['nullable'],
+            'project_proposal_url' => ['nullable'],
+            'project_video_url' => ['nullable'],
+            'team_rating' => ['nullable'],
+            'total_score' => ['nullable'],
+            'submission_date' => ['nullable'],
+            'extra_field' => ['nullable'],
         ];
     }
 }
