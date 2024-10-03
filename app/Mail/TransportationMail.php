@@ -56,7 +56,7 @@ class TransportationMail extends Mailable
                 'team' => $this->team,
                 'currentMember' => $this->currentMember,
                 'name' => $this->getShortNameAttribute($this->currentMember->name),
-                'transportation' => $this->currentMember->transportation->name,
+                'transportation' => $this->currentMember->transportation->title,
             ],
         );
     }
