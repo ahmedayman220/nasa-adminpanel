@@ -13,6 +13,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Log;
+use App\Jobs\ProcessMemberAcceptedOnsite;
 
 class OnsiteAcceptedOnsite implements ShouldQueue
 {
