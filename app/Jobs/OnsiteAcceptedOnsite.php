@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Mail\OnsiteAcceptedOnsiteMail;
+use App\Mail\TransportationMail;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -36,13 +37,10 @@ class OnsiteAcceptedOnsite implements ShouldQueue
     public function handle(): void
     {
         foreach ($this->members as $member) {
-            $relative_path = 'QR/' . $member->uuid . '_' . $member->national . '.png';
-            $qr_path = public_path($relative_path);
-
             try {
-                QrCode::format('png')->size(200)->generate($member->uuid, $qr_path);
-                $qrGeneratedUrl = $this->base_url . '/' . $relative_path;
-                Mail::to($member->email)->send(new OnsiteAcceptedOnsiteMail($this->team, $member, $qrGeneratedUrl));
+
+                ProcessMemberAcceptedOnsite::dispatch($this->team, $member)
+                ->delay(now()->addSeconds(1));
             } catch (Exception $e) {
                 Log::error("Failed to process member: {$member->email}. Error: " . $e->getMessage());
                 throw $e;
@@ -56,6 +54,6 @@ class OnsiteAcceptedOnsite implements ShouldQueue
     public function failed(Exception $exception)
     {
         // Log failure, notify admin, etc.
-        Log::error('OnsiteAcceptedOnsite Job failed: ' . $exception->getMessage());
+        Log::error('Transportation OnsiteAcceptedOnsite Job failed: ' . $exception->getMessage());
     }
 }
