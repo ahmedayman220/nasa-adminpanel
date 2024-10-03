@@ -13,6 +13,7 @@ use App\Models\CheckpointType;
 use App\Models\Event;
 use App\Models\Member;
 use App\Models\MemberCheckpoint;
+use App\Models\Permission;
 use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
@@ -91,11 +92,10 @@ class CheckpointsController extends Controller
     public function store(StoreCheckpointRequest $request)
     {
         $checkpoint = Checkpoint::create($request->all());
-
+        Permission::create(['title'=>"scan_$request->name"]);
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $checkpoint->id]);
         }
-
         return redirect()->route('admin.checkpoints.index');
     }
 
@@ -139,11 +139,11 @@ class CheckpointsController extends Controller
         abort_if(Gate::denies("scan_$checkpoint_name"), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $get_member = $member->where('uuid',$uuid);
         // now make sure member exists and that's not fake uuid
-        if(!$get_member->exists()){
+        if(!($get_member->exists())){
             return back()->with('failed','Fake UUID');
         }
         // make sure the member team status is accepted_onsite
-        if(!$get_member->get()->first()->teams->first()->status=='accepted_onsite'){
+        if(!($get_member->get()->first()->teams->first()->status=='accepted_onsite')){
             return back()->with('failed','member team status is not accepted onsite');
         }
         $memberId = $get_member->get()->first()->id;
@@ -174,11 +174,11 @@ class CheckpointsController extends Controller
         abort_if(Gate::denies("scan_$request->checkpoint_name"), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $get_member = $member->where('uuid',$request->member_uuid);
         // now make sure member exists and that's not fake uuid
-        if(!$get_member->exists()){
+        if(!($get_member->exists())){
             return back()->with('failed','Fake UUID');
         }
         // make sure the member team status is accepted_onsite
-        if(!$get_member->get()->first()->teams->first()->status=='accepted_onsite'){
+        if(!($get_member->get()->first()->teams->first()->status=='accepted_onsite')){
             return back()->with('failed','member team status is not accepted onsite');
         }
         $memberId = $get_member->get()->first()->id;
