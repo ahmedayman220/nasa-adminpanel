@@ -16,7 +16,7 @@ class ProcessMemberAcceptedOnsite implements ShouldQueue {
 
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     public $tries = 5; // Retry up to 5 times if the job fails
-    public $backoff = 1; // Wait 10 seconds between retries
+    public $backoff = 1; // Wait 1 seconds between retries
 
     private $member;
     private $team;
