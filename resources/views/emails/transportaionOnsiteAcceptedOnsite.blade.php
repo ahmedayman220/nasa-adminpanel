@@ -78,7 +78,7 @@
                 <tr>
                     <td
                         style="padding: 20px; font-family: 'CabinetGrotesk', sans-serif; color: #09131c; line-height: 1.5; text-align: center">
-                        <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #09131c;">Team Code: {{ $team->uuid }}</h2>
+                        <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #09131c; text-align: center;">Team Code: {{ $team->uuid }}</h2>
                     </td>
                 </tr>
 
