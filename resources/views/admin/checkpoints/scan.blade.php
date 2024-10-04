@@ -11,7 +11,6 @@
                 <span class="badge badge-info" style="font-size: 20px;">{{ session()->get('size') }}</span>
             @endif
         </div>
-
     @endif
     @if(session()->has('failed'))
         <div class="alert alert-danger" role="alert">
@@ -33,7 +32,7 @@
                 <a class="btn btn-default" href="{{ route('admin.checkpoints.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
-                <button class="btn  scan-Qrcode" data-toggle="modal">
+                <button class="btn scan-Qrcode" data-toggle="modal">
                     <img src="{{ asset('images/scan-me-free-png.png') }}" alt="">
                 </button>
             </div>
@@ -42,22 +41,18 @@
     {{--Qr Scanner --}}
     <div class="container mx-auto qrcode-container hide-scanner">
         <p class="close-scanning">x</p>
-        <div id="qr-reader">
-
-        </div>
+        <div id="qr-reader"></div>
         <div id="qr-reader-results"></div>
     </div>
     <div class="overlay hide-scanner"></div>
-    {{--                      document.location = "/admin/checkpoints/scan/" + decodedText +"{{'/'.$checkpoint_id . '/' . $checkpoint_name}}";
-          --}}
     {{--End Qr Scanner --}}
 @endsection
+
 @section('scripts')
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script>
         var resultContainer = document.getElementById("qr-reader-results");
-        var lastResult,
-            countResults = 0;
+        var lastResult, countResults = 0;
 
         function onScanSuccess(decodedText, decodedResult) {
             if (decodedText !== lastResult) {
@@ -69,11 +64,27 @@
             }
         }
 
-        var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", {
-            fps: 10,
-            qrbox: 250,
-        });
-        html5QrcodeScanner.render(onScanSuccess);
+        // Function to check and request camera permission
+        function checkCameraPermissionAndScan() {
+            navigator.permissions.query({ name: 'camera' }).then(function (permissionStatus) {
+                if (permissionStatus.state === 'granted') {
+                    // Permission is already granted, proceed with QR code scanning
+                    displayQrScanner();
+                } else if (permissionStatus.state === 'prompt') {
+                    // Permission hasn't been granted yet, request it
+                    navigator.mediaDevices.getUserMedia({ video: true })
+                        .then(function (stream) {
+                            // Permission granted, proceed with QR code scanning
+                            displayQrScanner();
+                        })
+                        .catch(function (err) {
+                            console.log("Camera permission denied", err);
+                        });
+                } else if (permissionStatus.state === 'denied') {
+                    alert("Camera access has been denied. Please enable it from browser settings.");
+                }
+            });
+        }
 
         // Hide and Display the scanner functionality
         const scanBtn = document.querySelector(".scan-Qrcode");
@@ -83,33 +94,27 @@
 
         function displayQrScanner() {
             qrContainer.classList.remove("hide-scanner");
+            overlay.classList.remove("hide-scanner");
+
+            // Initialize QR scanner once permission is granted
+            var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", {
+                fps: 10,
+                qrbox: 250,
+            });
+            html5QrcodeScanner.render(onScanSuccess);
         }
 
         function hideQrScanner() {
             qrContainer.classList.add("hide-scanner");
-        }
-
-        function displayOverlay() {
-            overlay.classList.remove("hide-scanner");
-        }
-
-        function hideOverlay() {
-
             overlay.classList.add("hide-scanner");
         }
 
         scanBtn.addEventListener("click", function () {
-            displayQrScanner();
-            displayOverlay();
+            checkCameraPermissionAndScan();
         });
+
         closeScannerBtn.addEventListener("click", function () {
             hideQrScanner();
-            hideOverlay();
         });
-
-        scanBtn.addEventListener("click", displayQrScanner);
-        closeScannerBtn.addEventListener("click", hideQrScanner);
-
-
     </script>
 @endsection
