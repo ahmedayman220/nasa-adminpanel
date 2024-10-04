@@ -52,6 +52,9 @@ class MemberCheckpointsController extends Controller
             $table->addColumn('member_name', function ($row) {
                 return $row->member ? $row->member->name : '';
             });
+            $table->addColumn('member_uuid', function ($row) {
+                return $row->member ? $row->member->uuid : '';
+            });
 
             $table->addColumn('checkpoint_name', function ($row) {
                 return $row->checkpoint ? $row->checkpoint->name : '';
