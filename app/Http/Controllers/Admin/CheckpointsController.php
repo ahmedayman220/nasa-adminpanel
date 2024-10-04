@@ -184,7 +184,7 @@ class CheckpointsController extends Controller
             'checkpoint_id' => $checkpoint_id
         ]);
 
-        return back()->with('success','Member Scanned Successfully');
+        return back()->with('success','Member Scanned Successfully [ '. $get_member->get()->first()->tshirt_size()->title .' ]');
     }
 
     public function manualScan(Request $request,Member $member)
@@ -194,7 +194,7 @@ class CheckpointsController extends Controller
         $get_member = $member->where('uuid',$request->member_uuid);
         // now make sure member exists and that's not fake uuid
         if(!($get_member->exists())){
-            return back()->with('failed','Fake UUID');
+            return back()->with('failed','Fake Member UUID');
         }
         // make sure only 5 team members are registered
         $teamMembers = $get_member->first()->teams->first()->members;
@@ -228,7 +228,7 @@ class CheckpointsController extends Controller
         ])->exists();
         // If he is then redirect back with session error
         if($condition){
-            return back()->with('failed','Member Already Scanned in Same Category');
+            return back()->with('failed','Member Already Scanned');
         }
         // Else create the member checkpoint with session success
         MemberCheckpoint::create([
@@ -238,7 +238,7 @@ class CheckpointsController extends Controller
             'checkpoint_id' => $request->checkpoint_id
         ]);
 
-        return back()->with('success','Member Scanned Successfully');
+        return back()->with('success','Member Scanned Successfully ');
     }
 
     public function destroy(Checkpoint $checkpoint)
