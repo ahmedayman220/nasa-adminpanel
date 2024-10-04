@@ -7,15 +7,18 @@
     @if(session()->has('success'))
         <div class="alert alert-success" role="alert">
             {{session()->get('success')}}
+            @if(session()->has('size'))
+                <span class="badge badge-info" style="font-size: 20px;">{{ session()->get('size') }}</span>
+            @endif
         </div>
     @endif
     @if(session()->has('failed'))
         <div class="alert alert-danger" role="alert">
             {{session()->get('failed')}}
+            @if(session()->has('size'))
+                <span class="badge badge-info" style="font-size: 20px;">{{ session()->get('size') }}</span>
+            @endif
         </div>
-    @endif
-    @if(session()->has('size'))
-        <span class="badge badge-info" style="font-size: 20px;">{{ session()->get('size') }}</span>
     @endif
 
     <div class="card">
@@ -27,6 +30,9 @@
                 </a>
                 <a href="{{route('admin.checkpoints.showScan',[$checkpoint->id,$checkpoint->name])}}" class="btn btn-warning scan-Qrcode">
                     Scan Qr Code
+                    @if(session()->has('size'))
+                        <span class="badge badge-info" style="font-size: 20px;">{{ session()->get('size') }}</span>
+                    @endif
                 </a>
             </div>
             <table class="table table-bordered table-striped">

@@ -7,19 +7,19 @@
     @if(session()->has('success'))
         <div class="alert alert-success" role="alert">
             {{session()->get('success')}}
+            @if(session()->has('size'))
+                <span class="badge badge-info" style="font-size: 20px;">{{ session()->get('size') }}</span>
+            @endif
         </div>
-        @if(session()->has('size'))
-            <span class="badge badge-info" style="font-size: 20px;">{{ session()->get('size') }}</span>
-        @endif
 
     @endif
     @if(session()->has('failed'))
         <div class="alert alert-danger" role="alert">
             {{session()->get('failed')}}
+            @if(session()->has('size'))
+                <span class="badge badge-info" style="font-size: 20px;">{{ session()->get('size') }}</span>
+            @endif
         </div>
-        @if(session()->has('size'))
-            <span class="badge badge-info" style="font-size: 20px;">{{ session()->get('size') }}</span>
-        @endif
     @endif
     <div class="card">
         <div class="card-header">
