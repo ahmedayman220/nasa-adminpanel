@@ -9,11 +9,13 @@
             {{session()->get('success')}} <span class="badge badge-info" style="font-size: 20px;">{{ session()->get('size') }}</span>
         </div>
 
-
     @endif
     @if(session()->has('failed'))
         <div class="alert alert-danger" role="alert">
             {{session()->get('failed')}}
+            @if(session()->has('size'))
+                <span class="badge badge-info" style="font-size: 20px;">{{ session()->get('size') }}</span>
+            @endif
         </div>
     @endif
     <div class="card">
@@ -21,13 +23,13 @@
             Scan {{$checkpoint_name}} Page
         </div>
         <div class="card-body">
-        <div class="form-group">
+            <div class="form-group">
                 <a class="btn btn-default" href="{{ route('admin.checkpoints.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
-            <button class="btn  scan-Qrcode" data-toggle="modal">
-                <img src="{{ asset('images/scan-me-free-png.png') }}" alt="">
-            </button>
+                <button class="btn  scan-Qrcode" data-toggle="modal">
+                    <img src="{{ asset('images/scan-me-free-png.png') }}" alt="">
+                </button>
             </div>
         </div>
     </div>
@@ -40,8 +42,8 @@
         <div id="qr-reader-results"></div>
     </div>
     <div class="overlay hide-scanner"></div>
-{{--                      document.location = "/admin/checkpoints/scan/" + decodedText +"{{'/'.$checkpoint_id . '/' . $checkpoint_name}}";
-      --}}
+    {{--                      document.location = "/admin/checkpoints/scan/" + decodedText +"{{'/'.$checkpoint_id . '/' . $checkpoint_name}}";
+          --}}
     {{--End Qr Scanner --}}
 @endsection
 @section('scripts')
@@ -57,8 +59,10 @@
                 lastResult = decodedText;
                 // Handle on success condition with the decoded message.
                 console.log(`Scan result ${decodedText}`, decodedResult);
-                document.location = "/admin/checkpoints/scan/" + decodedText +"{{'/'.$checkpoint_id . '/' . $checkpoint_name}}";            }
+                document.location = "/admin/checkpoints/scan/" + decodedText + "{{'/'.$checkpoint_id . '/' . $checkpoint_name}}";
+            }
         }
+
         var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", {
             fps: 10,
             qrbox: 250,
@@ -74,22 +78,25 @@
         function displayQrScanner() {
             qrContainer.classList.remove("hide-scanner");
         }
+
         function hideQrScanner() {
             qrContainer.classList.add("hide-scanner");
         }
+
         function displayOverlay() {
             overlay.classList.remove("hide-scanner");
         }
-        function hideOverlay(){
+
+        function hideOverlay() {
 
             overlay.classList.add("hide-scanner");
         }
 
-        scanBtn.addEventListener("click", function(){
+        scanBtn.addEventListener("click", function () {
             displayQrScanner();
             displayOverlay();
         });
-        closeScannerBtn.addEventListener("click", function(){
+        closeScannerBtn.addEventListener("click", function () {
             hideQrScanner();
             hideOverlay();
         });

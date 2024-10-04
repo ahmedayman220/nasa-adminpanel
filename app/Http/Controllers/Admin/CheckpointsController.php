@@ -174,7 +174,7 @@ class CheckpointsController extends Controller
         ])->exists();
         // If he is then redirect back with session error
         if($condition){
-            return back()->with('failed','Member Already Scanned');
+            return back()->with('failed','Member Already Scanned')->with('size', $get_member->first()->tshirt_size->title);
         }
         // Else create the member checkpoint with session success
         MemberCheckpoint::create([
