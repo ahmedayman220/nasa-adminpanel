@@ -6,7 +6,7 @@
 @section('content')
     @if(session()->has('success'))
         <div class="alert alert-success" role="alert">
-            {{session()->get('success')}} <span class="badge text-bg-info">{{ session()->get('size') }}</span>
+            {{session()->get('success')}} <span class="badge badge-info">{{ session()->get('size') }}</span>
         </div>
 
 
