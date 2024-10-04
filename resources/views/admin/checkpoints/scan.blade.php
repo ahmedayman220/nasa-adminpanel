@@ -53,6 +53,7 @@
     <script>
         var resultContainer = document.getElementById("qr-reader-results");
         var lastResult, countResults = 0;
+        var html5QrcodeScanner; // Declare the QR code scanner variable
 
         function onScanSuccess(decodedText, decodedResult) {
             if (decodedText !== lastResult) {
@@ -64,26 +65,35 @@
             }
         }
 
-        // Function to check and request camera permission
+        // Check and request camera permission only once
         function checkCameraPermissionAndScan() {
-            navigator.permissions.query({ name: 'camera' }).then(function (permissionStatus) {
-                if (permissionStatus.state === 'granted') {
-                    // Permission is already granted, proceed with QR code scanning
-                    displayQrScanner();
-                } else if (permissionStatus.state === 'prompt') {
-                    // Permission hasn't been granted yet, request it
-                    navigator.mediaDevices.getUserMedia({ video: true })
-                        .then(function (stream) {
-                            // Permission granted, proceed with QR code scanning
-                            displayQrScanner();
-                        })
-                        .catch(function (err) {
-                            console.log("Camera permission denied", err);
-                        });
-                } else if (permissionStatus.state === 'denied') {
-                    alert("Camera access has been denied. Please enable it from browser settings.");
-                }
-            });
+            // Check if permission was already granted in a previous session
+            if (sessionStorage.getItem('cameraPermissionGranted') === 'true') {
+                // If permission is already granted, display QR code scanner directly
+                displayQrScanner();
+            } else {
+                // Otherwise, check current permission status
+                navigator.permissions.query({ name: 'camera' }).then(function (permissionStatus) {
+                    if (permissionStatus.state === 'granted') {
+                        // Permission is already granted, proceed with QR code scanning
+                        sessionStorage.setItem('cameraPermissionGranted', 'true'); // Store permission in session
+                        displayQrScanner();
+                    } else if (permissionStatus.state === 'prompt') {
+                        // Permission hasn't been granted yet, request it
+                        navigator.mediaDevices.getUserMedia({ video: true })
+                            .then(function (stream) {
+                                // Permission granted, store the permission and proceed with QR code scanning
+                                sessionStorage.setItem('cameraPermissionGranted', 'true'); // Store permission in session
+                                displayQrScanner();
+                            })
+                            .catch(function (err) {
+                                console.log("Camera permission denied", err);
+                            });
+                    } else if (permissionStatus.state === 'denied') {
+                        alert("Camera access has been denied. Please enable it from browser settings.");
+                    }
+                });
+            }
         }
 
         // Hide and Display the scanner functionality
@@ -96,12 +106,14 @@
             qrContainer.classList.remove("hide-scanner");
             overlay.classList.remove("hide-scanner");
 
-            // Initialize QR scanner once permission is granted
-            var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", {
-                fps: 10,
-                qrbox: 250,
-            });
-            html5QrcodeScanner.render(onScanSuccess);
+            // Initialize QR scanner once permission is granted and it hasn't been initialized yet
+            if (!html5QrcodeScanner) {
+                html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", {
+                    fps: 10,
+                    qrbox: 250,
+                });
+                html5QrcodeScanner.render(onScanSuccess);
+            }
         }
 
         function hideQrScanner() {
@@ -109,6 +121,7 @@
             overlay.classList.add("hide-scanner");
         }
 
+        // Check camera permission and scan when the scan button is clicked
         scanBtn.addEventListener("click", function () {
             checkCameraPermissionAndScan();
         });
