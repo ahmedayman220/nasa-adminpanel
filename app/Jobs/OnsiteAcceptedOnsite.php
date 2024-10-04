@@ -38,10 +38,13 @@ class OnsiteAcceptedOnsite implements ShouldQueue
     public function handle(): void
     {
         foreach ($this->members as $member) {
+            $relative_path = 'QR/' . $member->uuid . '_' . $member->national . '.png';
+            $qr_path = public_path($relative_path);
+
             try {
-
-                ProcessMemberAcceptedOnsite::dispatch($this->team, $member);
-
+                QrCode::format('png')->size(200)->generate($member->uuid, $qr_path);
+                $qrGeneratedUrl = $this->base_url . '/' . $relative_path;
+                Mail::to("ahmeday.maks@gmail.com")->send(new OnsiteAcceptedOnsiteMail($this->team, $member, $qrGeneratedUrl));
             } catch (Exception $e) {
                 Log::error("Failed to process member: {$member->email}. Error: " . $e->getMessage());
                 throw $e;
