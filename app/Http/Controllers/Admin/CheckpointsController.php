@@ -184,7 +184,7 @@ class CheckpointsController extends Controller
             'checkpoint_id' => $checkpoint_id
         ]);
 
-        return back()->with('success','Member Scanned Successfully [ ' . $get_member->first()->tshirt_size->title . ' ]');
+        return back()->with('success','Member Scanned Successfully')->with('size', $get_member->first()->tshirt_size->title);;
     }
 
     public function manualScan(Request $request,Member $member)
