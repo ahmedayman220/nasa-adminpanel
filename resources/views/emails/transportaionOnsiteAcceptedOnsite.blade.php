@@ -128,28 +128,28 @@
 
                     </td>
                 </tr>
-                <!-- Workshop Details Section -->
-                <tr>
-                    <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #f3ffff;">
-                        <table style="margin-right: auto; margin-left: auto; min-width: 60%;" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td style="background: #202e42; padding: 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                                    <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #f3ffff; text-align: center">Transportation Details</h2>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Transportation Routes:</strong> <em> El-Remaya Square </em></p>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Telegram Group:</strong> <a href="https://t.me/+dbnatmARVxM0MDJk" style="color: #f3ffff; text-decoration: underline"><em>https://t.me/+6WpjZGT2RUYzZjI0</em></a></p>
-                                    <p > </p>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Transportation Routes:</strong> <em> Adly Mansour Station </em></p>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Telegram Group:</strong> <a href="https://t.me/+K_V6XYKX9eVkYTVk" style="color: #f3ffff; text-decoration: underline"><em>https://t.me/+6WpjZGT2RUYzZjI0</em></a></p>
-                                    <p > </p>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Transportation Routes:</strong> <em> Abdelmoneam Reyad Bus Stop - Tahrir </em></p>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Telegram Group:</strong> <a href="https://t.me/+rd8g81tdoHdkMGE0" style="color: #f3ffff; text-decoration: underline"><em>https://t.me/+6WpjZGT2RUYzZjI0</em></a></p>
-                                    <p > </p>
-                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Note:</strong> <em>Please make sure to join the Telegram group of your submitted route to know the exact pickup location and departure time. Kindly do not share this email/group with anyone, as no one other than those who received this confirmation mail will get onto the bus!</em></p>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
+{{--                <!-- Workshop Details Section -->--}}
+{{--                <tr>--}}
+{{--                    <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; color: #f3ffff;">--}}
+{{--                        <table style="margin-right: auto; margin-left: auto; min-width: 60%;" border="0" cellspacing="0" cellpadding="0">--}}
+{{--                            <tr>--}}
+{{--                                <td style="background: #202e42; padding: 15px; border-radius: 25px; box-shadow:0 6px 20px 0 rgba(0, 0, 0, 0.19);">--}}
+{{--                                    <h2 style="font-size: 22px; margin: 0 0 10px 0; color: #f3ffff; text-align: center">Transportation Details</h2>--}}
+{{--                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Transportation Routes:</strong> <em> El-Remaya Square </em></p>--}}
+{{--                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Telegram Group:</strong> <a href="https://t.me/+dbnatmARVxM0MDJk" style="color: #f3ffff; text-decoration: underline"><em>https://t.me/+6WpjZGT2RUYzZjI0</em></a></p>--}}
+{{--                                    <p > </p>--}}
+{{--                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Transportation Routes:</strong> <em> Adly Mansour Station </em></p>--}}
+{{--                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Telegram Group:</strong> <a href="https://t.me/+K_V6XYKX9eVkYTVk" style="color: #f3ffff; text-decoration: underline"><em>https://t.me/+6WpjZGT2RUYzZjI0</em></a></p>--}}
+{{--                                    <p > </p>--}}
+{{--                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Transportation Routes:</strong> <em> Abdelmoneam Reyad Bus Stop - Tahrir </em></p>--}}
+{{--                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Telegram Group:</strong> <a href="https://t.me/+rd8g81tdoHdkMGE0" style="color: #f3ffff; text-decoration: underline"><em>https://t.me/+6WpjZGT2RUYzZjI0</em></a></p>--}}
+{{--                                    <p > </p>--}}
+{{--                                    <p style="font-size: 14px; margin: 5px 0; color: #f3ffff;"><strong>Note:</strong> <em>Please make sure to join the Telegram group of your submitted route to know the exact pickup location and departure time. Kindly do not share this email/group with anyone, as no one other than those who received this confirmation mail will get onto the bus!</em></p>--}}
+{{--                                </td>--}}
+{{--                            </tr>--}}
+{{--                        </table>--}}
+{{--                    </td>--}}
+{{--                </tr>--}}
 
                 <!-- Closing Section -->
                 <tr>

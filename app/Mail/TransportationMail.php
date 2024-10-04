@@ -31,7 +31,7 @@ class TransportationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'NASA Space Apps Cairo 2024 Hackathon: Transportation Details and Important Notes!',
+            subject: 'NASA Space Apps Cairo 2024 Hackathon: Important Notes!',
         );
     }
 
