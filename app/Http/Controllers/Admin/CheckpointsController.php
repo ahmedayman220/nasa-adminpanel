@@ -122,6 +122,7 @@ class CheckpointsController extends Controller
     public function show(Checkpoint $checkpoint)
     {
         abort_if(Gate::denies('checkpoint_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies("scan_$checkpoint->name"), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $checkpoint->load('event', 'checkpoint_type', 'created_by', 'checkpointMemberCheckpoints');
         $members = Member::all();
