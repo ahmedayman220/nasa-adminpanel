@@ -144,7 +144,7 @@
                 ],
                 orderCellsTop: true,
                 order: [[1, 'desc']],
-                pageLength: 100,
+                pageLength: 1000,
             };
             let table = $('.datatable-MemberCheckpoint').DataTable(dtOverrideGlobals);
             $('a[data-toggle="tab"]').on('shown.bs.tab click', function (e) {
