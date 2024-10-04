@@ -30,10 +30,10 @@
                 </a>
                 <a href="{{route('admin.checkpoints.showScan',[$checkpoint->id,$checkpoint->name])}}" class="btn btn-warning scan-Qrcode">
                     Scan Qr Code
+                </a>
                     @if(session()->has('size'))
                         <span class="badge badge-info" style="font-size: 20px;">{{ session()->get('size') }}</span>
                     @endif
-                </a>
             </div>
             <table class="table table-bordered table-striped">
                 <tbody>
