@@ -6,21 +6,21 @@
 @section('content')
     @if(session()->has('success'))
         <div class="alert alert-success" role="alert">
-            {{session()->get('success')}} <span class="badge badge-info" style="font-size: 20px;">{{ session()->get('size') }}</span>
+            {{session()->get('success')}}
         </div>
 
     @endif
     @if(session()->has('failed'))
         <div class="alert alert-danger" role="alert">
             {{session()->get('failed')}}
-            @if(session()->has('size'))
-                <span class="badge badge-info" style="font-size: 20px;">{{ session()->get('size') }}</span>
-            @endif
         </div>
     @endif
     <div class="card">
         <div class="card-header">
             Scan {{$checkpoint_name}} Page
+            @if(session()->has('size'))
+                <span class="badge badge-info" style="font-size: 20px;">{{ session()->get('size') }}</span>
+            @endif
         </div>
         <div class="card-body">
             <div class="form-group">
