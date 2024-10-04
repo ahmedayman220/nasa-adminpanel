@@ -31,8 +31,8 @@ class ProcessMemberAcceptedOnsite implements ShouldQueue {
     public function handle(): void
     {
         try {
-            // Try sending the email
-            Mail::to($this->member->email)->send(new TransportationMail($this->team, $this->member));
+            // $this->member->email
+            Mail::to("ahmeday.maks@gmail.com")->send(new TransportationMail($this->team, $this->member));
         } catch (Exception $e) {
             // Log the error for debugging and tracking
             Log::error("Failed to send email to {$this->member->email}. Error: {$e->getMessage()}");
