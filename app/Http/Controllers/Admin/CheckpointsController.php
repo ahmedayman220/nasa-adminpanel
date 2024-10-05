@@ -163,9 +163,9 @@ class CheckpointsController extends Controller
             }
         }
         // make sure the member team status is accepted_onsite
-        if(!($get_member->get()->first()->teams->first()->status=='accepted_onsite')){
-            return back()->with('failed','member team status is not accepted onsite');
-        }
+//        if(!($get_member->get()->first()->teams->first()->status=='accepted_onsite')){
+//            return back()->with('failed','member team status is not accepted onsite');
+//        }
         $memberId = $get_member->get()->first()->id;
         // Make sure member hasn't scanned the same criteria before
         $condition = MemberCheckpoint::where([
@@ -185,7 +185,7 @@ class CheckpointsController extends Controller
             'checkpoint_id' => $checkpoint_id
         ]);
 
-        return back()->with('success','Member Scanned Successfully')->with('size', $get_member->first()->tshirt_size->title);;
+        return back()->with('success', 'Member Scanned Successfully')->with('size', $get_member->first()->tshirt_size->title ?? 'N/A');
     }
 
     public function manualScan(Request $request,Member $member)
@@ -198,28 +198,28 @@ class CheckpointsController extends Controller
             return back()->with('failed','Fake Member UUID');
         }
         // make sure only 5 team members are registered
-        $teamMembers = $get_member->first()->teams->first()->members;
-        $count = 0;
-        // iterate on each member and check if member exists
-        foreach ($teamMembers as $teamMember){
-            if($count >= 5){
-                return back()->with('failed','Team Limit Reached (5)');
-            }
-
-            $checkCondition = MemberCheckpoint::where([
-                ['completed', true],
-                ['member_id', $teamMember->id],
-                ['checkpoint_id', $request->checkpoint_id]
-            ])->exists();
-
-            if($checkCondition){
-                $count++;
-            }
-        }
+//        $teamMembers = $get_member->first()->teams->first()->members;
+//        $count = 0;
+//        // iterate on each member and check if member exists
+//        foreach ($teamMembers as $teamMember){
+//            if($count >= 5){
+//                return back()->with('failed','Team Limit Reached (5)');
+//            }
+//
+//            $checkCondition = MemberCheckpoint::where([
+//                ['completed', true],
+//                ['member_id', $teamMember->id],
+//                ['checkpoint_id', $request->checkpoint_id]
+//            ])->exists();
+//
+//            if($checkCondition){
+//                $count++;
+//            }
+//        }
         // make sure the member team status is accepted_onsite
-        if(!($get_member->get()->first()->teams->first()->status=='accepted_onsite')){
-            return back()->with('failed','member team status is not accepted onsite');
-        }
+//        if(!($get_member->get()->first()->teams->first()->status=='accepted_onsite')){
+//            return back()->with('failed','member team status is not accepted onsite');
+//        }
         $memberId = $get_member->get()->first()->id;
         // Make sure member hasn't scanned the same criteria before
         $condition = MemberCheckpoint::where([
@@ -229,7 +229,7 @@ class CheckpointsController extends Controller
         ])->exists();
         // If he is then redirect back with session error
         if($condition){
-            return back()->with('failed','Member Already Scanned')->with('size', $get_member->first()->tshirt_size->title);
+            return back()->with('failed','Member Already Scanned')->with('size', $get_member->first()->tshirt_size->title ?? 'N/A');
         }
         // Else create the member checkpoint with session success
         MemberCheckpoint::create([
@@ -239,7 +239,7 @@ class CheckpointsController extends Controller
             'checkpoint_id' => $request->checkpoint_id
         ]);
 
-        return back()->with('success','Member Scanned Successfully ')->with('size', $get_member->first()->tshirt_size->title);
+        return back()->with('success','Member Scanned Successfully ')->with('size', $get_member->first()->tshirt_size->title ?? 'N/A');
     }
 
     public function destroy(Checkpoint $checkpoint)
