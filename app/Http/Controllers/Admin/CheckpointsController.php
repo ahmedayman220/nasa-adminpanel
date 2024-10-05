@@ -37,9 +37,9 @@ class CheckpointsController extends Controller
             $table->addColumn('actions', '&nbsp;');
 
             $table->editColumn('actions', function ($row) {
-                $viewGate      = 'checkpoint_show';
-                $editGate      = 'checkpoint_edit';
-                $deleteGate    = 'checkpoint_delete';
+                $viewGate = 'checkpoint_show';
+                $editGate = 'checkpoint_edit';
+                $deleteGate = 'checkpoint_delete';
                 $crudRoutePart = 'checkpoints';
 
                 return view('partials.datatablesActions', compact(
@@ -71,9 +71,9 @@ class CheckpointsController extends Controller
             return $table->make(true);
         }
 
-        $events           = Event::get();
+        $events = Event::get();
         $checkpoint_types = CheckpointType::get();
-        $users            = User::get();
+        $users = User::get();
 
         return view('admin.checkpoints.index', compact('events', 'checkpoint_types', 'users'));
     }
@@ -92,7 +92,7 @@ class CheckpointsController extends Controller
     public function store(StoreCheckpointRequest $request)
     {
         $checkpoint = Checkpoint::create($request->all());
-        Permission::create(['title'=>"scan_$request->name"]);
+        Permission::create(['title' => "scan_$request->name"]);
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $checkpoint->id]);
         }
@@ -126,30 +126,31 @@ class CheckpointsController extends Controller
 
         $checkpoint->load('event', 'checkpoint_type', 'created_by', 'checkpointMemberCheckpoints');
         $members = Member::all();
-        return view('admin.checkpoints.show', compact('checkpoint','members'));
+        return view('admin.checkpoints.show', compact('checkpoint', 'members'));
     }
 
-    public function showScan($checkpoint_id,$checkpoint_name)
+    public function showScan($checkpoint_id, $checkpoint_name)
     {
         abort_if(Gate::denies("scan_$checkpoint_name"), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        return view('admin.checkpoints.scan',compact('checkpoint_id','checkpoint_name'));
+        return view('admin.checkpoints.scan', compact('checkpoint_id', 'checkpoint_name'));
     }
 
-    public function handlingScan($uuid,$checkpoint_id,$checkpoint_name,Member $member){
+    public function handlingScan($uuid, $checkpoint_id, $checkpoint_name, Member $member)
+    {
         // if un-authorized user somehow accessed this page, give return 403 HTTP-ERROR
         abort_if(Gate::denies("scan_$checkpoint_name"), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $get_member = $member->where('uuid',$uuid);
+        $get_member = $member->where('uuid', $uuid);
         // now make sure member exists and that's not fake uuid
-        if(!($get_member->exists())){
-            return back()->with('failed','Fake UUID');
+        if (!($get_member->exists())) {
+            return back()->with('failed', 'Fake UUID');
         }
         // make sure only 5 team members are registered
         $teamMembers = $get_member->first()->teams->first()->members;
         $count = 0;
         // iterate on each member and check if member exists
-        foreach ($teamMembers as $teamMember){
-            if($count >= 5){
-                return back()->with('failed','Team Limit Reached (5)');
+        foreach ($teamMembers as $teamMember) {
+            if ($count >= 5) {
+                return back()->with('failed', 'Team Limit Reached (5)');
             }
 
             $checkCondition = MemberCheckpoint::where([
@@ -158,11 +159,17 @@ class CheckpointsController extends Controller
                 ['checkpoint_id', $checkpoint_id]
             ])->exists();
 
-            if($checkCondition){
+            if ($checkCondition) {
                 $count++;
             }
         }
         // make sure the member team status is accepted_onsite
+
+
+        if ($checkpoint_id == 8 && $get_member->get()->first()->teams->first()->status == 'accepted_onsite') {
+            return back()->with('failed', 'Scan This Member From Registration Desk');
+        }
+
 //        if(!($get_member->get()->first()->teams->first()->status=='accepted_onsite')){
 //            return back()->with('failed','member team status is not accepted onsite');
 //        }
@@ -174,8 +181,11 @@ class CheckpointsController extends Controller
             ['checkpoint_id', $checkpoint_id]
         ])->exists();
         // If he is then redirect back with session error
-        if($condition){
-            return back()->with('failed','Member Already Scanned')->with('size', $get_member->first()->tshirt_size->title ?? 'N/A');;
+        if ($condition) {
+            if ($checkpoint_id == 8) {
+                return back()->with('failed', 'Member Already Scanned');
+            }
+            return back()->with('failed', 'Member Already Scanned')->with('size', $get_member->first()->tshirt_size->title ?? 'N/A');
         }
         // Else create the member checkpoint with session success
         MemberCheckpoint::create([
@@ -185,17 +195,20 @@ class CheckpointsController extends Controller
             'checkpoint_id' => $checkpoint_id
         ]);
 
-        return back()->with('success', 'Member Scanned Successfully')->with('size', $get_member->first()->tshirt_size->title ?? 'N/A');;
+        if ($checkpoint_id == 8) {
+            return back()->with('success', 'Member Scanned Successfully');
+        }
+        return back()->with('success', 'Member Scanned Successfully')->with('size', $get_member->first()->tshirt_size->title ?? 'N/A');
     }
 
-    public function manualScan(Request $request,Member $member)
+    public function manualScan(Request $request, Member $member)
     {
         // if un-authorized user somehow accessed this page, give return 403 HTTP-ERROR
         abort_if(Gate::denies("scan_$request->checkpoint_name"), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $get_member = $member->where('uuid',$request->member_uuid);
+        $get_member = $member->where('uuid', $request->member_uuid);
         // now make sure member exists and that's not fake uuid
-        if(!($get_member->exists())){
-            return back()->with('failed','Fake Member UUID');
+        if (!($get_member->exists())) {
+            return back()->with('failed', 'Fake Member UUID');
         }
         // make sure only 5 team members are registered
 //        $teamMembers = $get_member->first()->teams->first()->members;
@@ -216,6 +229,11 @@ class CheckpointsController extends Controller
 //                $count++;
 //            }
 //        }
+
+        if ($checkpoint_id == 8 && $get_member->get()->first()->teams->first()->status == 'accepted_onsite') {
+            return back()->with('failed', 'Scan This Member From Registration Desk');
+        }
+
         // make sure the member team status is accepted_onsite
 //        if(!($get_member->get()->first()->teams->first()->status=='accepted_onsite')){
 //            return back()->with('failed','member team status is not accepted onsite');
@@ -228,8 +246,11 @@ class CheckpointsController extends Controller
             ['checkpoint_id', $request->checkpoint_id]
         ])->exists();
         // If he is then redirect back with session error
-        if($condition){
-            return back()->with('failed','Member Already Scanned')->with('size', $get_member->first()->tshirt_size->title ?? 'N/A');;
+        if ($condition) {
+            if ($request->checkpoint_id == 8) {
+                return back()->with('failed', 'Member Already Scanned');
+            }
+            return back()->with('failed', 'Member Already Scanned')->with('size', $get_member->first()->tshirt_size->title ?? 'N/A');
         }
         // Else create the member checkpoint with session success
         MemberCheckpoint::create([
@@ -239,7 +260,10 @@ class CheckpointsController extends Controller
             'checkpoint_id' => $request->checkpoint_id
         ]);
 
-        return back()->with('success','Member Scanned Successfully ')->with('size', $get_member->first()->tshirt_size->title ?? 'N/A');;
+        if ($request->checkpoint_id == 8) {
+            return back()->with('success', 'Member Scanned Successfully');
+        }
+        return back()->with('success', 'Member Scanned Successfully ')->with('size', $get_member->first()->tshirt_size->title ?? 'N/A');
     }
 
     public function destroy(Checkpoint $checkpoint)
@@ -266,10 +290,10 @@ class CheckpointsController extends Controller
     {
         abort_if(Gate::denies('checkpoint_create') && Gate::denies('checkpoint_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $model         = new Checkpoint();
-        $model->id     = $request->input('crud_id', 0);
+        $model = new Checkpoint();
+        $model->id = $request->input('crud_id', 0);
         $model->exists = true;
-        $media         = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
+        $media = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
 
         return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
     }
