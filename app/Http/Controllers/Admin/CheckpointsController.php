@@ -175,7 +175,7 @@ class CheckpointsController extends Controller
         ])->exists();
         // If he is then redirect back with session error
         if($condition){
-            return back()->with('failed','Member Already Scanned')->with('size', $get_member->first()->tshirt_size->title);
+            return back()->with('failed','Member Already Scanned');
         }
         // Else create the member checkpoint with session success
         MemberCheckpoint::create([
@@ -185,7 +185,7 @@ class CheckpointsController extends Controller
             'checkpoint_id' => $checkpoint_id
         ]);
 
-        return back()->with('success', 'Member Scanned Successfully')->with('size', $get_member->first()->tshirt_size->title ?? 'N/A');
+        return back()->with('success', 'Member Scanned Successfully');
     }
 
     public function manualScan(Request $request,Member $member)
@@ -229,7 +229,7 @@ class CheckpointsController extends Controller
         ])->exists();
         // If he is then redirect back with session error
         if($condition){
-            return back()->with('failed','Member Already Scanned')->with('size', $get_member->first()->tshirt_size->title ?? 'N/A');
+            return back()->with('failed','Member Already Scanned');
         }
         // Else create the member checkpoint with session success
         MemberCheckpoint::create([
@@ -239,7 +239,7 @@ class CheckpointsController extends Controller
             'checkpoint_id' => $request->checkpoint_id
         ]);
 
-        return back()->with('success','Member Scanned Successfully ')->with('size', $get_member->first()->tshirt_size->title ?? 'N/A');
+        return back()->with('success','Member Scanned Successfully ');
     }
 
     public function destroy(Checkpoint $checkpoint)
