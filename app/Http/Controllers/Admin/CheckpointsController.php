@@ -230,7 +230,7 @@ class CheckpointsController extends Controller
 //            }
 //        }
 
-        if ($checkpoint_id == 8 && $get_member->get()->first()->teams->first()->status == 'accepted_onsite') {
+        if ($request->checkpoint_id == 8 && $get_member->get()->first()->teams->first()->status == 'accepted_onsite') {
             return back()->with('failed', 'Scan This Member From Registration Desk');
         }
 
